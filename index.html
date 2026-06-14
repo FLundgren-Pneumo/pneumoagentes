@@ -1,0 +1,2322 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PulmoAgents • Agentes IA para Decisão Clínica em Pneumologia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --primary: #0F766E;
+        }
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .font-display {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-weight: 600;
+        }
+
+        .medical-gradient {
+            background: linear-gradient(135deg, #0F766E 0%, #134E4B 100%);
+        }
+
+        .section-header {
+            font-size: 2.25rem;
+            line-height: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        .agent-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .agent-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        .nav-active {
+            color: #0F766E;
+            font-weight: 600;
+        }
+
+        .modal {
+            animation: modalPop 0.2s ease-out forwards;
+        }
+
+        @keyframes modalPop {
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .agent-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .status-badge {
+            font-size: 0.75rem;
+            padding: 0.125rem 0.625rem;
+            border-radius: 9999px;
+            font-weight: 600;
+        }
+
+        .nav-scrolled {
+            box-shadow: 0 1px 0 0 rgb(15 118 110 / 0.06);
+        }
+
+        .demo-input {
+            transition: all 0.2s ease;
+        }
+
+        .demo-input:focus {
+            box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
+        }
+
+        .lung-icon {
+            animation: breathe 4s ease-in-out infinite;
+        }
+
+        .modern-shadow {
+            box-shadow: 0 10px 15px -3px rgb(15 118 110 / 0.1), 
+                       0 4px 6px -4px rgb(15 118 110 / 0.1);
+        }
+
+        .metric-value {
+            font-variant-numeric: tabular-nums;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+    <!-- NAVBAR -->
+    <nav id="navbar" class="bg-white border-b border-slate-200 sticky top-0 z-50 transition-all">
+        <div class="max-w-screen-2xl mx-auto">
+            <div class="px-8 py-4 flex items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center gap-x-3">
+                    <div class="w-11 h-11 medical-gradient rounded-2xl flex items-center justify-center shadow-inner">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19 12H5M12 19V5" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                            <path d="M21 8.5C21 6.01472 18.9853 4 16.5 4H7.5C5.01472 4 3 6.01472 3 8.5V15.5C3 17.9853 5.01472 20 7.5 20H16.5C18.9853 20 21 17.9853 21 15.5V8.5Z" stroke="white" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="font-display text-3xl font-semibold tracking-tighter text-slate-900">PulmoAgents</span>
+                        <span class="text-[10px] font-mono tracking-[2px] text-teal-700 block -mt-1">CLINICAL AI</span>
+                    </div>
+                </div>
+
+                <!-- Menu Desktop -->
+                <div class="hidden md:flex items-center gap-x-8 text-sm">
+                    <a href="#catalog" class="font-medium text-slate-600 hover:text-slate-900 transition-colors">Catálogo</a>
+                    <a href="#how" class="font-medium text-slate-600 hover:text-slate-900 transition-colors">Como Funciona</a>
+                    <a href="#demo" class="font-medium text-slate-600 hover:text-slate-900 transition-colors">Demo Interativo</a>
+                </div>
+
+                <!-- User Area -->
+                <div class="flex items-center gap-x-3">
+                    <div id="user-area" class="hidden items-center gap-x-3">
+                        <div class="flex items-center gap-x-2.5 bg-white border border-slate-200 rounded-3xl pl-2 pr-5 py-1.5">
+                            <div class="w-8 h-8 bg-teal-100 rounded-2xl flex items-center justify-center">
+                                <i class="fa-solid fa-user-md text-teal-700"></i>
+                            </div>
+                            <div class="text-sm">
+                                <span id="user-name" class="font-semibold text-slate-800"></span>
+                            </div>
+                        </div>
+                        <button onclick="logout()" 
+                                class="text-xs px-4 py-2 text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-2xl transition-colors flex items-center gap-x-1.5">
+                            <i class="fa-solid fa-sign-out-alt"></i>
+                            <span class="hidden lg:inline">Sair</span>
+                        </button>
+                    </div>
+                    
+                    <button onclick="showLoginModal()" 
+                            id="login-btn"
+                            class="px-6 py-2.5 text-sm font-semibold bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 rounded-3xl transition-all active:scale-[0.985]">
+                        Entrar
+                    </button>
+                    
+                    <!-- Admin Quick Access -->
+                    <button onclick="showAdminLogin()" 
+                            id="admin-btn"
+                            class="hidden px-4 py-2.5 text-xs font-medium bg-slate-900 text-white rounded-3xl hover:bg-black transition-colors items-center gap-x-2">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <span>Admin</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="medical-gradient text-white">
+        <div class="max-w-screen-2xl mx-auto px-8 pt-16 pb-20">
+            <div class="grid md:grid-cols-12 gap-12 items-center">
+                <div class="md:col-span-7">
+                    <div class="inline-flex items-center gap-x-2 bg-white/10 backdrop-blur-md px-4 h-9 rounded-3xl mb-6 border border-white/20">
+                        <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                        <span class="text-sm font-medium tracking-wide">Plataforma para pneumologistas brasileiros</span>
+                    </div>
+                    
+                    <h1 class="text-6xl md:text-7xl font-display font-semibold tracking-tighter leading-none mb-6">
+                        Decisões clínicas<br>mais inteligentes.<br>
+                        <span class="text-teal-300">Em segundos.</span>
+                    </h1>
+                    
+                    <p class="max-w-lg text-xl text-white/90 mb-9">
+                        Agentes de IA especializados em pneumologia. 
+                         
+                        Controle total de acesso e distribuição.
+                    </p>
+                    
+                    <div class="flex flex-wrap items-center gap-4">
+                        <button onclick="document.getElementById('catalog').scrollIntoView({ behavior: 'smooth' })" 
+                                class="px-8 h-14 bg-white text-teal-800 font-semibold rounded-3xl flex items-center justify-center gap-x-3 hover:bg-amber-50 active:scale-[0.985] transition-all shadow-xl shadow-teal-950/20">
+                            <span>Explorar Catálogo</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                        
+                        <button onclick="showLoginModal()" 
+                                class="px-8 h-14 border border-white/40 hover:bg-white/10 font-medium rounded-3xl flex items-center justify-center gap-x-3 transition-all">
+                            <span>Cadastrar como Médico</span>
+                        </button>
+                    </div>
+                    
+                    <div class="flex items-center gap-x-6 mt-10 text-sm text-white/70">
+                        <div class="flex items-center gap-x-2">
+                            <i class="fa-solid fa-shield-halved text-emerald-300"></i>
+                            <span>100% offline — dados não saem do dispositivo</span>
+                        </div>
+                        <div class="flex items-center gap-x-2">
+                            <i class="fa-solid fa-calendar-check text-emerald-300"></i>
+                            <span>7 dias grátis por agente</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Hero visual -->
+                <div class="md:col-span-5 relative">
+                    <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-2xl">
+                        <div class="flex justify-between items-start mb-8">
+                            <div>
+                                <div class="text-emerald-300 text-xs tracking-[1.5px] font-mono">AGENTE ATIVO HOJE</div>
+                                <div class="text-3xl font-semibold mt-1">SIA-PRO</div>
+                            </div>
+                            <div class="px-3 py-1 bg-emerald-400/20 text-emerald-300 text-xs rounded-2xl flex items-center gap-x-1.5">
+                                <i class="fa-solid fa-check-double"></i>
+                                <span class="font-medium">Disponível</span>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="flex justify-between text-sm">
+                                <div class="text-white/70">Aplicativo clínico</div>
+                                <div class="font-mono text-white">HTML • Uso licenciado</div>
+                            </div>
+                            <div class="grid grid-cols-3 gap-3 pt-2">
+                                <div class="bg-white/10 rounded-2xl p-3 text-center">
+                                    <div class="text-xs text-white/60">Formato</div>
+                                    <div class="text-2xl font-semibold text-white mt-0.5">HTML</div>
+                                </div>
+                                <div class="bg-white/10 rounded-2xl p-3 text-center">
+                                    <div class="text-xs text-white/60">Teste grátis</div>
+                                    <div class="text-2xl font-semibold text-white mt-0.5">7 dias</div>
+                                </div>
+                                <div class="bg-white/10 rounded-2xl p-3 text-center">
+                                    <div class="text-xs text-white/60">Continuidade</div>
+                                    <div class="text-2xl font-semibold text-white mt-0.5">Licença</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ADMIN TOOLBAR -->
+    <div id="admin-toolbar" class="hidden bg-slate-900 text-white border-b border-slate-700 sticky top-[73px] z-40">
+        <div class="max-w-screen-2xl mx-auto px-8 py-2.5 flex items-center justify-between gap-x-4">
+            <div class="flex items-center gap-x-2 text-xs font-mono text-amber-400">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>PAINEL DE ADMINISTRAÇÃO</span>
+            </div>
+            <div class="flex items-center gap-x-3">
+                <button onclick="showApprovalsModal()"
+                        class="flex items-center gap-x-2 px-4 py-1.5 text-xs font-semibold bg-white/10 hover:bg-white/20 rounded-2xl transition-colors">
+                    <i class="fa-solid fa-bell"></i>
+                    <span>Solicitações</span>
+                    <span id="pending-count" class="hidden bg-amber-400 text-slate-900 text-[10px] font-bold px-1.5 py-0.5 rounded-full ml-1"></span>
+                </button>
+                <button onclick="document.getElementById('hosted-agents').scrollIntoView({ behavior: 'smooth' })"
+                        class="flex items-center gap-x-2 px-4 py-1.5 text-xs font-semibold bg-white/10 hover:bg-white/20 rounded-2xl transition-colors">
+                    <i class="fa-solid fa-server"></i>
+                    <span>Agentes Hospedados</span>
+                </button>
+                <button onclick="showUploadModal()"
+                        class="flex items-center gap-x-2 px-5 py-1.5 text-xs font-semibold bg-teal-500 hover:bg-teal-400 text-white rounded-2xl transition-colors">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>Adicionar Agente</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- STATS BAR -->
+    <div class="border-b border-slate-200 bg-white">
+        <div class="max-w-screen-2xl mx-auto px-8 py-5">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-y-6 text-center md:text-left">
+                <div>
+                    <div id="stat-agents-count" class="text-4xl font-semibold text-slate-900 metric-value">—</div>
+                    <div class="text-sm text-slate-500">Agentes disponíveis</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-semibold text-slate-900 metric-value">
+                        <i class="fa-solid fa-file-code text-3xl"></i>
+                    </div>
+                    <div class="text-sm text-slate-500">Aplicativos em HTML</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-semibold text-slate-900 metric-value">7d</div>
+                    <div class="text-sm text-slate-500">Período de teste gratuito</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-semibold text-emerald-600 metric-value">
+                        <i class="fa-solid fa-shield-halved text-3xl"></i>
+                    </div>
+                    <div class="text-sm text-slate-500">Dados locais · LGPD</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HOSTED AGENTS MANAGEMENT -->
+    <section id="hosted-agents" class="hidden max-w-screen-2xl mx-auto px-8 pt-10">
+        <div class="bg-white border border-slate-200 rounded-3xl overflow-hidden modern-shadow">
+            <div class="px-6 py-5 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                    <div class="flex items-center gap-x-2 text-xs font-semibold tracking-widest text-teal-700">
+                        <i class="fa-solid fa-server"></i>
+                        <span>GERENCIAMENTO</span>
+                    </div>
+                    <h2 class="text-2xl font-display text-slate-900 mt-1">Agentes hospedados</h2>
+                    <p class="text-sm text-slate-500 mt-1">Adicione, edite ou remova os agentes disponíveis neste navegador.</p>
+                </div>
+                <button onclick="showUploadModal()"
+                        class="px-5 py-2.5 text-sm font-semibold bg-teal-700 hover:bg-teal-800 text-white rounded-2xl transition-colors flex items-center justify-center gap-x-2">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>Adicionar agente</span>
+                </button>
+            </div>
+
+            <div id="hosted-agents-list" class="divide-y divide-slate-100"></div>
+
+            <div id="hosted-agents-empty" class="hidden px-6 py-12 text-center">
+                <i class="fa-solid fa-box-open text-4xl text-slate-300"></i>
+                <p class="text-slate-500 mt-3">Nenhum agente hospedado.</p>
+                <button onclick="showUploadModal()" class="mt-4 text-sm font-semibold text-teal-700 hover:text-teal-900">
+                    Adicionar o primeiro agente
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATÁLOGO -->
+    <section id="catalog" class="max-w-screen-2xl mx-auto px-8 pt-14 pb-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-y-4 mb-8">
+            <div>
+                <span class="px-4 py-1.5 text-xs font-semibold tracking-widest bg-teal-100 text-teal-700 rounded-3xl">CATÁLOGO OFICIAL</span>
+                <h2 class="section-header text-slate-900 mt-3">Agentes de Apoio<br>à Decisão Clínica</h2>
+                <p class="text-slate-600 mt-2 max-w-md">Ferramentas validadas para pneumologistas brasileiros. Foco em equações locais, diretrizes nacionais e realidade do SUS/ANS.</p>
+            </div>
+            
+            <!-- Search + Filter -->
+            <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                <div class="relative flex-1 md:w-80">
+                    <i class="fa-solid fa-search absolute left-4 top-3.5 text-slate-400"></i>
+                    <input id="search-input" type="text" placeholder="Buscar agentes..." 
+                           onkeyup="filterAgents()"
+                           class="w-full bg-white border border-slate-200 pl-11 pr-4 py-3 rounded-3xl text-sm focus:outline-none focus:border-teal-300">
+                </div>
+                
+                <div class="flex gap-2 overflow-x-auto pb-1">
+                    <button onclick="filterByCategory('all')" class="category-btn active px-5 py-2.5 text-sm whitespace-nowrap bg-white border border-slate-200 hover:bg-slate-50 rounded-3xl font-medium" data-cat="all">Todos</button>
+                    <button onclick="filterByCategory('Espirometria')" class="category-btn px-5 py-2.5 text-sm whitespace-nowrap bg-white border border-slate-200 hover:bg-slate-50 rounded-3xl font-medium" data-cat="Espirometria">Espirometria</button>
+                    <button onclick="filterByCategory('Asma')" class="category-btn px-5 py-2.5 text-sm whitespace-nowrap bg-white border border-slate-200 hover:bg-slate-50 rounded-3xl font-medium" data-cat="Asma">Asma Grave</button>
+                    <button onclick="filterByCategory('Bronquiectasias')" class="category-btn px-5 py-2.5 text-sm whitespace-nowrap bg-white border border-slate-200 hover:bg-slate-50 rounded-3xl font-medium" data-cat="Bronquiectasias">Bronquiectasias</button>
+                    <button onclick="filterByCategory('Infecções')" class="category-btn px-5 py-2.5 text-sm whitespace-nowrap bg-white border border-slate-200 hover:bg-slate-50 rounded-3xl font-medium" data-cat="Infecções">Infecções</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Agents Grid -->
+        <div id="agents-grid" class="agent-grid"></div>
+        
+        <div id="no-results" class="hidden text-center py-12">
+            <i class="fa-solid fa-search text-4xl text-slate-300 mb-4"></i>
+            <p class="text-slate-500">Nenhum agente encontrado com esses critérios.</p>
+        </div>
+    </section>
+
+    <!-- COMO FUNCIONA -->
+    <section id="how" class="bg-white border-y border-slate-100">
+        <div class="max-w-screen-2xl mx-auto px-8 py-16">
+            <div class="text-center mb-12">
+                <span class="text-teal-600 text-sm font-semibold tracking-[1.5px]">PARA MÉDICOS</span>
+                <h2 class="section-header text-slate-900 mt-2">Simples. Rápido. Seguro.</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                <div class="bg-slate-50 rounded-3xl p-8 border border-slate-100">
+                    <div class="w-12 h-12 bg-teal-100 text-teal-700 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-user-plus text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-xl mb-3">1. Cadastre-se</h3>
+                    <p class="text-slate-600 text-[15px]">Crie sua conta gratuita como médico pneumologista. Validação rápida via CRM ou e-mail institucional.</p>
+                </div>
+                
+                <div class="bg-slate-50 rounded-3xl p-8 border border-slate-100">
+                    <div class="w-12 h-12 bg-teal-100 text-teal-700 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-file-medical text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-xl mb-3">2. Solicite Acesso</h3>
+                    <p class="text-slate-600 text-[15px]">Escolha os agentes que deseja utilizar. Envie a solicitação com um clique. O administrador libera em até 24h.</p>
+                </div>
+                
+                <div class="bg-slate-50 rounded-3xl p-8 border border-slate-100">
+                    <div class="w-12 h-12 bg-teal-100 text-teal-700 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-download text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-xl mb-3">3. Baixe e Utilize</h3>
+                    <p class="text-slate-600 text-[15px]">Após a liberação, baixe o aplicativo HTML licenciado. Use gratuitamente por 7 dias e solicite autorização para continuar.</p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-10">
+                <button onclick="showLoginModal()" 
+                        class="inline-flex items-center gap-x-2 text-sm font-semibold text-teal-700 hover:text-teal-800">
+                    Quero me cadastrar agora 
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- DEMO INTERATIVO -->
+    <section id="demo" class="max-w-screen-2xl mx-auto px-8 py-16">
+        <div class="flex flex-col lg:flex-row gap-12 items-center">
+            <div class="lg:w-5/12">
+                <span class="px-4 py-1 text-xs font-bold tracking-widest bg-amber-100 text-amber-700 rounded-3xl">DEMO AO VIVO</span>
+                <h2 class="section-header text-slate-900 mt-4 leading-none">Teste o poder<br>dos agentes agora</h2>
+                <p class="mt-4 text-lg text-slate-600">Experimente versões simplificadas de dois agentes mais utilizados. Os agentes completos possuem lógica avançada, referências e saídas estruturadas para prontuário.</p>
+                
+                <div class="mt-8 flex items-center gap-x-4 text-sm">
+                    <div class="flex items-center gap-x-2 text-emerald-600">
+                        <i class="fa-solid fa-check-circle"></i>
+                        <span class="font-medium">Sem cadastro</span>
+                    </div>
+                    <div class="text-slate-400">•</div>
+                    <span class="text-slate-500">Resultados apenas ilustrativos</span>
+                </div>
+            </div>
+            
+            <div class="lg:w-7/12 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Demo 1: CURB-65 -->
+                <div class="bg-white border border-slate-200 rounded-3xl p-7 modern-shadow">
+                    <div class="flex items-center gap-x-3 mb-5">
+                        <div class="px-3 py-1 bg-red-100 text-red-600 text-xs font-bold rounded-2xl">INFECÇÕES</div>
+                        <span class="font-semibold">Guia PAC • CURB-65</span>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="text-xs font-medium text-slate-500 block mb-1.5">Idade</label>
+                            <input id="curb-age" type="number" value="72" class="demo-input w-full border border-slate-200 rounded-2xl px-4 py-2.5 text-sm">
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="flex items-center gap-x-2 text-xs font-medium text-slate-500 mb-1.5">
+                                    <input type="checkbox" id="curb-confusion" class="accent-teal-600"> Confusão mental
+                                </label>
+                            </div>
+                            <div>
+                                <label class="flex items-center gap-x-2 text-xs font-medium text-slate-500 mb-1.5">
+                                    <input type="checkbox" id="curb-urea" class="accent-teal-600"> Ureia &gt; 7 mmol/L
+                                </label>
+                            </div>
+                            <div>
+                                <label class="flex items-center gap-x-2 text-xs font-medium text-slate-500 mb-1.5">
+                                    <input type="checkbox" id="curb-rr" class="accent-teal-600"> FR ≥ 30 irpm
+                                </label>
+                            </div>
+                            <div>
+                                <label class="flex items-center gap-x-2 text-xs font-medium text-slate-500 mb-1.5">
+                                    <input type="checkbox" id="curb-bp" class="accent-teal-600"> PA sistólica &lt; 90
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <button onclick="calculateCURB65()" 
+                                class="w-full mt-2 py-3 bg-slate-900 hover:bg-black text-white text-sm font-semibold rounded-2xl transition-colors">
+                            Calcular Risco CURB-65
+                        </button>
+                        
+                        <div id="curb-result" class="hidden mt-3 p-4 bg-emerald-50 border border-emerald-100 rounded-2xl text-sm"></div>
+                    </div>
+                </div>
+                
+                <!-- Demo 2: Espirometria simplificada -->
+                <div class="bg-white border border-slate-200 rounded-3xl p-7 modern-shadow">
+                    <div class="flex items-center gap-x-3 mb-5">
+                        <div class="px-3 py-1 bg-teal-100 text-teal-700 text-xs font-bold rounded-2xl">ESPIROMETRIA</div>
+                        <span class="font-semibold">SIA-PRO (Demo)</span>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-x-4 gap-y-4 text-sm">
+                        <div>
+                            <label class="text-xs text-slate-500">Idade (anos)</label>
+                            <input id="spiro-age" type="number" value="58" class="demo-input mt-1 w-full border border-slate-200 rounded-2xl px-3 py-2">
+                        </div>
+                        <div>
+                            <label class="text-xs text-slate-500">Sexo</label>
+                            <select id="spiro-sex" class="demo-input mt-1 w-full border border-slate-200 rounded-2xl px-3 py-2 text-sm">
+                                <option value="M">Masculino</option>
+                                <option value="F">Feminino</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-xs text-slate-500">Altura (cm)</label>
+                            <input id="spiro-height" type="number" value="168" class="demo-input mt-1 w-full border border-slate-200 rounded-2xl px-3 py-2">
+                        </div>
+                        <div>
+                            <label class="text-xs text-slate-500">FEV₁ (L)</label>
+                            <input id="spiro-fev1" type="number" step="0.01" value="2.15" class="demo-input mt-1 w-full border border-slate-200 rounded-2xl px-3 py-2">
+                        </div>
+                        <div>
+                            <label class="text-xs text-slate-500">FVC (L)</label>
+                            <input id="spiro-fvc" type="number" step="0.01" value="3.45" class="demo-input mt-1 w-full border border-slate-200 rounded-2xl px-3 py-2">
+                        </div>
+                        <div>
+                            <label class="text-xs text-slate-500">Etnia</label>
+                            <select id="spiro-ethnicity" class="demo-input mt-1 w-full border border-slate-200 rounded-2xl px-3 py-2 text-sm">
+                                <option value="other">Mista / Outros (Nordeste)</option>
+                                <option value="white">Branca</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button onclick="calculateSpirometryDemo()" 
+                            class="mt-5 w-full py-3 bg-teal-700 hover:bg-teal-800 text-white text-sm font-semibold rounded-2xl transition-colors">
+                        Analisar com Equações GLI-2022 + Pereira
+                    </button>
+                    
+                    <div id="spiro-result" class="hidden mt-4 text-xs space-y-2"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER / ADMIN INFO -->
+    <footer class="bg-slate-900 text-white/80">
+        <div class="max-w-screen-2xl mx-auto px-8 py-12">
+            <div class="flex flex-col md:flex-row justify-between gap-y-10">
+                <div>
+                    <div class="flex items-center gap-x-3 mb-4">
+                        <div class="w-9 h-9 bg-white/10 rounded-2xl flex items-center justify-center">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 12H5M12 19V5" stroke="white" stroke-width="2.25" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <span class="font-display text-2xl text-white tracking-tighter">PulmoAgents</span>
+                    </div>
+                    <p class="max-w-xs text-sm">Plataforma de agentes de inteligência artificial para apoio à decisão clínica em pneumologia.</p>
+                    <p class="text-xs mt-6 text-white/40">por Fernando Lundgren — Pneumologista</p>
+                </div>
+                
+                <div class="text-sm grid grid-cols-2 md:grid-cols-3 gap-x-12 gap-y-8">
+                    <div>
+                        <div class="font-semibold text-white mb-3 text-xs tracking-wider">PLATAFORMA</div>
+                        <div class="space-y-[5px] text-white/70">
+                            <div>Catálogo de Agentes</div>
+                            <div>Como Funciona</div>
+                            <div>Segurança &amp; LGPD</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="font-semibold text-white mb-3 text-xs tracking-wider">PARA MÉDICOS</div>
+                        <div class="space-y-[5px] text-white/70">
+                            <div>Cadastro</div>
+                            <div>Solicitar Acesso</div>
+                            <div>Como Usar os Agentes</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="font-semibold text-white mb-3 text-xs tracking-wider">ADMINISTRAÇÃO</div>
+                        <button onclick="showAdminLogin()" class="flex items-center gap-x-2 text-teal-400 hover:text-teal-300 transition-colors">
+                            <i class="fa-solid fa-lock text-xs"></i> 
+                            <span>Acessar Painel Admin</span>
+                        </button>
+                        <div class="mt-1 text-[10px] text-white/40">Apenas para o criador da plataforma</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/10 mt-12 pt-8 text-xs flex flex-col md:flex-row justify-between items-center gap-y-2 text-white/50">
+                <div>© 2026 PulmoAgents. Todos os direitos reservados. Uso clínico autorizado.</div>
+                <div class="flex gap-x-5">
+                    <span>Termos de Uso</span>
+                    <span>Política de Privacidade</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LOGIN MODAL -->
+    <div id="login-modal" onclick="if (event.target.id === 'login-modal') hideLoginModal()" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+        <div onclick="event.stopImmediatePropagation()" class="bg-white w-full max-w-md rounded-3xl shadow-2xl overflow-hidden modal">
+            <div class="px-8 pt-8 pb-6">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="text-2xl font-semibold">Bem-vindo de volta</h3>
+                        <p class="text-sm text-slate-500 mt-1">Acesse sua conta para gerenciar agentes</p>
+                    </div>
+                    <button onclick="hideLoginModal()" class="text-3xl leading-none text-slate-300 hover:text-slate-400">&times;</button>
+                </div>
+                
+                <!-- Demo Login Buttons -->
+                <div class="mt-8 space-y-3">
+                    <button onclick="loginAsDoctor()" 
+                            class="w-full flex items-center justify-center gap-x-3 border border-slate-200 hover:bg-slate-50 transition-colors py-4 rounded-2xl font-medium">
+                        <i class="fa-solid fa-user-md text-teal-600"></i>
+                        <span>Entrar como Médico (Demo)</span>
+                    </button>
+                    
+                    <div class="border border-slate-200 rounded-2xl p-4">
+                        <div class="flex items-center gap-x-2 mb-3">
+                            <i class="fa-solid fa-shield-halved text-slate-700"></i>
+                            <span class="font-medium">Acesso do administrador</span>
+                        </div>
+                        <div class="space-y-3">
+                            <input id="admin-name" type="text" autocomplete="username"
+                                   placeholder="Nome do administrador"
+                                   class="w-full border border-slate-200 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-teal-400">
+                            <input id="admin-password" type="password" autocomplete="current-password"
+                                   placeholder="Senha"
+                                   onkeydown="if (event.key === 'Enter') loginAsAdmin()"
+                                   class="w-full border border-slate-200 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-teal-400">
+                            <button onclick="loginAsAdmin()"
+                                    class="w-full flex items-center justify-center gap-x-2 bg-slate-900 hover:bg-black text-white transition-colors py-3 rounded-xl text-sm font-semibold">
+                                <i class="fa-solid fa-lock"></i>
+                                <span>Entrar como administrador</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-6">
+                    <p class="text-xs text-slate-400">Esta é uma versão demonstrativa.<br>Em produção usaria autenticação real + 2FA.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AGENT DETAIL MODAL -->
+    <div id="agent-modal" onclick="if (event.target.id === 'agent-modal') hideAgentModal()" class="hidden fixed inset-0 bg-black/70 backdrop-blur z-[110] flex items-center justify-center p-4">
+        <div onclick="event.stopImmediatePropagation()" class="bg-white w-full max-w-2xl rounded-3xl overflow-hidden modal shadow-2xl max-h-[90vh] flex flex-col">
+            <!-- Header -->
+            <div class="px-8 pt-7 pb-5 border-b flex items-start justify-between bg-slate-50">
+                <div id="modal-header-content" class="flex-1"></div>
+                <button onclick="hideAgentModal()" class="text-4xl leading-none text-slate-300 hover:text-slate-500 -mt-2">&times;</button>
+            </div>
+            
+            <div class="p-8 overflow-auto flex-1 text-sm" id="modal-body-content"></div>
+            
+            <!-- Footer actions -->
+            <div class="border-t px-8 py-5 bg-white flex items-center justify-between gap-x-4" id="modal-footer">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- UPLOAD MODAL (Admin only) -->
+    <div id="upload-modal" onclick="if (event.target.id === 'upload-modal') hideUploadModal()" class="hidden fixed inset-0 bg-black/70 z-[120] flex items-center justify-center p-4">
+        <div onclick="event.stopImmediatePropagation()" class="bg-white w-full max-w-2xl rounded-3xl overflow-hidden modal max-h-[92vh] flex flex-col">
+            <div class="px-8 pt-7 pb-6 border-b flex items-start justify-between">
+                <div>
+                    <h3 id="upload-modal-title" class="font-semibold text-2xl">Adicionar Novo Agente</h3>
+                    <p id="upload-modal-subtitle" class="text-sm text-slate-500 mt-1">Preencha os campos abaixo. O agente aparecerá no catálogo imediatamente.</p>
+                </div>
+                <button onclick="hideUploadModal()" class="text-3xl leading-none text-slate-300 hover:text-slate-400 -mt-1">&times;</button>
+            </div>
+
+            <div class="p-8 space-y-5 text-sm overflow-y-auto flex-1">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <div class="md:col-span-2">
+                        <label class="block text-xs font-semibold text-slate-500 mb-1.5">NOME DO AGENTE *</label>
+                        <input id="upload-name" type="text" class="w-full border border-slate-200 rounded-2xl px-4 py-3 text-sm" placeholder="Ex: MucoPlug Analyzer">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 mb-1.5">VERSÃO</label>
+                        <input id="upload-version" type="text" class="w-full border border-slate-200 rounded-2xl px-4 py-3 text-sm" placeholder="Informe somente se houver uma versão oficial">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 mb-1.5">CATEGORIA *</label>
+                    <select id="upload-category" class="w-full border border-slate-200 rounded-2xl px-4 py-3 text-sm">
+                        <option value="Espirometria">Espirometria</option>
+                        <option value="Asma">Asma Grave e Imunobiológicos</option>
+                        <option value="Bronquiectasias">Bronquiectasias e Reabilitação</option>
+                        <option value="Infecções">Infecções Respiratórias</option>
+                        <option value="Imagem">Imagem e IA</option>
+                        <option value="Outros">Outros</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 mb-1.5">DESCRIÇÃO CURTA *</label>
+                    <input id="upload-short-desc" type="text" class="w-full border border-slate-200 rounded-2xl px-4 py-3 text-sm" placeholder="Uma frase chamativa sobre o que o agente faz">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 mb-1.5">DESCRIÇÃO COMPLETA</label>
+                    <textarea id="upload-long-desc" rows="3" class="w-full border border-slate-200 rounded-2xl px-4 py-3 text-sm" placeholder="Descreva benefícios clínicos, população-alvo e evidências..."></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 mb-1.5">ARQUIVO HTML DO AGENTE *</label>
+                    <input id="upload-html-file" type="file" accept=".html,.htm,text/html"
+                           class="w-full border border-slate-200 rounded-2xl px-4 py-3 text-sm bg-white">
+                    <p id="upload-html-status" class="text-[10px] text-slate-400 mt-1">Selecione o arquivo HTML completo que será disponibilizado aos usuários.</p>
+                </div>
+
+                <div class="flex items-center gap-x-3 pt-1">
+                    <input type="checkbox" id="upload-immediate" checked class="accent-teal-600 w-4 h-4">
+                    <label for="upload-immediate" class="text-xs text-slate-600">Permitir início imediato do teste gratuito de 7 dias</label>
+                </div>
+            </div>
+
+            <div class="px-8 py-5 border-t flex justify-between items-center gap-x-3 bg-slate-50">
+                <div id="upload-edit-warning" class="hidden text-xs text-amber-600 flex items-center gap-x-2">
+                    <i class="fa-solid fa-pencil"></i>
+                    <span>Editando aplicativo existente</span>
+                </div>
+                <div class="flex gap-x-3 ml-auto">
+                    <button onclick="hideUploadModal()" class="px-6 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 rounded-2xl">Cancelar</button>
+                    <button id="upload-modal-btn" onclick="uploadNewAgent()" class="px-8 py-2.5 text-sm font-semibold bg-teal-700 text-white rounded-2xl hover:bg-teal-800">Publicar Agente</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN APPROVALS MODAL -->
+    <div id="approvals-modal" onclick="if (event.target.id === 'approvals-modal') hideApprovalsModal()" class="hidden fixed inset-0 bg-black/60 z-[130] flex items-center justify-center p-4">
+        <div onclick="event.stopImmediatePropagation()" class="bg-white w-full max-w-3xl rounded-3xl overflow-hidden modal">
+            <div class="px-8 pt-7 pb-5 border-b flex items-center justify-between">
+                <div>
+                    <h3 class="font-semibold text-xl">Solicitações Pendentes</h3>
+                    <p class="text-xs text-slate-500">Aprove ou recuse acessos aos agentes</p>
+                </div>
+                <button onclick="hideApprovalsModal()" class="text-3xl text-slate-300 hover:text-slate-400">&times;</button>
+            </div>
+            
+            <div class="p-8" id="approvals-list">
+                <!-- Populated dynamically by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST CONTAINER -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-[200] flex flex-col gap-y-2"></div>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Tailwind script
+        function initializeTailwind() {
+            document.documentElement.style.setProperty('--accent', '#0F766E');
+            
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        fontFamily: {
+                            'display': ['Space Grotesk', 'Inter', 'system-ui', 'sans-serif']
+                        }
+                    }
+                }
+            };
+        }
+        
+        // ==================== DATA & STATE ====================
+        let agents = [];
+        let approvedAgentIds = new Set();
+        let pendingRequests = [];
+        let licenses = {};
+        let currentUser = null;
+        let currentFilter = 'all';
+        let editingAgentId = null;
+        const TRIAL_DAYS = 7;
+
+        function createBuiltInAgentHtml(name, description) {
+            const safeName = name.replace(/[&<>"']/g, char => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            })[char]);
+            const safeDescription = description.replace(/[&<>"']/g, char => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            })[char]);
+
+            return `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>${safeName}</title>
+<style>
+body{margin:0;background:#f8fafc;color:#1e293b;font-family:Arial,sans-serif}
+main{max-width:820px;margin:40px auto;padding:24px}.card{background:white;border:1px solid #dbe4ea;border-radius:24px;padding:32px;box-shadow:0 15px 40px #0f766e14}
+.brand{font-size:12px;font-weight:700;letter-spacing:.12em;color:#0f766e}h1{margin:8px 0 16px}.notice{margin-top:24px;padding:16px;background:#ecfdf5;border-radius:14px;color:#065f46}
+</style>
+</head>
+<body><main><div class="card"><div class="brand">PULMOAGENTS</div><h1>${safeName}</h1><p>${safeDescription}</p><div class="notice">Aplicativo HTML clínico disponibilizado pela plataforma PulmoAgents.</div></div></main></body>
+</html>`;
+        }
+        
+        // Initial agents data (realistic for pulmonology)
+        const initialAgents = [
+            {
+                id: "sia-pro",
+                nome: "SIA-PRO",
+                categoria: "Espirometria",
+                versao: "",
+                atualizado: "",
+                descricao_curta: "Aplicativo HTML para apoio à análise e interpretação clínica da espirometria.",
+                descricao_longa: "O SIA-PRO organiza dados espirométricos e oferece suporte estruturado à interpretação clínica. O aplicativo definitivo é distribuído em HTML e permanece sujeito ao controle de licença da plataforma.",
+                arquivo_html: createBuiltInAgentHtml("SIA-PRO", "Aplicativo HTML para apoio à análise e interpretação clínica da espirometria."),
+                arquivo_nome: "sia-pro.html",
+                livre: false
+            },
+            {
+                id: "biologicos-asma",
+                nome: "Decisor Biológicos Asma Grave",
+                categoria: "Asma",
+                versao: "",
+                atualizado: "",
+                descricao_curta: "Critérios de indicação, posologia e monitoramento de tezepelumab, benralizumab, dupilumabe e omalizumabe segundo guidelines CHEST e realidade brasileira (ANS/Judicial).",
+                descricao_longa: "Avalia elegibilidade para terapias biológicas em asma grave eosinofílica e CRSwNP. Considera eosinófilos periféricos, número de exacerbações, uso de corticoides sistêmicos, comorbidades e cobertura no Ceará. Gera laudo estruturado pronto para DUT e processos judiciais.",
+                arquivo_html: createBuiltInAgentHtml("Decisor Biológicos Asma Grave", "Ferramenta HTML para apoio à avaliação de terapias biológicas em asma grave."),
+                arquivo_nome: "biologicos-asma.html",
+                livre: false
+            },
+            {
+                id: "bronquiectasias-manager",
+                nome: "Bronquiectasias Manager",
+                categoria: "Bronquiectasias",
+                versao: "",
+                atualizado: "",
+                descricao_curta: "Cálculo de escores FACED / E-FACED, plano de reabilitação pulmonar, antibioticoterapia de manutenção e calendário vacinal personalizado.",
+                descricao_longa: "Ferramenta completa para estratificação de risco e manejo de bronquiectasias não fibrocísticas. Calcula escores prognósticos, sugere esquema de reabilitação, indica macrólidos ou nebulizados e organiza vacinação (influenza, pneumocócica 13/23, COVID, VSR).",
+                arquivo_html: createBuiltInAgentHtml("Bronquiectasias Manager", "Aplicativo HTML para estratificação de risco e organização do manejo de bronquiectasias."),
+                arquivo_nome: "bronquiectasias-manager.html",
+                livre: true
+            },
+            {
+                id: "pca-guia",
+                nome: "Guia de Pneumonia Adquirida na Comunidade",
+                categoria: "Infecções",
+                versao: "",
+                atualizado: "",
+                descricao_curta: "Estratificação de risco (CURB-65 + PSI), escolha de antibioticoterapia empírica e critérios de internação segundo diretrizes brasileiras e internacionais adaptadas.",
+                descricao_longa: "Suporte completo à decisão no manejo de PAC em adultos. Calcula escores de gravidade, recomenda antibioticoterapia de acordo com local de tratamento (ambulatorial / enfermaria / UTI), considera comorbidades e alergias.",
+                arquivo_html: createBuiltInAgentHtml("Guia de Pneumonia Adquirida na Comunidade", "Aplicativo HTML para apoio à estratificação e ao manejo da pneumonia adquirida na comunidade."),
+                arquivo_nome: "guia-pac.html",
+                livre: true
+            },
+            {
+                id: "muco-plug-assist",
+                nome: "Assistente de Tampões Mucosos",
+                categoria: "Imagem",
+                versao: "",
+                atualizado: "",
+                descricao_curta: "Avaliação semiquantitativa de tampões de muco em TC de tórax, diferencial diagnóstico e sugestão de conduta em pacientes com asma grave e bronquiectasias.",
+                descricao_longa: "Ajuda na identificação e quantificação de mucus plugs em exames de imagem. Descreve localização, extensão, impacto funcional e propõe condutas (fisioterapia, antibióticos, antifúngicos, biológicos).",
+                arquivo_html: createBuiltInAgentHtml("Assistente de Tampões Mucosos", "Aplicativo HTML para avaliação estruturada de tampões mucosos em exames de imagem."),
+                arquivo_nome: "tampoes-mucosos.html",
+                livre: false
+            },
+            {
+                id: "alfa1-screen",
+                nome: "Alfa-1 Antitripsina Screen",
+                categoria: "Outros",
+                versao: "",
+                atualizado: "",
+                descricao_curta: "Algoritmo de rastreio, diagnóstico e manejo da deficiência de alfa-1 antitripsina em pacientes com DPOC, bronquiectasias e doença hepática inexplicada.",
+                descricao_longa: "Indicações de dosagem, genotipagem, interpretação de resultados (PI*ZZ, PI*MZ, etc) e recomendações de tratamento (augmentation therapy quando indicado).",
+                arquivo_html: createBuiltInAgentHtml("Alfa-1 Antitripsina Screen", "Aplicativo HTML para apoio ao rastreio e interpretação da deficiência de alfa-1 antitripsina."),
+                arquivo_nome: "alfa1-screen.html",
+                livre: false
+            },
+            {
+                id: "agente-avaliacao-pre-operatoria",
+                nome: "Agente de Avaliação Pré-Operatória",
+                categoria: "Outros",
+                versao: "5.0",
+                atualizado: "",
+                descricao_curta: "Avaliação pré-operatória de risco cardiopulmonar com relatório local.",
+                descricao_longa: "Aplicativo HTML de apoio à avaliação pré-operatória. Inclui RCRI, ARISCAT, STOP-BANG e DASI, com geração local de relatório.",
+                arquivo_html: "\u003c!DOCTYPE html\u003e\n\u003chtml lang=\"pt-BR\"\u003e\n\u003chead\u003e\n\u003cmeta charset=\"UTF-8\"\u003e\n\u003cmeta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"\u003e\n\u003ctitle\u003eAgente de Avaliação Pré-Operatória v5.0\u003c/title\u003e\n\u003cstyle\u003e\n*{box-sizing:border-box;margin:0;padding:0}\nbody{font-family:Arial,Calibri,sans-serif;background:#f4f6f8;color:#222;line-height:1.45}\n.container{max-width:1180px;margin:auto;padding:18px}\n.header{background:#233142;color:#fff;padding:18px;border-radius:8px;margin-bottom:16px}\n.header h1{font-size:23px;margin-bottom:5px}\n.header p{font-size:12px;opacity:.92}\n.section{background:#fff;border-left:4px solid #233142;border-radius:8px;padding:16px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.05)}\n.section h2{font-size:15px;color:#233142;margin-bottom:12px}\n.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}\n.group{display:flex;flex-direction:column}\nlabel{font-weight:bold;font-size:12px;margin-bottom:4px;color:#444}\ninput,select,textarea{font-family:Arial,Calibri,sans-serif;font-size:13px;padding:8px;border:1px solid #ccc;border-radius:4px;background:#fff}\ntextarea{resize:vertical}\n.checkgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:8px}\n.check{display:flex;align-items:center;gap:8px;background:#f7f7f7;border-radius:4px;padding:8px;font-size:13px;cursor:pointer}\n.check input{width:16px;height:16px}\n.buttons{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}\nbutton{border:0;border-radius:4px;padding:10px 14px;font-size:13px;font-weight:bold;cursor:pointer}\n.primary{background:#233142;color:#fff}\n.secondary{background:#dfe4ea;color:#222}\n.warn{background:#8a1f11;color:#fff}\n.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:99;align-items:center;justify-content:center}\n.modal.show{display:flex}\n.modal-content{background:#fff;width:96%;max-width:960px;max-height:92vh;overflow:auto;border-radius:8px;padding:20px}\n.modal-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}\n.close{background:transparent;font-size:24px;padding:0;color:#333}\n.report{font-family:Arial,Calibri,sans-serif;color:#000;font-size:9.5pt;line-height:1.28}\n.report h1{text-align:center;font-size:13pt;border-bottom:1px solid #333;padding-bottom:3px;margin-bottom:4px}\n.report h2{font-size:10.5pt;border-bottom:.5px solid #999;margin:6px 0 3px 0}\n.report p{margin:2px 0;text-align:justify}\n.twocol{display:grid;grid-template-columns:1fr 1fr;gap:2px 16px}\n.badge{display:inline-block;border-radius:3px;padding:2px 6px;font-weight:bold}\n.low{background:#d9ead3}.mid{background:#fff2cc}.high{background:#f4cccc}\n.small{font-size:8pt;color:#555}\nul{margin-left:18px}\nli{margin:1px 0}\n@media print{\nbody{background:#fff}.container\u003e.header,.container\u003e.section,.buttons,.modal-top{display:none!important}\n.modal{display:block!important;position:static;background:#fff}.modal-content{width:100%;max-width:100%;max-height:none;box-shadow:none;padding:0;border-radius:0}\n@page{size:A4;margin:9mm}\n}\n\u003c/style\u003e\n\u003c/head\u003e\n\u003cbody\u003e\n\n\u003cdiv id=\"termoModal\" class=\"modal show\"\u003e\n\u003cdiv class=\"modal-content\"\u003e\n\u003ch2\u003eTermo de Uso\u003c/h2\u003e\n\u003cp\u003eEste sistema constitui ferramenta de apoio à decisão clínica destinada exclusivamente a médicos habilitados.\u003c/p\u003e\n\u003cp\u003eAs informações geradas possuem caráter auxiliar e não substituem anamnese, exame físico, interpretação individualizada dos exames complementares ou o julgamento clínico do médico assistente.\u003c/p\u003e\n\u003cp\u003eA decisão final sobre aptidão cirúrgica e condutas perioperatórias permanece sob responsabilidade exclusiva do médico que assina o relatório.\u003c/p\u003e\n\u003clabel\u003e\u003cinput type=\"checkbox\" id=\"aceiteTermo\"\u003e Li e concordo com os termos de uso.\u003c/label\u003e\u003cbr\u003e\u003cbr\u003e\n\u003cbutton class=\"primary\" onclick=\"aceitarTermo()\"\u003eContinuar\u003c/button\u003e\n\u003c/div\u003e\u003c/div\u003e\n\n\u003cdiv class=\"container\"\u003e\n\u003cdiv class=\"header\"\u003e\n\u003ch1\u003eAgente de Avaliação Pré-Operatória v5.0\u003c/h1\u003e\n\u003cp\u003eRisco cardiopulmonar | RCRI corrigido • ARISCAT original • STOP-BANG completo • DASI • Relatório TXT/PDF local\u003c/p\u003e\n\u003c/div\u003e\n\n\u003cdiv class=\"section\"\u003e\n\u003ch2\u003e1. Dados do paciente e do relatório\u003c/h2\u003e\n\u003cdiv class=\"grid\"\u003e\n\u003cdiv class=\"group\"\u003e\u003clabel\u003eNome do paciente *\u003c/label\u003e\u003cinput id=\"nomePaciente\"\u003e\u003c/div\u003e\n\u003cdiv class=\"group\"\u003e\u003clabel\u003eCPF\u003c/label\u003e\u003cinput id=\"cpf\"\u003e\u003c/div\u003e\n\u003cdiv class=\"group\"\u003e\u003clabel\u003eIdade\u003c/label\u003e\u003cinput id=\"idade\" type=\"number\" min=\"0\" max=\"120\"\u003e\u003c/div\u003e\n\u003cdiv class=\"group\"\u003e\u003clabel\u003eSexo\u003c/label\u003e\u003cselect id=\"sexo\"\u003e\u003coption value=\"\"\u003eSelecione\u003c/option\u003e\u003coption value=\"F\"\u003eFeminino\u003c/option\u003e\u003coption value=\"M\"\u003eMasculino\u003c/option\u003e\u003c/select\u003e\u003c/div\u003e\n\u003cdiv class=\"group\"\u003e\u003clabel\u003eMédico relator *\u003c/label\u003e\u003cinput id=\"medicoRelator\" placeholder=\"Nome e CRM\"\u003e\u003c/div\u003e\n\u003cdiv class=\"group\"\u003e\u003clabel\u003eData\u003c/label\u003e\u003cinput id=\"dataRelatorio\" type=\"date\"\u003e\u003c/div\u003e\n\u003c/div\u003e\n\u003c/div\u003e\n\n\u003cdiv class=\"section\"\u003e\n\u003ch2\u003e2. Cirurgia e anestesia\u003c/h2\u003e\n\u003cdiv class=\"grid\"\u003e\n\u003cdiv class=\"group\"\u003e\u003clabel\u003eTipo de cirurgia\u003c/label\u003e\u003cselect id=\"tipoCirurgia\"\u003e\n\u003coption value=\"\"\u003eSelecione\u003c/option\u003e\n\u003coption value=\"periferica\"\u003ePeriférica / baixo impacto respiratório\u003c/option\u003e\n\u003coption value=\"abdominal_inferior\"\u003eAbdominal inferior / intraperitoneal\u003c/option\u003e\n\u003coption value=\"abdominal_superior\"\u003eAbdominal superior\u003c/option\u003e\n\u003coption value=\"toracica\"\u003eTorácica / intratorácica\u003c/option\u003e\n\u003coption value=\"vascular\"\u003eVascular suprainguinal\u003c/option\u003e\n\u003coption value=\"bariatrica\"\u003eBariátrica\u003c/option\u003e\n\u003coption value=\"outra\"\u003eOutra\u003c/option\u003e\n\u003c/select\u003e\u003c/div\u003e\n\u003cdiv class=\"group\"\u003e\u003clabel\u003eDuração prevista\u003c/label\u003e\u003cselect id=\"duracaoCirurgia\"\u003e\u003coption value=\"menor2h\"\u003e\u0026lt; 2h\u003c/option\u003e\u003coption value=\"2a3h\"\u003e2–3h\u003c/option\u003e\u003coption value=\"maior3h\"\u003e\u0026gt; 3h\u003c/option\u003e\u003c/select\u003e\u003c/div\u003e\n\u003cdiv class=\"group\"\u003e\u003clabel\u003eCaráter\u003c/label\u003e\u003cselect id=\"emergencia\"\u003e\u003coption value=\"nao\"\u003eEletiva\u003c/option\u003e\u003coption value=\"sim\"\u003eEmergência / urgência\u003c/option\u003e\u003c/select\u003e\u003c/div\u003e\n\u003cdiv class=\"group\"\u003e\u003clabel\u003eAnestesia provável\u003c/label\u003e\u003cselect id=\"anestesia\"\u003e\u003coption value=\"\"\u003eNão informada\u003c/option\u003e\u003coption\u003eGeral\u003c/option\u003e\u003coption\u003eRegional\u003c/option\u003e\u003coption\u003eSedação\u003c/option\u003e\u003coption\u003eLocal\u003c/option\u003e\u003c/select\u003e\u003c/div\u003e\n\u003c/div\u003e\n\u003c/div\u003e\n\n\u003cdiv class=\"section\"\u003e\n\u003ch2\u003e3. Antropometria e dados vitais\u003c/h2\u003e\n\u003cdiv class=\"grid\"\u003e\n\u003cdiv class=\"group\"\u003e\u003clabel\u003ePeso kg\u003c/label\u003e\u003cinput id=\"peso\" type=\"number\" step=\"0.1\"\u003e\u003c/div\u003e\n\u003cdiv class=\"group\"\u003e\u003clabel\u003eAltura m\u003c/label\u003e\u003cinput id=\"altura\" type=\"number\" step=\"0.01\"\u003e\u003c/div\u003e\n\u003cdiv class=\"group\"\u003e\u003clabel\u003eIMC kg/m²\u003c/label\u003e\u003cinput id=\"imc\" readonly\u003e\u003c/div\u003e\n\u003cdiv class=\"group\"\u003e\u003clabel\u003eSpO₂ repouso %\u003c/label\u003e\u003cinput id=\"spo2\" type=\"number\" min=\"50\" max=\"100\"\u003e\u003c/div\u003e\n\u003cdiv class=\"group\"\u003e\u003clabel\u003eHemoglobina g/dL\u003c/label\u003e\u003cinput id=\"hb\" type=\"number\" step=\"0.1\" placeholder=\"usar para ARISCAT\"\u003e\u003c/div\u003e\n\u003cdiv class=\"group\"\u003e\u003clabel\u003eCreatinina mg/dL\u003c/label\u003e\u003cinput id=\"creatinina\" type=\"number\" step=\"0.1\" placeholder=\"usar para RCRI\"\u003e\u003c/div\u003e\n\u003c/div\u003e\n\u003c/div\u003e\n\n\u003cdiv class=\"section\"\u003e\n\u003ch2\u003e4. Comorbidades e medicações relevantes\u003c/h2\u003e\n\u003cdiv class=\"checkgrid\"\u003e\n\u003clabel class=\"check\"\u003e\u003cinput id=\"hipertensao\" type=\"checkbox\"\u003eHipertensão arterial\u003c/label\u003e\n\u003clabel class=\"check\"\u003e\u003cinput id=\"diabetes\" type=\"checkbox\"\u003eDiabetes mellitus\u003c/label\u003e\n\u003clabel class=\"check\"\u003e\u003cinput id=\"doencaIsquemica\" type=\"checkbox\"\u003eDoença isquêmica do coração\u003c/label\u003e\n\u003clabel class=\"check\"\u003e\u003cinput id=\"insufCardiaca\" type=\"checkbox\"\u003eInsuficiência cardíaca\u003c/label\u003e\n\u003clabel class=\"check\"\u003e\u003cinput id=\"doencaCerebrovascular\" type=\"checkbox\"\u003eAVC/AIT prévio\u003c/label\u003e\n\u003clabel class=\"check\"\u003e\u003cinput id=\"infRespRecente\" type=\"checkbox\"\u003eInfecção respiratória no último mês\u003c/label\u003e\n\u003clabel class=\"check\"\u003e\u003cinput id=\"med_insulina\" type=\"checkbox\"\u003eUso de insulina\u003c/label\u003e\n\u003clabel class=\"check\"\u003e\u003cinput id=\"med_anticoagulante\" type=\"checkbox\"\u003eAnticoagulante\u003c/label\u003e\n\u003clabel class=\"check\"\u003e\u003cinput id=\"med_antiplaquetario\" type=\"checkbox\"\u003eAntiplaquetário\u003c/label\u003e\n\u003clabel class=\"check\"\u003e\u003cinput id=\"med_corticoide\" type=\"checkbox\"\u003eCorticoide sistêmico\u003c/label\u003e\n\u003clabel class=\"check\"\u003e\u003cinput id=\"med_sglt2\" type=\"checkbox\"\u003eInibidor SGLT2\u003c/label\u003e\n\u003clabel class=\"check\"\u003e\u003cinput id=\"med_broncodilatador\" type=\"checkbox\"\u003eBroncodilatador / corticoide inalado\u003c/label\u003e\n\u003c/div\u003e\n\u003cdiv class=\"group\" style=\"margin-top:10px\"\u003e\u003clabel\u003eOutros medicamentos\u003c/label\u003e\u003ctextarea id=\"outrosMedicamentos\" rows=\"2\"\u003e\u003c/textarea\u003e\u003c/div\u003e\n\u003c/div\u003e\n\n\u003cdiv class=\"section\"\u003e\n\u003ch2\u003e5. Avaliação respiratória\u003c/h2\u003e\n\u003cdiv class=\"grid\"\u003e\n\u003cdiv class=\"group\"\u003e\u003clabel\u003eAsma\u003c/label\u003e\u003cselect id=\"asmaClassificacao\"\u003e\u003coption value=\"\"\u003eSem asma\u003c/option\u003e\u003coption\u003eLeve\u003c/option\u003e\u003coption\u003eModerada\u003c/option\u003e\u003coption\u003eGrave\u003c/option\u003e\u003c/select\u003e\u003c/div\u003e\n\u003cdiv class=\"group\"\u003e\u003clabel\u003eDPOC\u003c/label\u003e\u003cselect id=\"dpocClassificacao\"\u003e\u003coption value=\"\"\u003eSem DPOC\u003c/option\u003e\u003coption\u003eGOLD 1\u003c/option\u003e\u003coption\u003eGOLD 2\u003c/option\u003e\u003coption\u003eGOLD 3\u003c/option\u003e\u003coption\u003eGOLD 4\u003c/option\u003e\u003c/select\u003e\u003c/div\u003e\n\u003cdiv class=\"group\"\u003e\u003clabel\u003eVEF₁ % previsto\u003c/label\u003e\u003cinput id=\"vef1pct\" type=\"number\" step=\"0.1\"\u003e\u003c/div\u003e\n\u003cdiv class=\"group\"\u003e\u003clabel\u003eCVF % previsto\u003c/label\u003e\u003cinput id=\"cvfpct\" type=\"number\" step=\"0.1\"\u003e\u003c/div\u003e\n\u003cdiv class=\"group\"\u003e\u003clabel\u003eVEF₁/CVF\u003c/label\u003e\u003cinput id=\"vef1Cvf\" type=\"number\" step=\"0.01\"\u003e\u003c/div\u003e\n\u003cdiv class=\"group\"\u003e\u003clabel\u003eAchado radiológico relevante\u003c/label\u003e\u003cselect id=\"achadoRx\"\u003e\u003coption value=\"\"\u003eAusente/não informado\u003c/option\u003e\u003coption\u003eEnfisema\u003c/option\u003e\u003coption\u003eInfiltrado focal\u003c/option\u003e\u003coption\u003eInfiltrado difuso\u003c/option\u003e\u003coption\u003eDerrame pleural\u003c/option\u003e\u003coption\u003eAtelectasia\u003c/option\u003e\u003c/select\u003e\u003c/div\u003e\n\u003c/div\u003e\n\u003c/div\u003e\n\n\u003cdiv class=\"section\"\u003e\n\u003ch2\u003e6. Via aérea e STOP-BANG\u003c/h2\u003e\n\u003cdiv class=\"grid\"\u003e\n\u003cdiv class=\"group\"\u003e\u003clabel\u003eMallampati\u003c/label\u003e\u003cselect id=\"mallampati\"\u003e\u003coption value=\"\"\u003eSelecione\u003c/option\u003e\u003coption\u003eI\u003c/option\u003e\u003coption\u003eII\u003c/option\u003e\u003coption\u003eIII\u003c/option\u003e\u003coption\u003eIV\u003c/option\u003e\u003c/select\u003e\u003c/div\u003e\n\u003cdiv class=\"group\"\u003e\u003clabel\u003eCircunferência cervical cm\u003c/label\u003e\u003cinput id=\"circunferenciaCervical\" type=\"number\" min=\"20\" max=\"80\"\u003e\u003c/div\u003e\n\u003cdiv class=\"group\"\u003e\u003clabel\u003eRonco alto\u003c/label\u003e\u003cselect id=\"stop_snore\"\u003e\u003coption value=\"0\"\u003eNão\u003c/option\u003e\u003coption value=\"1\"\u003eSim\u003c/option\u003e\u003c/select\u003e\u003c/div\u003e\n\u003cdiv class=\"group\"\u003e\u003clabel\u003eCansaço / sonolência diurna\u003c/label\u003e\u003cselect id=\"stop_tired\"\u003e\u003coption value=\"0\"\u003eNão\u003c/option\u003e\u003coption value=\"1\"\u003eSim\u003c/option\u003e\u003c/select\u003e\u003c/div\u003e\n\u003cdiv class=\"group\"\u003e\u003clabel\u003eApneia observada\u003c/label\u003e\u003cselect id=\"stop_observed\"\u003e\u003coption value=\"0\"\u003eNão\u003c/option\u003e\u003coption value=\"1\"\u003eSim\u003c/option\u003e\u003c/select\u003e\u003c/div\u003e\n\u003c/div\u003e\n\u003c/div\u003e\n\n\u003cdiv class=\"section\"\u003e\n\u003ch2\u003e7. Capacidade funcional — DASI simplificado\u003c/h2\u003e\n\u003cp class=\"small\"\u003eMarque o que o paciente consegue realizar sem limitação importante. O agente calcula DASI e METs estimados.\u003c/p\u003e\n\u003cdiv class=\"checkgrid\"\u003e\n\u003clabel class=\"check\"\u003e\u003cinput class=\"dasi\" data-p=\"2.75\" type=\"checkbox\"\u003eCuidar de si mesmo\u003c/label\u003e\n\u003clabel class=\"check\"\u003e\u003cinput class=\"dasi\" data-p=\"1.75\" type=\"checkbox\"\u003eCaminhar dentro de casa\u003c/label\u003e\n\u003clabel class=\"check\"\u003e\u003cinput class=\"dasi\" data-p=\"2.75\" type=\"checkbox\"\u003eCaminhar 1–2 quarteirões\u003c/label\u003e\n\u003clabel class=\"check\"\u003e\u003cinput class=\"dasi\" data-p=\"5.5\" type=\"checkbox\"\u003eSubir escada ou ladeira\u003c/label\u003e\n\u003clabel class=\"check\"\u003e\u003cinput class=\"dasi\" data-p=\"8\" type=\"checkbox\"\u003eCorrer curta distância\u003c/label\u003e\n\u003clabel class=\"check\"\u003e\u003cinput class=\"dasi\" data-p=\"2.7\" type=\"checkbox\"\u003eTarefas leves domésticas\u003c/label\u003e\n\u003clabel class=\"check\"\u003e\u003cinput class=\"dasi\" data-p=\"3.5\" type=\"checkbox\"\u003eTarefas moderadas domésticas\u003c/label\u003e\n\u003clabel class=\"check\"\u003e\u003cinput class=\"dasi\" data-p=\"8\" type=\"checkbox\"\u003eTarefas pesadas domésticas\u003c/label\u003e\n\u003clabel class=\"check\"\u003e\u003cinput class=\"dasi\" data-p=\"4.5\" type=\"checkbox\"\u003eTrabalho de jardinagem\u003c/label\u003e\n\u003clabel class=\"check\"\u003e\u003cinput class=\"dasi\" data-p=\"5.25\" type=\"checkbox\"\u003eRelação sexual\u003c/label\u003e\n\u003clabel class=\"check\"\u003e\u003cinput class=\"dasi\" data-p=\"6\" type=\"checkbox\"\u003eEsporte recreativo moderado\u003c/label\u003e\n\u003clabel class=\"check\"\u003e\u003cinput class=\"dasi\" data-p=\"7.5\" type=\"checkbox\"\u003eEsporte vigoroso\u003c/label\u003e\n\u003c/div\u003e\n\u003c/div\u003e\n\n\u003cdiv class=\"section\"\u003e\n\u003ch2\u003e8. Análise médica livre\u003c/h2\u003e\n\u003cdiv class=\"group\"\u003e\u003clabel\u003eOpinião médica e recomendações adicionais\u003c/label\u003e\u003ctextarea id=\"opiniaoProfissional\" rows=\"5\"\u003e\u003c/textarea\u003e\u003c/div\u003e\n\u003clabel class=\"check\" style=\"margin-top:10px\"\u003e\u003cinput id=\"pacienteInformado\" type=\"checkbox\"\u003ePaciente informado sobre uso local dos dados para elaboração do relatório assistencial\u003c/label\u003e\n\u003c/div\u003e\n\n\u003cdiv class=\"buttons\"\u003e\n\u003cbutton class=\"primary\" onclick=\"gerarRelatorio()\"\u003eGerar relatório\u003c/button\u003e\n\u003cbutton class=\"primary\" onclick=\"exportarTXT()\"\u003eSalvar TXT\u003c/button\u003e\n\u003cbutton class=\"primary\" onclick=\"window.print()\"\u003eSalvar PDF / imprimir\u003c/button\u003e\n\u003cbutton class=\"secondary\" onclick=\"limparFormulario()\"\u003eLimpar\u003c/button\u003e\n\u003c/div\u003e\n\u003c/div\u003e\n\n\u003cdiv id=\"modalRelatorio\" class=\"modal\"\u003e\n\u003cdiv class=\"modal-content\"\u003e\n\u003cdiv class=\"modal-top\"\u003e\u003ch2\u003eRelatório\u003c/h2\u003e\u003cbutton class=\"close\" onclick=\"fecharModal()\"\u003e×\u003c/button\u003e\u003c/div\u003e\n\u003cdiv id=\"relatorioConteudo\" class=\"report\"\u003e\u003c/div\u003e\n\u003c/div\u003e\n\u003c/div\u003e\n\n\u003cscript\u003e\nfunction el(id){return document.getElementById(id)}\nfunction val(id){return el(id)?.value || \u0027\u0027}\nfunction checked(id){return !!el(id)?.checked}\nfunction esc(s){return String(s||\u0027\u0027).replace(/[\u0026\u003c\u003e\"\u0027]/g, m=\u003e({\u0027\u0026\u0027:\u0027\u0026amp;\u0027,\u0027\u003c\u0027:\u0027\u0026lt;\u0027,\u0027\u003e\u0027:\u0027\u0026gt;\u0027,\u0027\"\u0027:\u0027\u0026quot;\u0027,\"\u0027\":\u0027\u0026#39;\u0027}[m]))}\nfunction hojeBR(){return new Date().toLocaleDateString(\u0027pt-BR\u0027)}\nfunction calcularIMC(){\n const p=parseFloat(val(\u0027peso\u0027)), a=parseFloat(val(\u0027altura\u0027));\n el(\u0027imc\u0027).value=(p\u0026\u0026a\u003e0)?(p/(a*a)).toFixed(1):\u0027\u0027\n}\nel(\u0027peso\u0027).addEventListener(\u0027input\u0027,calcularIMC); el(\u0027altura\u0027).addEventListener(\u0027input\u0027,calcularIMC);\n\nfunction calcRCRI(){\n let s=0; const t=val(\u0027tipoCirurgia\u0027); const cr=parseFloat(val(\u0027creatinina\u0027))||0;\n if([\u0027abdominal_superior\u0027,\u0027abdominal_inferior\u0027,\u0027toracica\u0027,\u0027vascular\u0027,\u0027bariatrica\u0027].includes(t)) s++;\n if(checked(\u0027doencaIsquemica\u0027)) s++;\n if(checked(\u0027insufCardiaca\u0027)) s++;\n if(checked(\u0027doencaCerebrovascular\u0027)) s++;\n if(checked(\u0027med_insulina\u0027)) s++;\n if(cr\u003e2) s++;\n return s;\n}\nfunction classRCRI(s){return s==0?\u0027baixo\u0027:s==1?\u0027baixo-intermediário\u0027:s==2?\u0027intermediário\u0027:\u0027alto\u0027}\n\nfunction calcARISCAT(){\n let s=0; const idade=parseInt(val(\u0027idade\u0027))||0, spo2=parseInt(val(\u0027spo2\u0027))||100, hb=parseFloat(val(\u0027hb\u0027))||99;\n const t=val(\u0027tipoCirurgia\u0027), d=val(\u0027duracaoCirurgia\u0027);\n if(idade\u003e=51 \u0026\u0026 idade\u003c=80) s+=3; else if(idade\u003e80) s+=16;\n if(spo2\u003e=91 \u0026\u0026 spo2\u003c=95) s+=8; else if(spo2\u003c=90) s+=24;\n if(checked(\u0027infRespRecente\u0027)) s+=17;\n if(hb\u003c=10) s+=11;\n if([\u0027abdominal_superior\u0027,\u0027bariatrica\u0027].includes(t)) s+=15;\n if(t===\u0027toracica\u0027) s+=24;\n if(d===\u00272a3h\u0027) s+=16; else if(d===\u0027maior3h\u0027) s+=23;\n if(val(\u0027emergencia\u0027)===\u0027sim\u0027) s+=8;\n return s;\n}\nfunction classARISCAT(s){return s\u003c26?\u0027baixo\u0027:s\u003c45?\u0027intermediário\u0027:\u0027alto\u0027}\n\nfunction calcSTOPBANG(){\n let s=0; const idade=parseInt(val(\u0027idade\u0027))||0, imc=parseFloat(val(\u0027imc\u0027))||0, circ=parseFloat(val(\u0027circunferenciaCervical\u0027))||0;\n if(val(\u0027stop_snore\u0027)===\u00271\u0027) s++; if(val(\u0027stop_tired\u0027)===\u00271\u0027) s++; if(val(\u0027stop_observed\u0027)===\u00271\u0027) s++;\n if(checked(\u0027hipertensao\u0027)) s++; if(imc\u003e35) s++; if(idade\u003e50) s++; if(circ\u003e40) s++; if(val(\u0027sexo\u0027)===\u0027M\u0027) s++;\n return s;\n}\nfunction classSTOP(s){return s\u003c=2?\u0027baixo risco para AOS moderada/grave\u0027:s\u003c=4?\u0027risco intermediário para AOS\u0027:\u0027alto risco para AOS\u0027}\n\nfunction calcDASI(){\n let s=0; document.querySelectorAll(\u0027.dasi:checked\u0027).forEach(x=\u003es+=parseFloat(x.dataset.p)||0);\n let mets=((0.43*s+9.6)/3.5);\n return {score:s, mets:mets};\n}\nfunction riscoGlobal(rcri, ariscat, stop, dasi){\n let alto = ariscat\u003e=45 || rcri\u003e=3 || (dasi.score\u003e0 \u0026\u0026 dasi.score\u003c=34 \u0026\u0026 rcri\u003e=2) || parseFloat(val(\u0027spo2\u0027))\u003c=90 || parseFloat(val(\u0027vef1pct\u0027))\u003c50;\n let inter = ariscat\u003e=26 || rcri==2 || stop\u003e=5 || checked(\u0027infRespRecente\u0027) || [\u0027GOLD 3\u0027,\u0027GOLD 4\u0027].includes(val(\u0027dpocClassificacao\u0027));\n if(alto) return \u0027ALTO\u0027;\n if(inter) return \u0027INTERMEDIÁRIO\u0027;\n return \u0027BAIXO\u0027;\n}\nfunction badge(classe){\n const c=classe===\u0027ALTO\u0027?\u0027high\u0027:classe===\u0027INTERMEDIÁRIO\u0027?\u0027mid\u0027:\u0027low\u0027;\n return `\u003cspan class=\"badge ${c}\"\u003e${classe}\u003c/span\u003e`;\n}\nfunction recomendacoes(rcri, ariscat, stop, dasi){\n let rec=[];\n if(ariscat\u003e=26) rec.push(\u0027Fisioterapia respiratória, expansão pulmonar, mobilização precoce, analgesia adequada e prevenção de atelectasia.\u0027);\n if(ariscat\u003e=45) rec.push(\u0027Risco pulmonar elevado: considerar leito monitorizado/UTI conforme porte cirúrgico e reserva funcional.\u0027);\n if(checked(\u0027infRespRecente\u0027)) rec.push(\u0027Infecção respiratória recente: adiar cirurgia eletiva até estabilização clínica, quando possível.\u0027);\n if(parseFloat(val(\u0027spo2\u0027))\u003c=90) rec.push(\u0027SpO₂ ≤90%: considerar gasometria arterial e otimização respiratória antes de cirurgia eletiva.\u0027);\n if(parseFloat(val(\u0027vef1pct\u0027))\u003c50) rec.push(\u0027VEF₁ \u003c50% previsto: otimizar broncodilatadores, técnica inalatória e controle de exacerbações.\u0027);\n if([\u0027GOLD 3\u0027,\u0027GOLD 4\u0027].includes(val(\u0027dpocClassificacao\u0027))) rec.push(\u0027DPOC GOLD III/IV: revisar exacerbação recente, secreção, broncodilatação e reabilitação quando houver tempo.\u0027);\n if(val(\u0027asmaClassificacao\u0027)===\u0027Grave\u0027) rec.push(\u0027Asma grave: confirmar controle, adesão, técnica inalatória e necessidade de corticoterapia sistêmica perioperatória.\u0027);\n if(stop\u003e=5) rec.push(\u0027STOP-BANG alto: monitorização pós-operatória, cautela com opioides/sedativos e manter CPAP se o paciente já utiliza.\u0027);\n if(rcri\u003e=2) rec.push(\u0027Risco cardíaco aumentado: correlacionar com sintomas, capacidade funcional e avaliação cardiológica quando clinicamente indicado.\u0027);\n if(dasi.score\u003e0 \u0026\u0026 dasi.score\u003c=34) rec.push(\u0027Capacidade funcional ruim/intermediária pelo DASI: usar abordagem escalonada e não solicitar testes apenas por rotina.\u0027);\n if(checked(\u0027med_anticoagulante\u0027)) rec.push(\u0027Anticoagulante: definir suspensão e eventual ponte conforme fármaco, função renal e risco trombótico.\u0027);\n if(checked(\u0027med_antiplaquetario\u0027)) rec.push(\u0027Antiplaquetário: individualizar suspensão/manutenção conforme indicação, stent e risco de sangramento.\u0027);\n if(checked(\u0027med_corticoide\u0027)) rec.push(\u0027Corticoide sistêmico: avaliar risco de insuficiência adrenal e necessidade de cobertura perioperatória.\u0027);\n if(checked(\u0027med_sglt2\u0027)) rec.push(\u0027Inibidor SGLT2: suspender antes de cirurgia eletiva conforme protocolo institucional pelo risco de cetoacidose euglicêmica.\u0027);\n if(rec.length===0) rec.push(\u0027Sem alertas automáticos relevantes; manter medidas perioperatórias habituais e julgamento clínico individualizado.\u0027);\n return rec;\n}\nfunction gerarRelatorio(){\n const rcri=calcRCRI(), ar=calcARISCAT(), sb=calcSTOPBANG(), dasi=calcDASI(), global=riscoGlobal(rcri,ar,sb,dasi);\n const rec=recomendacoes(rcri,ar,sb,dasi);\n const data=val(\u0027dataRelatorio\u0027) || hojeBR();\n let html=`\u003ch1\u003eAVALIAÇÃO PRÉ-OPERATÓRIA CARDIOPULMONAR\u003c/h1\u003e\n \u003cp class=\"small\" style=\"text-align:center\"\u003eSistema local de apoio à decisão clínica — v5.0\u003c/p\u003e\n \u003ch2\u003eIdentificação\u003c/h2\u003e\n \u003cdiv class=\"twocol\"\u003e\n \u003cp\u003e\u003cb\u003ePaciente:\u003c/b\u003e ${esc(val(\u0027nomePaciente\u0027)||\u0027-\u0027)}\u003c/p\u003e\u003cp\u003e\u003cb\u003eCPF:\u003c/b\u003e ${esc(val(\u0027cpf\u0027)||\u0027-\u0027)}\u003c/p\u003e\n \u003cp\u003e\u003cb\u003eIdade:\u003c/b\u003e ${esc(val(\u0027idade\u0027)||\u0027-\u0027)} anos\u003c/p\u003e\u003cp\u003e\u003cb\u003eSexo:\u003c/b\u003e ${esc(val(\u0027sexo\u0027)||\u0027-\u0027)}\u003c/p\u003e\n \u003cp\u003e\u003cb\u003eData:\u003c/b\u003e ${esc(data)}\u003c/p\u003e\u003cp\u003e\u003cb\u003eMédico:\u003c/b\u003e ${esc(val(\u0027medicoRelator\u0027)||\u0027-\u0027)}\u003c/p\u003e\n \u003c/div\u003e\n \u003ch2\u003eProcedimento\u003c/h2\u003e\n \u003cp\u003e\u003cb\u003eCirurgia:\u003c/b\u003e ${esc(val(\u0027tipoCirurgia\u0027)||\u0027-\u0027)} | \u003cb\u003eDuração:\u003c/b\u003e ${esc(val(\u0027duracaoCirurgia\u0027))} | \u003cb\u003eCaráter:\u003c/b\u003e ${val(\u0027emergencia\u0027)===\u0027sim\u0027?\u0027emergência/urgência\u0027:\u0027eletiva\u0027} | \u003cb\u003eAnestesia:\u003c/b\u003e ${esc(val(\u0027anestesia\u0027)||\u0027-\u0027)}\u003c/p\u003e\n \u003ch2\u003eDados clínicos\u003c/h2\u003e\n \u003cdiv class=\"twocol\"\u003e\n \u003cp\u003e\u003cb\u003eIMC:\u003c/b\u003e ${esc(val(\u0027imc\u0027)||\u0027-\u0027)} kg/m²\u003c/p\u003e\u003cp\u003e\u003cb\u003eSpO₂:\u003c/b\u003e ${esc(val(\u0027spo2\u0027)||\u0027-\u0027)}%\u003c/p\u003e\n \u003cp\u003e\u003cb\u003eHb:\u003c/b\u003e ${esc(val(\u0027hb\u0027)||\u0027-\u0027)} g/dL\u003c/p\u003e\u003cp\u003e\u003cb\u003eCreatinina:\u003c/b\u003e ${esc(val(\u0027creatinina\u0027)||\u0027-\u0027)} mg/dL\u003c/p\u003e\n \u003cp\u003e\u003cb\u003eAsma:\u003c/b\u003e ${esc(val(\u0027asmaClassificacao\u0027)||\u0027não informada/ausente\u0027)}\u003c/p\u003e\u003cp\u003e\u003cb\u003eDPOC:\u003c/b\u003e ${esc(val(\u0027dpocClassificacao\u0027)||\u0027não informada/ausente\u0027)}\u003c/p\u003e\n \u003cp\u003e\u003cb\u003eVEF₁:\u003c/b\u003e ${esc(val(\u0027vef1pct\u0027)||\u0027-\u0027)}% previsto\u003c/p\u003e\u003cp\u003e\u003cb\u003eVEF₁/CVF:\u003c/b\u003e ${esc(val(\u0027vef1Cvf\u0027)||\u0027-\u0027)}\u003c/p\u003e\n \u003c/div\u003e\n \u003ch2\u003eEscores\u003c/h2\u003e\n \u003cp\u003e\u003cb\u003eRCRI:\u003c/b\u003e ${rcri} ponto(s) — risco ${classRCRI(rcri)}.\u003c/p\u003e\n \u003cp\u003e\u003cb\u003eARISCAT:\u003c/b\u003e ${ar} ponto(s) — risco ${classARISCAT(ar)} de complicações pulmonares pós-operatórias.\u003c/p\u003e\n \u003cp\u003e\u003cb\u003eSTOP-BANG:\u003c/b\u003e ${sb}/8 — ${classSTOP(sb)}.\u003c/p\u003e\n \u003cp\u003e\u003cb\u003eDASI:\u003c/b\u003e ${dasi.score.toFixed(2)} pontos; METs estimados: ${dasi.mets.toFixed(1)}.\u003c/p\u003e\n \u003ch2\u003eClassificação integrada\u003c/h2\u003e\n \u003cp\u003e\u003cb\u003eRisco perioperatório cardiopulmonar integrado:\u003c/b\u003e ${badge(global)}\u003c/p\u003e\n \u003ch2\u003eRecomendações automáticas\u003c/h2\u003e\u003cul\u003e${rec.map(x=\u003e`\u003cli\u003e${esc(x)}\u003c/li\u003e`).join(\u0027\u0027)}\u003c/ul\u003e\n \u003ch2\u003eOpinião médica\u003c/h2\u003e\n \u003cp\u003e${esc(val(\u0027opiniaoProfissional\u0027)||\u0027Sem comentário adicional registrado.\u0027)}\u003c/p\u003e\n \u003ch2\u003eLGPD e responsabilidade\u003c/h2\u003e\n \u003cp class=\"small\"\u003eRelatório gerado localmente. Dados sob custódia do profissional responsável. Base assistencial: execução de procedimento por profissional de saúde. O sistema é ferramenta de apoio à decisão e não substitui o julgamento médico individualizado.\u003c/p\u003e\n \u003cp class=\"small\"\u003e\u003cb\u003ePaciente informado:\u003c/b\u003e ${checked(\u0027pacienteInformado\u0027)?\u0027sim\u0027:\u0027não registrado\u0027}.\u003c/p\u003e\n \u003cp class=\"small\"\u003e\u003cb\u003eVersão:\u003c/b\u003e 5.1 | \u003cb\u003eData/hora:\u003c/b\u003e ${new Date().toLocaleString(\u0027pt-BR\u0027)}\u003c/p\u003e\n \u003cp class=\"small\" style=\"text-align:center;margin-top:8px\"\u003e\u003cb\u003e${esc(val(\u0027medicoRelator\u0027)||\u0027-\u0027)}\u003c/b\u003e\u003c/p\u003e`;\n el(\u0027relatorioConteudo\u0027).innerHTML=html;\n el(\u0027modalRelatorio\u0027).classList.add(\u0027show\u0027);\n return html;\n}\nfunction fecharModal(){el(\u0027modalRelatorio\u0027).classList.remove(\u0027show\u0027)}\nfunction exportarTXT(){\n const rcri=calcRCRI(), ar=calcARISCAT(), sb=calcSTOPBANG(), dasi=calcDASI(), global=riscoGlobal(rcri,ar,sb,dasi);\n const rec=recomendacoes(rcri,ar,sb,dasi).map(x=\u003e\u0027- \u0027+x).join(\u0027\\n\u0027);\n const txt=`AVALIAÇÃO PRÉ-OPERATÓRIA CARDIOPULMONAR - v5.0\nPaciente: ${val(\u0027nomePaciente\u0027)||\u0027-\u0027}\nCPF: ${val(\u0027cpf\u0027)||\u0027-\u0027}\nIdade: ${val(\u0027idade\u0027)||\u0027-\u0027} anos\nSexo: ${val(\u0027sexo\u0027)||\u0027-\u0027}\nData: ${val(\u0027dataRelatorio\u0027)||hojeBR()}\nMédico: ${val(\u0027medicoRelator\u0027)||\u0027-\u0027}\n\nProcedimento: ${val(\u0027tipoCirurgia\u0027)||\u0027-\u0027}\nDuração: ${val(\u0027duracaoCirurgia\u0027)||\u0027-\u0027}\nCaráter: ${val(\u0027emergencia\u0027)===\u0027sim\u0027?\u0027emergência/urgência\u0027:\u0027eletiva\u0027}\n\nRCRI: ${rcri} - ${classRCRI(rcri)}\nARISCAT: ${ar} - ${classARISCAT(ar)}\nSTOP-BANG: ${sb}/8 - ${classSTOP(sb)}\nDASI: ${dasi.score.toFixed(2)} pontos; METs estimados ${dasi.mets.toFixed(1)}\n\nRISCO INTEGRADO: ${global}\n\nRecomendações:\n${rec}\n\nOpinião médica:\n${val(\u0027opiniaoProfissional\u0027)||\u0027Sem comentário adicional registrado.\u0027}\n\nAviso: ferramenta de apoio à decisão clínica. Não substitui julgamento médico individualizado.\n`;\n const blob=new Blob([txt],{type:\u0027text/plain;charset=utf-8\u0027});\n const a=document.createElement(\u0027a\u0027); a.href=URL.createObjectURL(blob);\n a.download=\u0027avaliacao_pre_operatoria_v5.txt\u0027; a.click(); URL.revokeObjectURL(a.href);\n}\nfunction limparFormulario(){\n if(confirm(\u0027Limpar todos os campos?\u0027)){\n  document.querySelectorAll(\u0027input,select,textarea\u0027).forEach(x=\u003e{\n   if(x.type===\u0027checkbox\u0027) x.checked=false; else x.value=\u0027\u0027;\n  });\n }\n}\nel(\u0027modalRelatorio\u0027).addEventListener(\u0027click\u0027,e=\u003e{if(e.target===el(\u0027modalRelatorio\u0027))fecharModal()})\n\nfunction aceitarTermo(){\n if(!document.getElementById(\u0027aceiteTermo\u0027).checked){\n   alert(\u0027É necessário concordar com os termos de uso.\u0027);\n   return;\n }\n document.getElementById(\u0027termoModal\u0027).classList.remove(\u0027show\u0027);\n}\n\n\u003c/script\u003e\n\u003c/body\u003e\n\u003c/html\u003e\n",
+                arquivo_nome: "Agente_Risco_Cirurgico_v5.0.html",
+                livre: false
+            }
+        ];
+        
+        // ==================== UTILITY FUNCTIONS ====================
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            let bg = 'bg-emerald-600';
+            let icon = 'fa-check-circle';
+            
+            if (type === 'error') {
+                bg = 'bg-red-600';
+                icon = 'fa-exclamation-circle';
+            } else if (type === 'info') {
+                bg = 'bg-slate-700';
+                icon = 'fa-info-circle';
+            }
+            
+            toast.className = `flex items-center gap-x-3 ${bg} text-white px-5 py-3.5 rounded-2xl shadow-xl max-w-xs text-sm`;
+            toast.innerHTML = `
+                <i class="fa-solid ${icon}"></i>
+                <span>${message}</span>
+            `;
+            
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.transition = 'all 0.3s ease';
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 200);
+            }, 3200);
+        }
+        
+        function saveToLocalStorage() {
+            localStorage.setItem('pulmoagents_agents', JSON.stringify(agents));
+            localStorage.setItem('pulmoagents_approved', JSON.stringify(Array.from(approvedAgentIds)));
+            localStorage.setItem('pulmoagents_pending', JSON.stringify(pendingRequests));
+            localStorage.setItem('pulmoagents_licenses', JSON.stringify(licenses));
+        }
+
+        function migrateAgentsToHtml() {
+            let changed = false;
+
+            agents = agents.map(agent => {
+                const { conteudo, ...agentWithoutPrompt } = agent;
+
+                if (agent.arquivo_html) {
+                    if (conteudo !== undefined) changed = true;
+                    return agentWithoutPrompt;
+                }
+
+                changed = true;
+                return {
+                    ...agentWithoutPrompt,
+                    arquivo_html: createBuiltInAgentHtml(agent.nome, agent.descricao_longa || agent.descricao_curta),
+                    arquivo_nome: `${agent.id || 'pulmoagent'}.html`
+                };
+            });
+
+            return changed;
+        }
+
+        function migrateEspirometriaProToSiaPro() {
+            let changed = false;
+
+            agents = agents.map(agent => {
+                if (agent.id !== 'espirometria-pro' && agent.nome !== 'Espirometria Pro') return agent;
+
+                changed = true;
+                return {
+                    ...agent,
+                    id: 'sia-pro',
+                    nome: 'SIA-PRO',
+                    descricao_curta: 'Aplicativo HTML para apoio à análise e interpretação clínica da espirometria.',
+                    descricao_longa: 'O SIA-PRO organiza dados espirométricos e oferece suporte estruturado à interpretação clínica. O aplicativo definitivo é distribuído em HTML e permanece sujeito ao controle de licença da plataforma.',
+                    arquivo_html: createBuiltInAgentHtml('SIA-PRO', 'Aplicativo HTML para apoio à análise e interpretação clínica da espirometria.'),
+                    arquivo_nome: 'sia-pro.html'
+                };
+            });
+
+            if (approvedAgentIds.delete('espirometria-pro')) {
+                approvedAgentIds.add('sia-pro');
+                changed = true;
+            }
+
+            pendingRequests = pendingRequests.map(request => {
+                if (request.agentId !== 'espirometria-pro') return request;
+                changed = true;
+                return { ...request, agentId: 'sia-pro', agentName: 'SIA-PRO' };
+            });
+
+            const migratedLicenses = {};
+            Object.values(licenses).forEach(license => {
+                const migrated = license.agentId === 'espirometria-pro'
+                    ? { ...license, agentId: 'sia-pro' }
+                    : license;
+                if (migrated !== license) changed = true;
+                migratedLicenses[`${migrated.doctor}::${migrated.agentId}`] = migrated;
+            });
+            licenses = migratedLicenses;
+
+            return changed;
+        }
+
+        function removeUnverifiedMetrics() {
+            const builtInIds = new Set([
+                'sia-pro',
+                'biologicos-asma',
+                'bronquiectasias-manager',
+                'pca-guia',
+                'muco-plug-assist',
+                'alfa1-screen'
+            ]);
+            let changed = false;
+
+            agents = agents.map(agent => {
+                const { downloads, ...withoutDownloads } = agent;
+                const sanitized = builtInIds.has(withoutDownloads.id)
+                    ? { ...withoutDownloads, versao: '', atualizado: '' }
+                    : withoutDownloads;
+
+                if (downloads !== undefined ||
+                    (builtInIds.has(agent.id) && (agent.versao || agent.atualizado))) {
+                    changed = true;
+                }
+
+                return sanitized;
+            });
+
+            return changed;
+        }
+
+        function ensurePreoperativeAgentV5() {
+            const source = initialAgents.find(agent => agent.id === 'agente-avaliacao-pre-operatoria');
+            if (!source) return false;
+
+            const index = agents.findIndex(agent => agent.id === source.id);
+
+            if (index === -1) {
+                agents.push({ ...source });
+                return true;
+            }
+
+            if (agents[index].versao !== source.versao ||
+                agents[index].arquivo_nome !== source.arquivo_nome) {
+                agents[index] = {
+                    ...agents[index],
+                    nome: source.nome,
+                    categoria: source.categoria,
+                    versao: source.versao,
+                    descricao_curta: source.descricao_curta,
+                    descricao_longa: source.descricao_longa,
+                    arquivo_html: source.arquivo_html,
+                    arquivo_nome: source.arquivo_nome
+                };
+                return true;
+            }
+
+            return false;
+        }
+        
+        function loadFromLocalStorage() {
+            const savedAgents = localStorage.getItem('pulmoagents_agents');
+            const savedApproved = localStorage.getItem('pulmoagents_approved');
+            const savedPending = localStorage.getItem('pulmoagents_pending');
+            const savedLicenses = localStorage.getItem('pulmoagents_licenses');
+            const savedUser = localStorage.getItem('pulmoagents_user');
+            
+            if (savedAgents) {
+                agents = JSON.parse(savedAgents);
+            } else {
+                agents = [...initialAgents];
+                saveToLocalStorage();
+            }
+
+            const agentsMigrated = migrateAgentsToHtml();
+            
+            if (savedApproved) {
+                approvedAgentIds = new Set(JSON.parse(savedApproved));
+            }
+            
+            if (savedPending) {
+                pendingRequests = JSON.parse(savedPending);
+            }
+
+            if (savedLicenses) {
+                licenses = JSON.parse(savedLicenses);
+            }
+
+            const siaProMigrated = migrateEspirometriaProToSiaPro();
+            const metricsRemoved = removeUnverifiedMetrics();
+            const preoperativeAgentUpdated = ensurePreoperativeAgentV5();
+
+            if (agentsMigrated || siaProMigrated || metricsRemoved || preoperativeAgentUpdated) {
+                saveToLocalStorage();
+            }
+            
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+
+                if (currentUser.role === 'admin' &&
+                    sessionStorage.getItem('pulmoagents_admin_authenticated') !== 'true') {
+                    currentUser = null;
+                    localStorage.removeItem('pulmoagents_user');
+                } else {
+                    updateUserUI();
+                }
+            }
+        }
+
+        function licenseKey(doctor, agentId) {
+            return `${doctor}::${agentId}`;
+        }
+
+        function getLicense(doctor, agentId) {
+            return licenses[licenseKey(doctor, agentId)] || null;
+        }
+
+        function getAccessState(agent, doctor = null) {
+            if (!doctor && currentUser?.role === 'admin') {
+                return { allowed: true, type: 'admin', label: 'Administrador' };
+            }
+
+            const effectiveDoctor = doctor || currentUser?.name;
+
+            if (!effectiveDoctor) {
+                return {
+                    allowed: false,
+                    type: agent.livre ? 'trial_available' : 'none',
+                    label: agent.livre ? 'Teste grátis de 7 dias' : 'Requer aprovação'
+                };
+            }
+
+            const license = getLicense(effectiveDoctor, agent.id);
+
+            if (!license && agent.livre) {
+                return { allowed: true, type: 'trial_available', label: 'Iniciar teste grátis de 7 dias' };
+            }
+
+            if (!license || license.status === 'revoked') {
+                return { allowed: false, type: license ? 'revoked' : 'none', label: license ? 'Acesso revogado' : 'Requer aprovação' };
+            }
+
+            if (license.status === 'permanent') {
+                return { allowed: true, type: 'permanent', label: 'Acesso permanente' };
+            }
+
+            const expiresAt = new Date(license.expiresAt).getTime();
+            const remainingMs = expiresAt - Date.now();
+
+            if (remainingMs <= 0) {
+                return { allowed: false, type: 'expired', label: 'Teste expirado', expiresAt: license.expiresAt };
+            }
+
+            const daysRemaining = Math.max(1, Math.ceil(remainingMs / 86400000));
+            return {
+                allowed: true,
+                type: 'trial',
+                label: `${daysRemaining} dia${daysRemaining === 1 ? '' : 's'} de teste`,
+                daysRemaining,
+                expiresAt: license.expiresAt
+            };
+        }
+
+        function createTrialLicense(doctor, agentId) {
+            const now = new Date();
+            const expiresAt = new Date(now.getTime() + TRIAL_DAYS * 86400000);
+            licenses[licenseKey(doctor, agentId)] = {
+                doctor,
+                agentId,
+                status: 'trial',
+                startedAt: now.toISOString(),
+                expiresAt: expiresAt.toISOString(),
+                updatedAt: now.toISOString()
+            };
+        }
+
+        function updateLicense(doctor, agentId, action) {
+            if (!currentUser || currentUser.role !== 'admin') return;
+
+            const key = licenseKey(doctor, agentId);
+            const existing = licenses[key];
+            if (!existing) return;
+
+            const now = new Date();
+
+            if (action === 'permanent') {
+                licenses[key] = { ...existing, status: 'permanent', expiresAt: null, updatedAt: now.toISOString() };
+            } else if (action === 'extend') {
+                const currentExpiry = existing.expiresAt ? new Date(existing.expiresAt) : now;
+                const base = currentExpiry.getTime() > now.getTime() ? currentExpiry : now;
+                licenses[key] = {
+                    ...existing,
+                    status: 'trial',
+                    expiresAt: new Date(base.getTime() + TRIAL_DAYS * 86400000).toISOString(),
+                    updatedAt: now.toISOString()
+                };
+            } else if (action === 'revoke') {
+                licenses[key] = { ...existing, status: 'revoked', updatedAt: now.toISOString() };
+            }
+
+            saveToLocalStorage();
+            renderAgents();
+            showApprovalsModal();
+            showToast('Licença atualizada.', 'success');
+        }
+        
+        function updateUserUI() {
+            const userArea = document.getElementById('user-area');
+            const loginBtn = document.getElementById('login-btn');
+            const adminBtn = document.getElementById('admin-btn');
+            const adminToolbar = document.getElementById('admin-toolbar');
+            const hostedAgentsSection = document.getElementById('hosted-agents');
+
+            if (currentUser && currentUser.role !== 'guest') {
+                userArea.classList.remove('hidden');
+                userArea.classList.add('flex');
+                loginBtn.classList.add('hidden');
+
+                document.getElementById('user-name').innerHTML =
+                    currentUser.role === 'admin' ? 'Administrador' : currentUser.name;
+
+                if (currentUser.role === 'admin') {
+                    adminBtn.classList.remove('hidden');
+                    adminBtn.classList.add('flex');
+                    adminToolbar.classList.remove('hidden');
+                    adminToolbar.classList.add('block');
+                    hostedAgentsSection.classList.remove('hidden');
+                    // Update pending badge
+                    const badge = document.getElementById('pending-count');
+                    if (pendingRequests.length > 0) {
+                        badge.textContent = pendingRequests.length;
+                        badge.classList.remove('hidden');
+                    } else {
+                        badge.classList.add('hidden');
+                    }
+                } else {
+                    adminBtn.classList.add('hidden');
+                    adminToolbar.classList.add('hidden');
+                    adminToolbar.classList.remove('block');
+                    hostedAgentsSection.classList.add('hidden');
+                }
+            } else {
+                userArea.classList.add('hidden');
+                userArea.classList.remove('flex');
+                loginBtn.classList.remove('hidden');
+                adminBtn.classList.add('hidden');
+                adminToolbar.classList.add('hidden');
+                adminToolbar.classList.remove('block');
+                hostedAgentsSection.classList.add('hidden');
+            }
+
+            renderAgents();
+        }
+
+        function renderHostedAgents() {
+            const list = document.getElementById('hosted-agents-list');
+            const emptyState = document.getElementById('hosted-agents-empty');
+            if (!list || !emptyState) return;
+
+            list.innerHTML = '';
+
+            if (!currentUser || currentUser.role !== 'admin') return;
+
+            if (agents.length === 0) {
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+
+            agents.forEach(agent => {
+                const row = document.createElement('div');
+                row.className = 'px-6 py-4 flex flex-col lg:flex-row lg:items-center gap-4';
+
+                const info = document.createElement('div');
+                info.className = 'min-w-0 flex-1';
+
+                const heading = document.createElement('div');
+                heading.className = 'flex flex-wrap items-center gap-2';
+
+                const name = document.createElement('strong');
+                name.className = 'text-slate-900';
+                name.textContent = agent.nome;
+
+                const category = document.createElement('span');
+                category.className = 'status-badge bg-slate-100 text-slate-600';
+                category.textContent = agent.categoria;
+
+                const access = document.createElement('span');
+                access.className = agent.livre
+                    ? 'status-badge bg-blue-100 text-blue-700'
+                    : 'status-badge bg-amber-100 text-amber-700';
+                access.textContent = agent.livre ? 'Teste imediato de 7 dias' : 'Teste mediante aprovação';
+
+                heading.append(name, category, access);
+
+                const metadata = document.createElement('p');
+                metadata.className = 'text-xs text-slate-500 mt-1';
+                metadata.textContent = [
+                    agent.arquivo_nome || `${agent.id}.html`,
+                    agent.versao ? `Versão ${agent.versao}` : '',
+                    agent.atualizado ? `Atualizado em ${agent.atualizado}` : ''
+                ].filter(Boolean).join(' · ');
+
+                info.append(heading, metadata);
+
+                const actions = document.createElement('div');
+                actions.className = 'flex items-center gap-2';
+
+                const editButton = document.createElement('button');
+                editButton.className = 'px-4 py-2 text-xs font-semibold border border-slate-300 hover:bg-slate-50 rounded-xl transition-colors';
+                editButton.innerHTML = '<i class="fa-solid fa-pencil mr-1.5"></i>Editar';
+                editButton.addEventListener('click', () => editAgent(agent.id));
+
+                const deleteButton = document.createElement('button');
+                deleteButton.className = 'px-4 py-2 text-xs font-semibold border border-red-200 text-red-600 hover:bg-red-50 rounded-xl transition-colors';
+                deleteButton.innerHTML = '<i class="fa-solid fa-trash mr-1.5"></i>Excluir';
+                deleteButton.addEventListener('click', () => deleteAgent(agent.id));
+
+                actions.append(editButton, deleteButton);
+                row.append(info, actions);
+                list.appendChild(row);
+            });
+        }
+        
+        // ==================== RENDER AGENTS ====================
+        function renderAgents(filteredAgents = null) {
+            const grid = document.getElementById('agents-grid');
+            const noResults = document.getElementById('no-results');
+            grid.innerHTML = '';
+
+            // Update stats bar with catalog data
+            const countEl = document.getElementById('stat-agents-count');
+            if (countEl) countEl.textContent = agents.length;
+
+            renderHostedAgents();
+
+            let toRender = filteredAgents || agents;
+            
+            // Apply category filter
+            if (currentFilter !== 'all') {
+                toRender = toRender.filter(a => a.categoria === currentFilter);
+            }
+            
+            if (toRender.length === 0) {
+                noResults.classList.remove('hidden');
+                return;
+            } else {
+                noResults.classList.add('hidden');
+            }
+            
+            toRender.forEach(agent => {
+                const isDoctor = currentUser && currentUser.role === 'doctor';
+                const isAdmin = currentUser && currentUser.role === 'admin';
+                const accessState = getAccessState(agent);
+                const isApproved = accessState.allowed;
+                
+                let actionButton = '';
+                let statusHTML = '';
+                
+                if (isAdmin) {
+                    actionButton = `
+                        <button onclick="showAgentModal('${agent.id}'); event.stopImmediatePropagation();"
+                                class="flex-1 py-2 text-xs font-semibold border border-slate-300 hover:bg-slate-50 rounded-2xl transition-colors">
+                            Detalhes
+                        </button>
+                        <button onclick="downloadAgent('${agent.id}'); event.stopImmediatePropagation();"
+                                class="flex-1 py-2 text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white rounded-2xl transition-colors">
+                            <i class="fa-solid fa-download mr-1"></i> Baixar
+                        </button>
+                        <button onclick="editAgent('${agent.id}'); event.stopImmediatePropagation();"
+                                title="Editar agente"
+                                class="w-8 h-8 flex-shrink-0 flex items-center justify-center border border-slate-200 hover:bg-slate-50 rounded-xl text-slate-500 transition-colors">
+                            <i class="fa-solid fa-pencil text-xs"></i>
+                        </button>
+                        <button onclick="deleteAgent('${agent.id}'); event.stopImmediatePropagation();"
+                                title="Remover agente"
+                                class="w-8 h-8 flex-shrink-0 flex items-center justify-center border border-red-200 hover:bg-red-50 rounded-xl text-red-400 transition-colors">
+                            <i class="fa-solid fa-trash text-xs"></i>
+                        </button>
+                    `;
+                    statusHTML = `<span class="status-badge bg-emerald-100 text-emerald-700">Disponível</span>`;
+                } 
+                else if (isDoctor) {
+                    if (isApproved) {
+                        actionButton = `
+                            <button onclick="showAgentModal('${agent.id}'); event.stopImmediatePropagation();" 
+                                    class="flex-1 py-2 text-xs font-semibold border border-slate-300 hover:bg-slate-50 rounded-2xl transition-colors">
+                                Detalhes
+                            </button>
+                            <button onclick="downloadAgent('${agent.id}'); event.stopImmediatePropagation();" 
+                                    class="flex-1 py-2 text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white rounded-2xl transition-colors">
+                                <i class="fa-solid fa-download mr-1.5"></i> Baixar
+                            </button>
+                        `;
+                        const trialClass = accessState.type === 'trial'
+                            ? 'bg-blue-100 text-blue-700'
+                            : 'bg-emerald-100 text-emerald-700';
+                        statusHTML = `<span class="status-badge ${trialClass}">${accessState.label}</span>`;
+                    } else {
+                        actionButton = `
+                            <button onclick="requestAccess('${agent.id}'); event.stopImmediatePropagation();" 
+                                    class="w-full py-2.5 text-xs font-semibold bg-amber-500 hover:bg-amber-600 text-white rounded-2xl transition-colors flex items-center justify-center gap-x-2">
+                                <i class="fa-solid fa-paper-plane"></i> 
+                                <span>Solicitar Acesso</span>
+                            </button>
+                        `;
+                        const blockedClass = accessState.type === 'expired' || accessState.type === 'revoked'
+                            ? 'bg-red-100 text-red-700'
+                            : 'bg-amber-100 text-amber-700';
+                        statusHTML = `<span class="status-badge ${blockedClass}">${accessState.label}</span>`;
+                    }
+                } 
+                else {
+                    // Guest
+                    actionButton = `
+                        <button onclick="showLoginModal(); event.stopImmediatePropagation();" 
+                                class="w-full py-2.5 text-xs font-semibold bg-white border border-slate-300 hover:bg-slate-50 rounded-2xl transition-colors">
+                            Cadastre-se para acessar
+                        </button>
+                    `;
+                    statusHTML = `<span class="status-badge bg-slate-100 text-slate-600">Acesso controlado</span>`;
+                }
+                
+                const cardHTML = `
+                    <div onclick="showAgentModal('${agent.id}')" class="agent-card bg-white border border-slate-200 rounded-3xl p-6 cursor-pointer flex flex-col h-full">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <span class="inline-block px-3 py-px text-[10px] font-bold tracking-wider rounded-2xl bg-teal-100 text-teal-700">${agent.categoria}</span>
+                            </div>
+                            <div class="text-right">
+                                ${statusHTML}
+                            </div>
+                        </div>
+                        
+                        <h3 class="font-semibold text-[17px] leading-tight tracking-tight mb-2 pr-2">${agent.nome}</h3>
+                        
+                        <p class="text-slate-600 text-sm line-clamp-3 flex-1">${agent.descricao_curta}</p>
+                        
+                        <div class="mt-auto pt-5 text-xs text-slate-500">
+                            ${[
+                                agent.arquivo_nome || `${agent.id}.html`,
+                                agent.versao ? `Versão ${agent.versao}` : '',
+                                agent.atualizado ? `Atualizado em ${agent.atualizado}` : ''
+                            ].filter(Boolean).join(' · ')}
+                        </div>
+                        
+                        <div class="mt-4 pt-4 border-t flex gap-x-2" onclick="event.stopImmediatePropagation()">
+                            ${actionButton}
+                        </div>
+                    </div>
+                `;
+                
+                grid.innerHTML += cardHTML;
+            });
+        }
+        
+        function filterAgents() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase().trim();
+            
+            let filtered = agents;
+            
+            if (searchTerm.length > 2) {
+                filtered = agents.filter(agent => 
+                    agent.nome.toLowerCase().includes(searchTerm) || 
+                    agent.descricao_curta.toLowerCase().includes(searchTerm) ||
+                    agent.categoria.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            // Re-apply category if active
+            if (currentFilter !== 'all') {
+                filtered = filtered.filter(a => a.categoria === currentFilter);
+            }
+            
+            renderAgents(filtered);
+        }
+        
+        function filterByCategory(category) {
+            currentFilter = category;
+            
+            // Update active button styles
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active', 'bg-teal-700', 'text-white', 'border-teal-700');
+                btn.classList.add('bg-white', 'border-slate-200');
+                
+                if (category === 'all' && btn.dataset.cat === 'all') {
+                    btn.classList.add('active', 'bg-teal-700', 'text-white', 'border-teal-700');
+                    btn.classList.remove('bg-white', 'border-slate-200');
+                } else if (btn.dataset.cat === category) {
+                    btn.classList.add('active', 'bg-teal-700', 'text-white', 'border-teal-700');
+                    btn.classList.remove('bg-white', 'border-slate-200');
+                }
+            });
+            
+            const searchTerm = document.getElementById('search-input').value.toLowerCase().trim();
+            let filtered = agents;
+            
+            if (searchTerm.length > 2) {
+                filtered = filtered.filter(agent => 
+                    agent.nome.toLowerCase().includes(searchTerm) || 
+                    agent.descricao_curta.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            if (category !== 'all') {
+                filtered = filtered.filter(a => a.categoria === category);
+            }
+            
+            renderAgents(filtered);
+        }
+        
+        // ==================== MODALS ====================
+        function showAgentModal(agentId) {
+            const agent = agents.find(a => a.id === agentId);
+            if (!agent) return;
+            
+            const isDoctor = currentUser && currentUser.role === 'doctor';
+            const isAdmin = currentUser && currentUser.role === 'admin';
+            const accessState = getAccessState(agent);
+            const isApproved = accessState.allowed;
+            
+            // Header
+            document.getElementById('modal-header-content').innerHTML = `
+                <div class="flex items-center gap-x-4">
+                    <div>
+                        <span class="px-4 py-1 text-xs font-bold tracking-widest rounded-3xl bg-teal-100 text-teal-700">${agent.categoria}</span>
+                        <h2 class="text-3xl font-semibold tracking-tighter mt-2">${agent.nome}</h2>
+                        <div class="flex items-center gap-x-4 text-xs text-slate-500 mt-1">
+                            ${agent.arquivo_nome ? `<span>${agent.arquivo_nome}</span>` : ''}
+                            ${agent.versao ? `<span>Versão ${agent.versao}</span>` : ''}
+                            ${agent.atualizado ? `<span>Atualizado em ${agent.atualizado}</span>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Body
+            let statusLine = '';
+            if (isAdmin) {
+                statusLine = `<div class="inline-flex items-center px-4 h-8 bg-emerald-100 text-emerald-700 rounded-2xl text-xs font-semibold"><i class="fa-solid fa-check mr-2"></i> DISPONÍVEL PARA TODOS</div>`;
+            } else if (isDoctor && isApproved) {
+                const statusClass = accessState.type === 'trial'
+                    ? 'bg-blue-100 text-blue-700'
+                    : 'bg-emerald-100 text-emerald-700';
+                statusLine = `<div class="inline-flex items-center px-4 h-8 ${statusClass} rounded-2xl text-xs font-semibold"><i class="fa-solid fa-check-double mr-2"></i>${accessState.label.toUpperCase()}</div>`;
+            } else if (isDoctor) {
+                statusLine = `<div class="inline-flex items-center px-4 h-8 bg-amber-100 text-amber-700 rounded-2xl text-xs font-semibold"><i class="fa-solid fa-clock mr-2"></i>${accessState.label.toUpperCase()}</div>`;
+            }
+            
+            document.getElementById('modal-body-content').innerHTML = `
+                <div class="mb-6">${statusLine}</div>
+                
+                <div class="prose prose-sm max-w-none">
+                    <h4 class="font-semibold text-base mb-2 text-slate-800">Sobre este agente</h4>
+                    <p class="text-slate-600">${agent.descricao_longa}</p>
+                </div>
+                
+                <div class="mt-8">
+                    <h4 class="font-semibold text-base mb-3">Como usar este agente</h4>
+                    <ol class="list-decimal list-inside space-y-2 text-sm text-slate-600">
+                        <li>Baixe o aplicativo HTML licenciado clicando no botão abaixo.</li>
+                        <li>Abra o arquivo em um navegador atualizado, como Chrome ou Edge.</li>
+                        <li>Durante o período gratuito, o aplicativo funcionará por 7 dias.</li>
+                        <li>Após o vencimento, solicite ao administrador a continuidade do acesso.</li>
+                    </ol>
+                    <p class="text-[10px] text-emerald-600 mt-3">O arquivo HTML mantém sua interface e funcionalidades originais dentro do controle de licença.</p>
+                </div>
+            `;
+            
+            // Footer
+            let footerHTML = '';
+            
+            if (isAdmin) {
+                footerHTML = `
+                    <div class="flex items-center gap-x-2">
+                        <button onclick="deleteAgent('${agent.id}'); hideAgentModal();"
+                                class="px-4 py-3 text-sm font-medium text-red-500 hover:bg-red-50 border border-red-200 rounded-2xl flex items-center gap-x-2">
+                            <i class="fa-solid fa-trash text-xs"></i>
+                            <span>Remover</span>
+                        </button>
+                        <button onclick="hideAgentModal(); editAgent('${agent.id}');"
+                                class="px-5 py-3 text-sm font-medium text-slate-600 hover:bg-slate-100 border border-slate-200 rounded-2xl flex items-center gap-x-2">
+                            <i class="fa-solid fa-pencil text-xs"></i>
+                            <span>Editar</span>
+                        </button>
+                    </div>
+                    <button onclick="downloadAgent('${agent.id}'); hideAgentModal();"
+                            class="px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm rounded-2xl flex items-center gap-x-2">
+                        <i class="fa-solid fa-download"></i>
+                        <span>Baixar Agente (.html)</span>
+                    </button>
+                `;
+            } else if (isDoctor && isApproved) {
+                footerHTML = `
+                    <button onclick="hideAgentModal()" class="px-6 py-3 text-sm font-medium text-slate-600 hover:bg-slate-100 rounded-2xl">Fechar</button>
+                    <button onclick="downloadAgent('${agent.id}'); hideAgentModal();"
+                            class="px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm rounded-2xl flex items-center gap-x-2">
+                        <i class="fa-solid fa-download"></i>
+                        <span>Baixar Agente (.html)</span>
+                    </button>
+                `;
+            } else if (isDoctor) {
+                footerHTML = `
+                    <button onclick="hideAgentModal()" class="px-6 py-3 text-sm font-medium text-slate-600 hover:bg-slate-100 rounded-2xl">Fechar</button>
+                    <button onclick="requestAccess('${agent.id}'); hideAgentModal();" 
+                            class="px-8 py-3 bg-amber-500 hover:bg-amber-600 text-white font-semibold text-sm rounded-2xl flex items-center gap-x-2">
+                        <i class="fa-solid fa-paper-plane"></i> 
+                        <span>Solicitar Acesso ao Administrador</span>
+                    </button>
+                `;
+            } else {
+                footerHTML = `
+                    <button onclick="hideAgentModal()" class="px-6 py-3 text-sm font-medium text-slate-600 hover:bg-slate-100 rounded-2xl">Fechar</button>
+                    <button onclick="hideAgentModal(); showLoginModal();" 
+                            class="px-8 py-3 bg-teal-700 hover:bg-teal-800 text-white font-semibold text-sm rounded-2xl">
+                        Cadastrar para solicitar acesso
+                    </button>
+                `;
+            }
+            
+            document.getElementById('modal-footer').innerHTML = footerHTML;
+            
+            document.getElementById('agent-modal').classList.remove('hidden');
+            document.getElementById('agent-modal').classList.add('flex');
+        }
+        
+        function hideAgentModal() {
+            const modal = document.getElementById('agent-modal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+        
+        function showLoginModal() {
+            document.getElementById('login-modal').classList.remove('hidden');
+            document.getElementById('login-modal').classList.add('flex');
+        }
+
+        function showAdminLogin() {
+            showLoginModal();
+            setTimeout(() => document.getElementById('admin-name').focus(), 100);
+        }
+        
+        function hideLoginModal() {
+            const modal = document.getElementById('login-modal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+            document.getElementById('admin-password').value = '';
+        }
+        
+        // ==================== AUTH ====================
+        function loginAsDoctor() {
+            currentUser = {
+                role: 'doctor',
+                name: 'Dr. Pneumologista'
+            };
+            localStorage.setItem('pulmoagents_user', JSON.stringify(currentUser));
+            
+            hideLoginModal();
+            updateUserUI();
+            renderAgents();
+            
+            showToast('Bem-vindo! Agora você pode solicitar e baixar agentes aprovados.', 'success');
+        }
+        
+        function loginAsAdmin() {
+            const adminName = document.getElementById('admin-name').value.trim();
+            const adminPassword = document.getElementById('admin-password').value;
+
+            if (adminName !== 'Fernando Lundgren' || adminPassword !== 'Cupissura74') {
+                showToast('Nome ou senha de administrador inválidos.', 'error');
+                document.getElementById('admin-password').value = '';
+                document.getElementById('admin-password').focus();
+                return;
+            }
+
+            currentUser = {
+                role: 'admin',
+                name: 'Fernando Lundgren'
+            };
+            localStorage.setItem('pulmoagents_user', JSON.stringify(currentUser));
+            sessionStorage.setItem('pulmoagents_admin_authenticated', 'true');
+            
+            hideLoginModal();
+            updateUserUI();
+            renderAgents();
+            
+            showToast('Bem-vindo, Fernando Lundgren. Painel de administração ativado.', 'info');
+        }
+        
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('pulmoagents_user');
+            sessionStorage.removeItem('pulmoagents_admin_authenticated');
+            updateUserUI();
+            renderAgents();
+            showToast('Sessão encerrada com sucesso.');
+        }
+        
+        // ==================== REQUEST & APPROVE ====================
+        function requestAccess(agentId) {
+            if (!currentUser || currentUser.role !== 'doctor') {
+                showToast('Faça login como médico para solicitar acesso.', 'error');
+                return;
+            }
+            
+            const agent = agents.find(a => a.id === agentId);
+            if (!agent) return;
+
+            const accessState = getAccessState(agent);
+            if (accessState.allowed) {
+                showToast(`Você já possui acesso: ${accessState.label}.`, 'info');
+                return;
+            }
+            
+            // Check if already pending
+            const alreadyPending = pendingRequests.find(r => r.agentId === agentId && r.doctor === currentUser.name);
+            if (alreadyPending) {
+                showToast('Você já enviou uma solicitação para este agente.', 'info');
+                return;
+            }
+            
+            pendingRequests.push({
+                id: Date.now(),
+                agentId: agentId,
+                agentName: agent.nome,
+                doctor: currentUser.name,
+                date: new Date().toISOString().split('T')[0]
+            });
+            
+            saveToLocalStorage();
+            showToast('Solicitação enviada com sucesso! O administrador será notificado.', 'success');
+            
+            // Re-render to update buttons
+            renderAgents();
+        }
+        
+        function showApprovalsModal() {
+            if (!currentUser || currentUser.role !== 'admin') {
+                showToast('Apenas administradores podem gerenciar licenças.', 'error');
+                return;
+            }
+
+            const container = document.getElementById('approvals-list');
+            container.innerHTML = '';
+            
+            if (pendingRequests.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-6">
+                        <i class="fa-solid fa-inbox text-5xl text-slate-200 mb-4"></i>
+                        <p class="text-slate-500">Nenhuma solicitação pendente no momento.</p>
+                    </div>
+                `;
+            } else {
+                let html = `<div class="space-y-3">`;
+                
+                pendingRequests.forEach((req, index) => {
+                    html += `
+                        <div class="flex items-center justify-between border border-slate-100 p-4 rounded-2xl">
+                            <div>
+                                <div class="font-semibold">${req.agentName}</div>
+                                <div class="text-xs text-slate-500">Solicitado por <span class="font-medium">${req.doctor}</span> em ${req.date}</div>
+                            </div>
+                            <div class="flex gap-x-2">
+                                <button onclick="approveRequest(${index}, true)" 
+                                        class="px-5 py-2 text-xs font-semibold bg-emerald-600 text-white rounded-2xl hover:bg-emerald-700">Liberar 7 dias</button>
+                                <button onclick="approveRequest(${index}, false)" 
+                                        class="px-5 py-2 text-xs font-semibold border border-slate-300 hover:bg-slate-50 rounded-2xl">Recusar</button>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                html += `</div>`;
+                container.innerHTML = html;
+            }
+
+            const issuedLicenses = Object.values(licenses);
+            const licensesSection = document.createElement('div');
+            licensesSection.className = 'mt-8 pt-6 border-t border-slate-200';
+            licensesSection.innerHTML = `
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <h4 class="font-semibold text-slate-900">Licenças emitidas</h4>
+                        <p class="text-xs text-slate-500">Libere permanentemente, prorrogue por 7 dias ou revogue.</p>
+                    </div>
+                    <span class="status-badge bg-slate-100 text-slate-600">${issuedLicenses.length}</span>
+                </div>
+            `;
+
+            if (issuedLicenses.length === 0) {
+                licensesSection.innerHTML += '<p class="text-sm text-slate-400">Nenhuma licença emitida.</p>';
+            } else {
+                const list = document.createElement('div');
+                list.className = 'space-y-3';
+
+                issuedLicenses
+                    .sort((a, b) => (b.updatedAt || '').localeCompare(a.updatedAt || ''))
+                    .forEach(license => {
+                        const agent = agents.find(item => item.id === license.agentId);
+                        if (!agent) return;
+
+                        const state = getAccessState(agent, license.doctor);
+                        const row = document.createElement('div');
+                        row.className = 'border border-slate-100 p-4 rounded-2xl';
+
+                        const top = document.createElement('div');
+                        top.className = 'flex flex-col lg:flex-row lg:items-center justify-between gap-3';
+
+                        const info = document.createElement('div');
+                        const title = document.createElement('div');
+                        title.className = 'font-semibold';
+                        title.textContent = agent.nome;
+                        const metadata = document.createElement('div');
+                        metadata.className = 'text-xs text-slate-500 mt-1';
+                        metadata.textContent = `${license.doctor} · ${state.label}${license.expiresAt ? ` · vence em ${new Date(license.expiresAt).toLocaleDateString('pt-BR')}` : ''}`;
+                        info.append(title, metadata);
+
+                        const actions = document.createElement('div');
+                        actions.className = 'flex flex-wrap gap-2';
+                        actions.innerHTML = `
+                            <button class="license-permanent px-3 py-2 text-xs font-semibold bg-emerald-600 text-white rounded-xl hover:bg-emerald-700">Liberar permanente</button>
+                            <button class="license-extend px-3 py-2 text-xs font-semibold border border-blue-200 text-blue-700 rounded-xl hover:bg-blue-50">+ 7 dias</button>
+                            <button class="license-revoke px-3 py-2 text-xs font-semibold border border-red-200 text-red-600 rounded-xl hover:bg-red-50">Revogar</button>
+                        `;
+                        actions.querySelector('.license-permanent').addEventListener('click', () => updateLicense(license.doctor, license.agentId, 'permanent'));
+                        actions.querySelector('.license-extend').addEventListener('click', () => updateLicense(license.doctor, license.agentId, 'extend'));
+                        actions.querySelector('.license-revoke').addEventListener('click', () => updateLicense(license.doctor, license.agentId, 'revoke'));
+
+                        top.append(info, actions);
+                        row.appendChild(top);
+                        list.appendChild(row);
+                    });
+
+                licensesSection.appendChild(list);
+            }
+
+            container.appendChild(licensesSection);
+            
+            document.getElementById('approvals-modal').classList.remove('hidden');
+            document.getElementById('approvals-modal').classList.add('flex');
+        }
+        
+        function approveRequest(index, approve) {
+            if (!currentUser || currentUser.role !== 'admin') {
+                showToast('Apenas administradores podem aprovar solicitações.', 'error');
+                return;
+            }
+
+            const req = pendingRequests[index];
+            if (!req) return;
+
+            if (approve) {
+                createTrialLicense(req.doctor, req.agentId);
+                approvedAgentIds.delete(req.agentId);
+                showToast(`Teste de 7 dias do "${req.agentName}" liberado para ${req.doctor}.`, 'success');
+            } else {
+                showToast(`Solicitação de ${req.doctor} recusada.`, 'info');
+            }
+
+            pendingRequests.splice(index, 1);
+
+            saveToLocalStorage();
+            hideApprovalsModal();
+            renderAgents();
+
+            // Update pending badge
+            const badge = document.getElementById('pending-count');
+            if (badge) {
+                if (pendingRequests.length > 0) {
+                    badge.textContent = pendingRequests.length;
+                    badge.classList.remove('hidden');
+                } else {
+                    badge.classList.add('hidden');
+                }
+            }
+
+            setTimeout(() => showApprovalsModal(), 600);
+        }
+        
+        function hideApprovalsModal() {
+            const modal = document.getElementById('approvals-modal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+        
+        // ==================== UPLOAD NEW AGENT ====================
+        function showUploadModal() {
+            if (!currentUser || currentUser.role !== 'admin') {
+                showToast('Apenas administradores podem gerenciar agentes.', 'error');
+                return;
+            }
+            editingAgentId = null;
+            document.getElementById('upload-modal-title').textContent = 'Adicionar Novo Agente';
+            document.getElementById('upload-modal-subtitle').textContent = 'Preencha os campos abaixo. O agente aparecerá no catálogo imediatamente.';
+            document.getElementById('upload-modal-btn').textContent = 'Publicar Agente';
+            document.getElementById('upload-edit-warning').classList.add('hidden');
+            document.getElementById('upload-modal').classList.remove('hidden');
+            document.getElementById('upload-modal').classList.add('flex');
+        }
+        
+        function hideUploadModal() {
+            const modal = document.getElementById('upload-modal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+
+            editingAgentId = null;
+
+            document.getElementById('upload-name').value = '';
+            document.getElementById('upload-version').value = '';
+            document.getElementById('upload-short-desc').value = '';
+            document.getElementById('upload-long-desc').value = '';
+            document.getElementById('upload-html-file').value = '';
+            document.getElementById('upload-html-status').textContent = 'Selecione o arquivo HTML completo que será disponibilizado aos usuários.';
+            document.getElementById('upload-immediate').checked = true;
+            document.getElementById('upload-modal-title').textContent = 'Adicionar Novo Agente';
+            document.getElementById('upload-modal-subtitle').textContent = 'Preencha os campos abaixo. O agente aparecerá no catálogo imediatamente.';
+            document.getElementById('upload-modal-btn').textContent = 'Publicar Agente';
+            document.getElementById('upload-edit-warning').classList.add('hidden');
+        }
+        
+        async function uploadNewAgent() {
+            const name = document.getElementById('upload-name').value.trim();
+            const category = document.getElementById('upload-category').value;
+            const version = document.getElementById('upload-version').value.trim();
+            const shortDesc = document.getElementById('upload-short-desc').value.trim();
+            const longDesc = document.getElementById('upload-long-desc').value.trim();
+            const htmlFile = document.getElementById('upload-html-file').files[0];
+            const immediate = document.getElementById('upload-immediate').checked;
+            const existingAgent = editingAgentId ? agents.find(agent => agent.id === editingAgentId) : null;
+
+            if (!name || !shortDesc || (!htmlFile && !existingAgent?.arquivo_html)) {
+                showToast('Preencha nome, descrição curta e selecione o arquivo HTML.', 'error');
+                return;
+            }
+
+            let htmlContent = existingAgent?.arquivo_html || '';
+            let htmlFileName = existingAgent?.arquivo_nome || `${name}.html`;
+
+            if (htmlFile) {
+                if (!/\.html?$/i.test(htmlFile.name)) {
+                    showToast('Selecione um arquivo com extensão .html ou .htm.', 'error');
+                    return;
+                }
+
+                htmlContent = await htmlFile.text();
+                htmlFileName = htmlFile.name;
+
+                if (!/<html[\s>]/i.test(htmlContent) && !/<!doctype\s+html/i.test(htmlContent)) {
+                    showToast('O arquivo selecionado não parece ser um documento HTML completo.', 'error');
+                    return;
+                }
+            }
+
+            if (editingAgentId) {
+                // Edit existing agent
+                const idx = agents.findIndex(a => a.id === editingAgentId);
+                if (idx === -1) return;
+
+                agents[idx] = {
+                    ...agents[idx],
+                    nome: name,
+                    categoria: category,
+                    versao: version,
+                    atualizado: new Date().toISOString().split('T')[0],
+                    descricao_curta: shortDesc,
+                    descricao_longa: longDesc || shortDesc,
+                    arquivo_html: htmlContent,
+                    arquivo_nome: htmlFileName,
+                    livre: immediate
+                };
+
+                if (immediate) approvedAgentIds.add(editingAgentId);
+
+                saveToLocalStorage();
+                hideUploadModal();
+                renderAgents();
+                showToast(`Agente "${name}" atualizado com sucesso!`, 'success');
+            } else {
+                // Create new agent
+                const newAgent = {
+                    id: name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') + '-' + Date.now(),
+                    nome: name,
+                    categoria: category,
+                    versao: version,
+                    atualizado: new Date().toISOString().split('T')[0],
+                    descricao_curta: shortDesc,
+                    descricao_longa: longDesc || shortDesc,
+                    arquivo_html: htmlContent,
+                    arquivo_nome: htmlFileName,
+                    livre: immediate
+                };
+
+                agents.unshift(newAgent);
+
+                if (immediate) approvedAgentIds.add(newAgent.id);
+
+                saveToLocalStorage();
+                hideUploadModal();
+                renderAgents();
+                showToast('Novo agente publicado com sucesso no catálogo!', 'success');
+
+                if (immediate) {
+                    setTimeout(() => showAgentModal(newAgent.id), 800);
+                }
+            }
+        }
+
+        function editAgent(agentId) {
+            const agent = agents.find(a => a.id === agentId);
+            if (!agent) return;
+
+            editingAgentId = agentId;
+
+            document.getElementById('upload-modal-title').textContent = 'Editar Agente';
+            document.getElementById('upload-modal-subtitle').textContent = `Editando: ${agent.nome}`;
+            document.getElementById('upload-modal-btn').textContent = 'Salvar Alterações';
+            document.getElementById('upload-edit-warning').classList.remove('hidden');
+
+            document.getElementById('upload-name').value = agent.nome;
+            document.getElementById('upload-version').value = agent.versao || '';
+            document.getElementById('upload-category').value = agent.categoria;
+            document.getElementById('upload-short-desc').value = agent.descricao_curta;
+            document.getElementById('upload-long-desc').value = agent.descricao_longa || '';
+            document.getElementById('upload-html-file').value = '';
+            document.getElementById('upload-html-status').textContent = `Arquivo atual: ${agent.arquivo_nome || `${agent.id}.html`}. Selecione outro somente para substituí-lo.`;
+            document.getElementById('upload-immediate').checked = agent.livre;
+
+            document.getElementById('upload-modal').classList.remove('hidden');
+            document.getElementById('upload-modal').classList.add('flex');
+        }
+
+        function deleteAgent(agentId) {
+            if (!currentUser || currentUser.role !== 'admin') {
+                showToast('Apenas administradores podem excluir agentes.', 'error');
+                return;
+            }
+
+            const agent = agents.find(a => a.id === agentId);
+            if (!agent) return;
+
+            if (!confirm(`Remover "${agent.nome}" do catálogo permanentemente?\n\nEsta ação não pode ser desfeita.`)) return;
+
+            agents = agents.filter(a => a.id !== agentId);
+            approvedAgentIds.delete(agentId);
+            pendingRequests = pendingRequests.filter(r => r.agentId !== agentId);
+            Object.keys(licenses).forEach(key => {
+                if (licenses[key].agentId === agentId) delete licenses[key];
+            });
+
+            saveToLocalStorage();
+            renderAgents();
+            showToast(`"${agent.nome}" removido do catálogo.`, 'info');
+        }
+        
+        // ==================== DOWNLOAD ====================
+        function downloadAgent(agentId) {
+            const agent = agents.find(a => a.id === agentId);
+            if (!agent) return;
+            
+            let accessState = getAccessState(agent);
+
+            if (currentUser?.role === 'doctor' && accessState.type === 'trial_available') {
+                createTrialLicense(currentUser.name, agent.id);
+                saveToLocalStorage();
+                accessState = getAccessState(agent);
+            }
+
+            const canDownload = currentUser &&
+                (currentUser.role === 'admin' || (currentUser.role === 'doctor' && accessState.allowed));
+            
+            if (!canDownload) {
+                const message = accessState.type === 'expired'
+                    ? 'O período de teste terminou. Solicite uma nova liberação ao administrador.'
+                    : 'Você não tem permissão para baixar este agente. Solicite acesso primeiro.';
+                showToast(message, 'error');
+                return;
+            }
+
+            const expiresAt = accessState.type === 'trial' ? accessState.expiresAt : null;
+            const payload = {
+                nome: agent.nome,
+                categoria: agent.categoria,
+                versao: agent.versao,
+                atualizado: agent.atualizado,
+                descricao: agent.descricao_longa,
+                html: agent.arquivo_html,
+                arquivoNome: agent.arquivo_nome || `${agent.id}.html`,
+                usuario: currentUser.name,
+                expiresAt
+            };
+            const payloadBase64 = btoa(
+                Array.from(new TextEncoder().encode(JSON.stringify(payload)),
+                    byte => String.fromCharCode(byte)).join('')
+            );
+
+            const fileContent = `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>${agent.nome} · PulmoAgents</title>
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#f8fafc;color:#1e293b;font-family:Arial,sans-serif}
+#app{width:100%;height:100%}.licensed{display:grid;grid-template-rows:auto 1fr;width:100%;height:100%}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 16px;background:#0f172a;color:white;font-size:12px}
+.brand{color:#5eead4;font-weight:800;letter-spacing:.08em}.license{color:#cbd5e1;text-align:right}
+iframe{width:100%;height:100%;border:0;background:white}.blocked{max-width:620px;margin:12vh auto;text-align:center;padding:50px 24px}.blocked h2{color:#b91c1c}
+</style>
+</head>
+<body><div id="app"></div>
+<script>
+const encoded="${payloadBase64}";
+const bytes=Uint8Array.from(atob(encoded),c=>c.charCodeAt(0));
+const data=JSON.parse(new TextDecoder().decode(bytes));
+const app=document.getElementById("app");
+const expired=data.expiresAt&&Date.now()>=new Date(data.expiresAt).getTime();
+if(expired){
+ app.innerHTML='<div class="blocked"><div class="brand">PULMOAGENTS</div><h2>Licença expirada</h2><p>O período de teste de 7 dias terminou.</p><p>Solicite nova liberação ao administrador Fernando Lundgren.</p></div>';
+}else{
+ const validity=data.expiresAt?'Teste válido até '+new Date(data.expiresAt).toLocaleString("pt-BR"):'Uso permanente liberado';
+ app.innerHTML='<div class="licensed"><div class="bar"><div><span class="brand">PULMOAGENTS</span> · <span class="agent-name"></span></div><div class="license"></div></div><iframe title="Aplicativo clínico"></iframe></div>';
+ app.querySelector(".agent-name").textContent=data.nome;
+ app.querySelector(".license").textContent=validity;
+ const frame=app.querySelector("iframe");
+ frame.setAttribute("sandbox","allow-scripts allow-forms allow-modals allow-downloads allow-popups allow-same-origin");
+ frame.srcdoc=data.html;
+}
+<\/script></body></html>`;
+            
+            const blob = new Blob([fileContent], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `${agent.id}-pulmoagent.html`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            
+            saveToLocalStorage();
+            renderAgents();
+            
+            showToast('Download iniciado! Verifique sua pasta de downloads.', 'success');
+        }
+        
+        // ==================== DEMO INTERACTIVE FUNCTIONS ====================
+        function calculateCURB65() {
+            const age = parseInt(document.getElementById('curb-age').value) || 0;
+            const confusion = document.getElementById('curb-confusion').checked;
+            const urea = document.getElementById('curb-urea').checked;
+            const rr = document.getElementById('curb-rr').checked;
+            const bp = document.getElementById('curb-bp').checked;
+            
+            let score = 0;
+            if (confusion) score++;
+            if (urea) score++;
+            if (rr) score++;
+            if (bp) score++;
+            if (age >= 65) score++;
+            
+            let risk = '';
+            let recommendation = '';
+            let color = '';
+            
+            if (score === 0) {
+                risk = 'Baixo risco (0 pontos)';
+                recommendation = 'Tratamento ambulatorial possível. Antibioticoterapia oral.';
+                color = 'emerald';
+            } else if (score === 1) {
+                risk = 'Risco moderado (1 ponto)';
+                recommendation = 'Considerar internação. Avaliar comorbidades e suporte social.';
+                color = 'amber';
+            } else if (score === 2) {
+                risk = 'Risco moderado-alto (2 pontos)';
+                recommendation = 'Internação recomendada. Antibioticoterapia IV inicial.';
+                color = 'amber';
+            } else if (score >= 3) {
+                risk = 'Alto risco (≥3 pontos)';
+                recommendation = 'Internação + considerar UTI. Avaliação urgente.';
+                color = 'red';
+            }
+            
+            const resultDiv = document.getElementById('curb-result');
+            resultDiv.className = `mt-3 p-4 bg-${color}-50 border border-${color}-200 rounded-2xl text-sm`;
+            resultDiv.innerHTML = `
+                <div class="font-semibold">CURB-65 Score: <span class="text-xl">${score}/5</span> — ${risk}</div>
+                <div class="mt-1 text-slate-600">${recommendation}</div>
+                <div class="text-[10px] text-slate-400 mt-2">* Demo ilustrativa. O agente completo considera PSI, comorbidades e diretrizes locais.</div>
+            `;
+            resultDiv.classList.remove('hidden');
+        }
+        
+        function calculateSpirometryDemo() {
+            const age = parseFloat(document.getElementById('spiro-age').value);
+            const sex = document.getElementById('spiro-sex').value;
+            const height = parseFloat(document.getElementById('spiro-height').value);
+            const fev1 = parseFloat(document.getElementById('spiro-fev1').value);
+            const fvc = parseFloat(document.getElementById('spiro-fvc').value);
+            const ethnicity = document.getElementById('spiro-ethnicity').value;
+            
+            if (!age || !height || !fev1 || !fvc) {
+                alert('Preencha todos os campos para calcular.');
+                return;
+            }
+            
+            // Very simplified z-score approximation (for demo only)
+            // Real implementation would use GLI equations
+            const fev1Pred = (sex === 'M' ? 0.041 * height - 0.024 * age - 2.19 : 0.034 * height - 0.025 * age - 1.93);
+            const fvcPred = (sex === 'M' ? 0.057 * height - 0.026 * age - 4.34 : 0.045 * height - 0.024 * age - 2.85);
+            
+            const fev1Z = (fev1 - fev1Pred) / 0.51; // approx SD
+            const fvcZ = (fvc - fvcPred) / 0.61;
+            const ratio = fev1 / fvc;
+            const ratioZ = (ratio - 0.78) / 0.07; // rough
+            
+            let classification = '';
+            let discordanceNote = '';
+            
+            if (fev1Z < -1.645 || ratioZ < -1.645) {
+                classification = 'Possível obstrução (z-score < LLN)';
+            } else if (fvcZ < -1.645 && fev1Z >= -1.645) {
+                classification = 'Possível restrição (PRISm ou volume baixo)';
+            } else {
+                classification = 'Dentro dos limites da normalidade';
+            }
+            
+            if (ethnicity === 'other') {
+                discordanceNote = 'Em populações nordestinas de alta miscigenação, a equação GLI-2022 (race-neutral) costuma ser mais adequada que modelos lineares antigos.';
+            }
+            
+            const resultDiv = document.getElementById('spiro-result');
+            resultDiv.innerHTML = `
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4">
+                    <div class="font-semibold mb-3 flex items-center gap-x-2">
+                        <span>Resultado (Demo simplificada)</span>
+                    </div>
+                    
+                    <div class="grid grid-cols-3 gap-3 text-xs">
+                        <div>
+                            <div class="text-emerald-600 font-mono">FEV₁ z-score</div>
+                            <div class="text-xl font-semibold">${fev1Z.toFixed(2)}</div>
+                        </div>
+                        <div>
+                            <div class="text-emerald-600 font-mono">FVC z-score</div>
+                            <div class="text-xl font-semibold">${fvcZ.toFixed(2)}</div>
+                        </div>
+                        <div>
+                            <div class="text-emerald-600 font-mono">FEV₁/FVC z</div>
+                            <div class="text-xl font-semibold">${ratioZ.toFixed(2)}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 pt-4 border-t text-sm">
+                        <span class="font-medium">Classificação sugerida:</span> ${classification}
+                    </div>
+                    
+                    ${discordanceNote ? `<div class="mt-3 text-[10px] text-teal-700 bg-teal-50 p-3 rounded-xl">${discordanceNote}</div>` : ''}
+                    
+                    <div class="text-[10px] text-slate-400 mt-3">* Esta é uma simulação educativa. O aplicativo SIA-PRO completo é disponibilizado separadamente no catálogo.</div>
+                </div>
+            `;
+            resultDiv.classList.remove('hidden');
+        }
+        
+        // ==================== INITIALIZATION ====================
+        function initializeCategoryButtons() {
+            // Set initial active state for "Todos"
+            const allBtn = document.querySelector('.category-btn[data-cat="all"]');
+            if (allBtn) {
+                allBtn.classList.add('active', 'bg-teal-700', 'text-white', 'border-teal-700');
+            }
+            
+            // Add click handlers already in HTML onclick
+        }
+        
+        function initializeEverything() {
+            initializeTailwind();
+            loadFromLocalStorage();
+            
+            // Render initial agents
+            renderAgents();
+            initializeCategoryButtons();
+            
+            // Show admin button hint if not logged
+            const adminBtn = document.getElementById('admin-btn');
+            
+            // Keyboard shortcut for admin
+            document.addEventListener('keydown', function(e) {
+                if (e.metaKey && e.key === "/") {
+                    e.preventDefault();
+                    if (currentUser && currentUser.role === 'admin') {
+                        showUploadModal();
+                    } else {
+                        showAdminLogin();
+                    }
+                }
+            });
+            
+            // Navbar scroll effect
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 20) {
+                    navbar.classList.add('nav-scrolled', 'bg-white/95', 'backdrop-blur-lg');
+                } else {
+                    navbar.classList.remove('nav-scrolled', 'bg-white/95', 'backdrop-blur-lg');
+                }
+            });
+            
+            // Welcome message for first time
+            if (!localStorage.getItem('pulmoagents_welcomed')) {
+                setTimeout(() => {
+                    // Only show if not logged in
+                    if (!currentUser) {
+                        // Can add a subtle welcome toast if wanted
+                    }
+                    localStorage.setItem('pulmoagents_welcomed', 'true');
+                }, 4500);
+            }
+            
+            console.log('%c[PulmoAgents] Site inicializado com sucesso. Versão demo funcional.', 'color:#64748b');
+            
+            // Expose some functions to console for advanced users (Fernando)
+            window.PulmoAgents = {
+                showUpload: () => showUploadModal(),
+                resetDemo: () => {
+                    localStorage.clear();
+                    location.reload();
+                }
+            };
+        }
+        
+        // Boot
+        window.onload = initializeEverything;
+    </script>
+</body>
+</html>
