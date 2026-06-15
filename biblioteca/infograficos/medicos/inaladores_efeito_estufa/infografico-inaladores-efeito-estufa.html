@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inaladores e efeito estufa</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; width: 100%; min-height: 100%; background: #dbe9e5; }
+    body { font-family: Arial, Helvetica, sans-serif; color: #173838; }
+    .site-nav {
+      width: 1080px;
+      margin: 0 auto;
+      padding: 12px 0;
+    }
+    .button {
+      display: inline-block;
+      padding: 10px 15px;
+      border: 2px solid #0d5c5b;
+      border-radius: 9px;
+      color: #0d5c5b;
+      background: white;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .poster {
+      width: 1080px;
+      height: 1350px;
+      margin: 0 auto;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 91% 7%, rgba(255,255,255,.34) 0 120px, transparent 122px),
+        linear-gradient(160deg, #eff8f3 0%, #e7f3ee 44%, #dcece8 100%);
+      position: relative;
+    }
+    .top {
+      height: 380px;
+      padding: 60px 64px 34px;
+      display: grid;
+      grid-template-columns: 1.3fr .7fr;
+      background: #0d5c5b;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    .top::after {
+      content: "";
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      right: -140px;
+      top: -200px;
+      border: 2px solid rgba(255,255,255,.13);
+      border-radius: 50%;
+      box-shadow: 0 0 0 60px rgba(255,255,255,.035), 0 0 0 120px rgba(255,255,255,.025);
+    }
+    .eyebrow {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      color: #0d5c5b;
+      background: #bfe8ce;
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+    h1 { margin: 0; font-size: 68px; line-height: .98; letter-spacing: -2.8px; }
+    .lead { margin: 19px 0 0; max-width: 650px; font-size: 24px; line-height: 1.22; color: #dbf2e8; }
+    .hero-art { align-self: center; justify-self: center; position: relative; width: 260px; height: 235px; }
+    .earth {
+      position: absolute; right: 5px; top: 5px; width: 150px; height: 150px;
+      border-radius: 50%; background: #8ed4bb; border: 9px solid #d8f1e5;
+      box-shadow: 0 16px 36px rgba(0,0,0,.18);
+    }
+    .earth::before, .earth::after {
+      content: ""; position: absolute; background: #2c8c72; border-radius: 48% 52% 43% 57%;
+    }
+    .earth::before { width: 53px; height: 36px; left: 18px; top: 23px; transform: rotate(22deg); }
+    .earth::after { width: 42px; height: 65px; right: 21px; bottom: 17px; transform: rotate(-18deg); }
+    .inhaler {
+      position: absolute; left: 14px; bottom: 8px; width: 96px; height: 170px;
+      background: #f8f2df; border-radius: 14px 14px 24px 24px;
+      box-shadow: 0 15px 25px rgba(0,0,0,.22); transform: rotate(-8deg);
+    }
+    .inhaler::before {
+      content: ""; position: absolute; width: 68px; height: 108px; left: 14px; top: -53px;
+      background: #9dd9c5; border: 7px solid #d9f1e7; border-radius: 16px 16px 8px 8px;
+    }
+    .inhaler::after {
+      content: ""; position: absolute; width: 70px; height: 28px; right: -36px; bottom: 13px;
+      background: #f8f2df; border-radius: 8px 18px 18px 8px;
+    }
+    main { padding: 28px 64px 0; }
+    .fact {
+      display: grid; grid-template-columns: 150px 1fr; gap: 24px; align-items: center;
+      background: white; padding: 18px 30px; border-radius: 24px;
+      box-shadow: 0 10px 24px rgba(24,74,67,.09);
+    }
+    .fact strong {
+      display: block; color: #e06742; font-size: 53px; line-height: .9; letter-spacing: -2px;
+      text-align: center;
+    }
+    .fact strong small { display: block; font-size: 18px; letter-spacing: 0; margin-top: 8px; color: #8c4936; }
+    .fact p { margin: 0; font-size: 23px; line-height: 1.28; }
+    .fact b { color: #0d5c5b; }
+    h2 { margin: 22px 0 12px; font-size: 29px; color: #0d5c5b; letter-spacing: -.5px; }
+    .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .card {
+      background: #fff; border-radius: 23px; padding: 20px 24px 18px; min-height: 220px;
+      box-shadow: 0 8px 19px rgba(24,74,67,.075); border-top: 9px solid #e06742;
+    }
+    .card.low { border-color: #49a87e; }
+    .card-head { display: flex; align-items: center; gap: 15px; }
+    .icon {
+      width: 60px; height: 60px; border-radius: 18px; display: grid; place-items: center;
+      font-size: 32px; font-weight: bold; background: #fde9df; color: #c74e2e;
+    }
+    .low .icon { background: #dff2e8; color: #287c5b; }
+    .card h3 { margin: 0; font-size: 25px; color: #173838; }
+    .tag { margin: 12px 0 9px; font-size: 20px; font-weight: 800; color: #c74e2e; }
+    .low .tag { color: #287c5b; }
+    .card p { margin: 0; font-size: 18px; line-height: 1.3; color: #395856; }
+    .actions {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+    }
+    .action {
+      display: grid; grid-template-columns: 50px 1fr; gap: 13px; align-items: center;
+      background: rgba(255,255,255,.78); border: 1px solid #c9ded6; border-radius: 18px; padding: 10px 16px;
+      min-height: 78px;
+    }
+    .num {
+      width: 46px; height: 46px; border-radius: 50%; background: #0d5c5b; color: white;
+      display: grid; place-items: center; font-size: 24px; font-weight: 900;
+    }
+    .action p { margin: 0; font-size: 17px; line-height: 1.22; }
+    .safety {
+      margin-top: 14px; background: #f5cf72; border-radius: 20px; padding: 12px 23px;
+      display: flex; align-items: center; gap: 18px; color: #483915;
+    }
+    .safety .mark { font-size: 38px; font-weight: 900; }
+    .safety p { margin: 0; font-size: 18px; line-height: 1.22; font-weight: 700; }
+    footer {
+      position: absolute; left: 64px; right: 64px; bottom: 16px; padding-top: 10px;
+      border-top: 1px solid #aac9bf; display: flex; justify-content: space-between; gap: 30px;
+      color: #4d6c67; font-size: 11px; line-height: 1.25;
+    }
+    footer .refs { max-width: 760px; }
+    footer .stamp { font-size: 15px; font-weight: 800; color: #0d5c5b; text-align: right; }
+    @media print {
+      .site-nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav" aria-label="Navegação">
+    <a class="button secondary" href="../../../../index.html">
+      Voltar ao PneumoAgents
+    </a>
+  </nav>
+  <article class="poster" aria-label="Infográfico sobre inaladores e efeito estufa">
+    <header class="top">
+      <div>
+        <div class="eyebrow">Saúde respiratória + clima</div>
+        <h1>Inaladores e<br>efeito estufa</h1>
+        <p class="lead">Controlar a asma e a DPOC vem primeiro. Quando clinicamente adequado, a escolha do dispositivo também pode reduzir emissões.</p>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="earth"></div>
+        <div class="inhaler"></div>
+      </div>
+    </header>
+
+    <main>
+      <section class="fact">
+        <strong>3%<small>da pegada do NHS</small></strong>
+        <p>Na Inglaterra, os inaladores respondem por cerca de <b>3% da pegada de carbono do sistema de saúde</b>. A maior parcela vem do gás propelente dos aerossóis pressurizados.</p>
+      </section>
+
+      <h2>Nem todo inalador tem o mesmo impacto</h2>
+      <section class="compare">
+        <div class="card">
+          <div class="card-head">
+            <div class="icon">↟</div>
+            <h3>Aerossol pressurizado</h3>
+          </div>
+          <div class="tag">Maior impacto climático</div>
+          <p>Os pMDIs, as conhecidas “bombinhas”, usam propelentes HFA. O impacto varia conforme o gás e o produto; versões com propelentes de menor impacto estão surgindo.</p>
+        </div>
+        <div class="card low">
+          <div class="card-head">
+            <div class="icon">≈</div>
+            <h3>Pó seco ou névoa suave</h3>
+          </div>
+          <div class="tag">Em geral, menor impacto</div>
+          <p>DPIs e inaladores de névoa suave não usam HFA. Podem ser boas opções quando o dispositivo, o fluxo inspiratório e a técnica são adequados à pessoa.</p>
+        </div>
+      </section>
+
+      <h2>O que você pode fazer</h2>
+      <section class="actions">
+        <div class="action"><div class="num">1</div><p><b>Revise a técnica</b> com um profissional. Uso correto melhora o controle e evita desperdício.</p></div>
+        <div class="action"><div class="num">2</div><p><b>Mantenha a doença controlada.</b> Menos crises significam menos medicação de resgate e menos urgências.</p></div>
+        <div class="action"><div class="num">3</div><p><b>Pergunte sobre alternativas</b> de menor impacto que sejam adequadas ao seu tratamento e à sua capacidade de uso.</p></div>
+        <div class="action"><div class="num">4</div><p><b>Descarte com segurança.</b> Siga a orientação local e, quando disponível, devolva a farmácias ou pontos de coleta. Não perfure nem queime.</p></div>
+      </section>
+
+      <section class="safety">
+        <div class="mark">!</div>
+        <p>Não interrompa nem troque seu inalador por conta própria. A melhor escolha é individual e deve preservar eficácia, segurança e facilidade de uso.</p>
+      </section>
+    </main>
+
+    <footer>
+      <div class="refs">
+        Este material destina-se ao apoio educacional e não substitui o julgamento clínico individualizado.<br>
+        Fontes: Lundgren F., aula <i>Impacto ambiental dos dispositivos inalatórios</i> (2025); ATS, DOI 10.1164/rccm.202410-2058PP; NHS England; Wilkinson AJK et al., <i>BMJ Open</i> 2019;9:e028763.
+      </div>
+      <div class="stamp">Material educativo<br>Atualizado em jun/2026</div>
+    </footer>
+  </article>
+</body>
+</html>
