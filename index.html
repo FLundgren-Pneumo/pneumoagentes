@@ -827,7 +827,7 @@ main{max-width:820px;margin:40px auto;padding:24px}.card{background:white;border
 .brand{font-size:12px;font-weight:700;letter-spacing:.12em;color:#0f766e}h1{margin:8px 0 16px}.notice{margin-top:24px;padding:16px;background:#ecfdf5;border-radius:14px;color:#065f46}
 </style>
 </head>
-<body><main><div class="card"><div class="brand">PULMOAGENTS</div><h1>${safeName}</h1><p>${safeDescription}</p><div class="notice">Aplicativo HTML clínico disponibilizado pela plataforma PneumoAgents.</div></div></main></body>
+<body><main><div class="card"><div class="brand">PNEUMOAGENTS</div><h1>${safeName}</h1><p>${safeDescription}</p><div class="notice">Aplicativo HTML clínico disponibilizado pela plataforma PneumoAgents.</div></div></main></body>
 </html>`;
         }
         
@@ -951,10 +951,10 @@ main{max-width:820px;margin:40px auto;padding:24px}.card{background:white;border
         }
         
         function saveToLocalStorage() {
-            localStorage.setItem('pulmoagents_agents', JSON.stringify(agents));
-            localStorage.setItem('pulmoagents_approved', JSON.stringify(Array.from(approvedAgentIds)));
-            localStorage.setItem('pulmoagents_pending', JSON.stringify(pendingRequests));
-            localStorage.setItem('pulmoagents_licenses', JSON.stringify(licenses));
+            localStorage.setItem('pneumoagents_agents', JSON.stringify(agents));
+            localStorage.setItem('pneumoagents_approved', JSON.stringify(Array.from(approvedAgentIds)));
+            localStorage.setItem('pneumoagents_pending', JSON.stringify(pendingRequests));
+            localStorage.setItem('pneumoagents_licenses', JSON.stringify(licenses));
         }
 
         function migrateAgentsToHtml() {
@@ -1144,11 +1144,11 @@ main{max-width:820px;margin:40px auto;padding:24px}.card{background:white;border
         }
         
         function loadFromLocalStorage() {
-            const savedAgents = localStorage.getItem('pulmoagents_agents');
-            const savedApproved = localStorage.getItem('pulmoagents_approved');
-            const savedPending = localStorage.getItem('pulmoagents_pending');
-            const savedLicenses = localStorage.getItem('pulmoagents_licenses');
-            const savedUser = localStorage.getItem('pulmoagents_user');
+            const savedAgents = localStorage.getItem('pneumoagents_agents');
+            const savedApproved = localStorage.getItem('pneumoagents_approved');
+            const savedPending = localStorage.getItem('pneumoagents_pending');
+            const savedLicenses = localStorage.getItem('pneumoagents_licenses');
+            const savedUser = localStorage.getItem('pneumoagents_user');
             
             if (savedAgents) {
                 agents = JSON.parse(savedAgents);
@@ -1184,9 +1184,9 @@ main{max-width:820px;margin:40px auto;padding:24px}.card{background:white;border
                 currentUser = JSON.parse(savedUser);
 
                 if (currentUser.role === 'admin' &&
-                    sessionStorage.getItem('pulmoagents_admin_authenticated') !== 'true') {
+                    sessionStorage.getItem('pneumoagents_admin_authenticated') !== 'true') {
                     currentUser = null;
-                    localStorage.removeItem('pulmoagents_user');
+                    localStorage.removeItem('pneumoagents_user');
                 } else {
                     updateUserUI();
                 }
@@ -1740,7 +1740,7 @@ main{max-width:820px;margin:40px auto;padding:24px}.card{background:white;border
                 role: 'doctor',
                 name: 'Dr. Pneumologista'
             };
-            localStorage.setItem('pulmoagents_user', JSON.stringify(currentUser));
+            localStorage.setItem('pneumoagents_user', JSON.stringify(currentUser));
             
             hideLoginModal();
             updateUserUI();
@@ -1764,8 +1764,8 @@ main{max-width:820px;margin:40px auto;padding:24px}.card{background:white;border
                 role: 'admin',
                 name: 'Fernando Lundgren'
             };
-            localStorage.setItem('pulmoagents_user', JSON.stringify(currentUser));
-            sessionStorage.setItem('pulmoagents_admin_authenticated', 'true');
+            localStorage.setItem('pneumoagents_user', JSON.stringify(currentUser));
+            sessionStorage.setItem('pneumoagents_admin_authenticated', 'true');
             
             hideLoginModal();
             updateUserUI();
@@ -1776,8 +1776,8 @@ main{max-width:820px;margin:40px auto;padding:24px}.card{background:white;border
         
         function logout() {
             currentUser = null;
-            localStorage.removeItem('pulmoagents_user');
-            sessionStorage.removeItem('pulmoagents_admin_authenticated');
+            localStorage.removeItem('pneumoagents_user');
+            sessionStorage.removeItem('pneumoagents_admin_authenticated');
             updateUserUI();
             renderAgents();
             showToast('Sessão encerrada com sucesso.');
@@ -2202,10 +2202,10 @@ const data=JSON.parse(new TextDecoder().decode(bytes));
 const app=document.getElementById("app");
 const expired=data.expiresAt&&Date.now()>=new Date(data.expiresAt).getTime();
 if(expired){
- app.innerHTML='<div class="blocked"><div class="brand">PULMOAGENTS</div><h2>Licença expirada</h2><p>O período de teste de 7 dias terminou.</p><p>Solicite nova liberação ao administrador Fernando Lundgren.</p></div>';
+ app.innerHTML='<div class="blocked"><div class="brand">PNEUMOAGENTS</div><h2>Licença expirada</h2><p>O período de teste de 7 dias terminou.</p><p>Solicite nova liberação ao administrador Fernando Lundgren.</p></div>';
 }else{
  const validity=data.expiresAt?'Teste válido até '+new Date(data.expiresAt).toLocaleString("pt-BR"):'Uso permanente liberado';
- app.innerHTML='<div class="licensed"><div class="bar"><div><span class="brand">PULMOAGENTS</span> · <span class="agent-name"></span></div><div class="license"></div></div><iframe title="Aplicativo clínico"></iframe></div>';
+ app.innerHTML='<div class="licensed"><div class="bar"><div><span class="brand">PNEUMOAGENTS</span> · <span class="agent-name"></span></div><div class="license"></div></div><iframe title="Aplicativo clínico"></iframe></div>';
  app.querySelector(".agent-name").textContent=data.nome;
  app.querySelector(".license").textContent=validity;
  const frame=app.querySelector("iframe");
@@ -2394,13 +2394,13 @@ if(expired){
             });
             
             // Welcome message for first time
-            if (!localStorage.getItem('pulmoagents_welcomed')) {
+            if (!localStorage.getItem('pneumoagents_welcomed')) {
                 setTimeout(() => {
                     // Only show if not logged in
                     if (!currentUser) {
                         // Can add a subtle welcome toast if wanted
                     }
-                    localStorage.setItem('pulmoagents_welcomed', 'true');
+                    localStorage.setItem('pneumoagents_welcomed', 'true');
                 }, 4500);
             }
             
