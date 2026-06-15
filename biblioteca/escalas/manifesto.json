@@ -1,0 +1,212 @@
+[
+  {
+    "filename": "01_dpoc_cat_copd_assessment_test.html",
+    "diagnosis": "DPOC",
+    "scale": "CAT (COPD Assessment Test)"
+  },
+  {
+    "filename": "02_dpoc_mmrc_dispneia.html",
+    "diagnosis": "DPOC",
+    "scale": "mMRC (Dispneia)"
+  },
+  {
+    "filename": "03_dpoc_indice_bode.html",
+    "diagnosis": "DPOC",
+    "scale": "Índice BODE"
+  },
+  {
+    "filename": "04_dpoc_decaf_exacerbacao.html",
+    "diagnosis": "DPOC",
+    "scale": "DECAF (Exacerbação)"
+  },
+  {
+    "filename": "05_dpoc_phq_9_depressao.html",
+    "diagnosis": "DPOC",
+    "scale": "PHQ-9 (Depressão)"
+  },
+  {
+    "filename": "06_dpoc_phq_2_triagem_de_depressao.html",
+    "diagnosis": "DPOC",
+    "scale": "PHQ-2 (Triagem de Depressão)"
+  },
+  {
+    "filename": "07_dpoc_lcadl_london_chest_activity_of_daily_living.html",
+    "diagnosis": "DPOC",
+    "scale": "LCADL (London Chest Activity of Daily Living)"
+  },
+  {
+    "filename": "08_depressao_phq_9_depressao.html",
+    "diagnosis": "Depressão",
+    "scale": "PHQ-9 (Depressão)"
+  },
+  {
+    "filename": "09_depressao_gad_7_ansiedade.html",
+    "diagnosis": "Depressão",
+    "scale": "GAD-7 (Ansiedade)"
+  },
+  {
+    "filename": "10_depressao_phq_2_triagem_de_depressao.html",
+    "diagnosis": "Depressão",
+    "scale": "PHQ-2 (Triagem de Depressão)"
+  },
+  {
+    "filename": "11_depressao_gds_15_escala_de_depressao_geriatrica.html",
+    "diagnosis": "Depressão",
+    "scale": "GDS-15 (Escala de Depressão Geriátrica)"
+  },
+  {
+    "filename": "12_nodulo_pulmonar_fleischner_2017_incidental.html",
+    "diagnosis": "Nódulo Pulmonar",
+    "scale": "Fleischner 2017 (incidental)"
+  },
+  {
+    "filename": "13_nodulo_pulmonar_lung_rads_v2022_screening.html",
+    "diagnosis": "Nódulo Pulmonar",
+    "scale": "Lung-RADS v2022 (screening)"
+  },
+  {
+    "filename": "14_nodulo_pulmonar_mayo_brock_risco_de_malignidade.html",
+    "diagnosis": "Nódulo Pulmonar",
+    "scale": "Mayo & Brock (Risco de Malignidade)"
+  },
+  {
+    "filename": "15_asma_act_asthma_control_test.html",
+    "diagnosis": "Asma",
+    "scale": "ACT (Asthma Control Test)"
+  },
+  {
+    "filename": "16_asma_acq_6.html",
+    "diagnosis": "Asma",
+    "scale": "ACQ-6"
+  },
+  {
+    "filename": "17_bronquiectasia_bsi_bronchiectasis_severity_index.html",
+    "diagnosis": "Bronquiectasia",
+    "scale": "BSI (Bronchiectasis Severity Index)"
+  },
+  {
+    "filename": "18_bronquiectasia_faced.html",
+    "diagnosis": "Bronquiectasia",
+    "scale": "FACED"
+  },
+  {
+    "filename": "19_fibrose_pulmonar_gap.html",
+    "diagnosis": "Fibrose Pulmonar",
+    "scale": "GAP"
+  },
+  {
+    "filename": "20_fibrose_pulmonar_cpi_composite_physiologic_index.html",
+    "diagnosis": "Fibrose Pulmonar",
+    "scale": "CPI (Composite Physiologic Index)"
+  },
+  {
+    "filename": "21_pneumonia_curb_65.html",
+    "diagnosis": "Pneumonia",
+    "scale": "CURB-65"
+  },
+  {
+    "filename": "22_pneumonia_crb_65.html",
+    "diagnosis": "Pneumonia",
+    "scale": "CRB-65"
+  },
+  {
+    "filename": "23_pneumonia_psi_port_simplificado.html",
+    "diagnosis": "Pneumonia",
+    "scale": "PSI/PORT (simplificado)"
+  },
+  {
+    "filename": "24_pneumonia_qsofa.html",
+    "diagnosis": "Pneumonia",
+    "scale": "qSOFA"
+  },
+  {
+    "filename": "25_tep_wells_tep.html",
+    "diagnosis": "TEP",
+    "scale": "Wells (TEP)"
+  },
+  {
+    "filename": "26_tep_perc_regra_de_exclusao.html",
+    "diagnosis": "TEP",
+    "scale": "PERC (Regra de Exclusão)"
+  },
+  {
+    "filename": "27_hipertensao_pulmonar_nyha_classe_funcional.html",
+    "diagnosis": "Hipertensão Pulmonar",
+    "scale": "NYHA (Classe Funcional)"
+  },
+  {
+    "filename": "28_hipertensao_pulmonar_esc_ers_simplificado.html",
+    "diagnosis": "Hipertensão Pulmonar",
+    "scale": "ESC/ERS (simplificado)"
+  },
+  {
+    "filename": "29_hipertensao_pulmonar_reveal_lite_2_0_simpl.html",
+    "diagnosis": "Hipertensão Pulmonar",
+    "scale": "REVEAL Lite 2.0 (simpl.)"
+  },
+  {
+    "filename": "30_saos_epworth.html",
+    "diagnosis": "SAOS",
+    "scale": "Epworth"
+  },
+  {
+    "filename": "31_saos_stop_bang.html",
+    "diagnosis": "SAOS",
+    "scale": "STOP-Bang"
+  },
+  {
+    "filename": "32_saos_escala_de_mallampati.html",
+    "diagnosis": "SAOS",
+    "scale": "Escala de Mallampati"
+  },
+  {
+    "filename": "33_insuficiencia_respiratoria_aguda_indice_rox_hfno.html",
+    "diagnosis": "Insuficiência Respiratória Aguda",
+    "scale": "Índice ROX (HFNO)"
+  },
+  {
+    "filename": "34_avaliacao_geral_news2.html",
+    "diagnosis": "Avaliação Geral",
+    "scale": "NEWS2"
+  },
+  {
+    "filename": "35_avaliacao_geral_escala_de_borg_modificada.html",
+    "diagnosis": "Avaliação Geral",
+    "scale": "Escala de Borg Modificada"
+  },
+  {
+    "filename": "36_covid_longa_pcfs_post_covid_functional_status.html",
+    "diagnosis": "COVID Longa",
+    "scale": "PCFS (Post-COVID Functional Status)"
+  },
+  {
+    "filename": "37_covid_longa_cfs_clinical_frailty_scale.html",
+    "diagnosis": "COVID Longa",
+    "scale": "CFS (Clinical Frailty Scale)"
+  },
+  {
+    "filename": "38_covid_longa_indice_de_sintomas_persistentes.html",
+    "diagnosis": "COVID Longa",
+    "scale": "Índice de Sintomas Persistentes"
+  },
+  {
+    "filename": "39_cancer_de_pulmao_ecog_performance_status.html",
+    "diagnosis": "Câncer de Pulmão",
+    "scale": "ECOG Performance Status"
+  },
+  {
+    "filename": "40_cancer_de_pulmao_karnofsky_kps.html",
+    "diagnosis": "Câncer de Pulmão",
+    "scale": "Karnofsky (KPS)"
+  },
+  {
+    "filename": "41_cancer_de_pulmao_lcss_lung_cancer_symptom_scale.html",
+    "diagnosis": "Câncer de Pulmão",
+    "scale": "LCSS (Lung Cancer Symptom Scale)"
+  },
+  {
+    "filename": "42_rinite_cronica_rcat_rhinitis_control_assessment_test.html",
+    "diagnosis": "Rinite Crônica",
+    "scale": "RCAT (Rhinitis Control Assessment Test)"
+  }
+]

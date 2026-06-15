@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>REVEAL Lite 2.0 (simpl.) | PneumoAgents</title>
+  <style>
+    :root {
+      --navy: #123d59;
+      --teal: #087e8b;
+      --teal-dark: #05616b;
+      --teal-soft: #e9f7f8;
+      --blue-soft: #edf5fa;
+      --ink: #173042;
+      --muted: #5c6f7d;
+      --line: #cddce5;
+      --paper: #fff;
+      --surface: #f4f8fa;
+      --warning: #8a5a00;
+      --warning-bg: #fff8e8;
+      --danger: #a33b2b;
+      --shadow: 0 14px 40px rgba(18, 61, 89, .12);
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background: radial-gradient(circle at 0 0, rgba(8,126,139,.10), transparent 28rem), linear-gradient(180deg,#f7fbfd,#eef5f8);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+    button, input, select { font: inherit; }
+    .topbar { color: #fff; background: linear-gradient(120deg,var(--navy),#0d596c 65%,var(--teal)); box-shadow: 0 4px 18px rgba(18,61,89,.2); }
+    .topbar-inner, main, .footer-inner { width: min(1120px,calc(100% - 32px)); margin-inline: auto; }
+    .topbar-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 22px 0; }
+    .brand { display: flex; align-items: center; gap: 13px; }
+    .brand-mark { display: grid; place-items: center; width: 46px; height: 46px; border: 1px solid rgba(255,255,255,.45); border-radius: 14px; background: rgba(255,255,255,.14); font-weight: 850; }
+    .brand-name { margin: 0; font-size: 1.12rem; font-weight: 780; }
+    .brand-subtitle { margin: 2px 0 0; color: rgba(255,255,255,.78); font-size: .86rem; }
+    .status { padding: 7px 11px; border: 1px solid rgba(255,255,255,.35); border-radius: 999px; background: rgba(255,255,255,.12); font-size: .77rem; white-space: nowrap; }
+    main { padding: 32px 0 42px; }
+    .hero { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 22px; margin-bottom: 21px; }
+    .eyebrow { margin: 0 0 4px; color: var(--teal-dark); font-size: .78rem; font-weight: 820; letter-spacing: .08em; text-transform: uppercase; }
+    h1,h2,h3 { color: var(--navy); line-height: 1.18; }
+    h1 { margin: 0 0 8px; font-size: clamp(1.65rem,5vw,2.55rem); letter-spacing: -.035em; }
+    h2 { margin: 0 0 13px; font-size: 1.17rem; }
+    h3 { margin: 0 0 5px; font-size: 1rem; }
+    .lead { max-width: 760px; margin: 0; color: var(--muted); }
+    .meta { display: grid; grid-template-columns: repeat(3,auto); overflow: hidden; border: 1px solid var(--line); border-radius: 13px; background: rgba(255,255,255,.75); }
+    .meta div { padding: 8px 11px; border-left: 1px solid var(--line); }
+    .meta div:first-child { border-left: 0; }
+    .meta span { display: block; color: var(--muted); font-size: .64rem; letter-spacing: .07em; text-transform: uppercase; }
+    .meta strong { display: block; color: var(--navy); font-size: .8rem; }
+    .layout { display: grid; grid-template-columns: minmax(0,1.45fr) minmax(300px,.72fr); gap: 21px; align-items: start; }
+    .card { border: 1px solid rgba(205,220,229,.95); border-radius: var(--radius); background: var(--paper); box-shadow: var(--shadow); }
+    .form-card { padding: 23px; }
+    .caption { margin: -6px 0 18px; color: var(--muted); font-size: .9rem; }
+    .fields { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 13px; }
+    .fields.compact .field { padding: 11px; }
+    .field { min-width: 0; padding: 14px; border: 1px solid var(--line); border-radius: 13px; background: #fff; }
+    .field:focus-within { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(8,126,139,.10); }
+    .field label { display: flex; align-items: center; gap: 9px; min-height: 31px; margin-bottom: 9px; color: var(--navy); font-size: .9rem; font-weight: 740; }
+    .field-number { display: grid; place-items: center; flex: 0 0 auto; width: 27px; height: 27px; border-radius: 8px; color: var(--teal-dark); background: var(--blue-soft); font-size: .78rem; }
+    .required { color: var(--danger); }
+    input, select { width: 100%; min-height: 43px; padding: 9px 10px; border: 1px solid var(--line); border-radius: 9px; color: var(--ink); background: var(--surface); }
+    input:focus, select:focus { outline: none; border-color: var(--teal); background: #fff; }
+    .form-actions { display: flex; gap: 10px; margin-top: 17px; }
+    .btn { min-height: 43px; padding: 10px 14px; border: 1px solid transparent; border-radius: 10px; cursor: pointer; font-weight: 740; }
+    .btn-primary { color: #fff; background: var(--teal); }
+    .btn-primary:hover { background: var(--teal-dark); }
+    .btn-secondary { color: var(--navy); border-color: var(--line); background: #fff; }
+    .btn:disabled { cursor: not-allowed; opacity: .45; }
+    .side { position: sticky; top: 16px; display: grid; gap: 15px; }
+    .result-card { overflow: hidden; }
+    .result-head { padding: 18px 19px 14px; color: #fff; background: linear-gradient(135deg,var(--navy),#126c79); }
+    .result-head h2 { margin: 0; color: #fff; }
+    .result-body { padding: 19px; }
+    .result-state { display: inline-block; margin-bottom: 10px; padding: 5px 9px; border-radius: 999px; color: var(--teal-dark); background: var(--teal-soft); font-size: .74rem; font-weight: 790; }
+    .result-text { margin: 0; color: #405766; font-size: 1.03rem; font-weight: 680; white-space: pre-wrap; }
+    .empty { color: var(--muted); font-size: .92rem; font-style: italic; font-weight: 400; }
+    .result-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 17px; }
+    .info-card { padding: 17px 19px; box-shadow: none; }
+    .info-card p { margin: 0; color: #4b606d; font-size: .87rem; }
+    .notice { border-color: #ead7a8; background: var(--warning-bg); }
+    .notice h2 { color: var(--warning); }
+    .privacy { display: flex; gap: 9px; align-items: flex-start; }
+    .privacy strong { color: var(--teal-dark); font-size: .77rem; }
+    .references { margin-top: 20px; padding: 21px 23px; box-shadow: none; }
+    .references ol { margin: 0; padding-left: 20px; }
+    .references li { margin: 6px 0; color: #4b606d; font-size: .85rem; }
+    footer { border-top: 1px solid var(--line); background: rgba(255,255,255,.65); }
+    .footer-inner { display: flex; justify-content: space-between; gap: 18px; padding: 17px 0 24px; color: var(--muted); font-size: .77rem; }
+    @media (max-width: 850px) {
+      .hero,.layout { grid-template-columns: 1fr; }
+      .hero { align-items: start; }
+      .meta { width: fit-content; }
+      .side { position: static; grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .result-card { grid-row: span 2; }
+    }
+    @media (max-width: 600px) {
+      .status { display: none; }
+      .meta { grid-template-columns: 1fr; width: 100%; }
+      .meta div,.meta div:first-child { border: 0; border-top: 1px solid var(--line); }
+      .meta div:first-child { border-top: 0; }
+      .fields { grid-template-columns: 1fr; }
+      .side { grid-template-columns: 1fr; }
+      .result-actions { grid-template-columns: 1fr; }
+      .footer-inner { display: block; }
+    }
+    @media print {
+      @page { size: A4; margin: 12mm; }
+      body { background: #fff; font-size: 9.5pt; }
+      .topbar { box-shadow: none; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+      .topbar-inner,main,.footer-inner { width: 100%; }
+      .topbar-inner { padding: 11px 0; }
+      main { padding: 14px 0; }
+      .hero { margin-bottom: 11px; }
+      .layout { grid-template-columns: 1.45fr .72fr; gap: 9px; }
+      .card { box-shadow: none; break-inside: avoid; }
+      .form-card { padding: 12px; }
+      .fields { gap: 6px; }
+      .field,.fields.compact .field { padding: 7px; }
+      .field label { min-height: auto; margin-bottom: 4px; font-size: 8pt; }
+      .field-number { width: 21px; height: 21px; }
+      input,select { min-height: 31px; padding: 4px 6px; font-size: 8pt; }
+      .form-actions,.result-actions { display: none; }
+      .side { position: static; gap: 8px; }
+      .result-head,.result-body,.info-card { padding: 10px; }
+      .references { margin-top: 9px; padding: 11px; }
+      .references li { font-size: 7.4pt; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">PA</div>
+        <div>
+          <p class="brand-name">PneumoAgents</p>
+          <p class="brand-subtitle">Ferramentas de apoio respiratório</p>
+        </div>
+      </div>
+      <div class="status">100% offline e local</div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Hipertensão Pulmonar</p>
+        <h1>REVEAL Lite 2.0 (simpl.)</h1>
+        <p class="lead">Ferramenta de risco baseada em 7 variáveis clínicas e laboratoriais.</p>
+      </div>
+      <div class="meta" aria-label="Controle de versão">
+        <div><span>Versão</span><strong>1.0.0</strong></div>
+        <div><span>Atualização</span><strong>15/06/2026</strong></div>
+        <div><span>Próxima revisão</span><strong>15/06/2027</strong></div>
+      </div>
+    </section>
+
+    <div class="layout">
+      <section class="card form-card">
+        <h2>Dados para cálculo</h2>
+        <p class="caption">Preencha todos os campos. O resultado é calculado exclusivamente neste dispositivo.</p>
+        <form id="scaleForm">
+          <div class="fields">
+            
+      <div class="field">
+        <label for="f0"><span class="field-number">1</span><span>Classe (I–IV) <span class="required" aria-hidden="true">*</span></span></label>
+        <input id="f0" data-index="0" type="number" step="any" inputmode="decimal" placeholder="Digite o valor" required>
+      </div>
+      <div class="field">
+        <label for="f1"><span class="field-number">2</span><span>TC6 (m) <span class="required" aria-hidden="true">*</span></span></label>
+        <input id="f1" data-index="1" type="number" step="any" inputmode="decimal" placeholder="Digite o valor" required>
+      </div>
+      <div class="field">
+        <label for="f2"><span class="field-number">3</span><span>BNP/NT-proBNP <span class="required" aria-hidden="true">*</span></span></label>
+        <input id="f2" data-index="2" type="number" step="any" inputmode="decimal" placeholder="Digite o valor" required>
+      </div>
+      <div class="field">
+        <label for="f3"><span class="field-number">4</span><span>PAS (mmHg) <span class="required" aria-hidden="true">*</span></span></label>
+        <input id="f3" data-index="3" type="number" step="any" inputmode="decimal" placeholder="Digite o valor" required>
+      </div>
+      <div class="field">
+        <label for="f4"><span class="field-number">5</span><span>FC (bpm) <span class="required" aria-hidden="true">*</span></span></label>
+        <input id="f4" data-index="4" type="number" step="any" inputmode="decimal" placeholder="Digite o valor" required>
+      </div>
+      <div class="field">
+        <label for="f5"><span class="field-number">6</span><span>IMC <span class="required" aria-hidden="true">*</span></span></label>
+        <input id="f5" data-index="5" type="number" step="any" inputmode="decimal" placeholder="Digite o valor" required>
+      </div>
+        <div class="field">
+          <label for="f6"><span class="field-number">7</span><span>Síncope recente <span class="required" aria-hidden="true">*</span></span></label>
+          <select id="f6" data-index="6" required>
+            <option value="">Selecione uma opção</option>
+            <option value="0">Não (0)</option><option value="1">Sim (1)</option>
+          </select>
+        </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Calcular resultado</button>
+            <button class="btn btn-secondary" id="clearButton" type="button">Limpar</button>
+          </div>
+        </form>
+      </section>
+
+      <aside class="side">
+        <section class="card result-card" aria-live="polite">
+          <div class="result-head"><h2>Resultado</h2></div>
+          <div class="result-body">
+            <span class="result-state" id="resultState">Aguardando dados</span>
+            <p class="result-text empty" id="resultText">Preencha os campos e selecione “Calcular resultado”.</p>
+            <div class="result-actions">
+              <button class="btn btn-primary" id="saveButton" type="button" disabled>Salvar TXT</button>
+              <button class="btn btn-secondary" id="printButton" type="button">Imprimir / PDF</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="card info-card">
+          <h2>Importância clínica</h2>
+          <p>Apoia decisão terapêutica e comunicação de risco.</p>
+        </section>
+
+        <section class="card info-card notice">
+          <h2>Apoio à decisão clínica</h2>
+          <p>Esta ferramenta não substitui avaliação profissional, confirmação diagnóstica, protocolos institucionais ou julgamento clínico. Verifique indicações, limitações e população de validação antes de aplicar o resultado.</p>
+        </section>
+
+        <section class="card info-card">
+          <div class="privacy">
+            <strong>LOCAL</strong>
+            <p>Nenhum dado é enviado ou armazenado em servidor. O TXT é gerado somente neste dispositivo.</p>
+          </div>
+        </section>
+      </aside>
+    </div>
+
+    <section class="card references">
+      <h2>Bibliografia</h2>
+      <ol><li>Benza RL et al. Chest. 2021;159(1):337–346.</li></ol>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span>PneumoAgents · REVEAL Lite 2.0 (simpl.)</span>
+      <span>Uso profissional · Execução local</span>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      "use strict";
+      const scale = {
+        diagnosis: "Hipertensão Pulmonar",
+        name: "REVEAL Lite 2.0 (simpl.)",
+        fields: [{"label":"Classe (I–IV)","type":"number"},{"label":"TC6 (m)","type":"number"},{"label":"BNP/NT-proBNP","type":"number"},{"label":"PAS (mmHg)","type":"number"},{"label":"FC (bpm)","type":"number"},{"label":"IMC","type":"number"},{"label":"Síncope recente","type":"select","options":[0,1],"texts":["Não","Sim"]}]
+      };
+      const calculate = (v)=>{
+              let s=0;
+              if(v[0]>=3)s+=1; if(v[1]<165)s+=1; if(v[2]>1400)s+=1; if(v[3]<110)s+=1; if(v[4]>96)s+=1; if(v[5]<18.5)s+=1; if(v[6]===1)s+=1;
+              let cls='Baixo (0–1)'; if(s>=2&&s<=3)cls='Intermediário (2–3)'; else if(s>=4)cls='Alto (≥4)';
+              return `Pontuação: ${s}/7 — ${cls}.`;
+            };
+      const form = document.getElementById("scaleForm");
+      const resultState = document.getElementById("resultState");
+      const resultText = document.getElementById("resultText");
+      const saveButton = document.getElementById("saveButton");
+      const printButton = document.getElementById("printButton");
+      const clearButton = document.getElementById("clearButton");
+      let lastResult = "";
+      let lastValues = [];
+
+      function readValues() {
+        return scale.fields.map((field, index) => {
+          const element = document.getElementById("f" + index);
+          if (element.value === "") return null;
+          return Number(element.value);
+        });
+      }
+
+      function selectedLabel(index) {
+        const element = document.getElementById("f" + index);
+        if (element.tagName === "SELECT") {
+          return element.options[element.selectedIndex]?.textContent || element.value;
+        }
+        return element.value;
+      }
+
+      function showIncomplete() {
+        resultState.textContent = "Dados incompletos";
+        resultText.textContent = "Preencha todos os campos antes de calcular.";
+        resultText.classList.add("empty");
+        saveButton.disabled = true;
+      }
+
+      function runCalculation(event) {
+        event?.preventDefault();
+        const values = readValues();
+        if (values.some(value => value === null || Number.isNaN(value))) {
+          showIncomplete();
+          return;
+        }
+        try {
+          lastResult = String(calculate(values));
+          lastValues = values;
+          resultState.textContent = "Cálculo concluído";
+          resultText.textContent = lastResult;
+          resultText.classList.remove("empty");
+          saveButton.disabled = false;
+        } catch (error) {
+          lastResult = "";
+          resultState.textContent = "Não foi possível calcular";
+          resultText.textContent = "Revise os valores informados e tente novamente.";
+          resultText.classList.add("empty");
+          saveButton.disabled = true;
+        }
+      }
+
+      function formatDate(date) {
+        return new Intl.DateTimeFormat("pt-BR", { dateStyle: "short", timeStyle: "short" }).format(date);
+      }
+
+      function saveTxt() {
+        if (!lastResult) return;
+        const answers = scale.fields.map((field, index) =>
+          (index + 1) + ". " + field.label + ": " + selectedLabel(index)
+        );
+        const content = [
+          "PNEUMOAGENTS",
+          scale.diagnosis + " - " + scale.name,
+          "========================================",
+          "Data e hora: " + formatDate(new Date()),
+          "Versão da ferramenta: 1.0.0",
+          "",
+          "RESULTADO:",
+          lastResult,
+          "",
+          "DADOS INFORMADOS:",
+          ...answers,
+          "",
+          "AVISO:",
+          "Ferramenta de apoio à decisão clínica. Não substitui avaliação profissional, protocolos institucionais ou julgamento clínico.",
+          "",
+          "Privacidade: processamento local; nenhum dado foi enviado a servidores."
+        ].join("\r\n");
+        const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        const date = new Date().toISOString().slice(0, 10);
+        link.href = url;
+        link.download = "reveal_lite_2_0_simpl" + "_" + date + ".txt";
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+      }
+
+      function clearForm() {
+        form.reset();
+        lastResult = "";
+        lastValues = [];
+        resultState.textContent = "Aguardando dados";
+        resultText.textContent = "Preencha os campos e selecione “Calcular resultado”.";
+        resultText.classList.add("empty");
+        saveButton.disabled = true;
+        document.getElementById("f0")?.focus();
+      }
+
+      form.addEventListener("submit", runCalculation);
+      saveButton.addEventListener("click", saveTxt);
+      printButton.addEventListener("click", () => window.print());
+      clearButton.addEventListener("click", clearForm);
+    })();
+  </script>
+</body>
+</html>
