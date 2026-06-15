@@ -343,7 +343,7 @@
             <div>
                 <span class="px-4 py-1.5 text-xs font-semibold tracking-widest bg-teal-100 text-teal-700 rounded-3xl">CATÁLOGO OFICIAL</span>
                 <h2 class="section-header text-slate-900 mt-3">Agentes de Apoio<br>à Decisão Clínica</h2>
-                <p class="text-slate-600 mt-2 max-w-md">Ferramentas validadas para pneumologistas brasileiros. Foco em equações locais, diretrizes nacionais e realidade do SUS/ANS.</p>
+                <p class="text-slate-600 mt-2 max-w-md">Ferramentas digitais de apoio à decisão clínica em pneumologia, com foco em organização do raciocínio, documentação estruturada e uso responsável na prática médica.</p>
             </div>
             
             <!-- Search + Filter -->
@@ -379,11 +379,25 @@
   <div style="max-width:1300px;margin:auto">
     <p style="font-size:12px;font-weight:700;letter-spacing:.12em;color:#0f766e">BIBLIOTECA PNEUMOAGENTS</p>
     <h2 style="font-size:36px;line-height:1.1;margin:10px 0;color:#0f172a">Infográficos, escalas e calculadoras clínicas</h2>
-    <p style="color:#475569;max-width:760px">Materiais de apoio para uso diário em pneumologia, com bibliografia, exportação em TXT e impressão em PDF pelo navegador.</p>
+    <p style="color:#475569;max-width:760px">Biblioteca digital com escalas, calculadoras e infográficos para apoio à prática pneumológica diária, acompanhados de referências bibliográficas e recursos de documentação local.</p>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:28px">
-      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:22px;padding:20px"><b>mMRC + CAT</b><p>Escalas para DPOC.</p><a href="biblioteca/mmrc-cat.html">Abrir →</a></div>
-      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:22px;padding:20px"><b>Vacinação respiratória</b><p>Infográfico com referências.</p><a href="biblioteca/vacinacao-respiratoria.html">Abrir →</a></div>
-      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:22px;padding:20px"><b>FACED / E-FACED</b><p>Bronquiectasias.</p><a href="biblioteca/faced-efaced.html">Abrir →</a></div>
+      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:22px;padding:20px">
+        <b>Escalas Pneumológicas</b>
+        <p>Biblioteca com 42 escalas, calculadoras e instrumentos clínicos.</p>
+        <a href="biblioteca/escalas/00_INDICE.html">Abrir →</a>
+      </div>
+
+      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:22px;padding:20px">
+        <b>Calculadoras Clínicas</b>
+        <p>Em desenvolvimento.</p>
+        <span style="color:#64748b">Disponível em breve</span>
+      </div>
+
+      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:22px;padding:20px">
+        <b>Infográficos Respiratórios</b>
+        <p>Materiais educativos com bibliografia associada.</p>
+        <span style="color:#64748b">Disponível em breve</span>
+      </div>
     </div>
   </div>
 </section>
@@ -761,7 +775,6 @@
     <!-- TOAST CONTAINER -->
     <div id="toast-container" class="fixed bottom-5 right-5 z-[200] flex flex-col gap-y-2"></div>
 
-    <script src="https://cdn.tailwindcss.com"></script>
     <script>
         // Tailwind script
         function initializeTailwind() {
