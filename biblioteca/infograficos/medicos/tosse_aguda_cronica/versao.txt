@@ -1,0 +1,12 @@
+material: tosse-aguda-e-cronica
+publico: medicos
+populacao: adultos
+caminho: /medicos/tosse/
+versao: 2.0.0
+data: 2026-06-15
+idioma: pt-BR
+status: publicado
+aviso: Este material destina-se ao apoio educacional e nao substitui o julgamento clinico individualizado.
+arquivos: index.html, infografico.pdf, referencias.txt, versao.txt
+exportacao: botao de impressao/PDF no index.html e PDF pronto para download
+elementos_obrigatorios: aviso educacional e botao Voltar ao PneumoAgents

@@ -1,0 +1,72 @@
+TOSSE AGUDA E TOSSE CRONICA EM ADULTOS - REFERENCIAS
+Atualizacao: 15 de junho de 2026
+
+Este material destina-se ao apoio educacional e nao substitui o julgamento
+clinico individualizado.
+
+1. National Institute for Health and Care Excellence (NICE).
+   Cough (acute): antimicrobial prescribing. NICE guideline NG120.
+   Publicada em 7 fev. 2019. Consulta em 15 jun. 2026.
+   https://www.nice.org.uk/guidance/ng120
+
+2. Parker SM, Smith JA, Birring SS, et al.
+   British Thoracic Society Clinical Statement on chronic cough in adults.
+   Thorax. 2023;78(Suppl 6):s3-s19.
+   DOI: 10.1136/thorax-2023-220592
+   https://thorax.bmj.com/content/78/Suppl_6/s3
+
+3. Morice AH, Millqvist E, Bieksiene K, et al.
+   ERS guidelines on the diagnosis and treatment of chronic cough in adults
+   and children. European Respiratory Journal. 2020;55(1):1901136.
+   DOI: 10.1183/13993003.01136-2019
+   https://publications.ersnet.org/content/erj/55/1/1901136
+
+4. Irwin RS, French CL, Chang AB, Altman KW; CHEST Expert Cough Panel.
+   Classification of cough as a symptom in adults and management algorithms:
+   CHEST Guideline and Expert Panel Report.
+   Chest. 2018;153(1):196-209.
+   DOI: 10.1016/j.chest.2017.10.016
+   https://journal.chestnet.org/article/S0012-3692(17)32918-5/fulltext
+
+5. Malesker MA, Callahan-Lyon P, Ireland B, et al.
+   Pharmacologic and nonpharmacologic treatment for acute cough associated
+   with the common cold: CHEST Expert Panel Report.
+   Chest. 2017;152(5):1021-1037.
+   DOI: 10.1016/j.chest.2017.08.009
+
+6. Kinkade S, Long NA.
+   Acute bronchitis. American Family Physician. 2016;94(7):560-565.
+   https://www.aafp.org/pubs/afp/issues/2016/1001/p560.html
+
+7. Centers for Disease Control and Prevention (CDC).
+   Outpatient clinical care for adults: antibiotic prescribing and use.
+   Consulta em 15 jun. 2026.
+   https://www.cdc.gov/antibiotic-use/hcp/clinical-care/adult-outpatient.html
+
+8. Centers for Disease Control and Prevention (CDC).
+   Clinical features of pertussis. Consulta em 15 jun. 2026.
+   https://www.cdc.gov/pertussis/hcp/clinical-signs/
+
+9. Global Initiative for Asthma.
+   Global Strategy for Asthma Management and Prevention, 2025.
+   https://ginasthma.org/2025-gina-strategy-report/
+
+10. Global Initiative for Chronic Obstructive Lung Disease.
+    Global Strategy for Prevention, Diagnosis and Management of COPD:
+    2025 Report.
+    https://goldcopd.org/2025-gold-report/
+
+11. McGarvey L, Gibson PG.
+    What is chronic cough? Terminology.
+    Journal of Allergy and Clinical Immunology: In Practice.
+    2019;7(6):1711-1714.
+    DOI: 10.1016/j.jaip.2019.04.012
+
+NOTAS EDITORIAIS
+- O material aborda adultos. Em criancas, tosse cronica e geralmente definida
+  como duracao superior a 4 semanas e requer algoritmo pediatrico proprio.
+- A classificacao temporal adotada e: aguda <3 semanas, subaguda 3-8 semanas
+  e cronica >8 semanas.
+- Diretrizes publicadas antes de 2026 foram mantidas quando continuam sendo
+  documentos de referencia vigentes e nao foram substituidas por versoes mais
+  recentes identificadas ate a data desta revisao.

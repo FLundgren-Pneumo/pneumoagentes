@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Abordagem clínica da tosse aguda e crônica em adultos.">
+  <title>Tosse aguda e crônica | Material para médicos</title>
+  <style>
+    :root {
+      --navy: #15344a;
+      --blue: #24789a;
+      --cyan: #dff2f4;
+      --orange: #dc6b3d;
+      --orange-light: #fff0e7;
+      --green: #21755b;
+      --green-light: #e5f3ec;
+      --yellow: #f5cf72;
+      --red: #b93636;
+      --ink: #18323b;
+      --muted: #526a71;
+      --line: #cbdde0;
+      --paper: #f2f7f7;
+      --white: #fff;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+    }
+    .toolbar {
+      position: sticky;
+      z-index: 10;
+      top: 0;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,.96);
+    }
+    .button {
+      padding: 10px 15px;
+      border: 2px solid var(--navy);
+      border-radius: 9px;
+      color: white;
+      background: var(--navy);
+      font: inherit;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .button.secondary { color: var(--navy); background: white; }
+    .sheet {
+      width: 1080px;
+      min-height: 1528px;
+      margin: 24px auto;
+      overflow: hidden;
+      background: white;
+      box-shadow: 0 12px 35px rgba(21,52,74,.14);
+    }
+    header {
+      display: grid;
+      grid-template-columns: 1.35fr .65fr;
+      min-height: 250px;
+      padding: 44px 58px 36px;
+      color: white;
+      background: linear-gradient(135deg, var(--navy), #205b71);
+    }
+    .kicker {
+      display: inline-block;
+      margin-bottom: 17px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      color: var(--navy);
+      background: #bde5e8;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    h1 { margin: 0; font-size: 59px; line-height: 1; letter-spacing: -2px; }
+    header p { max-width: 680px; margin: 18px 0 0; color: #deeff3; font-size: 23px; line-height: 1.28; }
+    .clock {
+      align-self: center;
+      justify-self: center;
+      width: 152px;
+      height: 152px;
+      border: 12px solid #bde5e8;
+      border-radius: 50%;
+      position: relative;
+    }
+    .clock::before, .clock::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 6px;
+      border-radius: 5px;
+      background: white;
+      transform-origin: 50% 0;
+    }
+    .clock::before { height: 47px; transform: rotate(180deg); }
+    .clock::after { height: 35px; transform: rotate(118deg); }
+    main { padding: 28px 58px 42px; }
+    .timeline {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+    .time {
+      padding: 15px;
+      border-radius: 13px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 800;
+    }
+    .time small { display: block; margin-top: 4px; font-size: 15px; font-weight: 600; }
+    .acute { color: #813617; background: var(--orange-light); }
+    .subacute { color: #735912; background: #fff6d9; }
+    .chronic { color: #175a45; background: var(--green-light); }
+    .alert {
+      padding: 17px 21px;
+      border-radius: 15px;
+      color: #5c1717;
+      background: #fae4e4;
+      border-left: 7px solid var(--red);
+    }
+    .alert h2 { margin: 0 0 6px; font-size: 23px; }
+    .alert p { margin: 0; font-size: 17px; line-height: 1.34; }
+    .columns { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 22px; }
+    .panel {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: white;
+    }
+    .panel-title { padding: 19px 23px; color: white; }
+    .panel-title h2 { margin: 0; font-size: 29px; }
+    .panel-title p { margin: 5px 0 0; font-size: 16px; opacity: .9; }
+    .acute-head { background: var(--orange); }
+    .chronic-head { background: var(--green); }
+    .panel-body { padding: 19px 23px 21px; }
+    h3 { margin: 0 0 8px; color: var(--navy); font-size: 20px; }
+    ul { margin: 0 0 17px; padding-left: 21px; }
+    li { margin: 5px 0; font-size: 16px; line-height: 1.3; }
+    .step {
+      display: grid;
+      grid-template-columns: 37px 1fr;
+      gap: 10px;
+      align-items: start;
+      margin: 10px 0;
+    }
+    .number {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      color: white;
+      background: var(--navy);
+      font-weight: 900;
+    }
+    .step p { margin: 4px 0 0; font-size: 16px; line-height: 1.3; }
+    .pearl {
+      margin-top: 13px;
+      padding: 13px 15px;
+      border-radius: 12px;
+      background: var(--cyan);
+      font-size: 15px;
+      line-height: 1.34;
+    }
+    .bottom {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .card {
+      padding: 18px 21px;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      background: #f8fbfb;
+    }
+    .card h2 { margin: 0 0 9px; color: var(--navy); font-size: 22px; }
+    .card p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.36; }
+    .references {
+      margin-top: 20px;
+      padding-top: 13px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.3;
+    }
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 16px 58px;
+      color: #dcecf0;
+      background: var(--navy);
+      font-size: 13px;
+    }
+    @media (max-width: 1100px) {
+      .sheet { width: 100%; min-height: auto; margin: 0; box-shadow: none; }
+    }
+    @media (max-width: 760px) {
+      header { grid-template-columns: 1fr; padding: 34px 24px; }
+      h1 { font-size: 44px; }
+      .clock { display: none; }
+      main { padding: 22px 20px 32px; }
+      .timeline, .columns, .bottom { grid-template-columns: 1fr; }
+      footer { padding: 16px 20px; }
+    }
+    @page { size: 210mm 297mm; margin: 0; }
+    @media print {
+      body { background: white; }
+      .toolbar { display: none; }
+      .sheet {
+        width: 210mm;
+        height: 297mm;
+        min-height: 297mm;
+        margin: 0;
+        box-shadow: none;
+        transform-origin: top left;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="toolbar" aria-label="Exportação">
+    <button class="button" type="button" onclick="window.print()">Imprimir / exportar PDF</button>
+    <a class="button secondary" href="infografico.pdf" download>Baixar PDF pronto</a>
+    <a class="button secondary" href="referencias.txt">Referências</a>
+    <a class="button secondary" href="../../../../index.html">
+      Voltar ao PneumoAgents
+    </a>
+  </nav>
+
+  <article class="sheet">
+    <header>
+      <div>
+        <span class="kicker">Abordagem clínica em adultos</span>
+        <h1>Tosse aguda<br>e tosse crônica</h1>
+        <p>A duração orienta o raciocínio, mas sinais de gravidade, contexto epidemiológico e características do paciente definem a urgência.</p>
+      </div>
+      <div class="clock" aria-hidden="true"></div>
+    </header>
+
+    <main>
+      <section class="timeline" aria-label="Classificação da tosse pela duração">
+        <div class="time acute">Aguda<small>menos de 3 semanas</small></div>
+        <div class="time subacute">Subaguda<small>3 a 8 semanas</small></div>
+        <div class="time chronic">Crônica<small>mais de 8 semanas</small></div>
+      </section>
+
+      <section class="alert">
+        <h2>Primeiro: procure sinais de alarme</h2>
+        <p>Instabilidade, dispneia importante, hipoxemia, hemoptise, dor torácica, estridor, alteração do sensório, febre persistente, perda ponderal, imunossupressão, risco de aspiração ou exame pulmonar focal exigem avaliação dirigida e, conforme o caso, urgência.</p>
+      </section>
+
+      <section class="columns">
+        <article class="panel">
+          <div class="panel-title acute-head">
+            <h2>Tosse aguda</h2>
+            <p>Geralmente infecciosa e autolimitada</p>
+          </div>
+          <div class="panel-body">
+            <h3>Causas e diagnósticos a excluir</h3>
+            <ul>
+              <li>Infecção viral de vias aéreas e bronquite aguda.</li>
+              <li>COVID-19, influenza e coqueluche conforme circulação e exposição.</li>
+              <li>Pneumonia, exacerbação de asma/DPOC, insuficiência cardíaca e tromboembolismo conforme clínica.</li>
+            </ul>
+            <h3>Conduta prática</h3>
+            <div class="step"><div class="number">1</div><p>Avalie sinais vitais, oximetria e exame cardiopulmonar; estime risco de pneumonia.</p></div>
+            <div class="step"><div class="number">2</div><p>Teste agentes específicos quando o resultado modificar isolamento, antiviral ou outra conduta.</p></div>
+            <div class="step"><div class="number">3</div><p>Oriente hidratação e medidas sintomáticas individualizadas. Explique que a tosse aguda pode durar até 3-4 semanas.</p></div>
+            <div class="step"><div class="number">4</div><p>Não prescreva antibiótico rotineiramente para infecção viral ou bronquite aguda não complicada.</p></div>
+            <div class="pearl"><b>Reavalie</b> se houver piora rápida, novos sinais de alarme, ausência de melhora no tempo esperado ou vulnerabilidade clínica relevante.</div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-title chronic-head">
+            <h2>Tosse crônica</h2>
+            <p>Investigue causas e traços tratáveis</p>
+          </div>
+          <div class="panel-body">
+            <h3>Avaliação inicial</h3>
+            <div class="step"><div class="number">1</div><p>História: tabaco/vape, exposições, início, gatilhos, expectoração, sintomas nasais, asma, refluxo, disfagia e impacto na vida.</p></div>
+            <div class="step"><div class="number">2</div><p>Revise medicamentos, especialmente inibidores da ECA. A resolução após suspensão pode levar semanas.</p></div>
+            <div class="step"><div class="number">3</div><p>Solicite radiografia de tórax e espirometria; considere broncodilatador, hemograma/eosinófilos e FeNO conforme disponibilidade.</p></div>
+            <h3 style="margin-top:15px">Traços tratáveis frequentes</h3>
+            <ul>
+              <li>Doença eosinofílica das vias aéreas: asma e bronquite eosinofílica.</li>
+              <li>Rinossinusite/doença de vias aéreas superiores.</li>
+              <li>Refluxo: priorize tratamento quando houver sintomas ou evidência compatível.</li>
+              <li>Tabagismo, DPOC, bronquiectasias e exposições ocupacionais.</li>
+            </ul>
+            <div class="pearl"><b>TC de tórax não é exame rotineiro</b> diante de radiografia e exame normais. Tosse refratária pode refletir hipersensibilidade do reflexo da tosse e merece avaliação especializada.</div>
+          </div>
+        </article>
+      </section>
+
+      <section class="bottom">
+        <div class="card">
+          <h2>Quando encaminhar ou ampliar investigação</h2>
+          <p>Achado radiológico, hemoptise, suspeita de neoplasia ou tuberculose, tosse produtiva persistente, infecções recorrentes, dispneia progressiva, alteração funcional, falha de investigação/tratamento inicial ou tosse crônica refratária.</p>
+        </div>
+        <div class="card">
+          <h2>Evite atalhos</h2>
+          <p>Cor do escarro isoladamente não define infecção bacteriana. Supressores inespecíficos, antibióticos, corticoides, broncodilatadores e inibidores de bomba não devem substituir a identificação do diagnóstico ou do traço tratável.</p>
+        </div>
+      </section>
+
+      <div class="references">
+        Fontes principais: NICE NG120 (tosse aguda); Irwin et al., CHEST 2018; Morice et al., ERS 2020; Parker et al., BTS Clinical Statement, Thorax 2023. Consulte o arquivo referencias.txt para a lista completa.
+      </div>
+    </main>
+
+    <footer>
+      <span>Este material destina-se ao apoio educacional e não substitui o julgamento clínico individualizado.</span>
+      <span>Versão 2.0.0 - 15/06/2026</span>
+    </footer>
+  </article>
+</body>
+</html>
