@@ -1,16 +1,34 @@
 # Agente Bronquiectasias 2026
 
-## Arquivos
+Ferramenta PneumoAgents para apoio à avaliação, estratificação, documentação e acompanhamento de pacientes adultos com bronquiectasias não fibrocísticas.
 
-- Agente_Bronquiectasias_PneumoAgents_2026.html
-- Manual_Uso_Agente_Bronquiectasias_PneumoAgents_2026.pdf
+## Arquivo principal
 
-## Uso
+Agente_Bronquiectasias_PneumoAgents_2026.html
 
-1. Abrir o arquivo HTML.
-2. Ler o manual PDF antes da utilização clínica.
+## Manual
 
-## Aviso
+Manual_Uso_Agente_Bronquiectasias_PneumoAgents_2026.pdf
 
-Ferramenta de apoio à decisão médica.
-Não substitui julgamento clínico.
+## Finalidade
+
+O agente organiza dados clínicos, radiológicos, funcionais, microbiológicos e terapêuticos para apoiar o raciocínio médico em bronquiectasias.
+
+## Módulos
+
+- Identificação e dados administrativos
+- Diagnóstico e gravidade
+- Investigação etiológica
+- Microbiologia
+- Tratamento
+- Documentos gerados
+- Banco local
+- Exportação TXT/PDF/JSON
+
+## Aviso médico
+
+Ferramenta de apoio à decisão médica. Não substitui julgamento clínico, diretrizes vigentes, protocolos locais, bulas, auditoria institucional ou relação médico-paciente.
+
+## LGPD
+
+Não publicar arquivos com dados reais de pacientes, relatórios preenchidos, receitas, CPF, CNS, telefone, endereço ou imagens identificáveis.
