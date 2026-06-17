@@ -44,6 +44,27 @@ button{cursor:pointer}
 .score{background:var(--soft);border:1px solid var(--line);border-radius:7px;padding:10px;text-align:center}
 .score b{display:block;font-size:20px;color:var(--blue)}
 .score span{font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase}
+.risk-projection{margin-top:10px;border:1px solid var(--line);border-radius:7px;background:#fbfdfe;padding:10px;color:var(--slate);font-size:13px;font-weight:750}
+.risk-projection b{color:var(--blue)}
+.score-results{margin-top:12px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff}
+.score-results h4{margin:0;padding:10px 12px;background:#f2f7fb;border-bottom:1px solid var(--line);font-size:14px}
+.score-results table{width:100%;border-collapse:collapse}
+.score-results th,.score-results td{border-bottom:1px solid var(--line);padding:9px;text-align:left;font-size:13px;vertical-align:top}
+.score-results tr:last-child td{border-bottom:0}
+.score-pill{display:inline-block;border-radius:999px;padding:3px 8px;background:#edf6fc;color:#174b70;font-weight:900}
+.decision-box{margin-top:12px;border:1px solid #b8d9ef;border-left:6px solid var(--blue);border-radius:8px;background:#f5fbff;padding:12px;color:#173c5b}
+.decision-box h4{margin:0 0 8px;font-size:15px}
+.decision-box ul{margin:0;padding-left:20px}
+.decision-box li{margin:5px 0}
+.decision-box b{color:#0f4f83}
+.trait-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-top:8px}
+.trait{border:1px solid var(--line);border-radius:7px;background:#fbfdfe;padding:8px;font-size:13px;font-weight:750}
+.trait.on{border-color:#add9c0;background:#edf8f2;color:#185637}
+.trait.off{color:#697789}
+.checklist-inline{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:8px}
+.checkitem{border:1px solid var(--line);border-radius:7px;padding:7px;background:#fff;font-size:12px}
+.checkitem.done{background:#edf8f2;border-color:#add9c0;color:#185637}
+.checkitem.missing{background:#fff7e8;border-color:#efc16d;color:#5c3a04}
 .panel{background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);overflow:hidden}
 .panel-head{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:flex-start;justify-content:space-between}
 .panel-head h3{margin:0;font-size:18px}
@@ -61,6 +82,14 @@ input:focus,select:focus,textarea:focus{outline:2px solid #b9daf1;border-color:#
 .check label{margin:0;font-weight:650;color:var(--ink)}
 .chips{display:flex;flex-wrap:wrap;gap:7px}
 .chip{border:1px solid var(--line);border-radius:999px;padding:6px 9px;background:#f8fbfd;color:var(--slate);font-size:12px;font-weight:750}
+.science-box{margin-top:12px;border:1px solid var(--line);border-radius:8px;background:#fff;padding:12px}
+.science-box h3{margin:0 0 8px;font-size:14px}
+.science-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}
+.science-item{border:1px solid #add9c0;background:#edf8f2;color:#185637;border-radius:7px;padding:8px;font-size:13px;font-weight:800}
+.template-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.mini-chart{margin-top:10px;border:1px solid var(--line);border-radius:8px;background:#fff;padding:10px;overflow:auto}
+.test-ok{color:#185637;font-weight:800}
+.test-bad{color:#7a2424;font-weight:800}
 .alert{border-radius:7px;padding:11px 12px;margin-top:12px;border:1px solid var(--line);background:#f9fbfd}
 .alert.good{background:#edf8f2;border-color:#add9c0;color:#185637}
 .alert.warn{background:#fff7e8;border-color:#efc16d;color:#5c3a04}
@@ -104,7 +133,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid #b9daf1;border-color:#
       <div class="modal-body">
         <div class="notice"><b>Ferramenta de apoio a decisao medica</b>Este agente organiza dados clinicos e documentos sobre bronquiectasias. Nao substitui avaliacao, decisao medica, protocolos locais, bulas, normas vigentes ou relacao medico-paciente.</div>
         <div class="notice"><b>Aviso LGPD - dados pessoais sensiveis</b>O agente manipula dados pessoais e de saude, sensiveis pela LGPD - Lei No. 13.709/2018. Use apenas em ambiente autorizado, com sigilo profissional, controle de acesso e finalidade assistencial/administrativa legitima.</div>
-        <div class="notice"><b>Condicoes de acesso PneumoAgents</b>Disponibilizacao prevista com acesso gratuito por 7 dias apos cadastro. Apos esse periodo, continuidade condicionada a cadastro ativo e pagamento da taxa vigente no portal PneumoAgents.</div>
+        <div class="notice"><b>Condicoes de acesso PneumoAgents</b>Disponibilizacao prevista com acesso gratuito por 7 dias apos cadastro. Apos esse periodo, continuidade condicionada a cadastro ativo e pagamento da taxa vigente no portal PneumoAgents. Este arquivo HTML exibe o aviso, mas o bloqueio real de acesso, login, expiracao do periodo gratuito e cobranca devem ser implementados no portal/servidor PneumoAgents.</div>
         <div class="grid">
           <div class="span-2"><label>Nome do medico</label><input id="profileDocName"></div>
           <div><label>CRM/UF</label><input id="profileDocCRM"></div>
@@ -128,6 +157,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid #b9daf1;border-color:#
       <div class="brand"><div class="brand-mark">BX</div><div><h1>Agente Bronquiectasias 2026</h1><p>PneumoAgents | Base nacional SBPT 2019 + ERS 2025, ERJ/ERR 2024-2025</p></div></div>
       <div class="top-actions">
         <button class="btn primary" onclick="calculateAll()">Atualizar analise</button>
+        <button class="btn" onclick="runScoreTests()">Validar escores</button>
         <button class="btn" onclick="showStartupModal()">Cadastro medico</button>
         <button class="btn green" onclick="saveCase()">Salvar no banco</button>
         <button class="btn" onclick="newCase()">Novo caso</button>
@@ -166,12 +196,28 @@ input:focus,select:focus,textarea:focus{outline:2px solid #b9daf1;border-color:#
           <h2>Assistente para avaliacao, estratificacao e documentacao de bronquiectasias.</h2>
           <p>Baseado no Consenso Brasileiro SBPT 2019 como documento nacional principal, atualizado com ERS 2025 e literatura ERJ/ERR 2024-2025.</p>
           <div class="chips" style="margin-top:12px"><span class="chip">SBPT 2019 como base</span><span class="chip">TCAR padrao diagnostico</span><span class="chip">Etiologia sistematica</span><span class="chip">Pseudomonas/NTM</span><span class="chip">PDF/TXT</span></div>
+          <div class="science-box">
+            <h3>Base cientifica utilizada</h3>
+            <div class="science-grid">
+              <div class="science-item">✓ Consenso Brasileiro SBPT 2019</div>
+              <div class="science-item">✓ ERS 2025</div>
+              <div class="science-item">✓ ERJ/ERR 2024-2025</div>
+              <div class="science-item">✓ NEJM 2025</div>
+            </div>
+          </div>
+          <div class="template-row">
+            <button class="btn small" onclick="applyTemplate('postTb')">Template pos-TB</button>
+            <button class="btn small" onclick="applyTemplate('pseudEx')">Template Pseudomonas exacerbador</button>
+            <button class="btn small" onclick="applyTemplate('abpa')">Template ABPA</button>
+          </div>
+          <div id="scoreTestBox" class="risk-projection" style="display:none"></div>
         </div>
         <div class="score-grid">
-          <div class="score"><b id="scoreSeverity">-</b><span>Risco</span></div>
-          <div class="score"><b id="scorePseud">-</b><span>Pseudomonas</span></div>
-          <div class="score"><b id="scorePlan">-</b><span>Conduta</span></div>
+          <div class="score"><b id="scoreFaced">-</b><span>FACED</span></div>
+          <div class="score"><b id="scoreEFaced">-</b><span>E-FACED</span></div>
+          <div class="score"><b id="scoreBsi">-</b><span>BSI</span></div>
         </div>
+        <div class="risk-projection" id="riskProjection">Mortalidade estimada: __ | Risco de hospitalizacao: __</div>
       </section>
 
       <section class="panel input-panel" id="sec-dados">
@@ -192,6 +238,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid #b9daf1;border-color:#
         <div class="panel-body"><div class="grid">
           <div><label>TCAR confirma bronquiectasias?</label><select id="hrct"><option value="sim">Sim</option><option value="nao">Nao / pendente</option></select></div>
           <div><label>Extensao radiologica</label><select id="lobes"><option value="1">1 lobo</option><option value="2">2 lobos</option><option value="3">3 ou mais lobos</option><option value="bilateral">Bilateral extensa</option></select></div>
+          <div><label>Padrao cistico na TCAR?</label><select id="cysticBronch"><option value="nao">Nao / nao descrito</option><option value="sim">Sim</option></select></div>
           <div><label>VEF1 % previsto</label><input id="fev1" type="number" min="0" max="150"></div>
           <div><label>mMRC</label><select id="mmrc"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
           <div><label>Exacerbacoes/ano</label><input id="exac" type="number" min="0" step="1"></div>
@@ -201,7 +248,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid #b9daf1;border-color:#
           <div class="span-2"><label>Sintomas predominantes</label><input id="symptoms" placeholder="Tosse, escarro, dispneia, fadiga, febre, perda ponderal"></div>
           <div class="span-2"><label>Qualidade de vida / funcional</label><input id="qol" placeholder="TC6M, SGRQ/QoL-B, limitacao ao exercicio"></div>
           <div class="span-4"><label>Resumo clinico livre</label><textarea id="clinResume"></textarea></div>
-        </div><div id="diagnosticAlert" class="alert info"></div></div>
+        </div><div id="diagnosticAlert" class="alert info"></div><div id="scoreResults" class="score-results"></div><div id="conclusionBox" class="decision-box"></div></div>
       </section>
 
       <section class="panel input-panel" id="sec-etiologia">
@@ -221,6 +268,9 @@ input:focus,select:focus,textarea:focus{outline:2px solid #b9daf1;border-color:#
             <div class="span-2"><label>Exames ja realizados</label><input id="testsDone" placeholder="TCAR, espirometria, culturas, Ig, IgE, Aspergillus, suor, BAAR"></div>
             <div class="span-2"><label>Etiologia provavel</label><input id="likelyEtiology" placeholder="Ex.: pos-TB, imunodeficiencia, ABPA, idiopatica apos investigacao"></div>
           </div>
+          <div id="etiologyAlert" class="alert info"></div>
+          <div id="traitsBox" class="decision-box"></div>
+          <div id="investigationBox" class="decision-box"></div>
         </div>
       </section>
 
@@ -229,11 +279,25 @@ input:focus,select:focus,textarea:focus{outline:2px solid #b9daf1;border-color:#
         <div class="panel-body"><div class="grid">
           <div><label>Pseudomonas aeruginosa</label><select id="pseudomonas"><option value="nao">Nao isolada</option><option value="novo">Novo isolamento</option><option value="cronica">Infeccao cronica</option></select></div>
           <div><label>NTM</label><select id="ntm"><option value="nao">Nao documentada</option><option value="suspeita">Suspeita</option><option value="confirmada">Confirmada</option></select></div>
-          <div><label>Patogeno predominante</label><input id="pathogen" placeholder="H. influenzae, S. aureus, entericos, fungos"></div>
+          <div><label>Qual bacteria apareceu mais?</label><select id="dominantBacteria"><option value="">Nao informada</option><option>Pseudomonas aeruginosa</option><option>Haemophilus influenzae</option><option>Staphylococcus aureus</option><option>Moraxella catarrhalis</option><option>Streptococcus pneumoniae</option><option>Klebsiella pneumoniae</option><option>Enterobacterales / entericos</option><option>Achromobacter spp.</option><option>Stenotrophomonas maltophilia</option><option>Aspergillus spp.</option><option>NTM / micobacteria nao tuberculosa</option><option>Flora mista / contaminada</option><option>Outro</option></select></div>
+          <div><label>Outras bacterias cronicas</label><select id="otherBacteria"><option value="nao">Nao documentadas</option><option value="sim">Sim / recorrentes</option></select></div>
           <div><label>Escarro diario</label><select id="sputum"><option value="baixo">Baixo</option><option value="moderado">Moderado</option><option value="alto">Alto / purulento</option></select></div>
+          <div><label>Qualidade da amostra</label><select id="cultureQuality"><option value="">Nao informada</option><option value="boa">Boa amostra de escarro</option><option value="saliva">Saliva/baixa qualidade</option><option value="induzido">Escarro induzido</option><option value="broncoscopia">Amostra por broncoscopia</option></select></div>
+          <div><label>Data do 1o encontro</label><input id="culture1Date" type="date"></div>
+          <div><label>Bacteria no 1o encontro</label><select id="culture1Bacteria"><option value="">Nao informada</option><option>Pseudomonas aeruginosa</option><option>Haemophilus influenzae</option><option>Staphylococcus aureus</option><option>Moraxella catarrhalis</option><option>Streptococcus pneumoniae</option><option>Klebsiella pneumoniae</option><option>Enterobacterales / entericos</option><option>Achromobacter spp.</option><option>Stenotrophomonas maltophilia</option><option>Aspergillus spp.</option><option>NTM / micobacteria nao tuberculosa</option><option>Cultura negativa</option><option>Flora mista / contaminada</option><option>Outro</option></select></div>
+          <div><label>Data do 2o encontro</label><input id="culture2Date" type="date"></div>
+          <div><label>Bacteria no 2o encontro</label><select id="culture2Bacteria"><option value="">Nao informada</option><option>Pseudomonas aeruginosa</option><option>Haemophilus influenzae</option><option>Staphylococcus aureus</option><option>Moraxella catarrhalis</option><option>Streptococcus pneumoniae</option><option>Klebsiella pneumoniae</option><option>Enterobacterales / entericos</option><option>Achromobacter spp.</option><option>Stenotrophomonas maltophilia</option><option>Aspergillus spp.</option><option>NTM / micobacteria nao tuberculosa</option><option>Cultura negativa</option><option>Flora mista / contaminada</option><option>Outro</option></select></div>
+          <div><label>Data do 3o encontro</label><input id="culture3Date" type="date"></div>
+          <div><label>Bacteria no 3o encontro</label><select id="culture3Bacteria"><option value="">Nao informada</option><option>Pseudomonas aeruginosa</option><option>Haemophilus influenzae</option><option>Staphylococcus aureus</option><option>Moraxella catarrhalis</option><option>Streptococcus pneumoniae</option><option>Klebsiella pneumoniae</option><option>Enterobacterales / entericos</option><option>Achromobacter spp.</option><option>Stenotrophomonas maltophilia</option><option>Aspergillus spp.</option><option>NTM / micobacteria nao tuberculosa</option><option>Cultura negativa</option><option>Flora mista / contaminada</option><option>Outro</option></select></div>
+          <div class="span-2"><label>Outro germe / comentario da cultura</label><input id="pathogen" placeholder="Ex.: Serratia, Burkholderia, fungos, cultura polimicrobiana"></div>
+          <div class="span-2"><label>Sensibilidade / resistencia</label><input id="sensitivityProfile" placeholder="Ex.: sensivel a ciprofloxacino; resistente a quinolona; ESBL; MRSA"></div>
+          <div class="span-2"><label>Antibiotico recente</label><input id="recentAntibiotic" placeholder="Ex.: ciprofloxacino 14 dias em maio/2026"></div>
+          <div><label>Resposta ao antibiotico</label><select id="antibioticResponse"><option value="">Nao informada</option><option value="boa">Boa resposta</option><option value="parcial">Resposta parcial</option><option value="falha">Falha/recidiva precoce</option><option value="adverso">Evento adverso/intolerancia</option></select></div>
           <div class="span-2"><label>Historico de antibioticos/culturas</label><input id="antibioticHistory" placeholder="Antibioticos recentes, resistencia, cultura de escarro"></div>
           <div class="span-2"><label>Disbiose / microbioma / infeccoes recorrentes</label><input id="microbiome" placeholder="Antibioticos repetidos, colonizacao, bronquiectasias extensas, DRGE/aspiracao"></div>
-        </div><div id="microAlert" class="alert info"></div></div>
+          <div class="span-2"><label>Cronologia de culturas microbiologicas</label><textarea id="cultureTimeline" placeholder="Ex.: 03/2026 H. influenzae; 05/2026 Pseudomonas sensivel a ciprofloxacino; BAAR negativo"></textarea></div>
+          <div class="span-2"><label>Linha do tempo de exacerbacoes</label><textarea id="exacTimeline" placeholder="Datas, gravidade, antibioticos, necessidade de PS/internacao e resposta"></textarea></div>
+        </div><div id="microAlert" class="alert info"></div><div id="microDecision" class="decision-box"></div></div>
       </section>
 
       <section class="panel input-panel" id="sec-tratamento">
@@ -250,6 +314,28 @@ input:focus,select:focus,textarea:focus{outline:2px solid #b9daf1;border-color:#
             <div class="check"><input id="txSpecialist" type="checkbox"><label for="txSpecialist">Encaminhamento para centro/especialista em bronquiectasias</label></div>
           </div>
           <div class="grid" style="margin-top:12px">
+            <div><label>Objetivo principal hoje</label><select id="treatmentGoal"><option value="">Selecionar</option><option value="estavel">Manutencao estavel</option><option value="exacerbacao">Tratar exacerbacao atual</option><option value="prevencao">Prevenir exacerbacao recorrente</option><option value="pseudomonas">Manejar Pseudomonas/colonizacao</option><option value="secrecao">Reduzir secrecao/impacto do escarro</option><option value="encaminhar">Encaminhar caso complexo</option></select></div>
+            <div><label>Clearance escolhido</label><select id="clearanceMethod"><option value="">Nao definido</option><option>Ciclo ativo da respiracao</option><option>PEP / oscilatorio</option><option>Drenagem autogena</option><option>ELTGOL</option><option>Huff cough / tosse dirigida</option><option>Fisioterapia respiratoria supervisionada</option><option>Outro / individualizar</option></select></div>
+            <div><label>Frequencia do clearance</label><select id="clearanceFreq"><option value="">Nao definida</option><option>1 vez ao dia</option><option>2 vezes ao dia</option><option>3 vezes ao dia</option><option>Intensificar durante exacerbacao</option></select></div>
+            <div><label>Secrecao impacta rotina?</label><select id="sputumImpact"><option value="">Nao informado</option><option value="nao">Nao</option><option value="sim">Sim</option><option value="grave">Muito impacto / purulenta / rolhas</option></select></div>
+            <div><label>NTM excluida antes de macrolideo?</label><select id="ntmExcluded"><option value="">Nao informado</option><option value="sim">Sim</option><option value="nao">Nao</option><option value="pendente">Pendente</option></select></div>
+            <div><label>ECG/QT e audicao avaliados?</label><select id="macrolideSafety"><option value="">Nao informado</option><option value="sim">Sim</option><option value="nao">Nao</option><option value="pendente">Pendente</option></select></div>
+            <div><label>Antibiotico inalatorio: criterio?</label><select id="inhaledAbxCriteria"><option value="">Nao avaliado</option><option value="nao">Nao indicado agora</option><option value="pseudomonas_alto_risco">Pseudomonas cronica + alto risco</option><option value="outra_bacteria">Outra bacteria cronica + caso selecionado</option><option value="intolerancia">Intolerancia/falha a alternativas</option></select></div>
+            <div><label>Retorno sugerido</label><select id="followupInterval"><option value="">Nao definido</option><option>4 semanas</option><option>6-8 semanas</option><option>3 meses</option><option>6 meses</option><option>Antes se piora/exacerbacao</option></select></div>
+            <div class="span-4"><label>Checklist vacinal - Brasil</label><p class="hint">Registrar status e conferir indicacao por idade, risco clinico, disponibilidade e calendario vigente do Ministerio da Saude.</p></div>
+            <div><label>Influenza anual</label><select id="vaccineInfluenza"><option value="">Nao informado</option><option value="ok">Atualizada</option><option value="pendente">Pendente</option><option value="contra">Contraindicada</option><option value="na">Nao se aplica</option></select></div>
+            <div><label>COVID-19</label><select id="vaccineCovid"><option value="">Nao informado</option><option value="ok">Atualizada</option><option value="pendente">Pendente</option><option value="contra">Contraindicada</option><option value="na">Nao se aplica</option></select></div>
+            <div><label>Pneumococica</label><select id="vaccinePneumo"><option value="">Nao informado</option><option value="ok">Atualizada</option><option value="pendente">Pendente</option><option value="contra">Contraindicada</option><option value="na">Nao se aplica</option></select></div>
+            <div><label>dT/dTpa</label><select id="vaccineDtpa"><option value="">Nao informado</option><option value="ok">Atualizada</option><option value="pendente">Pendente</option><option value="contra">Contraindicada</option><option value="na">Nao se aplica</option></select></div>
+            <div><label>RSV / VSR</label><select id="vaccineRsv"><option value="">Nao informado</option><option value="ok">Atualizada</option><option value="pendente">Pendente / avaliar</option><option value="contra">Contraindicada</option><option value="na">Nao se aplica / indisponivel</option></select></div>
+            <div><label>Herpes-zoster</label><select id="vaccineZoster"><option value="">Nao informado</option><option value="ok">Atualizada</option><option value="pendente">Pendente / avaliar</option><option value="contra">Contraindicada</option><option value="na">Nao se aplica / indisponivel</option></select></div>
+            <div class="span-2"><label>Observacoes vacinais</label><input id="vaccineNotes" placeholder="Ex.: idade, CRIE, PNI, rede privada, contraindicoes, datas"></div>
+            <div class="span-2"><label>Fonte rapida</label><p class="hint"><a href="https://www.gov.br/saude/pt-br/vacinacao/calendario" target="_blank" rel="noopener">Calendario de Vacinacao - Ministerio da Saude</a></p></div>
+            <div class="span-4"><label>Reabilitacao pulmonar - indicacao pratica</label></div>
+            <div><label>Status da reabilitacao</label><select id="rehabIndication"><option value="">Nao avaliada</option><option value="indicada">Indicada</option><option value="em_andamento">Em andamento</option><option value="concluida">Concluida recentemente</option><option value="sem_indicacao">Sem indicacao atual</option></select></div>
+            <div><label>Motivo principal</label><select id="rehabReason"><option value="">Selecionar</option><option value="mmrc">Dispneia/limitacao funcional</option><option value="exacerbacao">Pos-exacerbacao ou exacerbador frequente</option><option value="dessaturacao">Dessaturacao/baixa tolerancia ao exercicio</option><option value="descondicionamento">Descondicionamento/sarcopenia</option><option value="secrecao">Secrecao e necessidade de treinamento de clearance</option><option value="qualidade">Piora de qualidade de vida</option><option value="outro">Outro</option></select></div>
+            <div><label>Teste funcional</label><input id="exerciseTest" placeholder="Ex.: TC6M, SpO2, senta-levanta, forca muscular"></div>
+            <div><label>Programa sugerido</label><input id="rehabProgram" placeholder="Ex.: supervisionado 2-3x/semana + plano domiciliar"></div>
             <div class="span-2"><label>Tratamento atual</label><input id="currentTherapy" placeholder="Clearance, salina hipertonica, broncodilatador, antibioticos, macrolideo"></div>
             <div class="span-2"><label>Plano de exacerbacao</label><input id="exacPlan" placeholder="Coletar escarro antes de antibiotico; tratar geralmente 14 dias conforme gravidade/cultura"></div>
             <div class="span-4"><label>Auxilio a prescricao - escolha ou edite livremente</label></div>
@@ -265,9 +351,19 @@ input:focus,select:focus,textarea:focus{outline:2px solid #b9daf1;border-color:#
             <div class="span-2"><label>Broncodilatadores</label><input id="bronchodilatorRx" placeholder="Ex.: LABA/LAMA/SABA conforme obstrucao, asma/DPOC, dispneia ou broncoespasmo"></div>
             <div class="span-2"><label>Azitromicina anti-inflamatoria</label><input id="azithroRx" placeholder="Ex.: 250 mg 3x/semana ou 500 mg 3x/semana; avaliar QT, audicao, interacoes e NTM"></div>
             <div class="span-2"><label>Brensocatibe</label><input id="brensocatibRx" placeholder="Ex.: confirmar registro/disponibilidade local; nao iniciar sem criterio e avaliacao regulatoria"></div>
+            <div class="span-2"><label>Motivo do encaminhamento</label><input id="referralReason" placeholder="Ex.: BSI alto, Pseudomonas cronica, NTM, hemoptise, falha terapeutica, etiologia complexa"></div>
+            <div class="span-4"><label>Seguimento longitudinal estruturado - 4 consultas</label></div>
+            <div><label>Consulta 1 - data</label><input id="visit1Date" type="date"></div><div><label>VEF1</label><input id="visit1Fev1" type="number" min="0" max="150"></div><div><label>mMRC</label><input id="visit1Mmrc" type="number" min="0" max="4"></div><div><label>Exac desde ultima</label><input id="visit1Exac" type="number" min="0"></div>
+            <div><label>Consulta 2 - data</label><input id="visit2Date" type="date"></div><div><label>VEF1</label><input id="visit2Fev1" type="number" min="0" max="150"></div><div><label>mMRC</label><input id="visit2Mmrc" type="number" min="0" max="4"></div><div><label>Exac desde ultima</label><input id="visit2Exac" type="number" min="0"></div>
+            <div><label>Consulta 3 - data</label><input id="visit3Date" type="date"></div><div><label>VEF1</label><input id="visit3Fev1" type="number" min="0" max="150"></div><div><label>mMRC</label><input id="visit3Mmrc" type="number" min="0" max="4"></div><div><label>Exac desde ultima</label><input id="visit3Exac" type="number" min="0"></div>
+            <div><label>Consulta 4 - data</label><input id="visit4Date" type="date"></div><div><label>VEF1</label><input id="visit4Fev1" type="number" min="0" max="150"></div><div><label>mMRC</label><input id="visit4Mmrc" type="number" min="0" max="4"></div><div><label>Exac desde ultima</label><input id="visit4Exac" type="number" min="0"></div>
+            <div class="span-4"><label>Seguimento longitudinal</label><textarea id="followupPlan" placeholder="Reavaliar sintomas, culturas, exacerbacoes, espirometria, TCAR quando indicado, adesao ao clearance e eventos adversos"></textarea></div>
             <div class="span-4"><label>Justificativa / observacoes</label><textarea id="treatmentRationale"></textarea></div>
           </div>
           <div id="treatmentAlert" class="alert info"></div>
+          <div id="treatmentDecision" class="decision-box"></div>
+          <div id="vaccineRehabDecision" class="decision-box"></div>
+          <div id="longitudinalBox" class="decision-box"></div>
         </div>
       </section>
 
@@ -287,7 +383,8 @@ input:focus,select:focus,textarea:focus{outline:2px solid #b9daf1;border-color:#
 <script>
 const DB_KEY='agente_bronquiectasias_2026_casos_v1';
 const PROFILE_KEY='agente_bronquiectasias_2026_medico_v1';
-const ids=['patName','patBirth','patSex','patCPF','patCNS','patWeight','patHeight','docName','docCRM','docDate','docInst','docCNES','patPhone','hrct','lobes','fev1','mmrc','exac','hosp','hemoptysis','bmi','symptoms','qol','clinResume','etioCF','etioPCD','etioABPA','etioImmuno','etioNTM','etioAuto','etioAspiration','etioPostInfect','testsDone','likelyEtiology','pseudomonas','ntm','pathogen','sputum','antibioticHistory','microbiome','txClearance','txRehab','txVaccines','txEradication','txMacrolide','txInhaledAbx','txMucoactive','txSpecialist','currentTherapy','exacPlan','rxAntibiotic','rxMucolytic','rxNac','rxBronchodilator','rxAzithro','rxBrensocatib','antibioticRx','mucolyticRx','nacRx','bronchodilatorRx','azithroRx','brensocatibRx','treatmentRationale'];
+const DRAFT_KEY='agente_bronquiectasias_2026_rascunho_v1';
+const ids=['patName','patBirth','patSex','patCPF','patCNS','patWeight','patHeight','docName','docCRM','docDate','docInst','docCNES','patPhone','hrct','lobes','cysticBronch','fev1','mmrc','exac','hosp','hemoptysis','bmi','symptoms','qol','clinResume','etioCF','etioPCD','etioABPA','etioImmuno','etioNTM','etioAuto','etioAspiration','etioPostInfect','testsDone','likelyEtiology','pseudomonas','ntm','dominantBacteria','pathogen','otherBacteria','sputum','cultureQuality','culture1Date','culture1Bacteria','culture2Date','culture2Bacteria','culture3Date','culture3Bacteria','sensitivityProfile','recentAntibiotic','antibioticResponse','antibioticHistory','microbiome','cultureTimeline','exacTimeline','txClearance','txRehab','txVaccines','txEradication','txMacrolide','txInhaledAbx','txMucoactive','txSpecialist','treatmentGoal','clearanceMethod','clearanceFreq','sputumImpact','ntmExcluded','macrolideSafety','inhaledAbxCriteria','followupInterval','vaccineInfluenza','vaccineCovid','vaccinePneumo','vaccineDtpa','vaccineRsv','vaccineZoster','vaccineNotes','rehabIndication','rehabReason','exerciseTest','rehabProgram','currentTherapy','exacPlan','rxAntibiotic','rxMucolytic','rxNac','rxBronchodilator','rxAzithro','rxBrensocatib','antibioticRx','mucolyticRx','nacRx','bronchodilatorRx','azithroRx','brensocatibRx','referralReason','visit1Date','visit1Fev1','visit1Mmrc','visit1Exac','visit2Date','visit2Fev1','visit2Mmrc','visit2Exac','visit3Date','visit3Fev1','visit3Mmrc','visit3Exac','visit4Date','visit4Fev1','visit4Mmrc','visit4Exac','followupPlan','treatmentRationale'];
 const profileIds=['profileDocName','profileDocCRM','profileDocCNS','profileDocInst','profileDocCNES','profileDocPhone','profileDocEmail','profileDocHeader'];
 let lastDocs={};
 function $(id){return document.getElementById(id)}
@@ -299,6 +396,8 @@ function brDate(iso){if(!iso)return'__/__/____';const [y,m,d]=iso.split('-');ret
 function n(id){const x=parseFloat(String(val(id)).replace(',','.'));return Number.isFinite(x)?x:null}
 function db(){try{return JSON.parse(localStorage.getItem(DB_KEY)||'[]')}catch(e){return[]}}
 function writeDb(items){localStorage.setItem(DB_KEY,JSON.stringify(items))}
+function writeDraft(){try{const d={};ids.forEach(id=>d[id]=val(id));d.savedAt=new Date().toISOString();localStorage.setItem(DRAFT_KEY,JSON.stringify(d))}catch(e){}}
+function loadDraft(){try{const d=JSON.parse(localStorage.getItem(DRAFT_KEY)||'null');if(!d)return false;ids.forEach(id=>{if(d[id]!==undefined)setVal(id,d[id])});return true}catch(e){return false}}
 function getProfile(){try{return JSON.parse(localStorage.getItem(PROFILE_KEY)||'{}')}catch(e){return{}}}
 function writeProfile(p){localStorage.setItem(PROFILE_KEY,JSON.stringify(p))}
 function profileMap(){return{profileDocName:'docName',profileDocCRM:'docCRM',profileDocInst:'docInst',profileDocCNES:'docCNES'}}
@@ -308,29 +407,399 @@ function closeStartupModal(){const m=$('startupModal');if(m)m.classList.remove('
 function showStartupModal(){loadDoctorProfile();const m=$('startupModal');if(m)m.classList.add('show')}
 function profileHeaderLine(){const p=getProfile();return p.profileDocHeader||p.profileDocInst||''}
 function lgpdNotice(){return'LGPD: documento com dados pessoais sensiveis. Usar, armazenar e compartilhar apenas com pessoas autorizadas, finalidade legitima, sigilo profissional e seguranca adequada.'}
-function accessNotice(){return'PneumoAgents: acesso gratuito por 7 dias apos cadastro; continuidade condicionada a cadastro ativo e taxa vigente no portal.'}
+function accessNotice(){return'PneumoAgents: acesso gratuito por 7 dias apos cadastro; continuidade condicionada a cadastro ativo e taxa vigente no portal. O bloqueio comercial real deve ser controlado pelo portal/servidor, nao por este HTML isolado.'}
 function currentCaseId(){return document.body.dataset.caseId||''}
 function makeId(){return'bx-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7)}
-function collectData(){const d={};ids.forEach(id=>d[id]=val(id));d.caseId=currentCaseId()||makeId();d.updatedAt=new Date().toISOString();d.analysis=analyze(d);return d}
+function collectData(){const d={};ids.forEach(id=>d[id]=val(id));d.caseId=currentCaseId()||makeId();d.updatedAt=new Date().toISOString();d.analysis=analyze(d);d.summary=caseSnapshot(d);return d}
+function ageYears(d){if(!d.patBirth)return null;const birth=new Date(d.patBirth+'T00:00:00');if(Number.isNaN(birth.getTime()))return null;const now=new Date();let age=now.getFullYear()-birth.getFullYear();const m=now.getMonth()-birth.getMonth();if(m<0||(m===0&&now.getDate()<birth.getDate()))age--;return age}
+function scoreLabel(score,cut1,cut2,labels=['leve','moderado','grave']){return score<=cut1?labels[0]:score<=cut2?labels[1]:labels[2]}
+function bsiProjection(score){if(score<=4)return{mortality:'baixo, aprox. 0-5% em 4 anos',hospital:'baixo, aprox. 0-9% em 1 ano'};if(score<=8)return{mortality:'intermediario, aprox. 4-12% em 4 anos',hospital:'intermediario, aprox. 7-20% em 1 ano'};return{mortality:'alto, aprox. 10-30% em 4 anos',hospital:'alto, aprox. 21-53% em 1 ano'}}
 function analyze(d){
-  let points=0;const fev=parseFloat(d.fev1)||null,ex=parseFloat(d.exac)||0,h=parseFloat(d.hosp)||0,mm=parseFloat(d.mmrc)||0,bmi=parseFloat(d.bmi)||null;
-  if(d.hrct!=='sim')points+=2;if(fev!==null&&fev<50)points+=2;else if(fev!==null&&fev<80)points+=1;
-  if(ex>=3)points+=2;else if(ex>=1)points+=1;if(h>=1)points+=2;if(mm>=3)points+=2;else if(mm>=2)points+=1;
-  if(d.pseudomonas==='cronica')points+=3;else if(d.pseudomonas==='novo')points+=2;if(d.ntm==='confirmada')points+=2;if(d.lobes==='3'||d.lobes==='bilateral')points+=1;if(bmi!==null&&bmi<18.5)points+=1;if(d.hemoptysis==='grave'||d.hemoptysis==='recorrente')points+=1;
-  const risk=points>=8?'Alto':points>=4?'Moderado':'Baixo';
-  const highEx=ex>=3||h>=1;const pseud=d.pseudomonas==='cronica'?'Cronica':d.pseudomonas==='novo'?'Novo':'Nao';
-  const needSpecialist=risk==='Alto'||d.ntm!=='nao'||d.hemoptysis==='grave'||d.etioCF||d.etioPCD||d.etioImmuno||d.etioABPA;
-  return{points,risk,highEx,pseud,needSpecialist}
+  const fev=parseFloat(d.fev1),ex=parseFloat(d.exac)||0,h=parseFloat(d.hosp)||0,mm=parseFloat(d.mmrc)||0,bmi=parseFloat(d.bmi),age=ageYears(d);
+  const extensive=d.lobes==='3'||d.lobes==='bilateral';
+  const chronicPseud=d.pseudomonas==='cronica';
+  const otherChronic=d.otherBacteria==='sim'||(d.dominantBacteria&&d.dominantBacteria!=='Pseudomonas aeruginosa'&&!/negativa|contaminada/i.test(d.dominantBacteria))||(d.pathogen&&d.pseudomonas!=='cronica'&&!/pseudomonas/i.test(d.pathogen));
+  const faced=(Number.isFinite(fev)&&fev<50?2:0)+(age!==null&&age>=70?2:0)+(chronicPseud?1:0)+(mm>=3?1:0)+(extensive?1:0);
+  const efaced=faced+(ex>=2?2:0);
+  let bsi=0;
+  if(age!==null){if(age>=80)bsi+=6;else if(age>=70)bsi+=4;else if(age>=50)bsi+=2}
+  if(Number.isFinite(bmi)&&bmi<18.5)bsi+=2;
+  if(Number.isFinite(fev)){if(fev<30)bsi+=3;else if(fev<50)bsi+=2;else if(fev<80)bsi+=1}
+  if(h>=1)bsi+=5;
+  if(ex>=3)bsi+=2;
+  if(mm===2)bsi+=1;else if(mm===3)bsi+=2;else if(mm>=4)bsi+=3;
+  if(chronicPseud)bsi+=3;else if(otherChronic)bsi+=1;
+  if(extensive||d.cysticBronch==='sim')bsi+=1;
+  const bsiRisk=bsi<=4?'Baixo':bsi<=8?'Intermediario':'Alto';
+  const highEx=ex>=3||h>=1;const pseud=chronicPseud?'Cronica':d.pseudomonas==='novo'?'Novo':'Nao';
+  const projection=bsiProjection(bsi);
+  const needSpecialist=bsiRisk==='Alto'||efaced>=7||d.ntm!=='nao'||d.hemoptysis==='grave'||d.etioCF||d.etioPCD||d.etioImmuno||d.etioABPA;
+  return{points:bsi,risk:bsiRisk,highEx,pseud,needSpecialist,faced,facedClass:scoreLabel(faced,2,4),efaced,efacedClass:scoreLabel(efaced,3,6),bsi,bsiRisk,mortality:projection.mortality,hospitalization:projection.hospital,age}
 }
-function calculateAll(){const d=collectData(),a=d.analysis;$('scoreSeverity').textContent=a.risk;$('scorePseud').textContent=a.pseud;$('scorePlan').textContent=a.needSpecialist?'Encaminhar':'Seguimento';renderAlerts(d);generateDocuments(false)}
+function calculateAll(){const d=collectData(),a=d.analysis;$('scoreFaced').textContent=`${a.faced} ${a.facedClass}`;$('scoreEFaced').textContent=`${a.efaced} ${a.efacedClass}`;$('scoreBsi').textContent=`${a.bsi} ${a.bsiRisk}`;$('riskProjection').innerHTML=`<b>Mortalidade estimada:</b> ${esc(a.mortality)} | <b>Risco de hospitalizacao:</b> ${esc(a.hospitalization)}`;renderScoreResults(d);renderDecisionModules(d);renderAlerts(d);generateDocuments(false)}
+function renderDecisionModules(d){
+  renderConclusion(d);
+  renderTreatableTraits(d);
+  renderInvestigationChecklist(d);
+  renderLongitudinal(d);
+}
+function renderScoreResults(d){
+  const a=d.analysis,box=$('scoreResults');if(!box)return;
+  box.innerHTML=`<h4>Resultados dos escores calculados</h4><table>
+    <tr><th>Escore</th><th>Pontuacao</th><th>Classificacao</th><th>Interpretacao</th></tr>
+    <tr><td><b>FACED</b></td><td><span class="score-pill">${a.faced}</span></td><td>${esc(a.facedClass)}</td><td>0-2 leve; 3-4 moderado; 5-7 grave. Usado para prognostico basal.</td></tr>
+    <tr><td><b>E-FACED</b></td><td><span class="score-pill">${a.efaced}</span></td><td>${esc(a.efacedClass)}</td><td>Acrescenta exacerbacoes ao FACED; 0-3 leve; 4-6 moderado; 7-9 grave.</td></tr>
+    <tr><td><b>BSI</b></td><td><span class="score-pill">${a.bsi}</span></td><td>${esc(a.bsiRisk)}</td><td>Mortalidade estimada: ${esc(a.mortality)}. Hospitalizacao: ${esc(a.hospitalization)}.</td></tr>
+  </table>`;
+}
+function dysbiosisAssessment(d){
+  let pts=0,drivers=[];
+  const recurring=recurrentBacteria(d);
+  const txt=[d.microbiome,d.antibioticHistory,d.recentAntibiotic,d.cultureTimeline].join(' ').toLowerCase();
+  if(/antibiot|cipro|quinol|azitro|amoxi|cefal|levo|mero/.test(txt)){pts+=2;drivers.push('antibioticos repetidos')}
+  if(d.pseudomonas==='cronica'){pts+=3;drivers.push('Pseudomonas cronica')}
+  if(d.ntm!=='nao'){pts+=2;drivers.push('NTM suspeita/confirmada')}
+  if(d.sputum==='alto'||d.sputumImpact==='grave'){pts+=2;drivers.push('escarro purulento/alto volume')}
+  if(d.sputum==='moderado'||d.sputumImpact==='sim'){pts+=1;drivers.push('secrecao persistente')}
+  if(d.etioAspiration||/drge|reflux|aspira|disfag|engas/.test(txt)){pts+=1;drivers.push('DRGE/aspiracao')}
+  if(recurring.length){pts+=2;drivers.push('culturas recorrentes: '+recurring.join(', '))}
+  const level=pts>=6?'Alta':pts>=3?'Moderada':'Baixa';
+  return{pts,level,drivers};
+}
+function treatableTraits(d){
+  const a=d.analysis,db=dysbiosisAssessment(d),txt=[d.symptoms,d.microbiome,d.qol].join(' ').toLowerCase();
+  return [
+    ['Pseudomonas cronica',d.pseudomonas==='cronica','Considerar antibiotico inalatorio se alto risco e acompanhar culturas.'],
+    ['Exacerbador frequente',a.highEx,'Plano escrito, cultura antes de antibiotico e prevencao.'],
+    ['Grande producao de escarro',d.sputum==='alto'||d.sputumImpact==='grave','Clearance intensivo e mucoativo se tolerado.'],
+    ['DRGE / aspiracao',d.etioAspiration||/drge|reflux|aspira|disfag|engas/.test(txt),'Avaliar gastro/fono e medidas anti-aspiracao.'],
+    ['Rinossinusite',/sinus|rinossinus|rinite|nasal/.test(txt),'Tratar via aerea superior e avaliar DCP se inicio precoce.'],
+    ['Obstrucao ao fluxo aereo',Number.isFinite(parseFloat(d.fev1))&&parseFloat(d.fev1)<80,'Broncodilatador se sintomatico/resposta ou asma/DPOC associada.'],
+    ['Asma associada',/asma|sibil|broncoespas/.test(txt)||d.rxBronchodilator,'Considerar broncodilatador/ICS conforme fenotipo.'],
+    ['Imunodeficiencia',!!d.etioImmuno,'Dosar imunoglobulinas e resposta vacinal; encaminhar se alterado.'],
+    ['ABPA / Aspergillus',!!d.etioABPA||d.dominantBacteria==='Aspergillus spp.','IgE total, Aspergillus IgE/IgG, eosinofilos e manejo especifico.'],
+    ['Disbiose / microbioma '+db.level,db.level!=='Baixa','Suspeita '+db.level.toLowerCase()+': '+(db.drivers.join(', ')||'sem gatilho forte')+'.']
+  ];
+}
+function investigationChecklist(d){
+  const tests=(d.testsDone||'').toLowerCase();
+  const has=pats=>pats.some(x=>tests.includes(x));
+  return [
+    ['TCAR',d.hrct==='sim'],
+    ['Espirometria / VEF1',!!d.fev1],
+    ['Cultura de escarro',cultureRows(d).length>0||!!d.cultureTimeline],
+    ['Antibiograma',!!d.sensitivityProfile],
+    ['IgG',has(['igg'])],
+    ['IgA',has(['iga'])],
+    ['IgM',has(['igm'])],
+    ['IgE total',has(['ige'])],
+    ['Aspergillus IgE/IgG',has(['aspergillus'])],
+    ['BAAR',has(['baar'])],
+    ['Cultura para NTM',has(['ntm','micobacter'])||d.ntm==='confirmada'],
+    ['Alfa-1 antitripsina',has(['alfa-1','alfa 1','aat'])]
+  ];
+}
+function clinicalConclusion(d){
+  const a=d.analysis,traits=treatableTraits(d).filter(x=>x[1]).map(x=>x[0]);
+  const phenotype=a.bsiRisk==='Alto'||a.efacedClass==='grave'?'Bronquiectasias graves':a.bsiRisk==='Intermediario'||a.facedClass==='moderado'||a.efacedClass==='moderado'?'Bronquiectasias de gravidade intermediaria':'Bronquiectasias leves/baixo risco';
+  const priorities=[];
+  if(!d.clearanceMethod)priorities.push('Definir clearance supervisionado');
+  if(!cultureRows(d).length)priorities.push('Coletar cultura seriada com antibiograma');
+  if(d.pseudomonas==='cronica'&&a.highEx)priorities.push('Considerar antibiotico inalatorio');
+  if(a.highEx)priorities.push('Considerar macrolideo somente apos excluir NTM e checar seguranca');
+  if(a.needSpecialist)priorities.push('Encaminhar para centro especializado');
+  if(!d.txRehab&&(parseFloat(d.mmrc)||0)>=2)priorities.push('Indicar reabilitacao pulmonar');
+  return{phenotype,traits,priorities};
+}
+function caseSnapshot(d){
+  const a=d.analysis||analyze(d);d.analysis=a;const c=clinicalConclusion(d),e=intelligentEtiology(d),m=microbiologyDecision(d),vr=vaccineRehabDecision(d),s=reportSuggestions(d);
+  const scoreLine=`FACED ${a.faced} (${a.facedClass}); E-FACED ${a.efaced} (${a.efacedClass}); BSI ${a.bsi} (${a.bsiRisk})`;
+  const priorityLine=c.priorities.length?c.priorities.join('; '):'manter seguimento estruturado, clearance, cultura periodica e revisao vacinal';
+  const missing=[...s.data,...s.exams,...s.care].slice(0,12);
+  return{
+    version:'bronquiectasias_pneumoagents_2026_v1',
+    generatedAt:new Date().toISOString(),
+    patient:d.patName||'',
+    age:ageYears(d),
+    scores:{faced:a.faced,facedClass:a.facedClass,efaced:a.efaced,efacedClass:a.efacedClass,bsi:a.bsi,bsiRisk:a.bsiRisk,mortality:a.mortality,hospitalization:a.hospitalization},
+    phenotype:c.phenotype,
+    treatableTraits:c.traits,
+    priorities:c.priorities,
+    microbiology:{pseudomonas:d.pseudomonas,ntm:d.ntm,dominantBacteria:d.dominantBacteria||'',cultures:cultureStructuredSummary(d),dysbiosis:m.dysbiosisLevel,drivers:m.dysbiosisDrivers},
+    etiology:{probable:e.etio,probability:e.prob,missing:e.missing},
+    treatment:{current:d.currentTherapy||'',plan:suggestPlan(d),exacerbationPlan:d.exacPlan||'',followup:d.followupInterval||d.followupPlan||''},
+    vaccines:{pending:vr.pending,notes:d.vaccineNotes||''},
+    rehab:{needed:vr.rehabNeeded,status:d.rehabIndication||'',reason:d.rehabReason||'',program:d.rehabProgram||'',text:vr.rehabText},
+    pending:missing,
+    text:`${c.phenotype}. ${scoreLine}. Microbiologia: ${d.dominantBacteria||d.pseudomonas||'nao informada'}. Etiologia: ${e.etio}. Prioridades: ${priorityLine}.`
+  };
+}
+function renderConclusion(d){
+  const box=$('conclusionBox');if(!box)return;const c=clinicalConclusion(d),a=d.analysis;
+  box.innerHTML=`<h4>Conclusão automática do agente</h4><ul>
+    <li><b>Fenotipo:</b> ${esc(c.phenotype)}.</li>
+    <li><b>Estratificacao:</b> FACED ${a.facedClass}, E-FACED ${a.efacedClass}, BSI ${a.bsiRisk}.</li>
+    <li><b>Prognostico:</b> ${esc(a.hospitalization)}; mortalidade ${esc(a.mortality)}.</li>
+    <li><b>Condutas prioritarias:</b> ${esc(c.priorities.length?c.priorities.join('; '):'manter seguimento, clearance, cultura periodica e revisao de vacinas')}.</li>
+  </ul>`;
+}
+function renderTreatableTraits(d){
+  const box=$('traitsBox');if(!box)return;const traits=treatableTraits(d);
+  box.innerHTML=`<h4>Traços tratáveis identificados</h4><div class="trait-grid">${traits.map(t=>`<div class="trait ${t[1]?'on':'off'}">${t[1]?'☑':'☐'} ${esc(t[0])}<br><small>${esc(t[2])}</small></div>`).join('')}</div>`;
+}
+function renderInvestigationChecklist(d){
+  const box=$('investigationBox');if(!box)return;const items=investigationChecklist(d);
+  box.innerHTML=`<h4>Linha de investigação: o que ainda falta?</h4><div class="checklist-inline">${items.map(i=>`<div class="checkitem ${i[1]?'done':'missing'}">${i[1]?'☑':'☐'} ${esc(i[0])}</div>`).join('')}</div>`;
+}
+function longitudinalRows(d){
+  return [1,2,3,4].map(i=>({date:d[`visit${i}Date`],fev1:d[`visit${i}Fev1`],mmrc:d[`visit${i}Mmrc`],exac:d[`visit${i}Exac`]})).filter(v=>v.date||v.fev1||v.mmrc||v.exac);
+}
+function longitudinalHtml(d){
+  const rows=longitudinalRows(d);
+  if(!rows.length)return '<p>Sem consultas longitudinais estruturadas registradas.</p>';
+  return `<table><tr><th>Consulta</th><th>Data</th><th>VEF1</th><th>mMRC</th><th>Exacerbacoes</th></tr>${rows.map((r,i)=>`<tr><td>${i+1}</td><td>${r.date?brDate(r.date):'__'}</td><td>${esc(r.fev1||'__')}</td><td>${esc(r.mmrc||'__')}</td><td>${esc(r.exac||'0')}</td></tr>`).join('')}</table>`;
+}
+function renderLongitudinal(d){
+  const box=$('longitudinalBox');if(!box)return;
+  box.innerHTML=`<h4>Seguimento longitudinal</h4>${longitudinalHtml(d)}${longitudinalChart(d)}`;
+}
+function longitudinalChart(d){
+  const rows=longitudinalRows(d);if(rows.length<2)return '';
+  const vals=rows.map((r,i)=>({x:45+i*95,fev:parseFloat(r.fev1),mmrc:parseFloat(r.mmrc),exac:parseFloat(r.exac)||0})).filter(v=>Number.isFinite(v.fev)||Number.isFinite(v.mmrc)||Number.isFinite(v.exac));
+  const yFev=v=>150-(Math.max(0,Math.min(100,v))/100)*110;
+  const yMmrc=v=>150-(Math.max(0,Math.min(4,v))/4)*110;
+  const yEx=v=>150-(Math.max(0,Math.min(6,v))/6)*110;
+  const poly=(key,fn,color)=>{const pts=vals.filter(v=>Number.isFinite(v[key])).map(v=>`${v.x},${fn(v[key])}`).join(' ');return pts?`<polyline fill="none" stroke="${color}" stroke-width="3" points="${pts}"/>`:''};
+  const dots=(key,fn,color)=>vals.filter(v=>Number.isFinite(v[key])).map(v=>`<circle cx="${v.x}" cy="${fn(v[key])}" r="4" fill="${color}"/>`).join('');
+  return `<div class="mini-chart"><b>Grafico longitudinal simples</b><svg width="420" height="190" viewBox="0 0 420 190" role="img" aria-label="Grafico longitudinal"><line x1="35" y1="40" x2="35" y2="155" stroke="#cfd8e2"/><line x1="35" y1="155" x2="350" y2="155" stroke="#cfd8e2"/><text x="355" y="70" font-size="11" fill="#1463a5">VEF1</text><text x="355" y="90" font-size="11" fill="#a46105">mMRC</text><text x="355" y="110" font-size="11" fill="#287b54">Exac</text>${poly('fev',yFev,'#1463a5')}${poly('mmrc',yMmrc,'#a46105')}${poly('exac',yEx,'#287b54')}${dots('fev',yFev,'#1463a5')}${dots('mmrc',yMmrc,'#a46105')}${dots('exac',yEx,'#287b54')}${rows.map((r,i)=>`<text x="${45+i*95-10}" y="175" font-size="10" fill="#5c6b7a">C${i+1}</text>`).join('')}</svg></div>`;
+}
 function renderAlerts(d){
   const a=d.analysis,diag=[];if(d.hrct==='sim')diag.push('TCAR confirma bronquiectasias; prosseguir com etiologia, gravidade e microbiologia.');else diag.push('TCAR ainda nao confirma; revisar diagnostico/radiologia antes de rotular bronquiectasias.');
-  diag.push(`Risco clinico simplificado: ${a.risk} (${a.points} pontos).`);if(a.needSpecialist)diag.push('Ha criterios para conduzir com pneumologia/centro especializado.');
+  diag.push(`FACED ${a.faced} (${a.facedClass}); E-FACED ${a.efaced} (${a.efacedClass}); BSI ${a.bsi} (${a.bsiRisk}).`);diag.push(`Mortalidade estimada pelo BSI: ${a.mortality}; hospitalizacao: ${a.hospitalization}.`);if(a.needSpecialist)diag.push('Ha criterios para conduzir com pneumologia/centro especializado.');
   $('diagnosticAlert').className='alert '+(d.hrct==='sim'?'info':'warn');$('diagnosticAlert').textContent=diag.join(' ');
+  renderEtiologyAlert(d);
   const micro=[];if(d.pseudomonas==='novo')micro.push('Novo isolamento de Pseudomonas: considerar erradicacao e repetir culturas.');if(d.pseudomonas==='cronica')micro.push('Pseudomonas cronica aumenta risco; se alto risco de exacerbacao, considerar antibiotico inalatorio.');if(d.ntm!=='nao')micro.push('NTM suspeita/confirmada: evitar macrolideo em monoterapia ate avaliacao adequada.');if((parseFloat(d.exac)||0)>=3)micro.push('Exacerbador frequente: revisar clearance, culturas, macrolideo/antibiotico inalatorio conforme perfil.');
   $('microAlert').className='alert '+(micro.length?'warn':'info');$('microAlert').textContent=micro.length?micro.join(' '):'Registrar culturas seriadas, microbiologia e fenotipo infeccioso.';
+  renderMicroDecision(d);
   const tx=[];if(!d.txClearance)tx.push('Ensinar/registrar tecnica de clearance de vias aereas para a maioria dos pacientes.');if(a.highEx&&!d.txMacrolide)tx.push('Alto risco de exacerbacao: considerar macrolideo prolongado apos excluir NTM e avaliar QT/audicao/interacoes.');if(d.pseudomonas==='cronica'&&a.highEx&&!d.txInhaledAbx)tx.push('Pseudomonas cronica + alto risco: considerar antibiotico inalatorio.');if(a.needSpecialist&&!d.txSpecialist)tx.push('Encaminhamento especializado recomendado.');
   $('treatmentAlert').className='alert '+(tx.length?'warn':'good');$('treatmentAlert').textContent=tx.length?tx.join(' '):'Plano inicial coerente com os campos preenchidos.';
+  renderTreatmentDecision(d);
+  renderVaccineRehabDecision(d);
+}
+function doneTest(d,patterns){const s=(d.testsDone||'').toLowerCase();return patterns.some(p=>s.includes(p))}
+function intelligentEtiology(d){
+  const missing=[];
+  ['IgG','IgA','IgM'].forEach(t=>{if(!doneTest(d,[t.toLowerCase()]))missing.push(t)});
+  if(!doneTest(d,['ige total','ige']))missing.push('IgE total');
+  if(!doneTest(d,['aspergillus']))missing.push('Aspergillus IgE/IgG');
+  if(!doneTest(d,['baar','micobacter','ntm']))missing.push('BAAR/cultura para micobacterias/NTM');
+  if(d.etioCF&&!doneTest(d,['suor','cftr']))missing.push('Teste do suor/CFTR');
+  if(d.etioPCD&&!doneTest(d,['nasal','ciliar','oxido nitrico']))missing.push('Investigacao de discinesia ciliar primaria');
+  let etio=d.likelyEtiology||'indefinida',prob='moderada';
+  if(d.etioPostInfect){etio=d.likelyEtiology||'pos-infecciosa/pos-TB';prob='alta se historia e TCAR forem compativeis'}
+  else if(d.etioABPA){etio=d.likelyEtiology||'ABPA/sensibilizacao Aspergillus';prob='alta se IgE/eosinofilia/Aspergillus sustentarem'}
+  else if(d.etioImmuno){etio=d.likelyEtiology||'imunodeficiencia humoral';prob='moderada-alta se imunoglobulinas alteradas ou infeccoes recorrentes'}
+  else if(d.etioNTM||d.ntm!=='nao'){etio=d.likelyEtiology||'doenca por micobacteria nao tuberculosa';prob='avaliar criterios microbiologicos e radioclinicos'}
+  else if(d.etioAspiration){etio=d.likelyEtiology||'aspiracao/DRGE/disfagia';prob='moderada se sintomas e distribuicao radiologica forem compativeis'}
+  return{etio,prob,missing};
+}
+function renderEtiologyAlert(d){
+  const box=$('etiologyAlert');if(!box)return;const e=intelligentEtiology(d);
+  box.className='alert info';
+  box.innerHTML=`<b>Investigacao etiologica inteligente:</b> etiologia provavel: ${esc(e.etio)}. Probabilidade: ${esc(e.prob)}. Exames ainda faltantes: ${e.missing.length?esc(e.missing.join(', ')):'pacote minimo informado nos campos atuais'}.`;
+}
+function cultureRows(d){
+  const rows=[
+    {date:d.culture1Date,bacteria:d.culture1Bacteria},
+    {date:d.culture2Date,bacteria:d.culture2Bacteria},
+    {date:d.culture3Date,bacteria:d.culture3Bacteria}
+  ].filter(x=>x.date||x.bacteria);
+  return rows;
+}
+function cultureStructuredSummary(d){
+  const rows=cultureRows(d);
+  if(!rows.length)return 'sem culturas estruturadas informadas';
+  return rows.map((x,i)=>`${i+1}o encontro: ${x.date?brDate(x.date):'data nao informada'} - ${x.bacteria||'bacteria nao informada'}`).join('; ');
+}
+function recurrentBacteria(d){
+  const counts={};
+  cultureRows(d).forEach(x=>{if(x.bacteria&&!/negativa|contaminada/i.test(x.bacteria))counts[x.bacteria]=(counts[x.bacteria]||0)+1});
+  return Object.entries(counts).filter(([,v])=>v>=2).map(([k])=>k);
+}
+function microbiologyDecision(d){
+  const a=d.analysis,actions=[],diagnosis=[],safety=[],db=dysbiosisAssessment(d);
+  const structured=cultureStructuredSummary(d),recurring=recurrentBacteria(d);
+  const text=[d.microbiome,d.antibioticHistory,d.cultureTimeline,d.exacTimeline,d.pathogen,d.dominantBacteria,structured,d.sensitivityProfile,d.recentAntibiotic].join(' ').toLowerCase();
+  const repeatedAbx=/antibiot|cipro|quinol|amoxi|cefal|macrol|azitro|levo|mero|piper/i.test(text);
+  const aspiration=/drge|reflux|aspira|disfag|engas/i.test(text);
+  const chronicInfection=d.pseudomonas==='cronica'||d.otherBacteria==='sim'||!!d.pathogen;
+  const dysbiosisSuspect=db.level!=='Baixa'||chronicInfection||repeatedAbx||d.sputum==='alto'||aspiration||a.highEx;
+
+  if(!cultureRows(d).length)actions.push('Sem encontro microbiologico estruturado: registrar data e bacteria isolada; coletar escarro para cultura com antibiograma antes de iniciar novo antibiotico, se clinicamente possivel.');
+  if(cultureRows(d).length)actions.push(`Culturas registradas: ${structured}. Usar a bacteria mais recente e a bacteria recorrente para guiar antibiotico e necessidade de nova coleta.`);
+  if(recurring.length)actions.push(`Bacteria recorrente em culturas: ${recurring.join(', ')}. Isso sustenta colonizacao/infeccao cronica quando compatível com sintomas e qualidade da amostra.`);
+  if(d.dominantBacteria)actions.push(`Bacteria mais encontrada informada: ${d.dominantBacteria}. Conferir se coincide com culturas seriadas e quadro clinico.`);
+  if(d.cultureQuality==='saliva')actions.push('Amostra descrita como saliva/baixa qualidade: repetir coleta com orientacao ou considerar escarro induzido se necessario.');
+  if(d.sensitivityProfile)actions.push(`Antibiograma: ${d.sensitivityProfile}. Evitar repetir antibiotico sem sensibilidade documentada quando houve falha, recidiva precoce ou resistencia.`);
+  if(d.recentAntibiotic)actions.push(`Antibiotico recente: ${d.recentAntibiotic}. Registrar duracao, dose, resposta e intervalo livre de sintomas.`);
+  if(d.antibioticResponse==='falha')actions.push('Falha/recidiva precoce apos antibiotico: repetir cultura, checar resistencia, aderencia, dose/duracao, foco de aspiracao/DRGE, NTM e necessidade de especialista.');
+  if(d.antibioticResponse==='parcial')actions.push('Resposta parcial: revisar se houve cobertura adequada para o patogeno, clearance insuficiente, broncoespasmo, coinfeccao ou colonizacao cronica.');
+  if(d.antibioticResponse==='adverso')actions.push('Evento adverso/intolerancia: registrar alergia/intolerancia e escolher alternativa guiada por cultura, funcao renal e interacoes.');
+  if(d.pseudomonas==='cronica')actions.push('Pseudomonas cronica: confirmar pelo padrao de culturas seriadas, revisar sensibilidade e considerar antibiotico inalatorio se houver exacerbacao frequente/BSI alto.');
+  if(d.pseudomonas==='novo')actions.push('Novo isolamento de Pseudomonas: considerar protocolo de erradicacao e repetir cultura apos tratamento.');
+  if(d.ntm!=='nao')actions.push('NTM suspeita/confirmada: solicitar BAAR e cultura para micobacterias em 2-3 amostras, avaliar TCAR e evitar macrolideo isolado.');
+  if(repeatedAbx)actions.push('Uso repetido de antibioticos: registrar data, droga, duracao, resposta e resistencia; coletar escarro antes do proximo ciclo sempre que possivel.');
+  if(aspiration)actions.push('DRGE/aspiracao/disfagia sugerida: avaliar refluxo, degluticao, higiene do sono/alimentacao e encaminhar gastro/fono quando persistente.');
+  if(d.sputum==='alto'||d.sputum==='moderado')actions.push('Escarro moderado/alto: intensificar clearance, hidratar secrecao e orientar amostra de escarro de boa qualidade para cultura.');
+  if(a.highEx)actions.push('Exacerbador frequente: criar plano escrito de exacerbacao, cultura antes de antibiotico e revisao de prevencao em consulta.');
+  if(!actions.length)actions.push('Sem sinal forte de fenotipo infeccioso complexo; manter cultura periodica, clearance e vigilancia de exacerbacoes.');
+
+  diagnosis.push('Disbiose/microbioma nao e diagnostico de rotina por sequenciamento no ambulatorio; na pratica, suspeitar por infeccoes recorrentes, antibioticos repetidos, escarro purulento persistente, colonizacao cronica, Pseudomonas/entericos, DRGE/aspiracao e bronquiectasias extensas.');
+  diagnosis.push('Confirmar fenotipo infeccioso com culturas seriadas de escarro com antibiograma, cultura antes de antibiotico, BAAR/cultura para NTM quando indicado, revisao da TCAR e linha do tempo de exacerbacoes.');
+  safety.push('Antes de macrolideo prolongado: excluir NTM, revisar ECG/QT, audicao, interacoes e risco de resistencia.');
+  safety.push('Antes de antibiotico inalatorio: confirmar colonizacao/infeccao cronica, sensibilidade, tecnica inalatória, broncoespasmo e disponibilidade/cobertura.');
+
+  return{dysbiosisSuspect,dysbiosisLevel:db.level,dysbiosisDrivers:db.drivers,diagnosis,actions,safety};
+}
+function microbiologyDecisionHtml(d){
+  const m=microbiologyDecision(d);
+  return `<h3>Decisao pratica em microbiologia e disbiose</h3><table><tr><th>Dominio</th><th>Orientacao</th></tr><tr><td>Suspeita de disbiose/fenotipo infeccioso</td><td>${m.dysbiosisLevel}. Fatores: ${esc(m.dysbiosisDrivers.length?m.dysbiosisDrivers.join(', '):'sem gatilho forte nos campos atuais')}.</td></tr><tr><td>Como diagnosticar</td><td>${esc(m.diagnosis.join(' '))}</td></tr><tr><td>Proximos passos</td><td>${esc(m.actions.join(' '))}</td></tr><tr><td>Seguranca</td><td>${esc(m.safety.join(' '))}</td></tr></table>`;
+}
+function renderMicroDecision(d){
+  const box=$('microDecision');if(!box)return;const m=microbiologyDecision(d);
+  box.innerHTML=`<h4>Interpretação prática e próximos passos</h4><ul>
+    <li><b>Disbiose/fenotipo infeccioso:</b> suspeita ${esc(m.dysbiosisLevel.toLowerCase())}${m.dysbiosisDrivers.length?' por '+esc(m.dysbiosisDrivers.join(', ')):''}.</li>
+    <li><b>Como diagnosticar:</b> ${esc(m.diagnosis[1])}</li>
+    <li><b>Conduta sugerida:</b> ${esc(m.actions.join(' '))}</li>
+    <li><b>Segurança:</b> ${esc(m.safety.join(' '))}</li>
+  </ul>`;
+}
+function treatmentDecision(d){
+  const a=d.analysis,steps=[],safety=[],refer=[];
+  if(!d.clearanceMethod)steps.push('Definir tecnica de clearance com fisioterapia respiratoria; registrar metodo e frequencia.');
+  else steps.push(`Clearance: ${d.clearanceMethod}${d.clearanceFreq?' - '+d.clearanceFreq:''}. Reforcar tecnica, adesao e intensificacao em exacerbacao.`);
+  if(d.sputumImpact==='sim'||d.sputumImpact==='grave'||d.sputum==='alto'||d.txMucoactive||d.rxMucolytic||d.rxNac)steps.push('Secrecao impactante: considerar salina hipertonica/mucoativo/NAC conforme tolerancia, broncoespasmo e resposta clinica.');
+  if(d.treatmentGoal==='exacerbacao'||d.rxAntibiotic)steps.push('Exacerbacao atual: coletar escarro antes do antibiotico se possivel; escolher antibiotico por cultura previa, gravidade, alergias e funcao renal; reavaliar resposta.');
+  if(d.pseudomonas==='novo'||d.txEradication)steps.push('Novo isolamento de Pseudomonas: discutir erradicacao conforme cultura, sensibilidade e protocolo local.');
+  if((a.highEx||d.txMacrolide||d.rxAzithro)&&d.ntmExcluded!=='sim')safety.push('Nao iniciar macrolideo prolongado sem excluir NTM com BAAR/cultura adequada.');
+  if((a.highEx||d.txMacrolide||d.rxAzithro)&&d.macrolideSafety!=='sim')safety.push('Antes de azitromicina/macrolideo: ECG/QT, audicao, interacoes, funcao hepatica quando indicada e risco de resistencia.');
+  if(d.pseudomonas==='cronica'&&a.highEx)steps.push('Pseudomonas cronica + alto risco: considerar antibiotico inalatorio se disponivel, com teste de tolerancia/broncoespasmo e acompanhamento especializado.');
+  if(d.inhaledAbxCriteria&&d.inhaledAbxCriteria!=='nao'&&d.inhaledAbxCriteria!=='')steps.push(`Antibiotico inalatorio: criterio selecionado - ${d.inhaledAbxCriteria}. Confirmar dispositivo, tolerancia, cobertura e plano de monitoramento.`);
+  if(d.rxBronchodilator)steps.push('Broncodilatador: usar se obstrucao, asma/DPOC associada, broncoespasmo ou melhora sintomatica documentada.');
+  if(d.rxBrensocatib)steps.push('Brensocatibe/DPP-1: considerar apenas com criterio, registro/disponibilidade/cobertura e discussao especializada.');
+  if(a.needSpecialist||d.txSpecialist||d.treatmentGoal==='encaminhar')refer.push(d.referralReason||'BSI/E-FACED elevado, microbiologia complexa, NTM, Pseudomonas cronica, hemoptise, falha terapeutica ou etiologia tratavel complexa.');
+  if(!steps.length)steps.push('Manter tratamento estavel, revisar vacinas, plano de exacerbacoes, culturas periodicas e seguimento longitudinal.');
+  if(d.followupInterval)steps.push(`Retorno sugerido: ${d.followupInterval}.`);
+  return{steps,safety,refer};
+}
+function treatmentDecisionHtml(d){
+  const t=treatmentDecision(d);
+  return `<h3>Decisao pratica de tratamento e encaminhamento</h3><table><tr><th>Dominio</th><th>Orientacao</th></tr><tr><td>Conduta agora</td><td>${esc(t.steps.join(' '))}</td></tr><tr><td>Seguranca</td><td>${esc(t.safety.length?t.safety.join(' '):'Sem pendencia critica de seguranca pelos campos atuais.')}</td></tr><tr><td>Encaminhamento</td><td>${esc(t.refer.length?t.refer.join(' '):'Nao obrigatorio pelos campos atuais; manter vigilancia conforme gravidade.')}</td></tr></table>`;
+}
+function vaccineStatus(v){return v==='ok'?'Atualizada':v==='pendente'?'Pendente/avaliar':v==='contra'?'Contraindicada':v==='na'?'Nao se aplica/indisponivel':'Nao informado'}
+function vaccineChecklist(d){
+  const age=ageYears(d), older=age!==null&&age>=60, adult=age===null||age>=18;
+  return[
+    {name:'Influenza anual',status:d.vaccineInfluenza,why:'Reforcar anualmente em doenca respiratoria cronica e conforme campanhas do PNI.'},
+    {name:'COVID-19',status:d.vaccineCovid,why:'Conferir esquema vigente para adultos, idosos e grupos de risco no calendario atual.'},
+    {name:'Pneumococica',status:d.vaccinePneumo,why:'Avaliar por idade, doenca respiratoria cronica, CRIE/PNI, risco individual e disponibilidade local.'},
+    {name:'dT/dTpa',status:d.vaccineDtpa,why:'Manter reforcos do calendario adulto/idoso e indicacoes especificas.'},
+    {name:'RSV / VSR',status:d.vaccineRsv,why:older?'Avaliar em idoso e alto risco, conforme disponibilidade, bula, protocolos e cobertura.':'Considerar apenas se indicacao especifica, disponibilidade e avaliacao individual sustentarem.'},
+    {name:'Herpes-zoster',status:d.vaccineZoster,why:older?'Avaliar por idade, imunossupressao, disponibilidade e cobertura local.':'Considerar se houver indicacao por idade/risco e disponibilidade.'}
+  ].filter(x=>adult||x.name!=='Herpes-zoster');
+}
+function vaccineRehabDecision(d){
+  const a=d.analysis,mm=parseFloat(d.mmrc)||0,ex=parseFloat(d.exac)||0,h=parseFloat(d.hosp)||0;
+  const vaccines=vaccineChecklist(d);
+  const pending=vaccines.filter(v=>!['ok','contra','na'].includes(v.status)).map(v=>v.name);
+  const rehabTriggers=[];
+  if(mm>=2)rehabTriggers.push('mMRC >= 2/limitacao funcional');
+  if(ex>=2||h>=1||a.highEx)rehabTriggers.push('exacerbador frequente/internacao/alto risco');
+  if(d.rehabReason)rehabTriggers.push(`motivo selecionado: ${d.rehabReason}`);
+  if(d.sputumImpact==='sim'||d.sputumImpact==='grave'||d.sputum==='alto')rehabTriggers.push('secrecao impactante e necessidade de treinar clearance');
+  const rehabNeeded=d.rehabIndication==='indicada'||d.rehabIndication==='em_andamento'||rehabTriggers.length>0;
+  const rehabText=rehabNeeded?`Reabilitacao pulmonar deve ser priorizada ou mantida. Gatilhos: ${rehabTriggers.length?rehabTriggers.join(', '):'indicacao registrada pelo medico'}. ${d.exerciseTest?'Teste funcional: '+d.exerciseTest+'. ':''}${d.rehabProgram?'Programa: '+d.rehabProgram+'. ':'Sugerir programa supervisionado quando disponivel, com exercicio aerobico/resistido, educacao, tecnica de clearance e plano domiciliar.'}`:'Sem gatilho automatico forte pelos campos atuais; manter atividade fisica orientada, educacao, clearance quando indicado e reavaliar se dispneia/exacerbacoes.';
+  return{vaccines,pending,rehabNeeded,rehabText};
+}
+function vaccineRehabHtml(d){
+  const vr=vaccineRehabDecision(d);
+  return `<h3>Vacinas e reabilitacao pulmonar</h3><table><tr><th>Item</th><th>Status</th><th>Orientacao</th></tr>${vr.vaccines.map(v=>`<tr><td>${esc(v.name)}</td><td>${esc(vaccineStatus(v.status))}</td><td>${esc(v.why)}</td></tr>`).join('')}<tr><td>Fonte oficial</td><td colspan="2">Conferir calendario vigente: Ministerio da Saude - https://www.gov.br/saude/pt-br/vacinacao/calendario. ${esc(d.vaccineNotes||'')}</td></tr><tr><td>Reabilitacao pulmonar</td><td>${esc(d.rehabIndication?d.rehabIndication.replace('_',' '):'nao avaliada')}</td><td>${esc(vr.rehabText)}</td></tr></table>`;
+}
+function renderVaccineRehabDecision(d){
+  const box=$('vaccineRehabDecision');if(!box)return;const vr=vaccineRehabDecision(d);
+  box.innerHTML=`<h4>Vacinas e reabilitacao</h4><ul><li><b>Vacinas pendentes/nao informadas:</b> ${esc(vr.pending.length?vr.pending.join(', '):'nenhuma pendencia registrada nos campos atuais')}.</li><li><b>Calendario:</b> conferir faixa etaria, risco e disponibilidade no <a href="https://www.gov.br/saude/pt-br/vacinacao/calendario" target="_blank" rel="noopener">Calendario de Vacinacao do Ministerio da Saude</a>.</li><li><b>Reabilitacao:</b> ${esc(vr.rehabText)}</li></ul>`;
+}
+function reportSuggestions(d){
+  const a=d.analysis,data=[],exams=[],care=[];
+  const hasCulture=cultureRows(d).length>0||d.cultureTimeline||d.antibioticHistory;
+  if(!d.patName)data.push('Identificacao do paciente incompleta.');
+  if(!d.patBirth)data.push('Data de nascimento ausente: limita calculo de idade/FACED/BSI.');
+  if(!d.fev1)data.push('VEF1 % previsto ausente: reduz confiabilidade de FACED, E-FACED e BSI.');
+  if(!d.bmi)data.push('IMC ausente: componente relevante do BSI e marcador nutricional.');
+  if(d.exac===''||d.hosp==='')data.push('Numero de exacerbacoes e/ou internacoes no ultimo ano nao informado.');
+  if(!d.mmrc)data.push('mMRC nao informado: impacta FACED/E-FACED/BSI e indicacao de reabilitacao.');
+  if(!d.dominantBacteria&&!hasCulture)data.push('Microbiologia ainda pouco documentada: registrar culturas com data e bacteria isolada.');
+  if(!d.currentTherapy)data.push('Tratamento atual nao descrito.');
+  if(!d.exacPlan)data.push('Plano de exacerbacao individual ainda nao descrito.');
+
+  if(d.hrct!=='sim')exams.push('Confirmar diagnostico e extensao por TCAR.');
+  if(!d.fev1)exams.push('Solicitar ou anexar espirometria com VEF1 % previsto.');
+  if(!hasCulture)exams.push('Solicitar cultura de escarro com antibiograma, preferencialmente antes de antibiotico.');
+  if(d.ntm!=='confirmada'&&d.ntmExcluded!=='sim')exams.push('Considerar BAAR e cultura para micobacterias/NTM, especialmente antes de macrolideo prolongado.');
+  if(!doneTest(d,['igg'])||!doneTest(d,['iga'])||!doneTest(d,['igm']))exams.push('Dosar IgG, IgA e IgM para rastreio de imunodeficiencia.');
+  if(!doneTest(d,['ige'])||!doneTest(d,['aspergillus']))exams.push('Avaliar IgE total e Aspergillus IgE/IgG quando houver suspeita de ABPA/sensibilizacao fungica.');
+  if(d.etioCF)exams.push('Completar investigacao de fibrose cistica adulta/atipica com teste do suor/CFTR conforme disponibilidade.');
+  if(d.etioPCD)exams.push('Completar investigacao de discinesia ciliar primaria em centro experiente.');
+  if(d.etioAuto)exams.push('Solicitar investigacao autoimune dirigida por sintomas: AR, Sjogren, DII, vasculites.');
+  if(d.etioAspiration||/drge|reflux|aspira|disfag|engas/i.test([d.microbiome,d.symptoms].join(' ')))exams.push('Avaliar DRGE, aspiracao e disfagia; considerar fono/gastro conforme quadro.');
+  if(!doneTest(d,['alfa-1','alfa 1','aat']))exams.push('Considerar alfa-1 antitripsina se enfisema precoce, obstrucao desproporcional ou historia familiar.');
+
+  if(!d.txClearance||!d.clearanceMethod)care.push('Definir e ensinar tecnica de clearance de vias aereas, com frequencia registrada.');
+  const vr=vaccineRehabDecision(d);
+  if((parseFloat(d.mmrc)||0)>=2&&!d.txRehab)care.push('Indicar reabilitacao pulmonar se limitacao funcional, dispneia ou baixa capacidade ao exercicio.');
+  if(vr.rehabNeeded&&!d.rehabProgram)care.push('Definir programa de reabilitacao: idealmente supervisionado quando disponivel, com exercicio aerobico/resistido, educacao, clearance e plano domiciliar.');
+  if(!d.txVaccines||vr.pending.length)care.push(`Revisar vacinas por faixa etaria e risco no calendario vigente do Ministerio da Saude. Pendentes/nao informadas: ${vr.pending.length?vr.pending.join(', '):'marcadas como revisadas'}.`);
+  if(a.highEx&&!d.txMacrolide)care.push('Exacerbador frequente: discutir prevencao com macrolideo apenas apos excluir NTM e checar ECG/QT, audicao e interacoes.');
+  if((d.txMacrolide||d.rxAzithro)&&d.ntmExcluded!=='sim')care.push('Macrolideo/azitromicina pendente de seguranca: excluir NTM antes de uso prolongado.');
+  if(d.pseudomonas==='novo'&&!d.txEradication)care.push('Novo isolamento de Pseudomonas: considerar erradicacao conforme cultura e protocolo local.');
+  if(d.pseudomonas==='cronica'&&a.highEx&&!d.txInhaledAbx)care.push('Pseudomonas cronica + alto risco: avaliar antibiotico inalatorio e seguimento especializado.');
+  if((d.sputumImpact==='sim'||d.sputumImpact==='grave'||d.sputum==='alto')&&!d.txMucoactive&&!d.rxMucolytic&&!d.rxNac)care.push('Secrecao impactante: considerar mucoativo/salina hipertonica/NAC e otimizar clearance.');
+  if(a.needSpecialist&&!d.txSpecialist)care.push('Critérios de complexidade presentes: considerar centro/especialista em bronquiectasias.');
+  if(!d.followupInterval&&!d.followupPlan)care.push('Definir seguimento longitudinal: retorno, culturas seriadas, exacerbacoes, funcao pulmonar e adesao ao clearance.');
+  return{data,exams,care};
+}
+function listOrOk(items,ok){return items.length?`<ul>${items.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:esc(ok)}
+function reportSuggestionsHtml(d){
+  const s=reportSuggestions(d);
+  return `<h3>Pendencias e sugestoes automaticas</h3><table><tr><th>Dominio</th><th>Checagem do agente</th></tr><tr><td>Dados que faltam para melhor laudo</td><td>${listOrOk(s.data,'Dados essenciais suficientes para o relatorio atual.')}</td></tr><tr><td>Exames a considerar/anexar</td><td>${listOrOk(s.exams,'Sem exame adicional obrigatorio identificado pelos campos atuais; manter julgamento clinico.')}</td></tr><tr><td>Reabilitacao, vacinas e tratamento</td><td>${listOrOk(s.care,'Itens principais de cuidado registrados pelos campos atuais.')}</td></tr></table>`;
+}
+function conclusionHtml(d){
+  const c=clinicalConclusion(d),a=d.analysis;
+  return `<h3>Conclusao automatica do agente</h3><table><tr><th>Dominio</th><th>Conclusao</th></tr><tr><td>Fenotipo</td><td>${esc(c.phenotype)}</td></tr><tr><td>Estratificacao</td><td>FACED ${a.faced} (${esc(a.facedClass)}), E-FACED ${a.efaced} (${esc(a.efacedClass)}), BSI ${a.bsi} (${esc(a.bsiRisk)}).</td></tr><tr><td>Prognostico</td><td>Hospitalizacao: ${esc(a.hospitalization)}. Mortalidade: ${esc(a.mortality)}.</td></tr><tr><td>Condutas prioritarias</td><td>${esc(c.priorities.length?c.priorities.join('; '):'manter seguimento estruturado, clearance, cultura periodica e revisao de vacinas')}</td></tr></table>`;
+}
+function traitsHtml(d){
+  const traits=treatableTraits(d);
+  return `<h3>Traços tratáveis</h3><table><tr><th>Traço</th><th>Status</th><th>Conduta/observacao</th></tr>${traits.map(t=>`<tr><td>${esc(t[0])}</td><td>${t[1]?'Identificado':'Nao identificado pelos campos atuais'}</td><td>${esc(t[2])}</td></tr>`).join('')}</table>`;
+}
+function investigationChecklistHtml(d){
+  const items=investigationChecklist(d);
+  return `<h3>Linha de investigacao</h3><table><tr><th>Exame/item</th><th>Status</th></tr>${items.map(i=>`<tr><td>${esc(i[0])}</td><td>${i[1]?'Realizado/informado':'Pendente ou nao informado'}</td></tr>`).join('')}</table>`;
+}
+function renderTreatmentDecision(d){
+  const box=$('treatmentDecision');if(!box)return;const t=treatmentDecision(d);
+  box.innerHTML=`<h4>Decisão prática de tratamento</h4><ul>
+    <li><b>Conduta agora:</b> ${esc(t.steps.join(' '))}</li>
+    <li><b>Segurança:</b> ${esc(t.safety.length?t.safety.join(' '):'sem pendencia critica pelos campos atuais.')}</li>
+    <li><b>Encaminhamento:</b> ${esc(t.refer.length?t.refer.join(' '):'seguir conforme gravidade e evolucao.')}</li>
+  </ul>`;
+}
+function formalSeverityRows(d){
+  const a=d.analysis;
+  return `<tr><td>FACED</td><td>${a.faced} ponto(s) - ${esc(a.facedClass)}. Classificacao: 0-2 leve, 3-4 moderado, 5-7 grave.</td></tr><tr><td>E-FACED</td><td>${a.efaced} ponto(s) - ${esc(a.efacedClass)}. Incorpora exacerbacoes: 0-3 leve, 4-6 moderado, 7-9 grave.</td></tr><tr><td>BSI</td><td>${a.bsi} ponto(s) - risco ${esc(a.bsiRisk)}. Mortalidade estimada: ${esc(a.mortality)}. Hospitalizacao: ${esc(a.hospitalization)}.</td></tr>`;
+}
+function etiologyIntelligenceHtml(d){
+  const e=intelligentEtiology(d);
+  return `<h3>Investigacao etiologica inteligente</h3><table><tr><th>Item</th><th>Resultado</th></tr><tr><td>Etiologia provavel</td><td>${esc(e.etio)}</td></tr><tr><td>Probabilidade</td><td>${esc(e.prob)}</td></tr><tr><td>Exames ainda faltantes</td><td>${e.missing.length?esc(e.missing.join(', ')):'Pacote minimo informado nos campos atuais'}</td></tr></table>`;
 }
 function patientLine(d){return`${d.patName||'Paciente'}${d.patBirth?' - DN '+brDate(d.patBirth):''}${d.patCPF?' - CPF '+d.patCPF:''}${d.patCNS?' - CNS '+d.patCNS:''}`}
 function etiologySummary(d){const arr=[];[['etioCF','FC'],['etioPCD','DCP'],['etioABPA','ABPA'],['etioImmuno','imunodeficiencia'],['etioNTM','NTM'],['etioAuto','autoimune'],['etioAspiration','aspiracao/DRGE'],['etioPostInfect','pos-infecciosa/TB']].forEach(([id,t])=>{if(d[id])arr.push(t)});return arr.length?arr.join(', '):(d.likelyEtiology||'investigacao etiologica pendente/nao definida')}
@@ -345,27 +814,94 @@ function selectedTherapies(d){
   if(d.rxBrensocatib||d.brensocatibRx)rows.push(['Brensocatibe',d.brensocatibRx||'Terapia DPP-1 emergente/especifica; confirmar registro, disponibilidade, criterios, seguranca e cobertura local antes de prescrever.']);
   return rows;
 }
-function refsHtml(){return`<ol><li>Pereira MC, Athanazio RA, Dalcin PTR, Figueiredo MRF, Gomes M, Freitas CG, Ludgren F, Paschoal IA, Rached SZ, Maurici R. Consenso brasileiro sobre bronquiectasias nao fibrocisticas. J Bras Pneumol. 2019;45(4):e20190122. Sociedade Brasileira de Pneumologia e Tisiologia.</li><li>Chalmers JD et al. European Respiratory Society clinical practice guideline for the management of adult bronchiectasis. Eur Respir J. 2025;66:2501126. DOI: 10.1183/13993003.01126-2025.</li><li>Choi H, McShane PJ, Aliberti S, Chalmers JD. Bronchiectasis management in adults: state of the art and future directions. Eur Respir J. 2024;63:2400518. DOI: 10.1183/13993003.00518-2024.</li><li>Mac Aogain M et al. Infection and the microbiome in bronchiectasis. Eur Respir Rev. 2024;33:240038. DOI: 10.1183/16000617.0038-2024.</li><li>De Angelis A et al. Exacerbations of bronchiectasis. Eur Respir Rev. 2024;33:240085. DOI: 10.1183/16000617.0085-2024.</li><li>Perea L, Faner R, Chalmers JD, Sibila O. Pathophysiology and genomics of bronchiectasis. Eur Respir Rev. 2024;33:240055. DOI: 10.1183/16000617.0055-2024.</li><li>Chalmers JD et al. Neutrophilic inflammation in bronchiectasis. Eur Respir Rev. 2025;34:240179. DOI: 10.1183/16000617.0179-2024.</li><li>Johnson E, Long MB, Chalmers JD. Biomarkers in bronchiectasis. Eur Respir Rev. 2024;33:230234. DOI: 10.1183/16000617.0234-2023.</li><li>Chalmers JD et al. Phase 3 trial of the DPP-1 inhibitor brensocatib in bronchiectasis. N Engl J Med. 2025;392:1569-1581.</li></ol>`}
-function reportHtml(d){const a=d.analysis,rows=selectedTherapies(d);return`<div class="print-only-title">Relatorio Clinico - Bronquiectasias</div><h2>Relatorio Clinico de Bronquiectasias</h2>${profileHeaderLine()?`<p><b>${esc(profileHeaderLine())}</b></p>`:''}<p><b>Paciente:</b> ${esc(patientLine(d))}</p><p><b>Base nacional:</b> Consenso brasileiro sobre bronquiectasias nao fibrocisticas - SBPT/Jornal Brasileiro de Pneumologia, 2019.</p><p><b>Resumo:</b> ${esc(clinicalSummary(d))}</p><table><tr><th>Dominio</th><th>Resultado</th></tr><tr><td>Risco simplificado</td><td>${a.risk} (${a.points} pontos). Usar como triagem; calcular BSI/FACED formal quando necessario.</td></tr><tr><td>Microbiologia</td><td>Pseudomonas: ${esc(d.pseudomonas)}; NTM: ${esc(d.ntm)}; patogeno: ${esc(d.pathogen||'nao informado')}.</td></tr><tr><td>Etiologia</td><td>${esc(etiologySummary(d))}. Exames: ${esc(d.testsDone||'pendentes/nao informados')}.</td></tr><tr><td>Tratamento recomendado</td><td>${esc(suggestPlan(d))}</td></tr><tr><td>Especialista</td><td>${a.needSpecialist?'Encaminhamento recomendado':'Seguimento conforme gravidade e evolucao'}.</td></tr></table><h3>Opcoes terapeuticas escolhidas pelo medico</h3><table><tr><th>Classe/opcao</th><th>Texto editavel de prescricao/observacao</th></tr>${rows.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join('')||'<tr><td>Nenhuma opcao adicional</td><td>Sem medicacao adicional selecionada nos campos de auxilio.</td></tr>'}</table><h3>Investigacao etiologica minima sugerida</h3><p>Conforme o consenso brasileiro, a causa deve ser investigada de forma sistematica e dirigida. Considerar etiologia desconhecida/idiopatica apenas quando nao se define causa apos exames preconizados e clinicamente viaveis. Avaliar TCAR, espirometria, culturas de escarro bacterias/fungos/BAAR, IgG/IgA/IgM, IgE total, Aspergillus IgE/IgG, eosinofilos; avaliar FC, DCP, ABPA, imunodeficiencia, NTM, autoimune, aspiracao/DRGE, pos-infecciosa/TB e alfa-1 antitripsina conforme fenotipo.</p><h3>Tratamento do paciente estavel - linha brasileira</h3><p>Para todos: vacinacao influenza/pneumococo conforme calendario, evitar tabaco/exposicoes nocivas, fisioterapia respiratoria/clearance diario e reabilitacao quando houver limitacao. Para selecionados: mucoativos/NAC, broncodilatadores se hiper-reatividade/asma/DPOC, macrolideos como azitromicina em dose imunomoduladora para exacerbador frequente, antibiotico inalatorio em infeccao cronica por Pseudomonas, avaliacao de hipoxemia, hipertensao pulmonar, ventilacao nao invasiva ou transplante em doenca avancada. Brensocatibe e terapia DPP-1 emergente/especifica: confirmar registro, indicacao, disponibilidade e cobertura local.</p><h3>Referencias para conferencia</h3>${refsHtml()}<p class="muted"><b>${esc(lgpdNotice())}</b></p><p class="muted"><b>${esc(accessNotice())}</b></p><p class="muted"><b>Aviso:</b> ferramenta de apoio a decisao medica; nao substitui julgamento clinico, diretrizes, protocolos locais ou relacao medico-paciente.</p><p style="margin-top:34px">_________________________________________<br>${esc(d.docName)||'Medico(a)'} - ${esc(d.docCRM)||'CRM'}<br>${brDate(d.docDate)}</p>`}
-function rxHtml(d){const rows=selectedTherapies(d);return`<div class="print-only-title">Receita - Bronquiectasias</div><h2>Receituario / Plano de Tratamento</h2><p><b>Paciente:</b> ${esc(patientLine(d))}</p><table><tr><th>Item</th><th>Prescricao/orientacao</th></tr><tr><td>Clearance de vias aereas</td><td>${d.txClearance?'Realizar tecnica ensinada diariamente e intensificar em exacerbacao.':'Ensinar tecnica de clearance com fisioterapia respiratoria; ajustar conforme secrecao e tolerancia.'}</td></tr><tr><td>Mucoativo/inalacao</td><td>${d.txMucoactive?'Mucoativo/salina hipertonica conforme tolerancia e protocolo local.':'Considerar se secrecao espessa ou alto volume, apos teste de tolerancia quando aplicavel.'}</td></tr><tr><td>Antibiotico preventivo</td><td>${d.txMacrolide?'Macrolideo prolongado conforme avaliacao clinica, ECG/QT, audicao, interacoes e exclusao de NTM.':'Nao prescrito automaticamente; considerar em alto risco de exacerbacao apos avaliacao.'}</td></tr><tr><td>Antibiotico inalatorio</td><td>${d.txInhaledAbx?'Considerado por Pseudomonas cronica e alto risco de exacerbacao.':'Reservar para perfil apropriado, especialmente Pseudomonas cronica + alto risco.'}</td></tr>${rows.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join('')||'<tr><td>Prescricao livre</td><td>Nenhuma opcao medicamentosa adicional selecionada; preencher conforme decisao medica.</td></tr>'}</table><p><b>Tratamento atual:</b> ${esc(d.currentTherapy||'nao informado')}</p><p><b>Seguranca:</b> azitromicina prolongada exige avaliar NTM, ECG/QT, audicao, interacoes e resistencia. Brensocatibe deve ter registro/disponibilidade/cobertura local confirmados e nao substitui medidas basicas como clearance e manejo microbiologico.</p><p><b>Observacoes:</b> ${esc(d.treatmentRationale||'Revisar tecnica, aderencia, culturas, vacinas e reabilitacao.')}</p><p class="muted"><b>${esc(lgpdNotice())}</b></p><p style="margin-top:34px">_________________________________________<br>${esc(d.docName)||'Medico(a)'} - ${esc(d.docCRM)||'CRM'}<br>${brDate(d.docDate)}</p>`}
+function refsHtml(){return`<ol><li>Pereira MC, Athanazio RA, Dalcin PTR, Figueiredo MRF, Gomes M, Freitas CG, Ludgren F, Paschoal IA, Rached SZ, Maurici R. Consenso brasileiro sobre bronquiectasias nao fibrocisticas. J Bras Pneumol. 2019;45(4):e20190122. Sociedade Brasileira de Pneumologia e Tisiologia.</li><li>Chalmers JD et al. European Respiratory Society clinical practice guideline for the management of adult bronchiectasis. Eur Respir J. 2025;66:2501126. DOI: 10.1183/13993003.01126-2025.</li><li>Martinez-Garcia MA et al. FACED score and E-FACED score for prognostic assessment in non-cystic fibrosis bronchiectasis.</li><li>Chalmers JD et al. The Bronchiectasis Severity Index: an international derivation and validation study. Am J Respir Crit Care Med. 2014.</li><li>Choi H, McShane PJ, Aliberti S, Chalmers JD. Bronchiectasis management in adults: state of the art and future directions. Eur Respir J. 2024;63:2400518. DOI: 10.1183/13993003.00518-2024.</li><li>Mac Aogain M et al. Infection and the microbiome in bronchiectasis. Eur Respir Rev. 2024;33:240038. DOI: 10.1183/16000617.0038-2024.</li><li>De Angelis A et al. Exacerbations of bronchiectasis. Eur Respir Rev. 2024;33:240085. DOI: 10.1183/16000617.0085-2024.</li><li>Perea L, Faner R, Chalmers JD, Sibila O. Pathophysiology and genomics of bronchiectasis. Eur Respir Rev. 2024;33:240055. DOI: 10.1183/16000617.0055-2024.</li><li>Chalmers JD et al. Neutrophilic inflammation in bronchiectasis. Eur Respir Rev. 2025;34:240179. DOI: 10.1183/16000617.0179-2024.</li><li>Johnson E, Long MB, Chalmers JD. Biomarkers in bronchiectasis. Eur Respir Rev. 2024;33:230234. DOI: 10.1183/16000617.0234-2023.</li><li>Chalmers JD et al. Phase 3 trial of the DPP-1 inhibitor brensocatib in bronchiectasis. N Engl J Med. 2025;392:1569-1581.</li></ol>`}
+function reportHtml(d){
+  const a=d.analysis,rows=selectedTherapies(d);
+  return `<div class="print-only-title">Relatorio Clinico - Bronquiectasias</div>
+  <h2>Relatorio Clinico de Bronquiectasias</h2>
+  ${profileHeaderLine()?`<p><b>${esc(profileHeaderLine())}</b></p>`:''}
+  <p><b>Paciente:</b> ${esc(patientLine(d))}</p>
+  <p><b>Base nacional:</b> Consenso brasileiro sobre bronquiectasias nao fibrocisticas - SBPT/Jornal Brasileiro de Pneumologia, 2019.</p>
+  <h3>Base cientifica utilizada</h3>
+  <table><tr><th>Fonte</th><th>Uso no agente</th></tr><tr><td>Consenso Brasileiro SBPT 2019</td><td>Base nacional para diagnostico, investigacao etiologica e tratamento.</td></tr><tr><td>ERS 2025</td><td>Atualizacao de manejo, fenotipos e tratamento em adultos.</td></tr><tr><td>ERJ/ERR 2024-2025</td><td>Microbioma, exacerbacao, biomarcadores, fisiopatologia e terapias futuras.</td></tr><tr><td>NEJM 2025</td><td>Referencia de terapia DPP-1/brensocatibe como terapia emergente/especifica.</td></tr></table>
+  <p><b>Resumo:</b> ${esc(clinicalSummary(d))}</p>
+  ${conclusionHtml(d)}
+  <table>
+    <tr><th>Dominio</th><th>Resultado</th></tr>
+    ${formalSeverityRows(d)}
+    <tr><td>Microbiologia</td><td>Pseudomonas: ${esc(d.pseudomonas)}; NTM: ${esc(d.ntm)}; bacteria mais encontrada: ${esc(d.dominantBacteria||'nao informada')}; outro germe/comentario: ${esc(d.pathogen||'nao informado')}; outras bacterias cronicas: ${esc(d.otherBacteria||'nao')}.</td></tr>
+    <tr><td>Encontros microbiologicos</td><td>${esc(cultureStructuredSummary(d))}. Qualidade da amostra: ${esc(d.cultureQuality||'nao informada')}. Sensibilidade/resistencia: ${esc(d.sensitivityProfile||'nao informada')}.</td></tr>
+    <tr><td>Antibiotico recente e resposta</td><td>${esc(d.recentAntibiotic||'nao informado')}. Resposta: ${esc(d.antibioticResponse||'nao informada')}.</td></tr>
+    <tr><td>Cronologia microbiologica</td><td>${esc(d.cultureTimeline||d.antibioticHistory||'nao informada')}</td></tr>
+    <tr><td>Linha do tempo de exacerbacoes</td><td>${esc(d.exacTimeline||'nao informada')}</td></tr>
+    <tr><td>Etiologia</td><td>${esc(etiologySummary(d))}. Exames: ${esc(d.testsDone||'pendentes/nao informados')}.</td></tr>
+    <tr><td>Tratamento recomendado</td><td>${esc(suggestPlan(d))}</td></tr>
+    <tr><td>Seguimento longitudinal</td><td>${esc(d.followupPlan||'Reavaliar exacerbacoes, culturas, funcao pulmonar, sintomas, adesao ao clearance e necessidade de ajustes terapeuticos.')}</td></tr>
+    <tr><td>Especialista</td><td>${a.needSpecialist?'Encaminhamento recomendado':'Seguimento conforme gravidade e evolucao'}.</td></tr>
+  </table>
+  ${etiologyIntelligenceHtml(d)}
+  ${traitsHtml(d)}
+  ${investigationChecklistHtml(d)}
+  ${microbiologyDecisionHtml(d)}
+  ${treatmentDecisionHtml(d)}
+  ${vaccineRehabHtml(d)}
+  ${reportSuggestionsHtml(d)}
+  <h3>Seguimento longitudinal estruturado</h3>
+  ${longitudinalHtml(d)}
+  <h3>Opcoes terapeuticas escolhidas pelo medico</h3>
+  <table><tr><th>Classe/opcao</th><th>Texto editavel de prescricao/observacao</th></tr>${rows.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join('')||'<tr><td>Nenhuma opcao adicional</td><td>Sem medicacao adicional selecionada nos campos de auxilio.</td></tr>'}</table>
+  <h3>Investigacao etiologica minima sugerida</h3>
+  <p>Conforme o consenso brasileiro, a causa deve ser investigada de forma sistematica e dirigida. Considerar etiologia desconhecida/idiopatica apenas quando nao se define causa apos exames preconizados e clinicamente viaveis. Avaliar TCAR, espirometria, culturas de escarro bacterias/fungos/BAAR, IgG/IgA/IgM, IgE total, Aspergillus IgE/IgG, eosinofilos; avaliar FC, DCP, ABPA, imunodeficiencia, NTM, autoimune, aspiracao/DRGE, pos-infecciosa/TB e alfa-1 antitripsina conforme fenotipo.</p>
+  <h3>Tratamento do paciente estavel - linha brasileira</h3>
+  <p>Para todos: vacinacao influenza/pneumococo conforme calendario, evitar tabaco/exposicoes nocivas, fisioterapia respiratoria/clearance diario e reabilitacao quando houver limitacao. Para selecionados: mucoativos/NAC, broncodilatadores se hiper-reatividade/asma/DPOC, macrolideos como azitromicina em dose imunomoduladora para exacerbador frequente, antibiotico inalatorio em infeccao cronica por Pseudomonas, avaliacao de hipoxemia, hipertensao pulmonar, ventilacao nao invasiva ou transplante em doenca avancada. Brensocatibe e terapia DPP-1 emergente/especifica: confirmar registro, indicacao, disponibilidade e cobertura local.</p>
+  <h3>Referencias para conferencia</h3>${refsHtml()}
+  <p class="muted"><b>${esc(lgpdNotice())}</b></p>
+  <p class="muted"><b>${esc(accessNotice())}</b></p>
+  <p class="muted"><b>Aviso:</b> ferramenta de apoio a decisao medica; nao substitui julgamento clinico, diretrizes, protocolos locais ou relacao medico-paciente.</p>
+  <p style="margin-top:34px">_________________________________________<br>${esc(d.docName)||'Medico(a)'} - ${esc(d.docCRM)||'CRM'}<br>${brDate(d.docDate)}</p>`;
+}
+function rxHtml(d){const rows=selectedTherapies(d);return`<div class="print-only-title">Receita - Bronquiectasias</div><h2>Receituario / Plano de Tratamento</h2><p><b>Paciente:</b> ${esc(patientLine(d))}</p><p class="muted"><b>Sugestoes terapeuticas:</b> a decisao final, posologia, duracao, contraindicações, interacoes, monitorizacao, registro regulatorio e acompanhamento sao responsabilidade exclusiva do medico assistente. Este agente nao substitui bula, protocolos locais, diretrizes ou julgamento clinico.</p><table><tr><th>Item</th><th>Prescricao/orientacao</th></tr><tr><td>Clearance de vias aereas</td><td>${d.txClearance?'Realizar tecnica ensinada diariamente e intensificar em exacerbacao.':'Ensinar tecnica de clearance com fisioterapia respiratoria; ajustar conforme secrecao e tolerancia.'}</td></tr><tr><td>Mucoativo/inalacao</td><td>${d.txMucoactive?'Mucoativo/salina hipertonica conforme tolerancia e protocolo local.':'Considerar se secrecao espessa ou alto volume, apos teste de tolerancia quando aplicavel.'}</td></tr><tr><td>Antibiotico preventivo</td><td>${d.txMacrolide?'Macrolideo prolongado conforme avaliacao clinica, ECG/QT, audicao, interacoes e exclusao de NTM.':'Nao prescrito automaticamente; considerar em alto risco de exacerbacao apos avaliacao.'}</td></tr><tr><td>Antibiotico inalatorio</td><td>${d.txInhaledAbx?'Considerado por Pseudomonas cronica e alto risco de exacerbacao.':'Reservar para perfil apropriado, especialmente Pseudomonas cronica + alto risco.'}</td></tr>${rows.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join('')||'<tr><td>Prescricao livre</td><td>Nenhuma opcao medicamentosa adicional selecionada; preencher conforme decisao medica.</td></tr>'}</table><p><b>Tratamento atual:</b> ${esc(d.currentTherapy||'nao informado')}</p><p><b>Seguranca:</b> azitromicina prolongada exige avaliar NTM, ECG/QT, audicao, interacoes e resistencia. Brensocatibe deve ter registro/disponibilidade/cobertura local confirmados e nao substitui medidas basicas como clearance e manejo microbiologico.</p><p><b>Observacoes:</b> ${esc(d.treatmentRationale||'Revisar tecnica, aderencia, culturas, vacinas e reabilitacao.')}</p><p class="muted"><b>${esc(lgpdNotice())}</b></p><p style="margin-top:34px">_________________________________________<br>${esc(d.docName)||'Medico(a)'} - ${esc(d.docCRM)||'CRM'}<br>${brDate(d.docDate)}</p>`}
 function exacHtml(d){return`<div class="print-only-title">Plano de Exacerbacao - Bronquiectasias</div><h2>Plano de Exacerbacao</h2><p><b>Paciente:</b> ${esc(patientLine(d))}</p><p><b>Sinais de alerta:</b> aumento de tosse, volume/purulencia do escarro, dispneia, febre, hemoptise, dor toracica, queda funcional ou saturacao.</p><ol><li>Coletar escarro para cultura antes de iniciar antibiotico quando possivel.</li><li>Guiar antibiotico por culturas previas, gravidade e risco de Pseudomonas/NTM.</li><li>Duração frequentemente usada: cerca de 14 dias, individualizando conforme resposta, gravidade e patogeno.</li><li>Procurar urgencia se hemoptise importante, hipoxemia, sepse, confusao, dor toracica, falha terapeutica ou comorbidade descompensada.</li></ol><p><b>Plano individual:</b> ${esc(d.exacPlan||'pendente de individualizacao pelo medico assistente')}</p><p class="muted"><b>${esc(lgpdNotice())}</b></p>`}
-function summaryHtml(d){const a=d.analysis;return`<div class="print-only-title">Resumo - Bronquiectasias</div><h2>Resumo do Agente</h2><table><tr><th>Item</th><th>Resultado</th></tr><tr><td>Paciente</td><td>${esc(patientLine(d))}</td></tr><tr><td>Risco</td><td>${a.risk} (${a.points} pontos)</td></tr><tr><td>TCAR/funcao</td><td>TCAR: ${esc(d.hrct)}; VEF1 ${esc(d.fev1||'__')}%; mMRC ${esc(d.mmrc||'__')}</td></tr><tr><td>Exacerbacoes</td><td>${esc(d.exac||0)}/ano; internacoes ${esc(d.hosp||0)}/ano</td></tr><tr><td>Microbiologia</td><td>Pseudomonas ${esc(d.pseudomonas)}; NTM ${esc(d.ntm)}; ${esc(d.pathogen||'')}</td></tr><tr><td>Etiologia/tracos</td><td>${esc(etiologySummary(d))}</td></tr><tr><td>Conduta</td><td>${esc(suggestPlan(d))}</td></tr></table>`}
-function suggestPlan(d){const a=d.analysis,parts=[];if(d.hrct!=='sim')parts.push('confirmar diagnostico por TCAR');parts.push('clearance de vias aereas individualizado');if(a.highEx)parts.push('exacerbador frequente: revisar culturas e prevencao');if(d.rxAntibiotic)parts.push('antibiotico conforme cultura/gravidade');if(d.rxMucolytic||d.rxNac)parts.push('mucoativo/NAC conforme secrecao e tolerancia');if(d.rxBronchodilator)parts.push('broncodilatador se obstrucao, broncoespasmo, asma/DPOC ou resposta sintomatica');if(d.pseudomonas==='novo')parts.push('considerar erradicacao de Pseudomonas');if(d.pseudomonas==='cronica'&&a.highEx)parts.push('considerar antibiotico inalatorio');if(a.highEx||d.rxAzithro)parts.push('considerar azitromicina/macrolideo apos excluir NTM e avaliar QT/audicao/interacoes');if(d.rxBrensocatib)parts.push('brensocatibe apenas apos confirmar criterio, registro/disponibilidade e cobertura local');if(d.ntm!=='nao')parts.push('avaliar NTM com especialista e evitar macrolideo isolado');if(a.needSpecialist)parts.push('encaminhar para pneumologia/centro especializado');return parts.join('; ')+'.'}
+function summaryHtml(d){const a=d.analysis,s=d.summary||caseSnapshot(d);return`<div class="print-only-title">Resumo - Bronquiectasias</div><h2>Resumo do Agente</h2><p><b>Resumo indexado para banco local e retornos:</b> ${esc(s.text)}</p><table><tr><th>Item</th><th>Resultado</th></tr><tr><td>Paciente</td><td>${esc(patientLine(d))}</td></tr><tr><td>Fenotipo e risco</td><td>${esc(s.phenotype)}. FACED ${a.faced} (${esc(a.facedClass)}); E-FACED ${a.efaced} (${esc(a.efacedClass)}); BSI ${a.bsi} (${esc(a.bsiRisk)}). Mortalidade: ${esc(a.mortality)}; hospitalizacao: ${esc(a.hospitalization)}.</td></tr><tr><td>TCAR/funcao</td><td>TCAR: ${esc(d.hrct)}; extensao ${esc(d.lobes)}; VEF1 ${esc(d.fev1||'__')}%; mMRC ${esc(d.mmrc||'__')}; IMC ${esc(d.bmi||'__')}.</td></tr><tr><td>Exacerbacoes</td><td>${esc(d.exac||0)}/ano; internacoes ${esc(d.hosp||0)}/ano; hemoptise ${esc(d.hemoptysis||'nao informada')}.</td></tr><tr><td>Microbiologia</td><td>Pseudomonas ${esc(d.pseudomonas)}; NTM ${esc(d.ntm)}; bacteria mais encontrada ${esc(d.dominantBacteria||'nao informada')}; encontros: ${esc(cultureStructuredSummary(d))}; disbiose/fenotipo infeccioso ${esc(s.microbiology.dysbiosis)}; antibiograma ${esc(d.sensitivityProfile||'nao informado')}.</td></tr><tr><td>Etiologia inteligente</td><td>${esc(s.etiology.probable)}; probabilidade ${esc(s.etiology.probability)}; exames faltantes: ${s.etiology.missing.length?esc(s.etiology.missing.join(', ')):'sem pendencias no campo informado'}.</td></tr><tr><td>Traços tratáveis</td><td>${s.treatableTraits.length?esc(s.treatableTraits.join(', ')):'nenhum traço principal marcado automaticamente pelos campos atuais'}.</td></tr><tr><td>Prioridades</td><td>${s.priorities.length?esc(s.priorities.join('; ')):esc('manter seguimento estruturado, clearance, cultura periodica e revisao vacinal')}.</td></tr><tr><td>Vacinas</td><td>Pendentes/nao informadas: ${s.vaccines.pending.length?esc(s.vaccines.pending.join(', ')):'nenhuma pendencia registrada'}; observacoes: ${esc(s.vaccines.notes||'sem observacoes')}.</td></tr><tr><td>Reabilitacao</td><td>${esc(s.rehab.text)}</td></tr><tr><td>Conduta e retorno</td><td>${esc(s.treatment.plan)} Seguimento: ${esc(s.treatment.followup||'nao definido')}.</td></tr><tr><td>Pendencias principais</td><td>${s.pending.length?esc(s.pending.join(' | ')):'sem pendencias principais pelo preenchimento atual'}.</td></tr></table><p class="muted"><b>Banco local:</b> este resumo fica salvo junto dos dados completos do paciente para permitir reemissao e servir de base para retornos/acompanhamento longitudinal em implementacoes posteriores.</p>`}
+function suggestPlan(d){const a=d.analysis,parts=[];if(d.hrct!=='sim')parts.push('confirmar diagnostico por TCAR');parts.push(d.clearanceMethod?`clearance: ${d.clearanceMethod}${d.clearanceFreq?' '+d.clearanceFreq:''}`:'clearance de vias aereas individualizado');if(a.highEx)parts.push('exacerbador frequente: revisar culturas e prevencao');if(d.rxAntibiotic||d.treatmentGoal==='exacerbacao')parts.push('antibiotico conforme cultura/gravidade');if(d.rxMucolytic||d.rxNac||d.sputumImpact==='sim'||d.sputumImpact==='grave')parts.push('mucoativo/NAC conforme secrecao e tolerancia');if(d.rxBronchodilator)parts.push('broncodilatador se obstrucao, broncoespasmo, asma/DPOC ou resposta sintomatica');if(d.pseudomonas==='novo')parts.push('considerar erradicacao de Pseudomonas');if(d.pseudomonas==='cronica'&&a.highEx)parts.push('considerar antibiotico inalatorio');if(a.highEx||d.rxAzithro)parts.push('considerar azitromicina/macrolideo somente apos excluir NTM e avaliar QT/audicao/interacoes');if(d.rxBrensocatib)parts.push('brensocatibe apenas apos confirmar criterio, registro/disponibilidade e cobertura local');if(d.ntm!=='nao')parts.push('avaliar NTM com especialista e evitar macrolideo isolado');if(a.needSpecialist||d.treatmentGoal==='encaminhar')parts.push('encaminhar para pneumologia/centro especializado');if(d.followupInterval)parts.push(`retorno em ${d.followupInterval}`);return parts.join('; ')+'.'}
+function birthForAge(age){const d=new Date();return `${d.getFullYear()-age}-01-01`}
+function runScoreTests(){
+  const cases=[
+    {name:'Baixo risco jovem',d:{patBirth:birthForAge(40),fev1:'90',mmrc:'0',exac:'0',hosp:'0',bmi:'25',lobes:'1',pseudomonas:'nao',otherBacteria:'nao',ntm:'nao'},e:{faced:0,efaced:0,bsi:0,bsiRisk:'Baixo'}},
+    {name:'Grave exacerbador com Pseudomonas',d:{patBirth:birthForAge(75),fev1:'42',mmrc:'3',exac:'4',hosp:'1',bmi:'17',lobes:'3',pseudomonas:'cronica',otherBacteria:'nao',ntm:'nao'},e:{faced:7,efaced:9,bsi:21,bsiRisk:'Alto'}},
+    {name:'Limite idade 70 com VEF1 preservado',d:{patBirth:birthForAge(70),fev1:'80',mmrc:'1',exac:'0',hosp:'0',bmi:'22',lobes:'1',pseudomonas:'nao',otherBacteria:'nao',ntm:'nao'},e:{faced:2,efaced:2,bsi:4,bsiRisk:'Baixo'}}
+  ];
+  const results=cases.map(c=>{const d=Object.assign({hrct:'sim',cysticBronch:'nao'},c.d);const a=analyze(d);const ok=a.faced===c.e.faced&&a.efaced===c.e.efaced&&a.bsi===c.e.bsi&&a.bsiRisk===c.e.bsiRisk;return{...c,a,ok}});
+  const box=$('scoreTestBox');if(box){box.style.display='block';box.innerHTML='<b>Validacao interna dos escores:</b><br>'+results.map(r=>`<span class="${r.ok?'test-ok':'test-bad'}">${r.ok?'✓':'✕'} ${esc(r.name)}</span>: FACED ${r.a.faced}, E-FACED ${r.a.efaced}, BSI ${r.a.bsi} ${r.a.bsiRisk}`).join('<br>')+'<br><small>Conferir periodicamente com calculadoras externas/colega, especialmente edge cases.</small>'}
+  alert(results.every(r=>r.ok)?'Casos-teste internos aprovados.':'Ha divergencia em casos-teste; revisar formulas.');
+}
+function applyTemplate(kind){
+  if(kind==='postTb'){
+    setVal('likelyEtiology','pos-TB / pos-infecciosa');setVal('etioPostInfect',true);setVal('lobes','3');setVal('dominantBacteria','Haemophilus influenzae');setVal('treatmentGoal','estavel');setVal('clearanceMethod','Ciclo ativo da respiracao');setVal('clearanceFreq','2 vezes ao dia');setVal('txClearance',true);
+  }
+  if(kind==='pseudEx'){
+    setVal('pseudomonas','cronica');setVal('dominantBacteria','Pseudomonas aeruginosa');setVal('culture1Bacteria','Pseudomonas aeruginosa');setVal('culture2Bacteria','Pseudomonas aeruginosa');setVal('exac','3');setVal('hosp','1');setVal('mmrc','3');setVal('treatmentGoal','pseudomonas');setVal('inhaledAbxCriteria','pseudomonas_alto_risco');setVal('txInhaledAbx',true);setVal('txSpecialist',true);
+  }
+  if(kind==='abpa'){
+    setVal('etioABPA',true);setVal('likelyEtiology','ABPA / sensibilizacao Aspergillus');setVal('dominantBacteria','Aspergillus spp.');setVal('testsDone','IgE total, eosinofilos; pendente Aspergillus IgE/IgG se nao realizado');setVal('treatmentGoal','encaminhar');setVal('txSpecialist',true);
+  }
+  calculateAll();
+}
 function generateDocuments(scroll=true){const d=collectData();if(!d.docDate){d.docDate=todayISO();setVal('docDate',d.docDate)}d.analysis=analyze(d);$('reportDoc').innerHTML=reportHtml(d);$('rxDoc').innerHTML=rxHtml(d);$('exacDoc').innerHTML=exacHtml(d);$('summaryDoc').innerHTML=summaryHtml(d);lastDocs={relatorio:htmlToText($('reportDoc')),receita:htmlToText($('rxDoc')),exacerbacao:htmlToText($('exacDoc')),resumo:htmlToText($('summaryDoc'))};if(scroll)$('sec-saidas').scrollIntoView({behavior:'smooth',block:'start'})}
 function htmlToText(el){return el.innerText.replace(/\n{3,}/g,'\n\n').trim()+'\n'}
 function setDocTab(id){document.querySelectorAll('.doc').forEach(el=>el.classList.toggle('active',el.id===id));const labels={reportDoc:'Relatorio',rxDoc:'Receita',exacDoc:'Exacerbacao',summaryDoc:'Resumo'};document.querySelectorAll('.doc-tab').forEach(btn=>btn.classList.toggle('active',btn.textContent.trim()===labels[id]))}
 function printDoc(id){document.querySelectorAll('.doc').forEach(el=>el.classList.remove('print-target'));$(id).classList.add('print-target');setDocTab(id);window.print()}
 function downloadTxt(kind){generateDocuments(false);if(!confirm('LGPD: este TXT contera dados pessoais sensiveis. Confirma geracao e armazenamento seguro?'))return;const name=(val('patName')||'paciente').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^\w-]+/g,'_').slice(0,40);const blob=new Blob([lastDocs[kind]||''],{type:'text/plain;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`${kind}_Bronquiectasias_${name}_${todayISO()}.txt`;a.click();URL.revokeObjectURL(a.href)}
-function saveCase(){calculateAll();const d=collectData();if(!d.patName){alert('Informe o nome do paciente antes de salvar.');return}const items=db(),idx=items.findIndex(x=>x.caseId===d.caseId);if(idx>=0)items[idx]=d;else items.unshift(d);writeDb(items.slice(0,500));document.body.dataset.caseId=d.caseId;renderCaseList();alert('Caso salvo no banco local deste navegador. LGPD: mantenha controle de acesso.')}
+function saveCase(){calculateAll();const d=collectData();if(!d.patName){alert('Informe o nome do paciente antes de salvar.');return}const items=db(),idx=items.findIndex(x=>x.caseId===d.caseId);const previous=idx>=0?items[idx]:null;const history=previous?.followupSnapshots||[];d.followupSnapshots=[...history,d.summary].slice(-12);if(idx>=0)items[idx]=d;else items.unshift(d);writeDb(items.slice(0,500));document.body.dataset.caseId=d.caseId;renderCaseList();alert('Caso salvo no banco local deste navegador com resumo clinico indexado. LGPD: mantenha controle de acesso.')}
 function loadCase(id){const item=db().find(x=>x.caseId===id);if(!item)return;ids.forEach(k=>setVal(k,item[k]));document.body.dataset.caseId=item.caseId;calculateAll();generateDocuments()}
 function deleteCase(id){if(!confirm('Excluir este caso do banco local?'))return;writeDb(db().filter(x=>x.caseId!==id));if(currentCaseId()===id)document.body.dataset.caseId='';renderCaseList()}
-function newCase(){ids.forEach(id=>setVal(id,''));['etioCF','etioPCD','etioABPA','etioImmuno','etioNTM','etioAuto','etioAspiration','etioPostInfect','txClearance','txRehab','txVaccines','txEradication','txMacrolide','txInhaledAbx','txMucoactive','txSpecialist','rxAntibiotic','rxMucolytic','rxNac','rxBronchodilator','rxAzithro','rxBrensocatib'].forEach(id=>setVal(id,false));document.body.dataset.caseId='';setVal('hrct','sim');setVal('lobes','1');setVal('mmrc','0');setVal('pseudomonas','nao');setVal('ntm','nao');setVal('sputum','baixo');setVal('hemoptysis','nao');setVal('docDate',todayISO());calculateAll();window.scrollTo({top:0,behavior:'smooth'})}
-function renderCaseList(){const q=val('dbSearch').toLowerCase();const list=db().filter(d=>[d.patName,d.patCPF,d.patCNS,d.likelyEtiology,d.pathogen].join(' ').toLowerCase().includes(q));$('caseList').innerHTML=list.length?list.map(d=>`<div class="case-card"><strong>${esc(d.patName||'Sem nome')}</strong><span>Risco ${esc(d.analysis?.risk||'')} - ${esc(d.likelyEtiology||'etiologia pendente')}</span><span>${new Date(d.updatedAt||Date.now()).toLocaleString('pt-BR')}</span><div class="row"><button class="btn small" onclick="loadCase('${d.caseId}')">Reemitir</button><button class="btn small danger" onclick="deleteCase('${d.caseId}')">Excluir</button></div></div>`).join(''):'<p style="color:#6b7785;font-size:13px;margin:0">Nenhum caso salvo.</p>'}
+function newCase(){ids.forEach(id=>setVal(id,''));['etioCF','etioPCD','etioABPA','etioImmuno','etioNTM','etioAuto','etioAspiration','etioPostInfect','txClearance','txRehab','txVaccines','txEradication','txMacrolide','txInhaledAbx','txMucoactive','txSpecialist','rxAntibiotic','rxMucolytic','rxNac','rxBronchodilator','rxAzithro','rxBrensocatib'].forEach(id=>setVal(id,false));document.body.dataset.caseId='';setVal('hrct','sim');setVal('lobes','1');setVal('cysticBronch','nao');setVal('mmrc','0');setVal('pseudomonas','nao');setVal('otherBacteria','nao');setVal('ntm','nao');setVal('sputum','baixo');setVal('hemoptysis','nao');setVal('cultureQuality','');setVal('treatmentGoal','');setVal('clearanceMethod','');setVal('clearanceFreq','');setVal('sputumImpact','');setVal('ntmExcluded','');setVal('macrolideSafety','');setVal('inhaledAbxCriteria','');setVal('followupInterval','');['vaccineInfluenza','vaccineCovid','vaccinePneumo','vaccineDtpa','vaccineRsv','vaccineZoster','rehabIndication','rehabReason'].forEach(id=>setVal(id,''));setVal('docDate',todayISO());calculateAll();window.scrollTo({top:0,behavior:'smooth'})}
+function renderCaseList(){const q=val('dbSearch').toLowerCase();const list=db().filter(d=>[d.patName,d.patCPF,d.patCNS,d.likelyEtiology,d.pathogen,d.dominantBacteria,d.culture1Bacteria,d.culture2Bacteria,d.culture3Bacteria,d.summary?.text].join(' ').toLowerCase().includes(q));$('caseList').innerHTML=list.length?list.map(d=>{const s=d.summary||caseSnapshot(d),snap=d.followupSnapshots?.length||0;return`<div class="case-card"><strong>${esc(d.patName||'Sem nome')}</strong><span>${esc(s.phenotype||'fenotipo pendente')} - BSI ${esc(String(s.scores?.bsi??d.analysis?.bsi??''))} ${esc(s.scores?.bsiRisk||d.analysis?.bsiRisk||'')} - ${esc(s.microbiology?.dominantBacteria||d.dominantBacteria||'micro pendente')}</span><span>${esc((s.priorities||[]).slice(0,2).join('; ')||'prioridades pendentes de preenchimento')}</span><span>${new Date(d.updatedAt||Date.now()).toLocaleString('pt-BR')} - snapshots: ${snap}</span><div class="row"><button class="btn small" onclick="loadCase('${d.caseId}')">Reemitir</button><button class="btn small danger" onclick="deleteCase('${d.caseId}')">Excluir</button></div></div>`}).join(''):'<p style="color:#6b7785;font-size:13px;margin:0">Nenhum caso salvo.</p>'}
 function exportDb(){if(!confirm('LGPD: o JSON exportado contera dados sensiveis. Confirma exportacao segura?'))return;const blob=new Blob([JSON.stringify(db(),null,2)],{type:'application/json;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`banco_bronquiectasias_2026_${todayISO()}.json`;a.click();URL.revokeObjectURL(a.href)}
 function importDbFile(ev){const file=ev.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const incoming=JSON.parse(reader.result);if(!Array.isArray(incoming))throw new Error('formato');const merged=[...incoming,...db()],seen=new Set(),unique=merged.filter(x=>x.caseId&&!seen.has(x.caseId)&&seen.add(x.caseId));writeDb(unique);renderCaseList();alert('Banco importado.')}catch(e){alert('Nao foi possivel importar o JSON.')}};reader.readAsText(file)}
 document.querySelectorAll('#nav button').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('#nav button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');const t=$(btn.dataset.target);if(t)t.scrollIntoView({behavior:'smooth',block:'start'})}))
-ids.forEach(id=>{const el=$(id);if(el)el.addEventListener('input',()=>calculateAll())})
-document.addEventListener('DOMContentLoaded',()=>{setVal('docDate',todayISO());loadDoctorProfile();renderCaseList();newCase();showStartupModal()})
+ids.forEach(id=>{const el=$(id);if(el)el.addEventListener('input',()=>{calculateAll();writeDraft()})})
+document.addEventListener('DOMContentLoaded',()=>{setVal('docDate',todayISO());loadDoctorProfile();renderCaseList();if(!loadDraft())newCase();else calculateAll();showStartupModal()})
 </script>
 </body>
 </html>
