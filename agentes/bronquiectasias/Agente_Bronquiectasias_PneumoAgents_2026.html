@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agente Bronquiectasias 2026 | PneumoAgents</title>
+<style>
+:root{--ink:#152238;--muted:#5c6b7a;--line:#d8e0e8;--paper:#fff;--bg:#eef4f7;--blue:#1463a5;--green:#287b54;--amber:#a46105;--red:#b53838;--slate:#2e4157;--soft:#f7fafc;--shadow:0 14px 34px rgba(20,38,56,.12)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,Segoe UI,Arial,sans-serif;line-height:1.45}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);box-shadow:0 4px 14px rgba(20,38,56,.05);backdrop-filter:blur(10px)}
+.top-inner{max-width:1280px;margin:0 auto;padding:12px 18px;display:flex;align-items:center;gap:14px;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.brand-mark{width:46px;height:46px;border-radius:10px;background:linear-gradient(135deg,#1463a5,#287b54);display:grid;place-items:center;color:#fff;font-weight:900;box-shadow:inset 0 -10px 18px rgba(0,0,0,.12)}
+.brand h1{font-size:18px;margin:0;line-height:1.15}
+.brand p{margin:2px 0 0;color:var(--muted);font-size:12px}
+.top-actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
+.btn{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:7px;padding:9px 11px;font-weight:700;display:inline-flex;align-items:center;gap:7px}
+.btn:hover{border-color:#9fb3c4}
+.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn.green{background:var(--green);border-color:var(--green);color:#fff}
+.btn.danger{background:#fff1f1;border-color:#f0b8b8;color:#7e1f1f}
+.btn.small{padding:6px 8px;font-size:12px}
+.shell{max-width:1280px;margin:0 auto;padding:18px;display:grid;grid-template-columns:280px 1fr;gap:16px}
+.side{position:sticky;top:78px;align-self:start;background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);overflow:hidden}
+.side h2{font-size:13px;text-transform:uppercase;letter-spacing:.04em;margin:0;padding:14px 14px 8px;color:var(--muted)}
+.nav{display:grid;padding:8px;gap:5px}
+.nav button{border:0;background:transparent;text-align:left;padding:10px 11px;border-radius:7px;color:var(--slate);font-weight:700}
+.nav button.active,.nav button:hover{background:#edf5fb;color:#0c4f86}
+.dbbox{border-top:1px solid var(--line);padding:12px}
+.dbbox input{width:100%;border:1px solid var(--line);border-radius:7px;padding:9px;margin-bottom:8px}
+.case-list{display:grid;gap:7px;max-height:310px;overflow:auto}
+.case-card{border:1px solid var(--line);border-radius:7px;padding:8px;background:#fbfdfe}
+.case-card strong{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.case-card span{display:block;color:var(--muted);font-size:12px}
+.case-card .row{margin-top:7px;display:flex;gap:5px}
+.main{display:grid;gap:16px}
+.hero{background:linear-gradient(135deg,#ffffff 0%,#f7fbfd 58%,#eef7f3 100%);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);padding:22px;display:grid;grid-template-columns:1.25fr .75fr;gap:16px;align-items:center}
+.hero h2{font-size:27px;margin:0 0 8px;line-height:1.08}
+.hero p{margin:0;color:var(--muted)}
+.score-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.score{background:var(--soft);border:1px solid var(--line);border-radius:7px;padding:10px;text-align:center}
+.score b{display:block;font-size:20px;color:var(--blue)}
+.score span{font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase}
+.panel{background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);overflow:hidden}
+.panel-head{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:flex-start;justify-content:space-between}
+.panel-head h3{margin:0;font-size:18px}
+.panel-head p{margin:3px 0 0;color:var(--muted);font-size:13px}
+.panel-body{padding:16px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.span-2{grid-column:span 2}.span-3{grid-column:span 3}.span-4{grid-column:span 4}
+label{display:block;font-size:12px;color:#34495e;font-weight:800;margin-bottom:5px}
+input,select,textarea{width:100%;border:1px solid var(--line);border-radius:7px;padding:10px;background:#fff;color:var(--ink)}
+textarea{min-height:86px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid #b9daf1;border-color:#6fa9d3}
+.check-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.check{border:1px solid var(--line);border-radius:7px;padding:9px;background:#fbfdfe;display:flex;gap:8px;align-items:flex-start}
+.check input{width:auto;margin-top:3px}
+.check label{margin:0;font-weight:650;color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{border:1px solid var(--line);border-radius:999px;padding:6px 9px;background:#f8fbfd;color:var(--slate);font-size:12px;font-weight:750}
+.alert{border-radius:7px;padding:11px 12px;margin-top:12px;border:1px solid var(--line);background:#f9fbfd}
+.alert.good{background:#edf8f2;border-color:#add9c0;color:#185637}
+.alert.warn{background:#fff7e8;border-color:#efc16d;color:#5c3a04}
+.alert.bad{background:#fff0f0;border-color:#efb4b4;color:#7a2424}
+.alert.info{background:#edf6fc;border-color:#b8d9ef;color:#174b70}
+.doc-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}
+.doc-tab{border:1px solid var(--line);background:#fff;color:#27415a;border-radius:7px;padding:8px 10px;font-weight:800}
+.doc-tab.active{background:#1463a5;border-color:#1463a5;color:#fff}
+.out-grid{display:block;background:#f4f8fb;border:1px solid var(--line);border-radius:8px;padding:16px;overflow:hidden}
+.doc{display:none;background:#fff;border:1px solid #cfd8e2;border-radius:8px;padding:22px;min-height:420px;color:#111;max-width:920px;margin:0 auto;box-shadow:0 10px 24px rgba(20,38,56,.08);overflow:auto}
+.doc.active{display:block}
+.doc h2,.doc h3{margin:0 0 8px}
+.doc .muted{color:#555}
+.doc table{width:100%;border-collapse:collapse;margin:10px 0}
+.doc td,.doc th{border:1px solid #333;padding:5px;font-size:12px;vertical-align:top}
+.print-only-title{display:none}
+.ref-list{font-size:12px;color:var(--muted);margin:12px 0 0;padding-left:18px}
+.modal-backdrop{position:fixed;inset:0;background:rgba(15,31,46,.64);z-index:100;display:none;align-items:center;justify-content:center;padding:18px}
+.modal-backdrop.show{display:flex}
+.modal{width:min(820px,100%);max-height:92vh;overflow:auto;background:#fff;border-radius:8px;box-shadow:0 24px 70px rgba(0,0,0,.28);border:1px solid var(--line)}
+.modal-head{padding:16px 18px;border-bottom:1px solid var(--line);background:#f8fbfd}
+.modal-head h2{margin:0;font-size:21px}
+.modal-head p{margin:5px 0 0;color:var(--muted)}
+.modal-body{padding:18px}
+.notice{border:1px solid #efc16d;background:#fff7e8;color:#4e3104;border-radius:7px;padding:12px;margin-bottom:14px}
+.notice b{display:block;margin-bottom:5px}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;padding:14px 18px;border-top:1px solid var(--line);background:#fbfdfe}
+@media(max-width:980px){.shell{grid-template-columns:1fr}.side{position:static}.hero{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}.check-grid{grid-template-columns:1fr}}
+@media(max-width:620px){.top-inner{align-items:flex-start;flex-direction:column}.top-actions{justify-content:flex-start}.grid,.score-grid{grid-template-columns:1fr}.span-2,.span-3,.span-4{grid-column:auto}}
+@media print{@page{size:A4;margin:10mm}body{background:#fff}.topbar,.side,.hero,.input-panel,.no-print{display:none!important}.shell{display:block;padding:0;margin:0;max-width:none}.main{display:block}.panel{box-shadow:none;border:0;border-radius:0}.panel-head{display:none}.panel-body{padding:0}.out-grid{display:block;border:0;padding:0;background:#fff}.doc{display:none;border:0;border-radius:0;padding:0;min-height:auto;box-shadow:none;max-width:none}.doc.print-target{display:block}.print-only-title{display:block;text-align:center;font-weight:bold;margin-bottom:8px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="modal-backdrop" id="startupModal" role="dialog" aria-modal="true" aria-labelledby="startupTitle">
+    <div class="modal">
+      <div class="modal-head">
+        <h2 id="startupTitle">Cadastro medico e termo de uso</h2>
+        <p>Confirme seus dados para preencher automaticamente receitas, relatorios e documentos.</p>
+      </div>
+      <div class="modal-body">
+        <div class="notice"><b>Ferramenta de apoio a decisao medica</b>Este agente organiza dados clinicos e documentos sobre bronquiectasias. Nao substitui avaliacao, decisao medica, protocolos locais, bulas, normas vigentes ou relacao medico-paciente.</div>
+        <div class="notice"><b>Aviso LGPD - dados pessoais sensiveis</b>O agente manipula dados pessoais e de saude, sensiveis pela LGPD - Lei No. 13.709/2018. Use apenas em ambiente autorizado, com sigilo profissional, controle de acesso e finalidade assistencial/administrativa legitima.</div>
+        <div class="notice"><b>Condicoes de acesso PneumoAgents</b>Disponibilizacao prevista com acesso gratuito por 7 dias apos cadastro. Apos esse periodo, continuidade condicionada a cadastro ativo e pagamento da taxa vigente no portal PneumoAgents.</div>
+        <div class="grid">
+          <div class="span-2"><label>Nome do medico</label><input id="profileDocName"></div>
+          <div><label>CRM/UF</label><input id="profileDocCRM"></div>
+          <div><label>CNS do medico</label><input id="profileDocCNS"></div>
+          <div class="span-2"><label>Instituicao / unidade</label><input id="profileDocInst"></div>
+          <div><label>CNES</label><input id="profileDocCNES"></div>
+          <div><label>Telefone profissional</label><input id="profileDocPhone"></div>
+          <div class="span-2"><label>E-mail profissional</label><input id="profileDocEmail" type="email"></div>
+          <div class="span-4"><label>Cabecalho institucional</label><input id="profileDocHeader" placeholder="Ex.: Ambulatorio de Pneumologia - Municipio/UF"></div>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn" onclick="closeStartupModal(false)">Usar sem salvar</button>
+        <button class="btn primary" onclick="saveDoctorProfile()">Salvar cadastro e iniciar</button>
+      </div>
+    </div>
+  </div>
+
+  <header class="topbar">
+    <div class="top-inner">
+      <div class="brand"><div class="brand-mark">BX</div><div><h1>Agente Bronquiectasias 2026</h1><p>PneumoAgents | Base nacional SBPT 2019 + ERS 2025, ERJ/ERR 2024-2025</p></div></div>
+      <div class="top-actions">
+        <button class="btn primary" onclick="calculateAll()">Atualizar analise</button>
+        <button class="btn" onclick="showStartupModal()">Cadastro medico</button>
+        <button class="btn green" onclick="saveCase()">Salvar no banco</button>
+        <button class="btn" onclick="newCase()">Novo caso</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="shell">
+    <aside class="side">
+      <h2>Navegacao</h2>
+      <nav class="nav" id="nav">
+        <button class="active" data-target="sec-dados">Dados</button>
+        <button data-target="sec-diagnostico">Diagnostico</button>
+        <button data-target="sec-etiologia">Etiologia</button>
+        <button data-target="sec-micro">Microbiologia</button>
+        <button data-target="sec-tratamento">Tratamento</button>
+        <button data-target="sec-saidas">Documentos</button>
+        <button data-target="sec-banco">Banco</button>
+      </nav>
+      <div class="dbbox" id="sec-banco">
+        <label>Buscar no banco local</label>
+        <input id="dbSearch" placeholder="Nome, CPF, CNS ou diagnostico" oninput="renderCaseList()">
+        <p style="font-size:12px;color:#6b7785;margin:0 0 8px">LGPD: banco local deste navegador. Exporte/compartilhe somente com seguranca e autorizacao.</p>
+        <div class="case-list" id="caseList"></div>
+        <div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap">
+          <button class="btn small" onclick="exportDb()">Exportar JSON</button>
+          <label class="btn small" for="importDb" style="margin:0">Importar</label>
+          <input id="importDb" type="file" accept="application/json" style="display:none" onchange="importDbFile(event)">
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <section class="hero">
+        <div>
+          <h2>Assistente para avaliacao, estratificacao e documentacao de bronquiectasias.</h2>
+          <p>Baseado no Consenso Brasileiro SBPT 2019 como documento nacional principal, atualizado com ERS 2025 e literatura ERJ/ERR 2024-2025.</p>
+          <div class="chips" style="margin-top:12px"><span class="chip">SBPT 2019 como base</span><span class="chip">TCAR padrao diagnostico</span><span class="chip">Etiologia sistematica</span><span class="chip">Pseudomonas/NTM</span><span class="chip">PDF/TXT</span></div>
+        </div>
+        <div class="score-grid">
+          <div class="score"><b id="scoreSeverity">-</b><span>Risco</span></div>
+          <div class="score"><b id="scorePseud">-</b><span>Pseudomonas</span></div>
+          <div class="score"><b id="scorePlan">-</b><span>Conduta</span></div>
+        </div>
+      </section>
+
+      <section class="panel input-panel" id="sec-dados">
+        <div class="panel-head"><div><h3>1. Identificacao e dados administrativos</h3><p>Usados nos relatorios, receita e banco local.</p></div></div>
+        <div class="panel-body"><div class="grid">
+          <div class="span-2"><label>Nome do paciente</label><input id="patName"></div>
+          <div><label>Data de nascimento</label><input id="patBirth" type="date"></div>
+          <div><label>Sexo</label><select id="patSex"><option></option><option>Feminino</option><option>Masculino</option><option>Outro</option></select></div>
+          <div><label>CPF</label><input id="patCPF"></div><div><label>CNS</label><input id="patCNS"></div>
+          <div><label>Peso (kg)</label><input id="patWeight" type="number" min="0" step="0.1"></div><div><label>Altura (cm)</label><input id="patHeight" type="number" min="0"></div>
+          <div class="span-2"><label>Medico solicitante</label><input id="docName"></div><div><label>CRM/UF</label><input id="docCRM"></div><div><label>Data</label><input id="docDate" type="date"></div>
+          <div class="span-2"><label>Instituicao</label><input id="docInst"></div><div><label>CNES</label><input id="docCNES"></div><div><label>Telefone</label><input id="patPhone"></div>
+        </div></div>
+      </section>
+
+      <section class="panel input-panel" id="sec-diagnostico">
+        <div class="panel-head"><div><h3>2. Diagnostico, gravidade e atividade</h3><p>TCAR, sintomas, funcao pulmonar, exacerbacoes e impacto funcional.</p></div></div>
+        <div class="panel-body"><div class="grid">
+          <div><label>TCAR confirma bronquiectasias?</label><select id="hrct"><option value="sim">Sim</option><option value="nao">Nao / pendente</option></select></div>
+          <div><label>Extensao radiologica</label><select id="lobes"><option value="1">1 lobo</option><option value="2">2 lobos</option><option value="3">3 ou mais lobos</option><option value="bilateral">Bilateral extensa</option></select></div>
+          <div><label>VEF1 % previsto</label><input id="fev1" type="number" min="0" max="150"></div>
+          <div><label>mMRC</label><select id="mmrc"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
+          <div><label>Exacerbacoes/ano</label><input id="exac" type="number" min="0" step="1"></div>
+          <div><label>Internacoes/ano</label><input id="hosp" type="number" min="0" step="1"></div>
+          <div><label>Hemoptise</label><select id="hemoptysis"><option value="nao">Nao</option><option value="leve">Leve</option><option value="recorrente">Recorrente</option><option value="grave">Grave</option></select></div>
+          <div><label>IMC</label><input id="bmi" type="number" min="8" max="60" step="0.1"></div>
+          <div class="span-2"><label>Sintomas predominantes</label><input id="symptoms" placeholder="Tosse, escarro, dispneia, fadiga, febre, perda ponderal"></div>
+          <div class="span-2"><label>Qualidade de vida / funcional</label><input id="qol" placeholder="TC6M, SGRQ/QoL-B, limitacao ao exercicio"></div>
+          <div class="span-4"><label>Resumo clinico livre</label><textarea id="clinResume"></textarea></div>
+        </div><div id="diagnosticAlert" class="alert info"></div></div>
+      </section>
+
+      <section class="panel input-panel" id="sec-etiologia">
+        <div class="panel-head"><div><h3>3. Investigacao etiologica e tracos trataveis</h3><p>Nunca rotular como idiopatica sem buscar causas trataveis quando clinicamente viavel.</p></div></div>
+        <div class="panel-body">
+          <div class="check-grid">
+            <div class="check"><input id="etioCF" type="checkbox"><label for="etioCF">Fibrose cistica adulta/atipica: teste do suor, CFTR quando indicado</label></div>
+            <div class="check"><input id="etioPCD" type="checkbox"><label for="etioPCD">Discinesia ciliar primaria: sinusite/otite desde infancia, infertilidade, situs</label></div>
+            <div class="check"><input id="etioABPA" type="checkbox"><label for="etioABPA">ABPA/sensibilizacao Aspergillus: IgE total, eosinofilos, IgE/IgG Aspergillus</label></div>
+            <div class="check"><input id="etioImmuno" type="checkbox"><label for="etioImmuno">Imunodeficiencia: IgG, IgA, IgM, subclasses/resposta vacinal quando indicado</label></div>
+            <div class="check"><input id="etioNTM" type="checkbox"><label for="etioNTM">Micobacteriose NTM: BAAR/cultura micobacterias, idealmente 3 amostras se alto risco</label></div>
+            <div class="check"><input id="etioAuto" type="checkbox"><label for="etioAuto">Autoimune/reumatologica: AR, Sjogren, DII, vasculites conforme sintomas</label></div>
+            <div class="check"><input id="etioAspiration" type="checkbox"><label for="etioAspiration">Aspiracao/DRGE/disfagia: pHmetria, fono/degluticao ou gastro se indicado</label></div>
+            <div class="check"><input id="etioPostInfect" type="checkbox"><label for="etioPostInfect">Pos-infecciosa/TB ou pneumonia grave previa</label></div>
+          </div>
+          <div class="grid" style="margin-top:12px">
+            <div class="span-2"><label>Exames ja realizados</label><input id="testsDone" placeholder="TCAR, espirometria, culturas, Ig, IgE, Aspergillus, suor, BAAR"></div>
+            <div class="span-2"><label>Etiologia provavel</label><input id="likelyEtiology" placeholder="Ex.: pos-TB, imunodeficiencia, ABPA, idiopatica apos investigacao"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel input-panel" id="sec-micro">
+        <div class="panel-head"><div><h3>4. Microbiologia, exacerbacao e fenotipo</h3><p>Microbioma, Pseudomonas, NTM e exacerbador frequente dirigem conduta.</p></div></div>
+        <div class="panel-body"><div class="grid">
+          <div><label>Pseudomonas aeruginosa</label><select id="pseudomonas"><option value="nao">Nao isolada</option><option value="novo">Novo isolamento</option><option value="cronica">Infeccao cronica</option></select></div>
+          <div><label>NTM</label><select id="ntm"><option value="nao">Nao documentada</option><option value="suspeita">Suspeita</option><option value="confirmada">Confirmada</option></select></div>
+          <div><label>Patogeno predominante</label><input id="pathogen" placeholder="H. influenzae, S. aureus, entericos, fungos"></div>
+          <div><label>Escarro diario</label><select id="sputum"><option value="baixo">Baixo</option><option value="moderado">Moderado</option><option value="alto">Alto / purulento</option></select></div>
+          <div class="span-2"><label>Historico de antibioticos/culturas</label><input id="antibioticHistory" placeholder="Antibioticos recentes, resistencia, cultura de escarro"></div>
+          <div class="span-2"><label>Disbiose / microbioma / infeccoes recorrentes</label><input id="microbiome" placeholder="Antibioticos repetidos, colonizacao, bronquiectasias extensas, DRGE/aspiracao"></div>
+        </div><div id="microAlert" class="alert info"></div></div>
+      </section>
+
+      <section class="panel input-panel" id="sec-tratamento">
+        <div class="panel-head"><div><h3>5. Tratamento e encaminhamento</h3><p>Clearance, reabilitacao, vacinas, antibioticos e terapias emergentes.</p></div></div>
+        <div class="panel-body">
+          <div class="check-grid">
+            <div class="check"><input id="txClearance" type="checkbox"><label for="txClearance">Tecnicas de clearance de vias aereas ensinadas/indicadas</label></div>
+            <div class="check"><input id="txRehab" type="checkbox"><label for="txRehab">Reabilitacao pulmonar se limitacao funcional</label></div>
+            <div class="check"><input id="txVaccines" type="checkbox"><label for="txVaccines">Vacinas revisadas</label></div>
+            <div class="check"><input id="txEradication" type="checkbox"><label for="txEradication">Erradicacao de Pseudomonas considerada em novo isolamento</label></div>
+            <div class="check"><input id="txMacrolide" type="checkbox"><label for="txMacrolide">Macrolideo prolongado considerado em alto risco de exacerbacao</label></div>
+            <div class="check"><input id="txInhaledAbx" type="checkbox"><label for="txInhaledAbx">Antibiotico inalatorio considerado se Pseudomonas cronica + alto risco</label></div>
+            <div class="check"><input id="txMucoactive" type="checkbox"><label for="txMucoactive">Mucoativo/hipertonica considerado se secrecao impactante</label></div>
+            <div class="check"><input id="txSpecialist" type="checkbox"><label for="txSpecialist">Encaminhamento para centro/especialista em bronquiectasias</label></div>
+          </div>
+          <div class="grid" style="margin-top:12px">
+            <div class="span-2"><label>Tratamento atual</label><input id="currentTherapy" placeholder="Clearance, salina hipertonica, broncodilatador, antibioticos, macrolideo"></div>
+            <div class="span-2"><label>Plano de exacerbacao</label><input id="exacPlan" placeholder="Coletar escarro antes de antibiotico; tratar geralmente 14 dias conforme gravidade/cultura"></div>
+            <div class="span-4"><label>Auxilio a prescricao - escolha ou edite livremente</label></div>
+            <div class="check"><input id="rxAntibiotic" type="checkbox"><label for="rxAntibiotic">Antibiotico para exacerbacao ou cultura dirigida</label></div>
+            <div class="check"><input id="rxMucolytic" type="checkbox"><label for="rxMucolytic">Mucolitico / mucoativo</label></div>
+            <div class="check"><input id="rxNac" type="checkbox"><label for="rxNac">NAC - N-acetilcisteina</label></div>
+            <div class="check"><input id="rxBronchodilator" type="checkbox"><label for="rxBronchodilator">Broncodilatador</label></div>
+            <div class="check"><input id="rxAzithro" type="checkbox"><label for="rxAzithro">Azitromicina - anti-inflamatorio/imunomodulador</label></div>
+            <div class="check"><input id="rxBrensocatib" type="checkbox"><label for="rxBrensocatib">Brensocatibe - DPP-1, terapia emergente/especifica conforme disponibilidade regulatoria</label></div>
+            <div class="span-2"><label>Antibioticos</label><input id="antibioticRx" placeholder="Ex.: conforme cultura; amoxicilina-clavulanato, ciprofloxacino se Pseudomonas sensivel, etc."></div>
+            <div class="span-2"><label>Mucoliticos / mucoativos</label><input id="mucolyticRx" placeholder="Ex.: salina hipertonica, carbocisteina, erdosteina, conforme tolerancia"></div>
+            <div class="span-2"><label>NAC</label><input id="nacRx" placeholder="Ex.: N-acetilcisteina 600 mg VO 1-2x/dia, ajustar ao caso"></div>
+            <div class="span-2"><label>Broncodilatadores</label><input id="bronchodilatorRx" placeholder="Ex.: LABA/LAMA/SABA conforme obstrucao, asma/DPOC, dispneia ou broncoespasmo"></div>
+            <div class="span-2"><label>Azitromicina anti-inflamatoria</label><input id="azithroRx" placeholder="Ex.: 250 mg 3x/semana ou 500 mg 3x/semana; avaliar QT, audicao, interacoes e NTM"></div>
+            <div class="span-2"><label>Brensocatibe</label><input id="brensocatibRx" placeholder="Ex.: confirmar registro/disponibilidade local; nao iniciar sem criterio e avaliacao regulatoria"></div>
+            <div class="span-4"><label>Justificativa / observacoes</label><textarea id="treatmentRationale"></textarea></div>
+          </div>
+          <div id="treatmentAlert" class="alert info"></div>
+        </div>
+      </section>
+
+      <section class="panel" id="sec-saidas">
+        <div class="panel-head no-print"><div><h3>6. Documentos gerados</h3><p>Imprima em PDF pelo navegador ou baixe TXT. Use o banco local para reemissao.</p></div><div class="top-actions"><button class="btn primary" onclick="generateDocuments()">Gerar documentos</button><button class="btn" onclick="printDoc('reportDoc')">PDF Relatorio</button><button class="btn" onclick="printDoc('rxDoc')">PDF Receita</button><button class="btn" onclick="printDoc('summaryDoc')">PDF Resumo</button></div></div>
+        <div class="panel-body">
+          <div class="doc-tabs no-print"><button class="doc-tab active" onclick="setDocTab('reportDoc')">Relatorio</button><button class="doc-tab" onclick="setDocTab('rxDoc')">Receita</button><button class="doc-tab" onclick="setDocTab('exacDoc')">Exacerbacao</button><button class="doc-tab" onclick="setDocTab('summaryDoc')">Resumo</button></div>
+          <div class="out-grid"><article class="doc active" id="reportDoc"></article><article class="doc" id="rxDoc"></article><article class="doc" id="exacDoc"></article><article class="doc" id="summaryDoc"></article></div>
+          <div class="top-actions no-print" style="justify-content:flex-start;margin-top:12px"><button class="btn" onclick="downloadTxt('relatorio')">TXT Relatorio</button><button class="btn" onclick="downloadTxt('receita')">TXT Receita</button><button class="btn" onclick="downloadTxt('exacerbacao')">TXT Exacerbacao</button><button class="btn" onclick="downloadTxt('resumo')">TXT Resumo</button></div>
+          <ol class="ref-list no-print"><li>ERS 2025: diretriz clinica para manejo de bronquiectasias em adultos.</li><li>ERJ 2024: manejo em adultos, estado da arte e terapias futuras.</li><li>ERR 2024-2025: microbioma, exacerbacao, fisiopatologia/genomica, neutrofilos e biomarcadores.</li><li>NEJM 2025: fase 3 brensocatibe/DPP-1 em bronquiectasias.</li></ol>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<script>
+const DB_KEY='agente_bronquiectasias_2026_casos_v1';
+const PROFILE_KEY='agente_bronquiectasias_2026_medico_v1';
+const ids=['patName','patBirth','patSex','patCPF','patCNS','patWeight','patHeight','docName','docCRM','docDate','docInst','docCNES','patPhone','hrct','lobes','fev1','mmrc','exac','hosp','hemoptysis','bmi','symptoms','qol','clinResume','etioCF','etioPCD','etioABPA','etioImmuno','etioNTM','etioAuto','etioAspiration','etioPostInfect','testsDone','likelyEtiology','pseudomonas','ntm','pathogen','sputum','antibioticHistory','microbiome','txClearance','txRehab','txVaccines','txEradication','txMacrolide','txInhaledAbx','txMucoactive','txSpecialist','currentTherapy','exacPlan','rxAntibiotic','rxMucolytic','rxNac','rxBronchodilator','rxAzithro','rxBrensocatib','antibioticRx','mucolyticRx','nacRx','bronchodilatorRx','azithroRx','brensocatibRx','treatmentRationale'];
+const profileIds=['profileDocName','profileDocCRM','profileDocCNS','profileDocInst','profileDocCNES','profileDocPhone','profileDocEmail','profileDocHeader'];
+let lastDocs={};
+function $(id){return document.getElementById(id)}
+function val(id){const el=$(id);return el&&el.type==='checkbox'?el.checked:(el?el.value.trim():'')}
+function setVal(id,v){const el=$(id);if(!el)return;if(el.type==='checkbox')el.checked=!!v;else el.value=v??''}
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function todayISO(){return new Date().toISOString().slice(0,10)}
+function brDate(iso){if(!iso)return'__/__/____';const [y,m,d]=iso.split('-');return`${d}/${m}/${y}`}
+function n(id){const x=parseFloat(String(val(id)).replace(',','.'));return Number.isFinite(x)?x:null}
+function db(){try{return JSON.parse(localStorage.getItem(DB_KEY)||'[]')}catch(e){return[]}}
+function writeDb(items){localStorage.setItem(DB_KEY,JSON.stringify(items))}
+function getProfile(){try{return JSON.parse(localStorage.getItem(PROFILE_KEY)||'{}')}catch(e){return{}}}
+function writeProfile(p){localStorage.setItem(PROFILE_KEY,JSON.stringify(p))}
+function profileMap(){return{profileDocName:'docName',profileDocCRM:'docCRM',profileDocInst:'docInst',profileDocCNES:'docCNES'}}
+function loadDoctorProfile(){const p=getProfile();profileIds.forEach(id=>setVal(id,p[id]||''));Object.entries(profileMap()).forEach(([pid,fid])=>{if(p[pid]&&!val(fid))setVal(fid,p[pid])})}
+function saveDoctorProfile(){const p={};profileIds.forEach(id=>p[id]=val(id));p.acceptedAt=new Date().toISOString();writeProfile(p);Object.entries(profileMap()).forEach(([pid,fid])=>setVal(fid,p[pid]||val(fid)));closeStartupModal(true);calculateAll()}
+function closeStartupModal(){const m=$('startupModal');if(m)m.classList.remove('show')}
+function showStartupModal(){loadDoctorProfile();const m=$('startupModal');if(m)m.classList.add('show')}
+function profileHeaderLine(){const p=getProfile();return p.profileDocHeader||p.profileDocInst||''}
+function lgpdNotice(){return'LGPD: documento com dados pessoais sensiveis. Usar, armazenar e compartilhar apenas com pessoas autorizadas, finalidade legitima, sigilo profissional e seguranca adequada.'}
+function accessNotice(){return'PneumoAgents: acesso gratuito por 7 dias apos cadastro; continuidade condicionada a cadastro ativo e taxa vigente no portal.'}
+function currentCaseId(){return document.body.dataset.caseId||''}
+function makeId(){return'bx-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7)}
+function collectData(){const d={};ids.forEach(id=>d[id]=val(id));d.caseId=currentCaseId()||makeId();d.updatedAt=new Date().toISOString();d.analysis=analyze(d);return d}
+function analyze(d){
+  let points=0;const fev=parseFloat(d.fev1)||null,ex=parseFloat(d.exac)||0,h=parseFloat(d.hosp)||0,mm=parseFloat(d.mmrc)||0,bmi=parseFloat(d.bmi)||null;
+  if(d.hrct!=='sim')points+=2;if(fev!==null&&fev<50)points+=2;else if(fev!==null&&fev<80)points+=1;
+  if(ex>=3)points+=2;else if(ex>=1)points+=1;if(h>=1)points+=2;if(mm>=3)points+=2;else if(mm>=2)points+=1;
+  if(d.pseudomonas==='cronica')points+=3;else if(d.pseudomonas==='novo')points+=2;if(d.ntm==='confirmada')points+=2;if(d.lobes==='3'||d.lobes==='bilateral')points+=1;if(bmi!==null&&bmi<18.5)points+=1;if(d.hemoptysis==='grave'||d.hemoptysis==='recorrente')points+=1;
+  const risk=points>=8?'Alto':points>=4?'Moderado':'Baixo';
+  const highEx=ex>=3||h>=1;const pseud=d.pseudomonas==='cronica'?'Cronica':d.pseudomonas==='novo'?'Novo':'Nao';
+  const needSpecialist=risk==='Alto'||d.ntm!=='nao'||d.hemoptysis==='grave'||d.etioCF||d.etioPCD||d.etioImmuno||d.etioABPA;
+  return{points,risk,highEx,pseud,needSpecialist}
+}
+function calculateAll(){const d=collectData(),a=d.analysis;$('scoreSeverity').textContent=a.risk;$('scorePseud').textContent=a.pseud;$('scorePlan').textContent=a.needSpecialist?'Encaminhar':'Seguimento';renderAlerts(d);generateDocuments(false)}
+function renderAlerts(d){
+  const a=d.analysis,diag=[];if(d.hrct==='sim')diag.push('TCAR confirma bronquiectasias; prosseguir com etiologia, gravidade e microbiologia.');else diag.push('TCAR ainda nao confirma; revisar diagnostico/radiologia antes de rotular bronquiectasias.');
+  diag.push(`Risco clinico simplificado: ${a.risk} (${a.points} pontos).`);if(a.needSpecialist)diag.push('Ha criterios para conduzir com pneumologia/centro especializado.');
+  $('diagnosticAlert').className='alert '+(d.hrct==='sim'?'info':'warn');$('diagnosticAlert').textContent=diag.join(' ');
+  const micro=[];if(d.pseudomonas==='novo')micro.push('Novo isolamento de Pseudomonas: considerar erradicacao e repetir culturas.');if(d.pseudomonas==='cronica')micro.push('Pseudomonas cronica aumenta risco; se alto risco de exacerbacao, considerar antibiotico inalatorio.');if(d.ntm!=='nao')micro.push('NTM suspeita/confirmada: evitar macrolideo em monoterapia ate avaliacao adequada.');if((parseFloat(d.exac)||0)>=3)micro.push('Exacerbador frequente: revisar clearance, culturas, macrolideo/antibiotico inalatorio conforme perfil.');
+  $('microAlert').className='alert '+(micro.length?'warn':'info');$('microAlert').textContent=micro.length?micro.join(' '):'Registrar culturas seriadas, microbiologia e fenotipo infeccioso.';
+  const tx=[];if(!d.txClearance)tx.push('Ensinar/registrar tecnica de clearance de vias aereas para a maioria dos pacientes.');if(a.highEx&&!d.txMacrolide)tx.push('Alto risco de exacerbacao: considerar macrolideo prolongado apos excluir NTM e avaliar QT/audicao/interacoes.');if(d.pseudomonas==='cronica'&&a.highEx&&!d.txInhaledAbx)tx.push('Pseudomonas cronica + alto risco: considerar antibiotico inalatorio.');if(a.needSpecialist&&!d.txSpecialist)tx.push('Encaminhamento especializado recomendado.');
+  $('treatmentAlert').className='alert '+(tx.length?'warn':'good');$('treatmentAlert').textContent=tx.length?tx.join(' '):'Plano inicial coerente com os campos preenchidos.';
+}
+function patientLine(d){return`${d.patName||'Paciente'}${d.patBirth?' - DN '+brDate(d.patBirth):''}${d.patCPF?' - CPF '+d.patCPF:''}${d.patCNS?' - CNS '+d.patCNS:''}`}
+function etiologySummary(d){const arr=[];[['etioCF','FC'],['etioPCD','DCP'],['etioABPA','ABPA'],['etioImmuno','imunodeficiencia'],['etioNTM','NTM'],['etioAuto','autoimune'],['etioAspiration','aspiracao/DRGE'],['etioPostInfect','pos-infecciosa/TB']].forEach(([id,t])=>{if(d[id])arr.push(t)});return arr.length?arr.join(', '):(d.likelyEtiology||'investigacao etiologica pendente/nao definida')}
+function clinicalSummary(d){return d.clinResume||`Paciente com bronquiectasias ${d.hrct==='sim'?'confirmadas por TCAR':'em confirmacao radiologica'}, extensao ${d.lobes}, VEF1 ${d.fev1||'__'}% previsto, mMRC ${d.mmrc||'__'}, ${d.exac||0} exacerbacao(oes)/ano e ${d.hosp||0} internacao(oes)/ano. Microbiologia: Pseudomonas ${d.pseudomonas}, NTM ${d.ntm}, patogeno predominante ${d.pathogen||'nao informado'}. Etiologia/tracos: ${etiologySummary(d)}.`}
+function selectedTherapies(d){
+  const rows=[];
+  if(d.rxAntibiotic||d.antibioticRx)rows.push(['Antibioticos',d.antibioticRx||'Selecionado para exacerbacao/cultura dirigida; definir farmaco, dose e duracao conforme cultura, gravidade, alergias e funcao renal.']);
+  if(d.rxMucolytic||d.mucolyticRx)rows.push(['Mucoliticos / mucoativos',d.mucolyticRx||'Selecionado; ajustar agente, via e tolerancia ao caso.']);
+  if(d.rxNac||d.nacRx)rows.push(['NAC',d.nacRx||'N-acetilcisteina selecionada; definir dose conforme contexto clinico e tolerancia.']);
+  if(d.rxBronchodilator||d.bronchodilatorRx)rows.push(['Broncodilatadores',d.bronchodilatorRx||'Selecionado se obstrucao, broncoespasmo, asma/DPOC associada ou dispneia com resposta clinica.']);
+  if(d.rxAzithro||d.azithroRx)rows.push(['Azitromicina - anti-inflamatorio/imunomodulador',d.azithroRx||'Selecionada para prevencao em exacerbador frequente; antes avaliar ECG/QT, audicao, interacoes, resistencia e excluir NTM.']);
+  if(d.rxBrensocatib||d.brensocatibRx)rows.push(['Brensocatibe',d.brensocatibRx||'Terapia DPP-1 emergente/especifica; confirmar registro, disponibilidade, criterios, seguranca e cobertura local antes de prescrever.']);
+  return rows;
+}
+function refsHtml(){return`<ol><li>Pereira MC, Athanazio RA, Dalcin PTR, Figueiredo MRF, Gomes M, Freitas CG, Ludgren F, Paschoal IA, Rached SZ, Maurici R. Consenso brasileiro sobre bronquiectasias nao fibrocisticas. J Bras Pneumol. 2019;45(4):e20190122. Sociedade Brasileira de Pneumologia e Tisiologia.</li><li>Chalmers JD et al. European Respiratory Society clinical practice guideline for the management of adult bronchiectasis. Eur Respir J. 2025;66:2501126. DOI: 10.1183/13993003.01126-2025.</li><li>Choi H, McShane PJ, Aliberti S, Chalmers JD. Bronchiectasis management in adults: state of the art and future directions. Eur Respir J. 2024;63:2400518. DOI: 10.1183/13993003.00518-2024.</li><li>Mac Aogain M et al. Infection and the microbiome in bronchiectasis. Eur Respir Rev. 2024;33:240038. DOI: 10.1183/16000617.0038-2024.</li><li>De Angelis A et al. Exacerbations of bronchiectasis. Eur Respir Rev. 2024;33:240085. DOI: 10.1183/16000617.0085-2024.</li><li>Perea L, Faner R, Chalmers JD, Sibila O. Pathophysiology and genomics of bronchiectasis. Eur Respir Rev. 2024;33:240055. DOI: 10.1183/16000617.0055-2024.</li><li>Chalmers JD et al. Neutrophilic inflammation in bronchiectasis. Eur Respir Rev. 2025;34:240179. DOI: 10.1183/16000617.0179-2024.</li><li>Johnson E, Long MB, Chalmers JD. Biomarkers in bronchiectasis. Eur Respir Rev. 2024;33:230234. DOI: 10.1183/16000617.0234-2023.</li><li>Chalmers JD et al. Phase 3 trial of the DPP-1 inhibitor brensocatib in bronchiectasis. N Engl J Med. 2025;392:1569-1581.</li></ol>`}
+function reportHtml(d){const a=d.analysis,rows=selectedTherapies(d);return`<div class="print-only-title">Relatorio Clinico - Bronquiectasias</div><h2>Relatorio Clinico de Bronquiectasias</h2>${profileHeaderLine()?`<p><b>${esc(profileHeaderLine())}</b></p>`:''}<p><b>Paciente:</b> ${esc(patientLine(d))}</p><p><b>Base nacional:</b> Consenso brasileiro sobre bronquiectasias nao fibrocisticas - SBPT/Jornal Brasileiro de Pneumologia, 2019.</p><p><b>Resumo:</b> ${esc(clinicalSummary(d))}</p><table><tr><th>Dominio</th><th>Resultado</th></tr><tr><td>Risco simplificado</td><td>${a.risk} (${a.points} pontos). Usar como triagem; calcular BSI/FACED formal quando necessario.</td></tr><tr><td>Microbiologia</td><td>Pseudomonas: ${esc(d.pseudomonas)}; NTM: ${esc(d.ntm)}; patogeno: ${esc(d.pathogen||'nao informado')}.</td></tr><tr><td>Etiologia</td><td>${esc(etiologySummary(d))}. Exames: ${esc(d.testsDone||'pendentes/nao informados')}.</td></tr><tr><td>Tratamento recomendado</td><td>${esc(suggestPlan(d))}</td></tr><tr><td>Especialista</td><td>${a.needSpecialist?'Encaminhamento recomendado':'Seguimento conforme gravidade e evolucao'}.</td></tr></table><h3>Opcoes terapeuticas escolhidas pelo medico</h3><table><tr><th>Classe/opcao</th><th>Texto editavel de prescricao/observacao</th></tr>${rows.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join('')||'<tr><td>Nenhuma opcao adicional</td><td>Sem medicacao adicional selecionada nos campos de auxilio.</td></tr>'}</table><h3>Investigacao etiologica minima sugerida</h3><p>Conforme o consenso brasileiro, a causa deve ser investigada de forma sistematica e dirigida. Considerar etiologia desconhecida/idiopatica apenas quando nao se define causa apos exames preconizados e clinicamente viaveis. Avaliar TCAR, espirometria, culturas de escarro bacterias/fungos/BAAR, IgG/IgA/IgM, IgE total, Aspergillus IgE/IgG, eosinofilos; avaliar FC, DCP, ABPA, imunodeficiencia, NTM, autoimune, aspiracao/DRGE, pos-infecciosa/TB e alfa-1 antitripsina conforme fenotipo.</p><h3>Tratamento do paciente estavel - linha brasileira</h3><p>Para todos: vacinacao influenza/pneumococo conforme calendario, evitar tabaco/exposicoes nocivas, fisioterapia respiratoria/clearance diario e reabilitacao quando houver limitacao. Para selecionados: mucoativos/NAC, broncodilatadores se hiper-reatividade/asma/DPOC, macrolideos como azitromicina em dose imunomoduladora para exacerbador frequente, antibiotico inalatorio em infeccao cronica por Pseudomonas, avaliacao de hipoxemia, hipertensao pulmonar, ventilacao nao invasiva ou transplante em doenca avancada. Brensocatibe e terapia DPP-1 emergente/especifica: confirmar registro, indicacao, disponibilidade e cobertura local.</p><h3>Referencias para conferencia</h3>${refsHtml()}<p class="muted"><b>${esc(lgpdNotice())}</b></p><p class="muted"><b>${esc(accessNotice())}</b></p><p class="muted"><b>Aviso:</b> ferramenta de apoio a decisao medica; nao substitui julgamento clinico, diretrizes, protocolos locais ou relacao medico-paciente.</p><p style="margin-top:34px">_________________________________________<br>${esc(d.docName)||'Medico(a)'} - ${esc(d.docCRM)||'CRM'}<br>${brDate(d.docDate)}</p>`}
+function rxHtml(d){const rows=selectedTherapies(d);return`<div class="print-only-title">Receita - Bronquiectasias</div><h2>Receituario / Plano de Tratamento</h2><p><b>Paciente:</b> ${esc(patientLine(d))}</p><table><tr><th>Item</th><th>Prescricao/orientacao</th></tr><tr><td>Clearance de vias aereas</td><td>${d.txClearance?'Realizar tecnica ensinada diariamente e intensificar em exacerbacao.':'Ensinar tecnica de clearance com fisioterapia respiratoria; ajustar conforme secrecao e tolerancia.'}</td></tr><tr><td>Mucoativo/inalacao</td><td>${d.txMucoactive?'Mucoativo/salina hipertonica conforme tolerancia e protocolo local.':'Considerar se secrecao espessa ou alto volume, apos teste de tolerancia quando aplicavel.'}</td></tr><tr><td>Antibiotico preventivo</td><td>${d.txMacrolide?'Macrolideo prolongado conforme avaliacao clinica, ECG/QT, audicao, interacoes e exclusao de NTM.':'Nao prescrito automaticamente; considerar em alto risco de exacerbacao apos avaliacao.'}</td></tr><tr><td>Antibiotico inalatorio</td><td>${d.txInhaledAbx?'Considerado por Pseudomonas cronica e alto risco de exacerbacao.':'Reservar para perfil apropriado, especialmente Pseudomonas cronica + alto risco.'}</td></tr>${rows.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join('')||'<tr><td>Prescricao livre</td><td>Nenhuma opcao medicamentosa adicional selecionada; preencher conforme decisao medica.</td></tr>'}</table><p><b>Tratamento atual:</b> ${esc(d.currentTherapy||'nao informado')}</p><p><b>Seguranca:</b> azitromicina prolongada exige avaliar NTM, ECG/QT, audicao, interacoes e resistencia. Brensocatibe deve ter registro/disponibilidade/cobertura local confirmados e nao substitui medidas basicas como clearance e manejo microbiologico.</p><p><b>Observacoes:</b> ${esc(d.treatmentRationale||'Revisar tecnica, aderencia, culturas, vacinas e reabilitacao.')}</p><p class="muted"><b>${esc(lgpdNotice())}</b></p><p style="margin-top:34px">_________________________________________<br>${esc(d.docName)||'Medico(a)'} - ${esc(d.docCRM)||'CRM'}<br>${brDate(d.docDate)}</p>`}
+function exacHtml(d){return`<div class="print-only-title">Plano de Exacerbacao - Bronquiectasias</div><h2>Plano de Exacerbacao</h2><p><b>Paciente:</b> ${esc(patientLine(d))}</p><p><b>Sinais de alerta:</b> aumento de tosse, volume/purulencia do escarro, dispneia, febre, hemoptise, dor toracica, queda funcional ou saturacao.</p><ol><li>Coletar escarro para cultura antes de iniciar antibiotico quando possivel.</li><li>Guiar antibiotico por culturas previas, gravidade e risco de Pseudomonas/NTM.</li><li>Duração frequentemente usada: cerca de 14 dias, individualizando conforme resposta, gravidade e patogeno.</li><li>Procurar urgencia se hemoptise importante, hipoxemia, sepse, confusao, dor toracica, falha terapeutica ou comorbidade descompensada.</li></ol><p><b>Plano individual:</b> ${esc(d.exacPlan||'pendente de individualizacao pelo medico assistente')}</p><p class="muted"><b>${esc(lgpdNotice())}</b></p>`}
+function summaryHtml(d){const a=d.analysis;return`<div class="print-only-title">Resumo - Bronquiectasias</div><h2>Resumo do Agente</h2><table><tr><th>Item</th><th>Resultado</th></tr><tr><td>Paciente</td><td>${esc(patientLine(d))}</td></tr><tr><td>Risco</td><td>${a.risk} (${a.points} pontos)</td></tr><tr><td>TCAR/funcao</td><td>TCAR: ${esc(d.hrct)}; VEF1 ${esc(d.fev1||'__')}%; mMRC ${esc(d.mmrc||'__')}</td></tr><tr><td>Exacerbacoes</td><td>${esc(d.exac||0)}/ano; internacoes ${esc(d.hosp||0)}/ano</td></tr><tr><td>Microbiologia</td><td>Pseudomonas ${esc(d.pseudomonas)}; NTM ${esc(d.ntm)}; ${esc(d.pathogen||'')}</td></tr><tr><td>Etiologia/tracos</td><td>${esc(etiologySummary(d))}</td></tr><tr><td>Conduta</td><td>${esc(suggestPlan(d))}</td></tr></table>`}
+function suggestPlan(d){const a=d.analysis,parts=[];if(d.hrct!=='sim')parts.push('confirmar diagnostico por TCAR');parts.push('clearance de vias aereas individualizado');if(a.highEx)parts.push('exacerbador frequente: revisar culturas e prevencao');if(d.rxAntibiotic)parts.push('antibiotico conforme cultura/gravidade');if(d.rxMucolytic||d.rxNac)parts.push('mucoativo/NAC conforme secrecao e tolerancia');if(d.rxBronchodilator)parts.push('broncodilatador se obstrucao, broncoespasmo, asma/DPOC ou resposta sintomatica');if(d.pseudomonas==='novo')parts.push('considerar erradicacao de Pseudomonas');if(d.pseudomonas==='cronica'&&a.highEx)parts.push('considerar antibiotico inalatorio');if(a.highEx||d.rxAzithro)parts.push('considerar azitromicina/macrolideo apos excluir NTM e avaliar QT/audicao/interacoes');if(d.rxBrensocatib)parts.push('brensocatibe apenas apos confirmar criterio, registro/disponibilidade e cobertura local');if(d.ntm!=='nao')parts.push('avaliar NTM com especialista e evitar macrolideo isolado');if(a.needSpecialist)parts.push('encaminhar para pneumologia/centro especializado');return parts.join('; ')+'.'}
+function generateDocuments(scroll=true){const d=collectData();if(!d.docDate){d.docDate=todayISO();setVal('docDate',d.docDate)}d.analysis=analyze(d);$('reportDoc').innerHTML=reportHtml(d);$('rxDoc').innerHTML=rxHtml(d);$('exacDoc').innerHTML=exacHtml(d);$('summaryDoc').innerHTML=summaryHtml(d);lastDocs={relatorio:htmlToText($('reportDoc')),receita:htmlToText($('rxDoc')),exacerbacao:htmlToText($('exacDoc')),resumo:htmlToText($('summaryDoc'))};if(scroll)$('sec-saidas').scrollIntoView({behavior:'smooth',block:'start'})}
+function htmlToText(el){return el.innerText.replace(/\n{3,}/g,'\n\n').trim()+'\n'}
+function setDocTab(id){document.querySelectorAll('.doc').forEach(el=>el.classList.toggle('active',el.id===id));const labels={reportDoc:'Relatorio',rxDoc:'Receita',exacDoc:'Exacerbacao',summaryDoc:'Resumo'};document.querySelectorAll('.doc-tab').forEach(btn=>btn.classList.toggle('active',btn.textContent.trim()===labels[id]))}
+function printDoc(id){document.querySelectorAll('.doc').forEach(el=>el.classList.remove('print-target'));$(id).classList.add('print-target');setDocTab(id);window.print()}
+function downloadTxt(kind){generateDocuments(false);if(!confirm('LGPD: este TXT contera dados pessoais sensiveis. Confirma geracao e armazenamento seguro?'))return;const name=(val('patName')||'paciente').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^\w-]+/g,'_').slice(0,40);const blob=new Blob([lastDocs[kind]||''],{type:'text/plain;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`${kind}_Bronquiectasias_${name}_${todayISO()}.txt`;a.click();URL.revokeObjectURL(a.href)}
+function saveCase(){calculateAll();const d=collectData();if(!d.patName){alert('Informe o nome do paciente antes de salvar.');return}const items=db(),idx=items.findIndex(x=>x.caseId===d.caseId);if(idx>=0)items[idx]=d;else items.unshift(d);writeDb(items.slice(0,500));document.body.dataset.caseId=d.caseId;renderCaseList();alert('Caso salvo no banco local deste navegador. LGPD: mantenha controle de acesso.')}
+function loadCase(id){const item=db().find(x=>x.caseId===id);if(!item)return;ids.forEach(k=>setVal(k,item[k]));document.body.dataset.caseId=item.caseId;calculateAll();generateDocuments()}
+function deleteCase(id){if(!confirm('Excluir este caso do banco local?'))return;writeDb(db().filter(x=>x.caseId!==id));if(currentCaseId()===id)document.body.dataset.caseId='';renderCaseList()}
+function newCase(){ids.forEach(id=>setVal(id,''));['etioCF','etioPCD','etioABPA','etioImmuno','etioNTM','etioAuto','etioAspiration','etioPostInfect','txClearance','txRehab','txVaccines','txEradication','txMacrolide','txInhaledAbx','txMucoactive','txSpecialist','rxAntibiotic','rxMucolytic','rxNac','rxBronchodilator','rxAzithro','rxBrensocatib'].forEach(id=>setVal(id,false));document.body.dataset.caseId='';setVal('hrct','sim');setVal('lobes','1');setVal('mmrc','0');setVal('pseudomonas','nao');setVal('ntm','nao');setVal('sputum','baixo');setVal('hemoptysis','nao');setVal('docDate',todayISO());calculateAll();window.scrollTo({top:0,behavior:'smooth'})}
+function renderCaseList(){const q=val('dbSearch').toLowerCase();const list=db().filter(d=>[d.patName,d.patCPF,d.patCNS,d.likelyEtiology,d.pathogen].join(' ').toLowerCase().includes(q));$('caseList').innerHTML=list.length?list.map(d=>`<div class="case-card"><strong>${esc(d.patName||'Sem nome')}</strong><span>Risco ${esc(d.analysis?.risk||'')} - ${esc(d.likelyEtiology||'etiologia pendente')}</span><span>${new Date(d.updatedAt||Date.now()).toLocaleString('pt-BR')}</span><div class="row"><button class="btn small" onclick="loadCase('${d.caseId}')">Reemitir</button><button class="btn small danger" onclick="deleteCase('${d.caseId}')">Excluir</button></div></div>`).join(''):'<p style="color:#6b7785;font-size:13px;margin:0">Nenhum caso salvo.</p>'}
+function exportDb(){if(!confirm('LGPD: o JSON exportado contera dados sensiveis. Confirma exportacao segura?'))return;const blob=new Blob([JSON.stringify(db(),null,2)],{type:'application/json;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`banco_bronquiectasias_2026_${todayISO()}.json`;a.click();URL.revokeObjectURL(a.href)}
+function importDbFile(ev){const file=ev.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const incoming=JSON.parse(reader.result);if(!Array.isArray(incoming))throw new Error('formato');const merged=[...incoming,...db()],seen=new Set(),unique=merged.filter(x=>x.caseId&&!seen.has(x.caseId)&&seen.add(x.caseId));writeDb(unique);renderCaseList();alert('Banco importado.')}catch(e){alert('Nao foi possivel importar o JSON.')}};reader.readAsText(file)}
+document.querySelectorAll('#nav button').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('#nav button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');const t=$(btn.dataset.target);if(t)t.scrollIntoView({behavior:'smooth',block:'start'})}))
+ids.forEach(id=>{const el=$(id);if(el)el.addEventListener('input',()=>calculateAll())})
+document.addEventListener('DOMContentLoaded',()=>{setVal('docDate',todayISO());loadDoctorProfile();renderCaseList();newCase();showStartupModal()})
+</script>
+</body>
+</html>
