@@ -1,3 +1,8 @@
-[functions]
-  directory = "netlify/functions"
-  node_bundler = "esbuild"
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[[redirects]]
+  from = "/admin"
+  to = "/admin/dashboard.html"
+  status = 200
