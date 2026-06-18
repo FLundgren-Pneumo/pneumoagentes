@@ -40,3 +40,15 @@ Reconstruir o PulmoAgents como plataforma comercial de agentes HTML para pneumol
 4. Substituir protótipo localStorage por Supabase Auth + tabelas.
 5. Proteger downloads com Netlify Functions e service role.
 6. Remover placeholders e inserir os HTML/PDF definitivos dos agentes.
+
+
+## Requisito administrativo adicional
+
+O administrador deve poder excluir registros diretamente pelo portal, sem editar arquivos no GitHub:
+
+- médicos;
+- solicitações;
+- licenças;
+- registros locais de teste.
+
+Na versão com Supabase, recomenda-se não apagar fisicamente registros críticos por padrão. A exclusão operacional pode usar `deleted_at`, `deleted_by` e `delete_reason`, mantendo trilha de auditoria para segurança, suporte e conformidade.

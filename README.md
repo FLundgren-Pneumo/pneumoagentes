@@ -19,3 +19,15 @@ Estrutura inicial da versão Enterprise do PulmoAgents.
 
 ## Observação
 A versão entregue aqui é a base estrutural. O fluxo já funciona em modo local usando `localStorage` para validação. A próxima etapa é migrar a persistência e autenticação para Supabase.
+
+
+## Atualização administrativa
+
+O painel `admin/dashboard.html` agora inclui exclusão direta pelo portal:
+
+- excluir médico cadastrado;
+- excluir solicitação de acesso;
+- excluir licença;
+- limpar todos os dados locais do protótipo.
+
+Toda exclusão exige confirmação explícita. Na etapa Supabase, essas ações devem ser implementadas com autenticação administrativa, RLS, soft delete opcional e tabela de auditoria.

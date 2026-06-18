@@ -1,1 +1,61 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Dashboard Admin · PulmoAgents</title><link rel="stylesheet" href="../assets/css/style.css"></head><body><nav class="topbar"><div class="nav"><a class="brand" href="../index.html"><div class="logo">PA</div><div><div class="brand-title">PulmoAgents</div><div class="brand-sub">ADMIN</div></div></a><div class="navlinks"><a href="../catalogo.html">Catálogo</a><a href="login.html">Sair</a></div></div></nav><div class="admin-layout"><aside class="sidebar"><a href="#dashboard">Dashboard</a><a href="#solicitacoes">Solicitações</a><a href="#licencas">Licenças</a><a href="#agentes">Agentes</a><a href="../docs/ARQUITETURA_ENTERPRISE.md">Documentação</a></aside><main><section id="dashboard"><span class="tag">VISÃO GERAL</span><h2>Painel Administrativo</h2><div class="kpis"><div class="kpi"><span class="muted">Médicos</span><br><b id="kpiMedicos">0</b></div><div class="kpi"><span class="muted">Solicitações pendentes</span><br><b id="kpiSolicitacoes">0</b></div><div class="kpi"><span class="muted">Licenças ativas</span><br><b id="kpiLicencas">0</b></div><div class="kpi"><span class="muted">Agentes</span><br><b id="kpiAgentes">0</b></div></div></section><section id="solicitacoes" class="section"><h2>Solicitações de acesso</h2><table class="table"><thead><tr><th>Médico</th><th>CRM</th><th>Agente</th><th>Status</th><th>Ações</th></tr></thead><tbody id="tabelaSolicitacoes"></tbody></table></section><section id="licencas" class="section"><h2>Licenças</h2><table class="table"><thead><tr><th>E-mail</th><th>Agente</th><th>Tipo</th><th>Status</th><th>Expiração</th><th>Ações</th></tr></thead><tbody id="tabelaLicencas"></tbody></table></section><section id="agentes" class="section"><h2>Catálogo cadastrado</h2><div class="grid" id="catalogoGrid"></div></section></main></div><script src="../assets/js/config.js"></script><script src="../assets/js/catalogo.js"></script><script src="../assets/js/app.js"></script></body></html>
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Dashboard Admin · PulmoAgents</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <nav class="topbar">
+    <div class="nav">
+      <a class="brand" href="../index.html"><div class="logo">PA</div><div><div class="brand-title">PulmoAgents</div><div class="brand-sub">ADMIN</div></div></a>
+      <div class="navlinks"><a href="../catalogo.html">Catálogo</a><a href="login.html">Sair</a></div>
+    </div>
+  </nav>
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <a href="#dashboard">Dashboard</a>
+      <a href="#medicos">Médicos</a>
+      <a href="#solicitacoes">Solicitações</a>
+      <a href="#licencas">Licenças</a>
+      <a href="#agentes">Agentes</a>
+      <a href="../docs/ARQUITETURA_ENTERPRISE.md">Documentação</a>
+    </aside>
+    <main>
+      <section id="dashboard">
+        <span class="tag">VISÃO GERAL</span>
+        <h2>Painel Administrativo</h2>
+        <p class="lead">Administração operacional do portal: médicos, solicitações, licenças e exclusões diretas com confirmação.</p>
+        <div class="kpis">
+          <div class="kpi"><span class="muted">Médicos</span><br><b id="kpiMedicos">0</b></div>
+          <div class="kpi"><span class="muted">Solicitações pendentes</span><br><b id="kpiSolicitacoes">0</b></div>
+          <div class="kpi"><span class="muted">Licenças ativas</span><br><b id="kpiLicencas">0</b></div>
+          <div class="kpi"><span class="muted">Agentes</span><br><b id="kpiAgentes">0</b></div>
+        </div>
+        <div class="notice"><b>Atenção:</b> nesta versão protótipo, exclusões afetam os dados salvos no navegador. Na versão Supabase, essas ações serão gravadas no banco com log administrativo.</div>
+        <button class="btn danger" onclick="limparTudoAdmin()">Limpar todos os dados locais</button>
+      </section>
+      <section id="medicos" class="section">
+        <h2>Médicos cadastrados</h2>
+        <table class="table"><thead><tr><th>Médico</th><th>CRM/UF</th><th>Instituição</th><th>Status</th><th>Ações</th></tr></thead><tbody id="tabelaMedicos"></tbody></table>
+      </section>
+      <section id="solicitacoes" class="section">
+        <h2>Solicitações de acesso</h2>
+        <table class="table"><thead><tr><th>Médico</th><th>CRM</th><th>Agente</th><th>Status</th><th>Ações</th></tr></thead><tbody id="tabelaSolicitacoes"></tbody></table>
+      </section>
+      <section id="licencas" class="section">
+        <h2>Licenças</h2>
+        <table class="table"><thead><tr><th>E-mail</th><th>Agente</th><th>Tipo</th><th>Status</th><th>Expiração</th><th>Ações</th></tr></thead><tbody id="tabelaLicencas"></tbody></table>
+      </section>
+      <section id="agentes" class="section">
+        <h2>Catálogo cadastrado</h2>
+        <div class="grid" id="catalogoGrid"></div>
+      </section>
+    </main>
+  </div>
+  <script src="../assets/js/config.js"></script>
+  <script src="../assets/js/catalogo.js"></script>
+  <script src="../assets/js/app.js"></script>
+</body>
+</html>

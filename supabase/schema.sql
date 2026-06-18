@@ -73,3 +73,20 @@ alter table public.download_logs enable row level security;
 
 -- Politicas devem ser refinadas apos ativar Supabase Auth.
 create policy if not exists "agentes_public_read" on public.agentes for select using (ativo = true);
+
+
+-- Campos recomendados para exclusão administrativa auditável na versão Supabase
+-- ALTER TABLE medicos ADD COLUMN deleted_at timestamptz;
+-- ALTER TABLE medicos ADD COLUMN deleted_by uuid;
+-- ALTER TABLE solicitacoes ADD COLUMN deleted_at timestamptz;
+-- ALTER TABLE licencas ADD COLUMN deleted_at timestamptz;
+
+CREATE TABLE IF NOT EXISTS admin_audit_log (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  admin_email text NOT NULL,
+  action text NOT NULL,
+  entity_type text NOT NULL,
+  entity_id text,
+  details jsonb,
+  created_at timestamptz DEFAULT now()
+);
