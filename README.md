@@ -1,1 +1,14 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cadastro Médico · PulmoAgents</title><link rel="stylesheet" href="assets/css/style.css"></head><body><nav class="topbar"><div class="nav"><a class="brand" href="index.html"><div class="logo">PA</div><div><div class="brand-title">PulmoAgents</div><div class="brand-sub">CADASTRO MÉDICO</div></div></a><div class="navlinks"><a href="catalogo.html">Catálogo</a><a href="login-medico.html">Entrar</a></div></div></nav><main class="panel"><div class="card"><span class="tag">CADASTRO</span><h2>Cadastrar como médico</h2><p class="muted">Na versão Supabase, este formulário gravará no banco e notificará o painel administrativo.</p><div class="form"><div class="field"><label>Nome completo</label><input id="nome"></div><div class="field"><label>E-mail</label><input id="email" type="email"></div><div class="field"><label>CRM</label><input id="crm"></div><div class="field"><label>UF</label><input id="uf" maxlength="2" placeholder="CE"></div><div class="field"><label>Instituição / observação</label><input id="instituicao"></div><button class="btn primary" onclick="cadastrarMedico()">Enviar cadastro</button></div></div></main><script src="assets/js/config.js"></script><script src="assets/js/catalogo.js"></script><script src="assets/js/app.js"></script></body></html>
+# PulmoAgents Enterprise - Estrutura limpa
+
+Este pacote corrige a árvore do portal e separa corretamente:
+
+- páginas HTML na raiz;
+- painel admin em `/admin`;
+- scripts em `/assets/js`;
+- estilos em `/assets/css`;
+- agentes em `/agentes`;
+- functions em `/netlify/functions`.
+
+## Admin do protótipo
+Acesse `/admin/login.html`.
+Senha temporária: `admin123`.
