@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PneumoAgents · Manejo da Asma na APS · SUS</title>
+<style>
+  :root{
+    --bg:#F5F8F6;
+    --surface:#FFFFFF;
+    --ink:#1C2624;
+    --ink-soft:#4B5D58;
+    --ink-faint:#7C8B86;
+    --teal:#0E6B64;
+    --teal-deep:#0A4F49;
+    --teal-pale:#E4F1EE;
+    --blue:#235D8B;
+    --blue-pale:#E8EFF6;
+    --amber:#B9701F;
+    --amber-pale:#FBF1E1;
+    --red:#A23B32;
+    --red-pale:#FBEAE7;
+    --line:#DCE6E2;
+    --radius:10px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Segoe UI","Helvetica Neue",Arial,sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{
+    font-family:Georgia,"Iowan Old Style","Palatino Linotype",serif;
+    color:var(--teal-deep);
+    line-height:1.2;
+    margin:0 0 .4em 0;
+  }
+  a{color:var(--teal);}
+  header.top{
+    background:linear-gradient(135deg,var(--teal-deep),var(--teal) 65%,#137C73);
+    color:#fff;
+    padding:38px 24px 30px;
+  }
+  header.top .wrap{max-width:980px;margin:0 auto;}
+  .eyebrow{
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    font-size:.72rem;
+    color:#CDEDE7;
+    font-weight:600;
+    margin-bottom:8px;
+  }
+  header.top h1{color:#fff;font-size:2.05rem;margin-bottom:6px;}
+  header.top p.lead{
+    color:#DDF1EC;
+    max-width:640px;
+    font-size:1rem;
+    margin:0;
+  }
+  .source-tags{
+    margin-top:18px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .source-tags span{
+    background:rgba(255,255,255,.14);
+    border:1px solid rgba(255,255,255,.3);
+    padding:5px 12px;
+    border-radius:99px;
+    font-size:.76rem;
+    color:#F1FBF9;
+  }
+  nav.subnav{
+    position:sticky;top:0;z-index:40;
+    background:rgba(255,255,255,.94);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.subnav .wrap{
+    max-width:980px;margin:0 auto;
+    display:flex;gap:4px;flex-wrap:wrap;
+    padding:10px 24px;
+  }
+  nav.subnav a{
+    text-decoration:none;
+    color:var(--ink-soft);
+    font-size:.82rem;
+    font-weight:600;
+    padding:7px 11px;
+    border-radius:99px;
+  }
+  nav.subnav a:hover{background:var(--teal-pale);color:var(--teal-deep);}
+  main{max-width:980px;margin:0 auto;padding:36px 24px 80px;}
+  section{margin-bottom:52px;scroll-margin-top:64px;}
+  .section-head{display:flex;align-items:baseline;gap:10px;margin-bottom:16px;border-bottom:2px solid var(--teal-pale);padding-bottom:10px;}
+  .section-num{font-family:Georgia,serif;font-style:italic;color:var(--ink-faint);font-size:1rem;}
+  .card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:20px 22px;
+  }
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  @media(max-width:720px){.grid-2,.grid-3{grid-template-columns:1fr;}}
+  .stat{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:16px 18px;
+  }
+  .stat .num{font-family:Georgia,serif;font-size:1.7rem;color:var(--teal-deep);font-weight:700;}
+  .stat .label{font-size:.82rem;color:var(--ink-soft);margin-top:2px;}
+  table{width:100%;border-collapse:collapse;font-size:.88rem;}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top;}
+  th{background:var(--teal-pale);color:var(--teal-deep);font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;}
+  tr:last-child td{border-bottom:none;}
+  .pill{display:inline-block;font-size:.72rem;font-weight:700;padding:2px 9px;border-radius:99px;letter-spacing:.03em;}
+  .pill-amber{background:var(--amber-pale);color:var(--amber);}
+  .ladder{display:flex;flex-direction:column-reverse;gap:10px;margin:22px 0;}
+  .step{
+    display:grid;grid-template-columns:64px 1fr;
+    border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--surface);
+  }
+  .step .tag{
+    background:var(--teal-deep);color:#fff;display:flex;align-items:center;justify-content:center;
+    font-family:Georgia,serif;font-size:1.2rem;font-weight:700;
+  }
+  .step .body{padding:12px 16px;}
+  .step .body h4{margin:0 0 4px 0;font-size:.95rem;color:var(--teal-deep);}
+  .step .body p{margin:0;font-size:.85rem;color:var(--ink-soft);}
+  .step .body p.alt{margin-top:4px;font-size:.8rem;color:var(--ink-faint);font-style:italic;}
+  .step.lvl1 .tag{background:#57A79E;}
+  .step.lvl2 .tag{background:#3E9188;}
+  .step.lvl3 .tag{background:#237A70;}
+  .step.lvl4 .tag{background:#0E6B64;}
+  .step.lvl5 .tag{background:var(--teal-deep);}
+  ul.clean{margin:0;padding-left:20px;}
+  ul.clean li{margin-bottom:6px;font-size:.92rem;}
+  .callout{
+    border-left:4px solid var(--blue);
+    background:var(--blue-pale);
+    border-radius:0 var(--radius) var(--radius) 0;
+    padding:14px 18px;font-size:.9rem;
+  }
+  .callout.warn{border-left-color:var(--red);background:var(--red-pale);}
+  .lme-box{
+    background:var(--amber-pale);
+    border:1px solid #EAD3AE;
+    border-radius:14px;
+    padding:26px 26px 24px;
+  }
+  .lme-box .flag{
+    display:inline-flex;align-items:center;gap:6px;
+    background:var(--amber);color:#fff;font-size:.72rem;font-weight:700;
+    letter-spacing:.04em;text-transform:uppercase;padding:4px 11px;border-radius:99px;margin-bottom:12px;
+  }
+  .lme-box h3{color:var(--amber);}
+  .lme-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;}
+  .btn{display:inline-block;text-decoration:none;font-weight:700;font-size:.86rem;padding:10px 18px;border-radius:8px;border:1px solid transparent;}
+  .btn-primary{background:var(--amber);color:#fff;}
+  .btn-secondary{background:#fff;color:var(--amber);border-color:var(--amber);}
+  .lme-checklist{background:#fff;border:1px solid #EAD3AE;border-radius:10px;padding:14px 18px;margin-top:16px;}
+  .lme-checklist h4{color:var(--ink);font-size:.88rem;margin-bottom:8px;font-family:inherit;}
+  .lme-checklist ul{margin:0;padding-left:20px;}
+  .lme-checklist li{font-size:.86rem;margin-bottom:5px;}
+  .rev-box{
+    background:var(--teal-pale);
+    border:1px solid #BFD9D3;
+    border-radius:var(--radius);
+    padding:16px 18px;
+    font-size:.86rem;
+    color:var(--ink-soft);
+    margin-bottom:36px;
+  }
+  .rev-box strong{color:var(--teal-deep);}
+  footer{max-width:980px;margin:0 auto;padding:20px 24px 50px;font-size:.78rem;color:var(--ink-faint);border-top:1px solid var(--line);}
+  @media print{
+    nav.subnav,.lme-actions{display:none;}
+    header.top{background:var(--teal-deep) !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    section{page-break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="eyebrow">PneumoAgents · Clínicos e saúde pública · Atenção Primária / SUS</div>
+    <h1>Manejo da Asma no SUS</h1>
+    <p class="lead">Guia prático de diagnóstico, tratamento por etapas (Regime 1 AIR/MART preferencial), acompanhamento e acesso a medicamentos do Componente Especializado, para uso na rede básica.</p>
+    <div class="source-tags">
+      <span>GINA 2026 Strategy Report</span>
+      <span>PCDT Asma — Portaria Conjunta SAES/SCTIE nº 43 (24/03/2026)</span>
+      <span>SBPT 2020 — Recomendações para o manejo da asma</span>
+      <span>Revisão 09/2026 · ajuste 19/09</span>
+    </div>
+  </div>
+</header>
+
+<nav class="subnav">
+  <div class="wrap">
+    <a href="#epidemiologia">Epidemiologia</a>
+    <a href="#diagnostico">Diagnóstico</a>
+    <a href="#etapas">Etapas de tratamento</a>
+    <a href="#doses-air-mart">Doses AIR/MART</a>
+    <a href="#medicamentos">Medicamentos no SUS</a>
+    <a href="#dispositivos">Dispositivos / clima</a>
+    <a href="#acompanhamento">Acompanhamento</a>
+    <a href="#lme-facil">LME Fácil</a>
+    <a href="#encaminhamento">Quando encaminhar</a>
+  </div>
+</nav>
+
+<main>
+
+  <div class="rev-box" id="revisao">
+    <strong>Revisão / fontes · set/2026.</strong>
+    Conteúdo conferido com GINA 2026 Strategy Report (e Summary Guide), PCDT Asma aprovado pela Portaria Conjunta SAES/SCTIE nº 43, de 24/03/2026 (DOU 02/04/2026; Relatório CONITEC nº 1078) e recomendações SBPT 2020 (Pizzichini et al., J Bras Pneumol). Elenco CEAF/CBAF e não incorporações (ex.: beclometasona+formoterol, tiotrópio, tezepelumabe) cruzados com o PCDT e fontes oficiais. Ajustes 19/09/2026: estimativas epidemiológicas de inquérito restauradas com caveat; Quadro 11 AIR/MART detalhado; LABA isolado omitido; seção dispositivos/clima (DPI preferencial).
+    <br><br>
+    <strong>Aviso educacional:</strong> este material não substitui o PCDT vigente, normas estaduais/municipais, bulas nem o julgamento clínico individualizado.
+  </div>
+
+  <section id="epidemiologia">
+    <div class="section-head"><span class="section-num">01</span><h2>Epidemiologia</h2></div>
+    <div class="grid-3">
+      <div class="stat"><div class="num">87.707</div><div class="label">internações por asma no SUS em 2023 (queda de 134.222 em 2013) — PCDT Rel. 1078</div></div>
+      <div class="stat"><div class="num">≈4,6% / 12,1%</div><div class="label">prevalência em adultos / crianças na América do Sul (Brasil: 5ª e 2ª posições) — PCDT</div></div>
+      <div class="stat"><div class="num">1,16</div><div class="label">óbitos/100.000 hab./ano (média 2014–2021); predominam mulheres e idosos — PCDT</div></div>
+    </div>
+    <div class="grid-3" style="margin-top:16px;">
+      <div class="stat"><div class="num">≈12,3%</div><div class="label">asmáticos brasileiros com doença bem controlada — estimativa de inquérito (ex. projeto Respira); <em>não</em> consta no corpo do PCDT</div></div>
+      <div class="stat"><div class="num">17,4%</div><div class="label">asma de difícil controle entre adultos asmáticos — estimativa de literatura/inquérito; caveat: não verificada no PCDT/GINA Summary nesta revisão</div></div>
+      <div class="stat"><div class="num">≈3,6%</div><div class="label">dos de difícil controle = asma grave “verdadeira” — estimativa de literatura; conceito (difícil controle ≠ grave) alinha GINA/PCDT</div></div>
+    </div>
+    <p style="margin-top:16px;font-size:.9rem;color:var(--ink-soft);">
+      A asma permanece carga relevante para o SUS e para as famílias. Os três números da segunda fileira são
+      <strong>estimativas de inquérito/literatura</strong> (mantidos a pedido clínico): úteis para sensibilizar a APS sobre
+      subcontrole, mas <strong>não</strong> substituem os dados do PCDT acima. O custo da doença não controlada é elevado;
+      em casos graves, pode comprometer parcela importante da renda familiar.
+    </p>
+  </section>
+
+  <section id="diagnostico">
+    <div class="section-head"><span class="section-num">02</span><h2>Diagnóstico</h2></div>
+    <div class="card">
+      <p style="margin-top:0;">
+        Doença heterogênea, com inflamação crônica das vias aéreas. Definida pela história de <strong>sintomas
+        respiratórios variáveis</strong> — sibilos, dispneia, opressão torácica e tosse — associados à
+        <strong>limitação variável do fluxo aéreo</strong>.
+      </p>
+      <div class="grid-2" style="margin-top:14px;">
+        <div>
+          <h4 style="color:var(--ink);font-size:.9rem;">Confirmação funcional</h4>
+          <ul class="clean">
+            <li>Espirometria: resposta ao broncodilatador ≥ 12% e ≥ 200 mL no VEF₁ (adultos)</li>
+            <li>PFE: variabilidade diária &gt; 10% (adultos) ou &gt; 13% (crianças) — útil quando a espirometria não estiver disponível</li>
+            <li>Biomarcadores (FeNO, eosinofilia) apoiam inflamação T2, mas não fecham o diagnóstico isolados</li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="color:var(--ink);font-size:.9rem;">Diagnóstico diferencial</h4>
+          <ul class="clean">
+            <li>DPOC e sobreposição asma-DPOC</li>
+            <li>Refluxo gastroesofágico, disfunção laríngea</li>
+            <li>Tuberculose e outras causas de sibilância</li>
+            <li>≤ 5 anos: episódios recorrentes de sibilância + resposta ao tratamento; espirometria limitada</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="etapas">
+    <div class="section-head"><span class="section-num">03</span><h2>Etapas de tratamento (idade ≥ 12 anos)</h2></div>
+    <p style="font-size:.9rem;color:var(--ink-soft);margin-top:0;">
+      O <strong>PCDT Asma 2026</strong> (Portaria nº 43) e a <strong>GINA 2026</strong> organizam o tratamento em dois regimes
+      (<em>tracks</em>). O <strong>Regime 1 (Track 1)</strong>, preferencial, usa <strong>CI-formoterol</strong> como alívio
+      anti-inflamatório (<strong>AIR</strong>) e, nas etapas 3–5, como manutenção e alívio (<strong>MART</strong>).
+      O <strong>Regime 2 (Track 2)</strong> é alternativa quando CI-formoterol não é viável (ou o paciente está estável
+      sem exacerbações no Regime 2). <strong>SABA isolado, sem corticoide inalatório, não é recomendado em nenhuma etapa.</strong>
+    </p>
+    <div class="ladder">
+      <div class="step lvl5">
+        <div class="tag">V</div>
+        <div class="body">
+          <h4>Encaminhar · dose alta CI±LABA · fenotipagem</h4>
+          <p>Sintomas/exacerbações apesar de Etapa 4 otimizada (técnica e adesão): avaliar especialista; considerar imunobiológicos CEAF conforme fenótipo (omalizumabe, mepolizumabe, benralizumabe, dupilumabe).</p>
+          <p class="alt">No SUS: tiotrópio e tezepelumabe <strong>não</strong> estão incorporados no PCDT vigente. CO de manutenção em dose baixa = último recurso, por tempo limitado.</p>
+        </div>
+      </div>
+      <div class="step lvl4">
+        <div class="tag">IV</div>
+        <div class="body">
+          <h4>Preferencial (R1): CI-formoterol dose média em MART</h4>
+          <p>Ex.: formoterol + budesonida 6/200 mcg — 2 inalações 2×/dia + 1 inalação sob demanda (respeitar máximo diário do PCDT).</p>
+          <p class="alt">Alternativa (R2): CI-LABA dose média + SABA (ou CI+SABA) sob demanda; CI dose alta + SABA é opção, com pior adesão.</p>
+        </div>
+      </div>
+      <div class="step lvl3" style="outline:2px solid var(--amber);">
+        <div class="tag">III</div>
+        <div class="body">
+          <h4>Preferencial (R1): CI-formoterol dose baixa em MART <span class="pill pill-amber">exige LME (CEAF)</span></h4>
+          <p>Formoterol + budesonida 6/200 mcg: 1 inalação 1–2×/dia + 1 inalação sob demanda (mesmo inalador).</p>
+          <p class="alt">Alternativa (R2): CI-LABA dose baixa + SABA/CI+SABA sob demanda; ou CI dose média + SABA sob demanda.</p>
+        </div>
+      </div>
+      <div class="step lvl2">
+        <div class="tag">II</div>
+        <div class="body">
+          <h4>Preferencial (R1): AIR — CI-formoterol dose baixa sob demanda</h4>
+          <p>Mesma estratégia das Etapas 1–2 no Regime 1: 1 inalação sob demanda (sintomas, exercício, alérgeno).</p>
+          <p class="alt">Alternativa (R2): CI dose baixa diária (controle) + SABA sob demanda — considerar risco de baixa adesão ao CI diário.</p>
+        </div>
+      </div>
+      <div class="step lvl1">
+        <div class="tag">I</div>
+        <div class="body">
+          <h4>Preferencial (R1): AIR — CI-formoterol dose baixa sob demanda</h4>
+          <p>Tratamento inicial preferencial (Track 1 / Regime 1). Não usar SABA sozinho.</p>
+          <p class="alt">Alternativa (R2): CI dose baixa sempre que usar SABA (inaladores combinados ou separados).</p>
+        </div>
+      </div>
+    </div>
+    <div class="callout">
+      Em <strong>todas as etapas</strong>: educação, controle ambiental, plano de ação e revisão regular do controle e do risco futuro.
+      Antes de subir de etapa: confirmar diagnóstico de asma, técnica inalatória, adesão, exposições e comorbidades.
+      Step-down após estabilidade clínica mínima de cerca de <strong>3 meses</strong> (reduções típicas de 25–50% da dose de CI).
+      Crianças de 6–11 anos e ≤ 5 anos: lógica escalonada própria no PCDT (doses e opções por faixa etária) — consultar o protocolo.
+      No SUS, a associação disponível para AIR/MART é <strong>formoterol + budesonida</strong> em <strong>cápsula ou pó inalante (DPI)</strong>; apresentação spray (pMDI) <strong>não</strong> está incorporada.
+    </div>
+  </section>
+
+  <section id="doses-air-mart">
+    <div class="section-head"><span class="section-num">03b</span><h2>Doses práticas AIR / MART (SUS · ≥ 12 anos)</h2></div>
+    <p style="font-size:.9rem;color:var(--ink-soft);margin-top:0;">
+      Fonte: <strong>PCDT Asma 2026 — Quadro 11</strong> (adaptado de GINA), formulação CEAF
+      <strong>fumarato de formoterol + budesonida 6/200 mcg</strong> por inalação (cápsula ou pó).
+      Equivalente rotulado internacionalmente como ≈200/6 mcg dose medida / 160/4,5 mcg dose administrada (GINA Table 7).
+      Reliever: 1 inalação sob demanda; se sintomas persistirem após alguns minutos, pode repetir — <em>sem</em> intervalo mínimo obrigatório entre doses de alívio (diferente do SABA clássico).
+      Se em um dia precisar de mais do que o máximo abaixo, procurar atendimento.
+    </p>
+    <div class="card" style="padding:0;overflow:hidden;">
+      <table>
+        <thead>
+          <tr>
+            <th>Etapa</th>
+            <th>Regime</th>
+            <th>Manutenção (DPI 6/200)</th>
+            <th>Alívio</th>
+            <th>Máx./dia</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>I–II</td>
+            <td><strong>AIR</strong> (só alívio)</td>
+            <td>—</td>
+            <td>1 inalação sob demanda (sintomas, exercício, alérgeno)</td>
+            <td rowspan="4" style="vertical-align:middle;"><strong>12 inalações</strong><br><span style="font-size:.78rem;color:var(--ink-faint);">(72 mcg formoterol no total)</span></td>
+          </tr>
+          <tr>
+            <td>III</td>
+            <td><strong>MART</strong> dose baixa</td>
+            <td>1 inalação 1× ou 2×/dia</td>
+            <td>+ 1 inalação sob demanda (mesmo inalador)</td>
+          </tr>
+          <tr>
+            <td>IV</td>
+            <td><strong>MART</strong> dose média</td>
+            <td>2 inalações 2×/dia</td>
+            <td>+ 1 inalação sob demanda</td>
+          </tr>
+          <tr>
+            <td>V</td>
+            <td><strong>MART</strong> + encaminhar</td>
+            <td>2 inalações 2×/dia</td>
+            <td>+ 1 inalação sob demanda; fenotipagem / imunobiológico CEAF</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="grid-2" style="margin-top:14px;">
+      <div class="callout">
+        <strong>Apresentações CEAF (RENAME / PCDT):</strong> formoterol + budesonida
+        <strong>6/200</strong> e <strong>12/400</strong> mcg (cápsula ou pó). Para AIR/MART do Quadro 11 usa-se a
+        <strong>6/200</strong>. A 12/400 não substitui o esquema MART dose a dose sem reavaliar o plano.
+      </div>
+      <div class="callout warn">
+        <strong>Não usar</strong> LABA em monoterapia na asma. Não misturar CI-formoterol como alívio se o paciente
+        já usa CI-LABA de manutenção com LABA <em>diferente</em> de formoterol (GINA).
+        Crianças 6–11 anos: doses próprias (ex. 100/6 / 80/4,5) — ver PCDT/GINA Table 7.
+      </div>
+    </div>
+  </section>
+
+  <section id="medicamentos">
+    <div class="section-head"><span class="section-num">04</span><h2>Medicamentos disponíveis no SUS</h2></div>
+    <table>
+      <thead><tr><th>Classe</th><th>Fármacos (PCDT)</th><th>Observação / acesso</th></tr></thead>
+      <tbody>
+        <tr><td>Corticoides inalatórios (CI)</td><td>Beclometasona; budesonida</td><td>Base do tratamento. Beclometasona também no “Aqui Tem Farmácia Popular” / CBAF; budesonida tipicamente CEAF</td></tr>
+        <tr><td>CI + formoterol (AIR/MART)</td><td><strong>Formoterol + budesonida</strong> 6/200 e 12/400 mcg (cápsula ou pó inalante — DPI)</td><td>Única associação CI-formoterol do PCDT para AIR/MART <span class="pill pill-amber">CEAF — exige LME</span>. Beclometasona+formoterol <strong>não</strong> está no elenco SUS/RENAME para asma. Spray da associação <strong>não</strong> incorporado</td></tr>
+        <tr><td>SABA</td><td>Salbutamol, fenoterol</td><td>Alívio / exacerbação; nunca monoterapia isolada sem CI. Preferir pMDI + espaçador nas crises leves/moderadas (PCDT)</td></tr>
+        <tr><td>Corticoides orais (CO)</td><td>Prednisona, prednisolona</td><td>Curto prazo nas exacerbações; manutenção só último recurso (Etapa 5)</td></tr>
+        <tr><td>Imunobiológicos</td><td>Omalizumabe, mepolizumabe, benralizumabe, dupilumabe</td><td>CEAF — asma grave não controlada, critérios fenotípicos do PCDT e ≥1 exacerbação grave/ano com OCS</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:.82rem;color:var(--ink-faint);margin-top:10px;">
+      Não incorporados ao SUS para asma no PCDT vigente (exemplos confirmados no Relatório CONITEC nº 1078):
+      tiotrópio, tezepelumabe, formoterol+budesonida em spray, beclometasona+formoterol, salmeterol+fluticasona.
+      Conferir sempre a RENAME e o fluxo CEAF da SES local.
+      <strong>Nota:</strong> o PCDT lista formoterol isolado no elenco CEAF, mas este guia <strong>não</strong> recomenda
+      LABA em monoterapia na asma — não listamos formoterol sozinho como opção prática.
+    </p>
+  </section>
+
+  <section id="dispositivos">
+    <div class="section-head"><span class="section-num">04b</span><h2>Dispositivos inalatórios e impacto climático</h2></div>
+    <div class="card" style="border-left:4px solid var(--teal);">
+      <h4 style="margin-top:0;font-size:1rem;">Preferir pó (DPI) quando clinicamente adequado</h4>
+      <p style="font-size:.9rem;color:var(--ink-soft);margin-top:0;">
+        A GINA 2026 orienta considerar, na escolha do inalador, a capacidade do paciente de usá-lo corretamente,
+        adesão, custo e o <strong>impacto ambiental</strong> (propelente dos pMDI, fabricação e reciclagem — ver
+        discussão de “lowest environmental impact” no Summary Guide).
+        Os pMDI atuais usam propelentes <strong>HFA</strong> (hidrofluorocarbonetos; ex. HFC-134a / HFC-227ea),
+        sucessores dos CFC (já banidos pelo Protocolo de Montreal). Esses HFA são gases de efeito estufa com
+        alto potencial de aquecimento global; a própria GINA nota que <em>novos propelentes de menor impacto
+        estão em desenvolvimento</em>.
+      </p>
+      <ul class="clean">
+        <li><strong>DPI / pó (cápsula ou reservatório)</strong> não usa propelente — pegada de carbono tipicamente
+          muito menor que pMDI. Revisões e análises de LCA citam ordens de grandeza da ordem de
+          <strong>~0,4–1 kg CO₂e por dispositivo DPI</strong> versus <strong>~10–36 kg CO₂e por pMDI</strong>
+          (faixas publicadas, p.ex. posição TSANZ 2024 / revisões de LCA — valores variam por produto e método).</li>
+        <li>Em asma leve, o esquema <strong>budesonida/formoterol DPI sob demanda (AIR)</strong> mostrou pegada
+          anual muito inferior a salbutamol pMDI sob demanda em análise <em>post hoc</em> do Novel START
+          (≈1,1 vs ≈26,2 kg CO₂e/pessoa-ano — ERJ 2024).</li>
+        <li>No <strong>SUS</strong>, a associação CEAF para AIR/MART já é <strong>cápsula/pó</strong> — alinhar a
+          prática APS a esse dispositivo reduz barreira de acesso e impacto climático em relação a sprays
+          não incorporados.</li>
+      </ul>
+      <div class="callout warn" style="margin-top:12px;">
+        <strong>Caveats APS:</strong> DPI exige fluxo inspiratório adequado e técnica correta (não “spray + espaçador”).
+        Em crises graves, idosos frágeis, crianças pequenas ou fluxo muito baixo, pMDI + espaçador (ou nebulização
+        conforme protocolo) pode ser mais seguro. Não trocar dispositivo só por motivo climático se houver risco de
+        piora do controle. Educação + checagem de técnica em toda consulta.
+      </div>
+    </div>
+  </section>
+
+  <section id="acompanhamento">
+    <div class="section-head"><span class="section-num">05</span><h2>Acompanhamento</h2></div>
+    <div class="grid-2">
+      <div class="card">
+        <h4 style="font-size:.95rem;color:var(--teal-deep);">Periodicidade</h4>
+        <ul class="clean">
+          <li>Revisão inicial a cada 1–3 meses; depois a cada 3–12 meses</li>
+          <li>Espirometria/PFE após diagnóstico, em 3–6 meses e conforme risco (mais frequente se alto risco)</li>
+          <li>Reavaliar em poucos dias (ex.: 2–7 dias) após exacerbação/alta</li>
+          <li>Step-down após ≥ 3 meses de controle estável</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4 style="font-size:.95rem;color:var(--teal-deep);">Fatores a investigar antes de intensificar</h4>
+        <ul class="clean">
+          <li>Adesão ao tratamento e técnica inalatória</li>
+          <li>Tabagismo ativo ou passivo / vaporização</li>
+          <li>Exposição ambiental/ocupacional</li>
+          <li>Uso de AINEs ou β-bloqueadores</li>
+          <li>Comorbidades (RGE, obesidade, rinossinusite, apneia do sono)</li>
+        </ul>
+      </div>
+    </div>
+    <p style="font-size:.9rem;color:var(--ink-soft);">
+      Instrumentos validados para o controle: critérios GINA, ACQ e ACT (já adaptados para uso no Brasil).
+      Uso excessivo de SABA (ex.: &gt;3 frascos de 200 doses/ano) é sinal de alarme — reavaliar o controle.
+    </p>
+  </section>
+
+  <section id="lme-facil">
+    <div class="section-head"><span class="section-num">06</span><h2>Acesso facilitado: LME Fácil</h2></div>
+    <div class="lme-box">
+      <span class="flag">Para pacientes na etapa formoterol + budesonida</span>
+      <h3>O que é e quando usar</h3>
+      <p style="margin-top:0;font-size:.92rem;">
+        A associação <strong>formoterol + budesonida</strong> integra o Componente Especializado da Assistência
+        Farmacêutica (CEAF) do SUS, conforme o PCDT Asma. Para o paciente retirar o medicamento na farmácia
+        especializada, em geral é necessário apresentar o <strong>LME — Laudo para Solicitação, Avaliação e
+        Autorização de Medicamentos do Componente Especializado</strong>, devidamente preenchido, acompanhado de
+        prescrição médica, exame de espirometria (quando aplicável) e, conforme o estado ou município, Termo de
+        Esclarecimento e Responsabilidade (TER).
+      </p>
+      <p style="font-size:.92rem;">
+        O preenchimento manual do LME é uma das principais barreiras burocráticas apontadas por pacientes e equipes
+        da atenção básica para o início do tratamento — é aqui que a plataforma <strong>LME Fácil</strong> pode
+        ajudar.
+      </p>
+      <p style="font-size:.92rem;">
+        O <strong>LME Fácil</strong> é uma plataforma gratuita (site e aplicativo) que auxilia o médico a preencher o
+        laudo, gerar a prescrição e organizar a jornada do paciente até a renovação do processo — reduzindo erros e
+        tempo de consultório na hora de solicitar medicamentos do Componente Especializado, como a associação
+        formoterol + budesonida.
+      </p>
+      <div class="lme-actions">
+        <a class="btn btn-primary" href="https://www.lmefacil.com.br" target="_blank" rel="noopener">Acessar lmefacil.com.br</a>
+        <a class="btn btn-secondary" href="https://play.google.com/store/apps/details?id=br.com.lmefacil.app" target="_blank" rel="noopener">App Android</a>
+        <a class="btn btn-secondary" href="https://apps.apple.com/br/app/lme-f%C3%A1cil/id1460970574" target="_blank" rel="noopener">App iOS</a>
+      </div>
+      <div class="lme-checklist">
+        <h4>Documentos geralmente exigidos para o LME de formoterol + budesonida</h4>
+        <ul>
+          <li>LME adequadamente preenchido</li>
+          <li>Prescrição médica devidamente preenchida</li>
+          <li>Espirometria com VEF₁ e PFE pré e pós-broncodilatador (em geral a partir dos 5–6 anos; se impossível, justificativa clínica conforme PCDT/SES)</li>
+          <li>Descrição clínica detalhada dos sinais e sintomas, conforme critérios do PCDT de Asma</li>
+          <li>Cópia de documento de identidade e do Cartão Nacional de Saúde (CNS)</li>
+          <li>Comprovante de residência</li>
+          <li>Termo de Esclarecimento e Responsabilidade (TER), quando exigido pela SES/SMS local</li>
+        </ul>
+      </div>
+      <p style="font-size:.78rem;color:var(--ink-faint);margin-bottom:0;margin-top:14px;">
+        A lista de documentos e o fluxo exato variam por Secretaria Estadual/Municipal de Saúde — confirme os
+        requisitos locais antes de orientar o paciente. Este guia não inventa datas de incorporação CONITEC/SUS.
+      </p>
+    </div>
+  </section>
+
+  <section id="encaminhamento">
+    <div class="section-head"><span class="section-num">07</span><h2>Quando encaminhar ao especialista</h2></div>
+    <div class="callout warn">
+      <strong>Asma grave</strong> = não controlada apesar de tratamento máximo otimizado (CI-LABA em alta dose /
+      Etapa 4–5), ou que exige esse tratamento para evitar perda de controle.
+      Diferencie de <strong>asma de difícil controle</strong> por adesão, técnica, comorbidades ou exposições —
+      o diagnóstico de asma grave é retrospectivo, após otimizar fatores modificáveis.
+      Estimativa de literatura (mantida): apenas cerca de <strong>3,6%</strong> dos pacientes com asma de difícil
+      controle teriam asma grave “verdadeira” — cifra <em>não</em> do PCDT; use-a como ordem de grandeza educativa.
+      Para seleção de imunobiológicos, use o agente especializado (SIA·PRO) e o Quadro 8 do PCDT.
+    </div>
+    <ul class="clean" style="margin-top:14px;">
+      <li>Etapa IV sem controle — avaliação especializada e possível fenotipagem para imunobiológico</li>
+      <li>Suspeita de asma ocupacional ou diagnóstico duvidoso</li>
+      <li>Necessidade recorrente de corticoide oral em crises</li>
+      <li>Crianças de 6–11 anos sem controle em etapa III</li>
+      <li>Após hospitalização ou visitas repetidas à emergência por asma</li>
+    </ul>
+  </section>
+
+</main>
+
+<footer>
+  PneumoAgents · Ferramenta educacional de apoio à decisão para a rede primária do SUS (clínicos e saúde pública).
+  Fontes conferidas em set/2026: GINA 2026 Strategy Report; PCDT da Asma — Portaria Conjunta SAES/SCTIE nº 43
+  (24/03/2026; Relatório CONITEC nº 1078); Pizzichini MMM et al. Recomendações para o manejo da asma da SBPT — 2020,
+  J Bras Pneumol. 2020;46(1):e20190307.
+  Não substitui o julgamento clínico individualizado, o PCDT vigente nem os protocolos da Secretaria de Saúde local.
+</footer>
+
+</body>
+</html>

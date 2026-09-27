@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PneumoAgents · Rinite · Via aérea única · Comorbidades</title>
+<style>
+:root{
+  --bg:#F5F8F6; --surface:#FFFFFF; --ink:#1C2624; --ink-soft:#4B5D58; --ink-faint:#7C8B86;
+  --teal:#0E6B64; --teal-deep:#0A4F49; --teal-pale:#E4F1EE;
+  --blue:#235D8B; --blue-pale:#E8EFF6; --amber:#B9701F; --amber-pale:#FBF1E1;
+  --red:#A23B32; --red-pale:#FBEAE7; --line:#DCE6E2; --radius:10px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI","Helvetica Neue",Arial,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4{font-family:Georgia,"Iowan Old Style","Palatino Linotype",serif;color:var(--teal-deep);line-height:1.2;margin:0 0 .4em 0;}
+a{color:var(--teal);}
+header.top{background:linear-gradient(135deg,var(--teal-deep),var(--teal) 65%,#137C73);color:#fff;padding:38px 24px 30px;}
+header.top .wrap{max-width:980px;margin:0 auto;}
+.eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:.72rem;color:#CDEDE7;font-weight:600;margin-bottom:8px;}
+header.top h1{color:#fff;font-size:1.95rem;margin-bottom:6px;}
+header.top p.lead{color:#DDF1EC;max-width:760px;font-size:1rem;margin:0;}
+.source-tags{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px;}
+.source-tags span{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);padding:5px 12px;border-radius:99px;font-size:.76rem;color:#F1FBF9;}
+nav.subnav{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);}
+nav.subnav .wrap{max-width:980px;margin:0 auto;display:flex;gap:4px;flex-wrap:wrap;padding:10px 24px;}
+nav.subnav a{text-decoration:none;color:var(--ink-soft);font-size:.78rem;font-weight:600;padding:7px 10px;border-radius:99px;}
+nav.subnav a:hover{background:var(--teal-pale);color:var(--teal-deep);}
+main{max-width:980px;margin:0 auto;padding:36px 24px 80px;}
+section{margin-bottom:48px;scroll-margin-top:64px;}
+.section-head{display:flex;align-items:baseline;gap:10px;margin-bottom:16px;border-bottom:2px solid var(--teal-pale);padding-bottom:10px;}
+.section-num{font-family:Georgia,serif;font-style:italic;color:var(--ink-faint);font-size:1rem;}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.grid-4{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+@media(max-width:720px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr;}}
+.callout{border-left:4px solid var(--blue);background:var(--blue-pale);border-radius:0 var(--radius) var(--radius) 0;padding:14px 18px;font-size:.9rem;margin:12px 0;}
+.callout.warn{border-left-color:var(--red);background:var(--red-pale);}
+.callout.amber{border-left-color:var(--amber);background:var(--amber-pale);}
+.callout.ok{border-left-color:var(--teal);background:var(--teal-pale);}
+table{width:100%;border-collapse:collapse;font-size:.88rem;}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top;}
+th{background:var(--teal-pale);color:var(--teal-deep);font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;}
+.pill{display:inline-block;font-size:.72rem;font-weight:700;padding:2px 9px;border-radius:99px;}
+.pill-teal{background:var(--teal-pale);color:var(--teal-deep);}
+.pill-amber{background:var(--amber-pale);color:var(--amber);}
+.pill-red{background:var(--red-pale);color:var(--red);}
+.pill-blue{background:var(--blue-pale);color:var(--blue);}
+ul.clean{margin:0;padding-left:20px;}
+ul.clean li{margin-bottom:6px;font-size:.92rem;}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0;}
+@media(max-width:720px){.stat-row{grid-template-columns:1fr;}}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;}
+.stat .num{font-family:Georgia,serif;font-size:1.35rem;color:var(--teal-deep);font-weight:700;}
+.stat .label{font-size:.8rem;color:var(--ink-soft);margin-top:2px;}
+.comorb-card{border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;background:var(--surface);position:relative;}
+.comorb-card h3{font-size:1.1rem;margin-bottom:8px;}
+.comorb-card .badge{position:absolute;top:14px;right:14px;}
+.comorb-card.asma{border-top:4px solid var(--teal);}
+.comorb-card.dpoc{border-top:4px solid var(--blue);}
+.comorb-card.saos{border-top:4px solid var(--amber);}
+.comorb-card.metab{border-top:4px solid var(--red);}
+.hint{font-size:.75rem;color:var(--ink-faint);margin-top:4px;}
+footer{max-width:980px;margin:0 auto;padding:24px;font-size:.78rem;color:var(--ink-faint);border-top:1px solid var(--line);}
+.anatomy-box{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:720px){.anatomy-box{grid-template-columns:1fr;}}
+.mini{font-size:.85rem;color:var(--ink-soft);}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="eyebrow">PneumoAgents · agente 15 · Dr. Fernando Lundgren</div>
+    <h1>Rinite · Via aérea única e comorbidades</h1>
+    <p class="lead">Ferramenta clínico-didática: anatomia e volumes das vias aéreas superiores, fisiopatologia (AR ↔ hiperreatividade brônquica), interação com <strong>asma, DPOC, SAOS e síndrome metabólica</strong>, TC de tórax (pequenas vias vs. interstício), exames, lavagem nasal de baixo volume, tratamento e imunobiológicos — com honestidade regulatória ANVISA/SUS.</p>
+    <div class="source-tags">
+      <span>ARIA / via aérea única</span>
+      <span>AR + BHR 2015–2025</span>
+      <span>Rinite ↔ SAOS</span>
+      <span>Revisão 09/2026</span>
+      <span>Educacional</span>
+    </div>
+  </div>
+</header>
+
+<nav class="subnav">
+  <div class="wrap">
+    <a href="#conceito">Via aérea única</a>
+    <a href="#anatomia">Anatomia &amp; volumes</a>
+    <a href="#fisio">Fisiopatologia</a>
+    <a href="#comorbidades">Comorbidades</a>
+    <a href="#tc">TC tórax</a>
+    <a href="#exames">Exames</a>
+    <a href="#lavagem">Lavagem nasal</a>
+    <a href="#farmaco">Farmacológico</a>
+    <a href="#biologicos">Imunobiológicos</a>
+    <a href="#fontes">Fontes</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- 01 CONCEITO -->
+<section id="conceito">
+  <div class="section-head"><span class="section-num">01</span><h2>Conceito — via aérea única</h2></div>
+  <div class="card">
+    <div class="callout ok">
+      <strong>“One airway, one disease” (via aérea única / united airways):</strong> mucosa respiratória contínua do nariz aos bronquíolos, com inflamação tipo 2 compartilhada, reflexos neurais e tráfego de mediadores. Rinite e asma não são doenças isoladas — o manejo de uma modifica a outra.
+    </div>
+    <div class="stat-row">
+      <div class="stat">
+        <div class="num">&gt;80%</div>
+        <div class="label">dos asmáticos relatam rinite (sínteses ARIA / revisões)</div>
+      </div>
+      <div class="stat">
+        <div class="num">10–40%</div>
+        <div class="label">dos pacientes com rinite têm asma (estudos populacionais)</div>
+      </div>
+      <div class="stat">
+        <div class="num">40–60%</div>
+        <div class="label">dos pacientes com AOS/SAOS têm rinite (alérgica ou não)</div>
+      </div>
+    </div>
+    <ul class="clean">
+      <li>Epitélio pseudoestratificado ciliado, glândulas, células caliciformes e rede imune tipo 2 (IL-4/5/13, ILC2, alarminas TSLP/IL-33) em nariz e brônquios.</li>
+      <li>Provocaão nasal alergênica pode alterar biomarcadores e reatividade brônquica; tratamento ativo da rinite associa-se a melhor perfil de vias inferiores.</li>
+      <li>Implicação prática: em rinite persistente, <em>sempre</em> perguntar asma, DPOC, sono (ronco/apneia) e componentes metabólicos.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 02 ANATOMIA -->
+<section id="anatomia">
+  <div class="section-head"><span class="section-num">02</span><h2>Anatomia &amp; volumes</h2></div>
+  <div class="card">
+    <h3 style="font-size:1.05rem;">Nariz e vias aéreas superiores</h3>
+    <div class="anatomy-box" style="margin-top:10px;">
+      <div>
+        <ul class="clean">
+          <li><strong>Vestíbulo</strong> → válvula nasal interna (maior resistência ao fluxo).</li>
+          <li><strong>Septo</strong> + <strong>cornetos</strong> (inferior, médio, superior): aquecem, umidificam e filtram.</li>
+          <li><strong>Meatos</strong> drenam seios (maxilar, etmoidal, frontal, esfenoidal).</li>
+          <li>Mucosa: epitélio respiratório + lamina própria com mastócitos, linfócitos, glândulas (área glandular ↑ na rinite perene ≈25% vs ≈15% em não alérgicos — Christodoulopoulos 2000).</li>
+          <li>Inervação sensorial trigeminal; reflexos nasobronquiais via vagal.</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="clean">
+          <li><strong>Funções:</strong> condicionamento do ar, clearance mucociliar, olfato, proteção imune (IgA secretória).</li>
+          <li>Congestão → respiração oral → alteração da anatomia faríngea no sono.</li>
+          <li>Seios contíguos à mucosa nasal: rinossinusite e polipose compartilham endótipo tipo 2 com asma.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="font-size:1.05rem;margin-top:22px;">Volumes aproximados (ordem de grandeza — citar com cuidado)</h3>
+    <table>
+      <thead><tr><th>Parâmetro</th><th>Faixa aproximada</th><th>Nota / fonte</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Volume de ar inspirado / dia (adulto em repouso)</td>
+          <td><strong>~7.000–15.000 L/dia</strong></td>
+          <td>VE típico em repouso ≈5–10 L/min (≈7.200–14.400 L/24 h); valor didático clássico ~10.000–15.000 L/dia inclui variação por tamanho corporal e leve atividade. Em exercício, sobe muito. (fisiologia clássica: VE ≈6 L/min em repouso; EPA EFH: médias diárias de atividade ~12–16 m³/dia).</td>
+        </tr>
+        <tr>
+          <td>Cavidade nasal (espaço aéreo, ambos os lados, excluindo seios)</td>
+          <td><strong>~15–22 mL</strong> (ordem)</td>
+          <td>TC CFD: média ≈21,5 ± 4,4 mL (narinas→coanas, sem seios); outro estudo CT ≈15,4 mL. Rinometria acústica mede segmentos menores (válvula/cornetos). <em>Não</em> confundir com volume dos seios paranasais.</td>
+        </tr>
+        <tr>
+          <td>Espaço morto anatômico aproximado (traqueia+brônquios)</td>
+          <td>~150 mL / ciclo</td>
+          <td>Contextualiza: a maior parte do volume diário “passa” pela via superior condicionadora.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="callout amber">
+      <strong>Incerteza:</strong> volumes nasais variam com sexo, congestão mucosa, método (TC vs. rinometria) e inclusão/exclusão de seios. Use como ordem de grandeza educativa, não como valor diagnóstico individual.
+    </div>
+  </div>
+</section>
+
+<!-- 03 FISIOPATOLOGIA -->
+<section id="fisio">
+  <div class="section-head"><span class="section-num">03</span><h2>Fisiopatologia — AR e hiperreatividade brônquica</h2></div>
+  <div class="card">
+    <p class="mini">Síntese das vias convergentes (revisões/provocação humana 2015–2025 + patologia molecular das vias superiores).</p>
+    <div class="grid-2" style="margin-top:12px;">
+      <div class="comorb-card">
+        <h4 style="font-size:.95rem;">1. Reflexo nasobronquial</h4>
+        <ul class="clean">
+          <li>Estimulação trigeminal → broncoconstrição vagal em segundos–minutos.</li>
+          <li>Neuropeptídeos: substância P, CGRP, VIP nas secreções após desafio.</li>
+        </ul>
+      </div>
+      <div class="comorb-card">
+        <h4 style="font-size:.95rem;">2. Drenagem pós-nasal (PND)</h4>
+        <ul class="clean">
+          <li>Muco/alérgenos → hipofaringe; microaspiração ou contato mucoso.</li>
+          <li>Desafio nasal eleva eosinófilos e ICAM/VCAM.</li>
+        </ul>
+      </div>
+      <div class="comorb-card">
+        <h4 style="font-size:.95rem;">3. Imunidade tipo 2 sistêmica</h4>
+        <ul class="clean">
+          <li>IL-4, IL-5, IL-13; ILC2; alarminas TSLP e IL-33.</li>
+          <li>IgE, mastócitos e basófilos coordenados nariz–brônquio.</li>
+          <li>Prova de mecanismo: anti-TSLP / anti-IL-5 / anti-IL-13 atenuam resposta tardia e BHR em desafio humano.</li>
+        </ul>
+      </div>
+      <div class="comorb-card">
+        <h4 style="font-size:.95rem;">4. Barreira epitelial</h4>
+        <ul class="clean">
+          <li>Alérgenos proteolíticos clivam junções (claudinas/occludinas).</li>
+          <li>Metaplasia caliciforme e hipersecreção em nariz e brônquios.</li>
+          <li>Remodelamento muscular/fibrose tipicamente maior na asma do que na AR isolada.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:14px;">
+      <strong>5. Pequenas vias aéreas:</strong> decrementos subclínicos de FEF25–75, FeNO elevado e BHR (PC20 metacolina ↓) são frequentes em rinite sem asma clínica — possíveis preditores de progressão. Lacuna: odds ratios pooled inconsistentes no corpus 2015–2025.
+    </div>
+    <p class="hint">Fases clássicas da resposta nasal: precoce (&lt;60 min, histamina/LT/PGD2) e tardia (3–12 h, CD4+, eosinófilos, citocinas Th2) — dual em ~40–50%.</p>
+  </div>
+</section>
+
+<!-- 04 COMORBIDADES — HARD EMPHASIS -->
+<section id="comorbidades">
+  <div class="section-head"><span class="section-num">04</span><h2>Comorbidades — interação e agravamento</h2></div>
+  <div class="callout warn">
+    <strong>Ênfase clínica obrigatória:</strong> a rinite interage e agrava as quatro condições abaixo. Avalie e documente cada uma na consulta.
+  </div>
+
+  <div class="grid-4" style="margin-top:14px;">
+
+    <!-- ASMA -->
+    <div class="comorb-card asma">
+      <span class="badge pill pill-teal">1 · Asma</span>
+      <h3>Asma</h3>
+      <p class="mini"><strong>Como a rinite agrava:</strong> inflamação tipo 2 compartilhada, reflexo nasobronquial, PND, aumento de BHR e de exacerbaciones; rinite não controlada piora sintomas, uso de resgate e FeNO.</p>
+      <p class="mini"><strong>Como a asma agrava a rinite:</strong> mesma via Th2; corticoides sistêmicos/cirurgias repetidas em RSCcPN; polipose associada a asma grave tipo 2.</p>
+      <ul class="clean">
+        <li>&gt;80% dos asmáticos têm rinite; 10–40% da rinite tem asma.</li>
+        <li>INCS + controle de AR podem melhorar biomarcadores de vias inferiores.</li>
+        <li>AIT pode reduzir risco de progressão para asma (sinais de coorte/registro; magnitude variável).</li>
+        <li>Dupla indicação biológica (asma + RSCcPN): ver seção Imunobiológicos.</li>
+      </ul>
+      <p class="hint">Ação: espirometria, FeNO, eosinófilos; metacolina se BHR suspeita sem obstrução.</p>
+    </div>
+
+    <!-- DPOC -->
+    <div class="comorb-card dpoc">
+      <span class="badge pill pill-blue">2 · DPOC</span>
+      <h3>DPOC</h3>
+      <p class="mini"><strong>Como a rinite agrava:</strong> obstrução nasal e PND aumentam carga de sintomas (tosse, dispneia referida), pioram qualidade de vida e podem facilitar infecções de vias superiores que desencadeiam exacerbações. Rinite/alergia coexistente associa-se a pior status de saúde em DPOC.</p>
+      <p class="mini"><strong>Como a DPOC agrava:</strong> inflamação sistêmica, tabagismo (barreira epitelial), respiração oral, uso crônico de O2/CPAP em overlap — mucosa nasal mais vulnerável.</p>
+      <ul class="clean">
+        <li>Nem toda rinite em DPOC é alérgica — distinguir endótipo (T2 vs não-T2).</li>
+        <li>Eosinofilia / tipo 2 em DPOC: overlap com vias de biológicos (contexto separado do agente DPOC).</li>
+        <li>Tratar vias superiores (INCS, lavagem) faz parte do “tratável trait” multimórbido.</li>
+      </ul>
+      <p class="hint">Ação: não atribuir toda dispneia à DPOC — perguntar congestão, rinorreia, olfato.</p>
+    </div>
+
+    <!-- SAOS -->
+    <div class="comorb-card saos">
+      <span class="badge pill pill-amber">3 · SAOS (AOS)</span>
+      <h3>SAOS / AOS</h3>
+      <p class="mini"><strong>Como a rinite promove apneia:</strong> ↑ resistência nasal → maior pressão negativa faríngea → colapso; respiração oral altera anatomia faríngea/mandíbula. Risco de AOS ~1,8–2,5× maior em rinite; 40–60% dos com AOS têm rinite.</p>
+      <p class="mini"><strong>Como a AOS agrava a rinite:</strong> hipóxia intermitente e estresse oxidativo → estado pró-inflamatório sistêmico que intensifica mucosa nasal — <em>ciclo vicioso</em>.</p>
+      <ul class="clean">
+        <li>INCS: redução relatada de IAH da ordem de ~3–11 eventos/h em AOS leve–moderada + rinite (ensaios; não substitui CPAP).</li>
+        <li>Desobstrução nasal: +~60 min/noite de adesão ao CPAP em sínteses clínicas.</li>
+        <li>Todo paciente com AOS → avaliar rinite; toda rinite com sonolência/ronco → polissonografia quando indicada.</li>
+      </ul>
+      <p class="hint">Ação: SNOT-22/VAS nasal + Epworth + IAH; otimizar INCS + lavagem antes de concluir “falha de CPAP”.</p>
+    </div>
+
+    <!-- SÍNDROME METABÓLICA -->
+    <div class="comorb-card metab">
+      <span class="badge pill pill-red">4 · Síndrome metabólica</span>
+      <h3>Síndrome metabólica</h3>
+      <p class="mini"><strong>Interação:</strong> obesidade visceral, resistência à insulina, hipertensão e dislipidemia coexistem com rinite, asma e SAOS. Inflamação de baixo grau e leptina/adipocinas podem modular resposta alérgica; obesidade piora SAOS e controle de asma — e a respiração oral/congestão piora sono e adesão.</p>
+      <p class="mini"><strong>Agravamento mútuo:</strong> SM ↔ SAOS ↔ rinite formam cluster multimórbido; DPOC também se agrupa com componentes cardiometabólicos.</p>
+      <ul class="clean">
+        <li>Corpus AR→BHR: evidência quantitativa IMC→BHR ainda limitada (lacuna reconhecida nas revisões 2015–2025).</li>
+        <li>Clinicamente: medir cintura, glicemia/HbA1c, PA, perfil lipídico; integrar perda de peso (quando indicada) ao plano de vias aéreas.</li>
+        <li>Em SAOS + obesidade, terapias metabólicas (ex. agonistas incretínicos on-label) são complementares — ver agente Tirzepatida SAOS; não tratam rinite isolada.</li>
+      </ul>
+      <p class="hint">Ação: checklist metabólico em toda rinite com SAOS, asma de difícil controle ou DPOC.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 05 TC -->
+<section id="tc">
+  <div class="section-head"><span class="section-num">05</span><h2>TC de tórax / parênquima — o que esperar (e o que não inventar)</h2></div>
+  <div class="card">
+    <div class="callout warn">
+      <strong>Cuidado interpretativo:</strong> inflamação de via aérea superior / rinite <em>não</em> produz um padrão intersticial clássico (fibrose, UIP, NSIP) por si só. Achados torácicos relacionados, quando presentes, tendem a refletir <strong>doença de pequenas vias</strong> (air trapping, mosaic attenuation) no contexto de asma/BHR/SAD — ou doença coexistente.
+    </div>
+    <table>
+      <thead><tr><th>Achado</th><th>Significado provável</th><th>Não confundir com</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Air trapping em TC expiratória</td>
+          <td>Obstrução de pequenas vias; comum em asma, bronquiolite obliterante, tabagismo</td>
+          <td>Enfisema puro (destruição septal) — critérios distintos</td>
+        </tr>
+        <tr>
+          <td>Atenuação em mosaico</td>
+          <td>Pode ser SAD + vasoconstricção reflexa; confirmar com expiração</td>
+          <td>Doença intersticial difusa / GGO intersticial</td>
+        </tr>
+        <tr>
+          <td>FEF25–75 ↓ / IOS R5–R20 / RV/TLC ↑</td>
+          <td>Correlatos fisiológicos de SAD em rinite±asma (ATLANTIS e revisões)</td>
+          <td>Diagnóstico de ILD</td>
+        </tr>
+        <tr>
+          <td>TC de seios (quando indicada)</td>
+          <td>Opacidade, espessamento mucoso, polipose — doença <em>sinonasal</em></td>
+          <td>Não substitui TC de tórax para parênquima</td>
+        </tr>
+      </tbody>
+    </table>
+    <ul class="clean" style="margin-top:12px;">
+      <li>Indicar TC de tórax se: sintomas inferiores atípicos, suspeita de bronquiectasia, tabagismo importante, infecções de repetição, ou investigação de asma grave/ overlap — não de rotina em rinite isolada controlada.</li>
+      <li>Protocolo: inspiração + <strong>expiração</strong> se a pergunta for air trapping.</li>
+      <li>Fontes anexas enfatizam SAD funcional (FEF25–75, FeNO, provocação), não “padrão CT de rinite” inventado.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 06 EXAMES -->
+<section id="exames">
+  <div class="section-head"><span class="section-num">06</span><h2>Exames necessários</h2></div>
+  <div class="card">
+    <table>
+      <thead><tr><th>Nível</th><th>Exame</th><th>Quando</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="pill pill-teal">Base</span></td>
+          <td>História estruturada (ARIA: intermitente/persistente; leve/moderada-grave); gatilhos; fármacos; sono; asma/DPOC; SM</td>
+          <td>Todos</td>
+        </tr>
+        <tr>
+          <td><span class="pill pill-teal">Base</span></td>
+          <td>Exame nasal anterior; <strong>endoscopia nasal</strong> se disponível (pólipos, desvio, hipertrofia de cornetos)</td>
+          <td>Persistente / refratária / suspeita de CRS</td>
+        </tr>
+        <tr>
+          <td><span class="pill pill-blue">Alergia</span></td>
+          <td>Testes cutâneos (prick) e/ou IgE específica; IgE total (contexto); citologia nasal se útil</td>
+          <td>Fenotipagem alérgica; indicação de AIT</td>
+        </tr>
+        <tr>
+          <td><span class="pill pill-blue">Vias inferiores</span></td>
+          <td><strong>Espirometria</strong> (± BD); atenção a FEF25–75; <strong>FeNO</strong>; eosinófilos sanguíneos</td>
+          <td>Suspeita de asma / BHR / tipo 2</td>
+        </tr>
+        <tr>
+          <td><span class="pill pill-amber">Avançado</span></td>
+          <td>Teste de metacolina (ou equivalente) para BHR</td>
+          <td>Rinite + sintomas inferiores com espirometria normal</td>
+        </tr>
+        <tr>
+          <td><span class="pill pill-amber">Sono</span></td>
+          <td><strong>Polissonografia</strong> / poligrafia</td>
+          <td>Ronco, sonolência, obesidade, falha de CPAP, rinite + SAOS suspeita</td>
+        </tr>
+        <tr>
+          <td><span class="pill pill-amber">Imagem</span></td>
+          <td>TC de seios; TC de tórax (inspiração±expiração) quando indicada</td>
+          <td>CRS / cirurgia / sintomas pulmonares atípicos</td>
+        </tr>
+        <tr>
+          <td><span class="pill pill-red">Metabólico</span></td>
+          <td>IMC, circunferência abdominal, PA, glicemia/HbA1c, lipídios</td>
+          <td>Cluster SM / SAOS / asma de difícil controle</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 07 LAVAGEM -->
+<section id="lavagem">
+  <div class="section-head"><span class="section-num">07</span><h2>Lavagem / irrigação nasal — ênfase em baixo volume</h2></div>
+  <div class="card">
+    <div class="callout ok">
+      <strong>Definições (Cochrane AR):</strong> muito baixo volume &lt;5 mL/narina (sprays); <strong>baixo volume 5–59 mL/narina</strong> (seringa/jato); alto volume ≥60 mL/narina (pote/squeeze bottle, tipicamente 200–240 mL).
+    </div>
+    <h3 style="font-size:1.05rem;">Vantagens da lavagem de <em>baixo volume</em></h3>
+    <div class="grid-2">
+      <div>
+        <ul class="clean">
+          <li><strong>Tolerabilidade e adesão:</strong> menos desconforto, menor engasgo e melhor aceitação (crianças, idosos, iniciantes).</li>
+          <li><strong>Segurança prática:</strong> menor risco de barotrauma / disfunção tubária por pressão alta; técnica mais simples.</li>
+          <li><strong>Umectação e clearance:</strong> remove alérgenos, mediadores e muco viscoso da cavidade nasal (~15–22 mL) — volume compatível com o espaço aéreo nasal.</li>
+          <li><strong>Adjuvante diário:</strong> 1–2×/dia com salina isotônica (0,9%); facilita ação de INCS (muco menos espesso).</li>
+          <li><strong>Evidência:</strong> Cochrane — salina (vários volumes) melhora sintomas vs. nenhum tratamento; benefício também nas faixas de baixo/muito baixo volume.</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="clean">
+          <li><strong>Quando preferir alto volume:</strong> CRS, pós-operatório sinusal, necessidade de penetração ostial — se o paciente tolerar (sínteses sugerem ≥60 mL mais eficaz em adultos com sintomas crônicos).</li>
+          <li>O material SAOS cita irrigação 200–240 mL como adjuvante clássico — útil, mas não contradiz o papel do baixo volume na rinite e na adesão.</li>
+          <li>Isotônica costuma irritar menos que hipertônica; água deve ser potável/fervida/resfriada ou esterilizada.</li>
+          <li>Não usar água de torneira não tratada (risco raro de ameba).</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout amber">
+      <strong>Mensagem didática:</strong> comece com baixo volume para adesão; escale para alto volume se CRS/sintomas persistentes e boa técnica. Lavagem não substitui INCS quando estes estão indicados.
+    </div>
+  </div>
+</section>
+
+<!-- 08 FARMACO -->
+<section id="farmaco">
+  <div class="section-head"><span class="section-num">08</span><h2>Tratamento farmacológico (visão prática)</h2></div>
+  <div class="card">
+    <table>
+      <thead><tr><th>Classe</th><th>Papel</th><th>Notas</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Corticosteroides intranasais (INCS)</td>
+          <td>1ª linha na AR persistente / CRS</td>
+          <td>Reduzem inflamação nasal; dados sugerem benefício em marcadores de BHR e, em AOS+rinite, IAH e adesão ao CPAP. Técnica e adesão são críticas.</td>
+        </tr>
+        <tr>
+          <td>Anti-histamínicos H1 (oral / intranasal)</td>
+          <td>Prurido, espirros, rinorreia</td>
+          <td>ARIA 2024–25: combinações INAH+INCS frequentemente preferidas vs. monoterapia em sintomas relevantes.</td>
+        </tr>
+        <tr>
+          <td>Antagonistas de leucotrienos</td>
+          <td>Adjuvante (asma+AR)</td>
+          <td>Útil em fenótipos selecionados; não primeira linha isolada para congestão intensa.</td>
+        </tr>
+        <tr>
+          <td>Descongestionantes tópicos</td>
+          <td>Curto prazo</td>
+          <td>Risco de rinite medicamentosa — evitar uso prolongado.</td>
+        </tr>
+        <tr>
+          <td>Imunoterapia (AIT) SC/SL</td>
+          <td>Doença alérgica confirmada</td>
+          <td>Modifica história natural; sinais de redução de progressão para asma em coortes.</td>
+        </tr>
+        <tr>
+          <td>Controle ambiental</td>
+          <td>Ácaros, fungos, pólens, tabaco</td>
+          <td>Cofator de barreira epitelial e inflamação unificada.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 09 BIOLOGICOS -->
+<section id="biologicos">
+  <div class="section-head"><span class="section-num">09</span><h2>Imunobiológicos</h2></div>
+  <div class="card">
+    <div class="callout ok">
+      Alvo: inflamação tipo 2 compartilhada (IL-4/13, IL-5, IgE, TSLP). Úteis em <strong>RSCcPN</strong> grave e/ou <strong>asma grave</strong> com endótipo T2 — muitas vezes com indicação dual.
+    </div>
+    <table>
+      <thead><tr><th>Agente</th><th>Alvo</th><th>Contexto nariz/pulmão</th><th>Brasil — honestidade regulatória</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Dupilumabe</strong></td>
+          <td>IL-4Rα (IL-4/IL-13)</td>
+          <td>Asma grave T2; RSCcPN; outras indicações T2</td>
+          <td><strong>ANVISA:</strong> bula inclui asma e RSCcPN em adultos (conforme bula vigente). <strong>SUS:</strong> incorporação publicada (Portaria SECTICS/MS nº 3/2025) para <em>asma grave fenótipo T2 alto alérgica</em> conforme PCDT — <strong>não</strong> equivale a incorporação rotineira específica para RSCcPN isolada. Dual asma+pólipos: pode facilitar acesso via indicação de asma quando critérios PCDT forem cumpridos; RSCcPN pura pode depender de análise administrativa/judicial. Confirme PCDT/bula atualizados.</td>
+        </tr>
+        <tr>
+          <td>Omalizumabe</td>
+          <td>IgE</td>
+          <td>Asma alérgica; RSCcPN (rótulos internacionais/BR conforme bula)</td>
+          <td>Mantido no SUS para asma alérgica grave (com atualização de apresentação 75 mg/mL na mesma portaria). Verificar bula BR vigente para RSCcPN.</td>
+        </tr>
+        <tr>
+          <td>Mepolizumabe</td>
+          <td>IL-5</td>
+          <td>Asma eosinofílica; RSCcPN em adultos (conforme bula)</td>
+          <td>Disponível no SUS para asma eosinofílica grave (CEAF/PCDT). Para RSCcPN, seguir bula ANVISA e diretrizes ABORL — não inventar data de incorporação SUS para pólipos.</td>
+        </tr>
+        <tr>
+          <td>Tezepelumabe</td>
+          <td>TSLP</td>
+          <td>Asma; expansão para RSCcPN em alguns rótulos</td>
+          <td>Confirmar indicação e status ANVISA/SUS vigentes antes de afirmar cobertura.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="callout amber" style="margin-top:12px;">
+      <strong>Não inventar:</strong> ANVISA ≠ Rol ANS ≠ oferta SUS automática. Diretrizes ABORL/ASBAI orientam critérios fenotípicos (pólipos, cirurgias prévias, corticoides sistêmicos, asma coexistente, biomarcadores). Este agente é educacional — validar bula, PCDT e parecer CONITEC na data do atendimento.
+    </div>
+    <ul class="clean">
+      <li>Indicação dual (asma + CRSwNP): biologicos que cobrem ambos os sítios são especialmente racionais no paradigma da via aérea única.</li>
+      <li>Monitorar: escores nasais (SNOT-22), necessidade de cirurgia/corticoide sistêmico, exacerbaciones de asma, eosinófilos, efeitos adversos (incluindo helmintíase pré-anti-IL-5/IL-4R quando aplicável).</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 10 FONTES -->
+<section id="fontes">
+  <div class="section-head"><span class="section-num">10</span><h2>Fontes e disclaimer</h2></div>
+  <div class="card">
+    <h4 style="font-size:.95rem;">Anexos utilizados nesta versão</h4>
+    <ul class="clean">
+      <li>TL;DR — Allergic rhinitis and bronchial hyperreactivity (mecanismos, 2015–2025).</li>
+      <li>Christodoulopoulos et al. — Molecular pathology of allergic disease II: Upper airway disease. <em>J Allergy Clin Immunol</em> 2000.</li>
+      <li>PPT — Rinite alérgica e hiperreatividade brônquica (síntese slides).</li>
+      <li>PPT — Rinite e SAOS (bidirecionalidade, INCS, irrigação, muco).</li>
+      <li>Avaliação do resumo AR/BHR (síntese crítica).</li>
+    </ul>
+    <h4 style="font-size:.95rem;margin-top:16px;">Literatura / guias de apoio</h4>
+    <ul class="clean">
+      <li>ARIA (Allergic Rhinitis and its Impact on Asthma) — conceito via aérea única; revisão EAACI 2024–2025 (tratamentos intranasais).</li>
+      <li>Cochrane: Saline irrigation for allergic rhinitis (volumes muito baixo / baixo / alto).</li>
+      <li>Volumes nasais: Borojeni et al. / CFD (~21,5 mL); estudos CT ~15 mL; rinometria acústica (segmentos).</li>
+      <li>Ventilação minuto / volume diário: fisiologia clássica (≈6 L/min repouso); faixas 5–10 L/min; EPA Exposure Factors Handbook (médias de atividade).</li>
+      <li>Radiopaedia / ATANTIS — air trapping e SAD (não ILD).</li>
+      <li>Cao 2018; Phoophiboon 2023; Ali 2023 — rinite ↔ AOS.</li>
+      <li>ANVISA bula Dupixent; Portaria SECTICS/MS nº 3, 31/01/2025 (dupilumabe asma T2 alto no SUS); diretrizes ABORL imunobiológicos RSCcPN.</li>
+    </ul>
+    <div class="callout warn" style="margin-top:14px;">
+      <strong>Disclaimer educacional:</strong> PneumoAgents — apoio à decisão e ensino para clínicos. Não substitui bula, PCDT, parecer CONITEC, Rol ANS nem julgamento individual. Números de volume e prevalência são ordens de grandeza; confirme evidência e status regulatório na data do uso. Revisão: 19/09/2026 (America/Sao_Paulo).
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  PneumoAgents · Agente 15 — Rinite · Dr. Fernando Lundgren · CRM 26120 | RQE 14933 · Uso offline educacional · v1.0 · 09/2026
+</footer>
+
+</body>
+</html>

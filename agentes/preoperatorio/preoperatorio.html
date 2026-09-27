@@ -1,1 +1,664 @@
-<h1>Avaliação Pré-Operatória</h1><p>Placeholder. Substituir pelo HTML definitivo.</p>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script src="../../assets/js/trial-gate.js" data-agent="preoperatorio" data-nome="Pré-operatório / risco" data-portal="../../index.html"></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PneumoAgents · Pré-operatório / Risco Cirúrgico v5.0</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(135deg,#e3f2fd 0%,#c5cae9 100%);padding:20px;line-height:1.45;color:#222}
+.container{max-width:210mm;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 4px 20px rgba(0,0,0,.1);padding:28px}
+.header{text-align:center;margin-bottom:18px;padding-bottom:14px;border-bottom:3px solid #3f51b5}
+.header h1{color:#1a237e;font-size:1.65em;margin-bottom:6px}
+.header .brand{color:#3f51b5;font-weight:700;letter-spacing:.02em}
+.header .sub{color:#5c6bc0;font-size:.95em}
+.header .ver{color:#7986cb;font-size:.78em;margin-top:6px}
+.section{margin-bottom:16px;padding:14px;background:#f8f9fa;border-radius:8px;border-left:4px solid #3f51b5}
+.section h2{color:#1a237e;margin-bottom:10px;font-size:1.1em}
+.section h3{color:#283593;margin:10px 0 6px;font-size:.95em}
+.hint{font-size:.82em;color:#666;margin-bottom:8px}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.form-group{display:flex;flex-direction:column}
+.form-group label{font-weight:600;color:#333;margin-bottom:4px;font-size:.86em}
+.form-group input,.form-group select,.form-group textarea{padding:8px;border:2px solid #ddd;border-radius:5px;font-size:.92em}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:#3f51b5}
+.form-group input[readonly]{background:#e9ecef;cursor:default}
+.checkbox-group{display:flex;align-items:flex-start;gap:8px;padding:6px 0}
+.checkbox-group input{width:17px;height:17px;margin-top:2px;flex-shrink:0;cursor:pointer}
+.checkbox-group label,.checkbox-group span{margin:0;cursor:pointer;font-weight:normal;font-size:.88em}
+.chk-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:4px 10px}
+.score-display{background:#e8eaf6;padding:10px;border-radius:5px;margin-top:10px;border-left:4px solid #3f51b5;font-size:.9em}
+.score-display.live{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:.78em;font-weight:700}
+.pill.low{background:#c8e6c9;color:#1b5e20}
+.pill.inter{background:#ffe082;color:#e65100}
+.pill.high{background:#ffcdd2;color:#b71c1c}
+.pill.inc{background:#eceff1;color:#455a64}
+.button-group{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.btn{padding:10px 18px;border:none;border-radius:5px;font-size:.92em;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-primary{background:#3f51b5;color:#fff}
+.btn-primary:hover{background:#303f9f}
+.btn-success{background:#4caf50;color:#fff}
+.btn-outline{background:#fff;color:#3f51b5;border:2px solid #3f51b5}
+.btn-danger{background:#f44336;color:#fff;margin-left:auto}
+.hidden{display:none!important}
+.disclaimer{background:#fff8e1;border-left:4px solid #ff9800;padding:10px 12px;border-radius:6px;font-size:.8em;color:#5d4037;margin-top:12px}
+.cite{font-size:.75em;color:#666;margin-top:8px;line-height:1.4}
+.ariscat-box{background:#fff;border:1px solid #c5cae9;border-radius:6px;padding:10px;margin-top:8px}
+.ariscat-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:4px 0;border-bottom:1px dashed #e0e0e0;font-size:.85em}
+.ariscat-row:last-child{border-bottom:none}
+.pts{font-weight:700;color:#1a237e;min-width:2.5em;text-align:right}
+.relatorio{margin-top:24px;padding:18px;background:#fff;border:2px solid #3f51b5;border-radius:8px;font-size:.9em}
+.relatorio-header{background:#1a237e;color:#fff;padding:14px;margin:-18px -18px 16px;border-radius:6px 6px 0 0;text-align:center}
+.relatorio-header h2{color:#fff;font-size:1.2em;margin-bottom:4px}
+.relatorio-section{margin-bottom:12px;page-break-inside:avoid}
+.relatorio-section h3{color:#1a237e;margin-bottom:6px;font-size:.95em;border-bottom:2px solid #e8eaf6;padding-bottom:3px}
+.info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:4px 10px;font-size:.85em}
+.score-box{background:#e3f2fd;padding:8px;border-radius:5px;margin:5px 0;font-size:.85em}
+.recomendacoes-list{list-style-position:inside;padding:0;font-size:.85em}
+.recomendacoes-list li{padding:4px 0;border-bottom:1px solid #eee}
+.observacoes-box{background:#f5f5f5;padding:10px;border-left:4px solid #3f51b5;border-radius:5px;font-size:.85em}
+.assinatura{margin-top:20px;padding-top:12px;border-top:2px solid #ddd;text-align:center;font-size:.85em}
+.mini{font-size:.75em;color:#888}
+@page{size:A4;margin:8mm}
+@media print{
+  html,body{background:#fff!important;margin:0;padding:0;width:210mm}
+  body{padding:0!important}
+  .container{box-shadow:none!important;padding:0!important;max-width:210mm;border-radius:0;margin:0;width:100%}
+  .no-print,.header,.section,.button-group,.btn,.disclaimer,.cite,.ver{display:none!important}
+  #secaoRelatorio,#secaoRelatorio.hidden{display:block!important;margin:0!important;padding:0!important;visibility:visible!important}
+  .relatorio{border:none!important;padding:0!important;margin:0!important;font-size:8pt!important;line-height:1.22!important;border-radius:0!important}
+  .relatorio-header{background:#fff!important;color:#000!important;border-bottom:1.5pt solid #000;margin:0 0 4pt;padding:0 0 3pt;border-radius:0!important}
+  .relatorio-header h2{color:#000!important;font-size:11pt!important;margin:0 0 1pt!important}
+  .relatorio-header p{color:#000!important;font-size:8pt!important;margin:0!important}
+  .relatorio-section{margin:0 0 3.5pt!important;page-break-inside:avoid}
+  .relatorio-section h3{color:#000!important;font-size:9pt!important;margin:0 0 1.5pt!important;padding:0 0 1pt!important;border-bottom:0.6pt solid #333}
+  .info-grid{gap:1pt 6pt!important;font-size:7.5pt!important}
+  .score-box,.observacoes-box{background:#fff!important;border:0.6pt solid #000;padding:2pt 4pt!important;margin:1pt 0!important;font-size:7.5pt!important;border-radius:0!important}
+  .recomendacoes-list,.recomendacoes-list li{font-size:7.5pt!important;margin:0!important;padding:0.5pt 0!important;border:none!important}
+  .recomendacoes-list{padding-left:12pt!important;margin:1pt 0 0!important}
+  .assinatura{margin-top:6pt!important;padding-top:4pt!important;border-top:0.8pt solid #000;font-size:7.5pt!important}
+  .assinatura .nome{font-size:8.5pt!important}
+  .mini{font-size:6.5pt!important}
+  .pill{border:0.5pt solid #000;font-size:7pt!important}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="brand">PneumoAgents</div>
+    <h1>Avaliação Pré-Operatória — Risco Respiratório Cirúrgico</h1>
+    <p class="sub">Dr. Fernando Lundgren</p>
+    <p class="ver">v5.0 · ARISCAT Canet corrigido · 09/2026</p>
+  </div>
+
+  <!-- 1. Identificação -->
+  <div class="section">
+    <h2>1. Identificação</h2>
+    <div class="form-grid">
+      <div class="form-group"><label for="dataRelatorio">Data do relatório *</label><input type="date" id="dataRelatorio"></div>
+      <div class="form-group"><label for="medicoNome">Médico avaliador *</label><input type="text" id="medicoNome" placeholder="Nome completo" value="Fernando Lundgren"></div>
+      <div class="form-group"><label for="crm">CRM *</label><input type="text" id="crm" placeholder="Ex: CRM-CE 00000"></div>
+      <div class="form-group"><label for="rqe">RQE (Pneumologia)</label><input type="text" id="rqe" placeholder="Ex: RQE 0000"></div>
+      <div class="form-group"><label for="hospital">Hospital / instituição</label><input type="text" id="hospital" placeholder="Livre"></div>
+      <div class="form-group"><label for="procedimento">Procedimento proposto</label><input type="text" id="procedimento" placeholder="Descrição livre do procedimento"></div>
+      <div class="form-group"><label for="cirurgiao">Cirurgião solicitante</label><input type="text" id="cirurgiao" placeholder="Nome"></div>
+      <div class="form-group"><label for="nomePaciente">Nome do paciente *</label><input type="text" id="nomePaciente" placeholder="Nome completo"></div>
+      <div class="form-group"><label for="cpf">CPF</label><input type="text" id="cpf" placeholder="XXX.XXX.XXX-XX"></div>
+      <div class="form-group"><label for="idade">Idade (anos) *</label><input type="number" id="idade" min="0" max="120" placeholder="Ex: 65"></div>
+      <div class="form-group"><label for="sexo">Sexo *</label>
+        <select id="sexo"><option value="">Selecione</option><option value="M">Masculino</option><option value="F">Feminino</option></select>
+      </div>
+      <div class="form-group"><label for="asa">ASA (estado físico) — campo separado</label>
+        <select id="asa">
+          <option value="">Selecione</option>
+          <option value="I">ASA I — saudável</option>
+          <option value="II">ASA II — doença sistêmica leve</option>
+          <option value="III">ASA III — doença sistêmica grave</option>
+          <option value="IV">ASA IV — ameaça à vida</option>
+          <option value="V">ASA V — moribundo</option>
+        </select>
+      </div>
+    </div>
+    <p class="mini">ASA não entra na pontuação ARISCAT (Canet 2010).</p>
+  </div>
+
+  <!-- 2. Antropometria -->
+  <div class="section">
+    <h2>2. Antropometria e vitalidade</h2>
+    <div class="form-grid">
+      <div class="form-group"><label for="peso">Peso (kg)</label><input type="number" id="peso" step="0.1" min="20" max="400"></div>
+      <div class="form-group"><label for="altura">Altura (m)</label><input type="number" id="altura" step="0.01" min="1.0" max="2.5" placeholder="Ex: 1.70"></div>
+      <div class="form-group"><label for="imc">IMC (kg/m²)</label><input type="text" id="imc" readonly placeholder="Automático"></div>
+      <div class="form-group"><label for="spo2">SpO₂ em repouso (%) *</label><input type="number" id="spo2" min="50" max="100" placeholder="Ex: 96"></div>
+      <div class="form-group"><label for="circunferenciaCervical">Circunferência cervical (cm) *</label><input type="number" id="circunferenciaCervical" min="20" max="80" placeholder="Ex: 42"></div>
+      <div class="form-group"><label for="mallampati">Mallampati</label>
+        <select id="mallampati"><option value="">Selecione</option><option value="I">I</option><option value="II">II</option><option value="III">III</option><option value="IV">IV</option></select>
+      </div>
+      <div class="form-group"><label for="capacidadeFuncional">Capacidade funcional</label>
+        <select id="capacidadeFuncional">
+          <option value="">Não avaliada</option>
+          <option value="boa">Boa — ≥4 METs / sobe 2 lances</option>
+          <option value="ruim">Ruim — &lt;4 METs</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. ARISCAT Canet 2010 -->
+  <div class="section">
+    <h2>3. ARISCAT — Canet 2010 (Anesthesiology)</h2>
+    <p class="hint">Os 7 preditores devem ser coletados explicitamente. Pontuação ao vivo abaixo.</p>
+    <div class="form-grid">
+      <div class="form-group"><label for="ariscatIdade">Idade (faixa ARISCAT) *</label>
+        <select id="ariscatIdade">
+          <option value="">Selecione</option>
+          <option value="0">≤ 50 anos — 0</option>
+          <option value="3">51–80 anos — 3</option>
+          <option value="16">&gt; 80 anos — 16</option>
+        </select>
+      </div>
+      <div class="form-group"><label for="ariscatSpo2">SpO₂ pré-op (faixa) *</label>
+        <select id="ariscatSpo2">
+          <option value="">Selecione</option>
+          <option value="0">≥ 96% — 0</option>
+          <option value="8">91–95% — 8</option>
+          <option value="24">≤ 90% — 24</option>
+        </select>
+      </div>
+      <div class="form-group"><label for="ariscatInfeccao">Infecção respiratória no último mês *</label>
+        <select id="ariscatInfeccao">
+          <option value="">Selecione</option>
+          <option value="0">Não — 0</option>
+          <option value="17">Sim — 17</option>
+        </select>
+      </div>
+      <div class="form-group"><label for="ariscatAnemia">Anemia pré-op (Hb ≤ 10 g/dL) *</label>
+        <select id="ariscatAnemia">
+          <option value="">Selecione</option>
+          <option value="0">Não — 0</option>
+          <option value="11">Sim — 11</option>
+        </select>
+      </div>
+      <div class="form-group"><label for="ariscatIncisao">Sítio da incisão *</label>
+        <select id="ariscatIncisao">
+          <option value="">Selecione</option>
+          <option value="0">Periférica — 0</option>
+          <option value="15">Abdominal superior — 15</option>
+          <option value="24">Intratorácica — 24</option>
+        </select>
+      </div>
+      <div class="form-group"><label for="ariscatDuracao">Duração da cirurgia *</label>
+        <select id="ariscatDuracao">
+          <option value="">Selecione</option>
+          <option value="0">&lt; 2 h — 0</option>
+          <option value="16">2–3 h — 16</option>
+          <option value="23">&gt; 3 h — 23</option>
+        </select>
+      </div>
+      <div class="form-group"><label for="ariscatEmergencia">Cirurgia de emergência *</label>
+        <select id="ariscatEmergencia">
+          <option value="">Selecione</option>
+          <option value="0">Não — 0</option>
+          <option value="8">Sim — 8</option>
+        </select>
+      </div>
+    </div>
+    <div class="ariscat-box" id="ariscatDetalhe">
+      <div class="ariscat-row"><span>Idade</span><span class="pts" id="ptIdade">—</span></div>
+      <div class="ariscat-row"><span>SpO₂</span><span class="pts" id="ptSpo2">—</span></div>
+      <div class="ariscat-row"><span>Infecção respiratória (último mês)</span><span class="pts" id="ptInf">—</span></div>
+      <div class="ariscat-row"><span>Anemia (Hb ≤ 10)</span><span class="pts" id="ptAnemia">—</span></div>
+      <div class="ariscat-row"><span>Incisão</span><span class="pts" id="ptInc">—</span></div>
+      <div class="ariscat-row"><span>Duração</span><span class="pts" id="ptDur">—</span></div>
+      <div class="ariscat-row"><span>Emergência</span><span class="pts" id="ptEmerg">—</span></div>
+    </div>
+    <div class="score-display live">
+      <strong>ARISCAT:</strong>
+      <span id="ariscatScore">—</span> pontos
+      <span id="ariscatClass" class="pill inc">Preencha os 7 itens</span>
+      <span class="mini">Baixo &lt;26 · Intermediário 26–44 · Alto ≥45</span>
+    </div>
+  </div>
+
+  <!-- 4. STOP-BANG -->
+  <div class="section">
+    <h2>4. STOP-BANG (risco de AOS)</h2>
+    <p class="hint">8 itens. IMC, idade e sexo são preenchidos automaticamente quando disponíveis. Circunferência cervical é necessária para escore completo.</p>
+    <div class="chk-grid">
+      <label class="checkbox-group"><input type="checkbox" id="sb_s"><span><strong>S</strong> — Ronco alto (Snoring)</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="sb_t"><span><strong>T</strong> — Cansaço / sonolência diurna (Tired)</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="sb_o"><span><strong>O</strong> — Apneia observada (Observed)</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="sb_p"><span><strong>P</strong> — Hipertensão arterial (Pressure)</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="sb_b" disabled><span><strong>B</strong> — IMC &gt; 35 <small id="sb_b_note">(auto)</small></span></label>
+      <label class="checkbox-group"><input type="checkbox" id="sb_a" disabled><span><strong>A</strong> — Idade &gt; 50 <small id="sb_a_note">(auto)</small></span></label>
+      <label class="checkbox-group"><input type="checkbox" id="sb_n" disabled><span><strong>N</strong> — Pescoço &gt; 40 cm <small id="sb_n_note">(auto; nota sex-específico opcional)</small></span></label>
+      <label class="checkbox-group"><input type="checkbox" id="sb_g" disabled><span><strong>G</strong> — Sexo masculino (Gender) <small id="sb_g_note">(auto)</small></span></label>
+    </div>
+    <p class="mini">Nota opcional: alguns protocolos usam limiar cervical &gt;43 cm (homem) / &gt;41 cm (mulher). Este agente usa o clássico &gt;40 cm; campo cervical obrigatório para escore completo.</p>
+    <div class="score-display live">
+      <strong>STOP-BANG:</strong>
+      <span id="stopBangScore">0</span>/8
+      <span id="stopBangClass" class="pill low">Baixo risco de AOS</span>
+      <span id="stopBangStatus" class="mini"></span>
+    </div>
+  </div>
+
+  <!-- 5. Respiratório / espirometria -->
+  <div class="section">
+    <h2>5. Comprometimento respiratório e espirometria</h2>
+    <div class="form-grid">
+      <div class="form-group"><label for="asma">Asma (controle GINA)</label><input type="text" id="asma" placeholder="Ex: controlada / parcialmente"></div>
+      <div class="form-group"><label for="dpoc">DPOC (GOLD)</label><input type="text" id="dpoc" placeholder="Ex: GOLD 2 B"></div>
+      <div class="form-group"><label for="vef1pct">VEF₁ % previsto</label><input type="number" id="vef1pct" step="0.1" placeholder="% previsto"></div>
+      <div class="form-group"><label for="vef1abs">VEF₁ absoluto (L) — opcional</label><input type="number" id="vef1abs" step="0.01" placeholder="L"></div>
+      <div class="form-group"><label for="cvfpct">CVF % previsto</label><input type="number" id="cvfpct" step="0.1" placeholder="% previsto"></div>
+      <div class="form-group"><label for="cvfabs">CVF absoluto (L) — opcional</label><input type="number" id="cvfabs" step="0.01" placeholder="L"></div>
+      <div class="form-group"><label for="vef1Cvf">VEF₁/CVF (% ou razão)</label><input type="text" id="vef1Cvf" placeholder="Ex: 68% ou 0,68"></div>
+      <div class="form-group"><label for="pfe">PFE (opcional / demovido)</label><input type="number" id="pfe" step="0.1" placeholder="L/s — não primário"></div>
+    </div>
+    <div class="chk-grid" style="margin-top:10px">
+      <label class="checkbox-group"><input type="checkbox" id="rinite"><span>Rinite</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="tabagismoAtivo"><span>Tabagista ativo</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="hipertensao"><span>Hipertensão arterial</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="diabetes"><span>Diabetes mellitus</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="doencaIsquemica"><span>Doença isquêmica do coração</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="insufCardiaca"><span>Insuficiência cardíaca</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="doencaCerebrovascular"><span>Doença cerebrovascular</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="usaCpap"><span>Já usa CPAP/BiPAP</span></label>
+    </div>
+    <div class="form-group" style="margin-top:10px">
+      <label for="alteracoesRadiologicas">Alterações de imagem / outras comorbidades</label>
+      <textarea id="alteracoesRadiologicas" rows="2" placeholder="Ex: enfisema, infiltrado, derrame…"></textarea>
+    </div>
+    <div class="form-group" style="margin-top:8px">
+      <label for="medicamentos">Medicamentos relevantes</label>
+      <textarea id="medicamentos" rows="2" placeholder="Inclua anticoagulantes, antiagregantes, corticoides, GLP-1/GIP, inalatórios…"></textarea>
+    </div>
+  </div>
+
+  <!-- 6. Opinião -->
+  <div class="section">
+    <h2>6. Opinião médica (livre)</h2>
+    <div class="form-group">
+      <label for="opiniaoProfissional">Análise integrada e recomendações adicionais</label>
+      <textarea id="opiniaoProfissional" rows="4" placeholder="Espaço para opinião clínica, otimizações e plano perioperatório…"></textarea>
+    </div>
+    <label class="checkbox-group" style="margin-top:8px">
+      <input type="checkbox" id="pacienteInformado">
+      <span>Paciente informado sobre coleta de dados (LGPD)</span>
+    </label>
+  </div>
+
+  <div class="button-group no-print">
+    <button type="button" class="btn btn-primary" onclick="gerarRelatorio()">Gerar relatório</button>
+    <button type="button" class="btn btn-success" onclick="imprimirRelatorio()">Imprimir / PDF</button>
+    <button type="button" class="btn btn-outline" onclick="salvarLocal()">Salvar (localStorage)</button>
+    <button type="button" class="btn btn-outline" onclick="carregarLocal()">Carregar</button>
+    <button type="button" class="btn btn-danger" onclick="limparFormulario()">Limpar</button>
+  </div>
+
+  <div class="disclaimer no-print">
+    <strong>Aviso educacional:</strong> ferramenta de apoio à decisão clínica. Não substitui julgamento médico, exame físico, protocolos institucionais nem a avaliação anestésico-cirúrgica. Individualize sempre.
+    <div class="cite">
+      Referências: Canet J et al. Prediction of postoperative pulmonary complications in a population-based surgical cohort. <em>Anesthesiology</em>. 2010;113(6):1338-1350 (ARISCAT).
+      Chung F et al. STOP-Bang questionnaire. <em>Anesthesiology</em> / literatura de AOS perioperatória (STOP-Bang 0–8).
+    </div>
+  </div>
+
+  <!-- Relatório -->
+  <div id="secaoRelatorio" class="hidden">
+    <div class="relatorio" id="relatorioConteudo"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const LS_KEY = 'pneumoagents_preop_v5';
+  const $ = id => document.getElementById(id);
+  const valor = id => (($(id)||{}).value || '').trim();
+  const num = id => { const v = parseFloat(String(valor(id)).replace(',','.')); return Number.isFinite(v) ? v : null; };
+  const chk = id => !!($(id)||{}).checked;
+  const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+  function setDateToday(){
+    if (!$('dataRelatorio').value) {
+      const d = new Date();
+      $('dataRelatorio').value = d.toISOString().slice(0,10);
+    }
+  }
+  setDateToday();
+
+  function calcularIMC(){
+    const peso = num('peso'), altura = num('altura');
+    if (peso && altura && altura > 0) $('imc').value = (peso/(altura*altura)).toFixed(1);
+    else $('imc').value = '';
+    syncStopBangAuto();
+  }
+
+  function syncAriscatFromBasics(){
+    const idade = num('idade');
+    if (idade !== null && !valor('ariscatIdade')) {
+      if (idade <= 50) $('ariscatIdade').value = '0';
+      else if (idade <= 80) $('ariscatIdade').value = '3';
+      else $('ariscatIdade').value = '16';
+    } else if (idade !== null) {
+      // always refresh idade faixa when idade changes
+      if (idade <= 50) $('ariscatIdade').value = '0';
+      else if (idade <= 80) $('ariscatIdade').value = '3';
+      else $('ariscatIdade').value = '16';
+    }
+    const spo2 = num('spo2');
+    if (spo2 !== null) {
+      if (spo2 >= 96) $('ariscatSpo2').value = '0';
+      else if (spo2 >= 91) $('ariscatSpo2').value = '8';
+      else $('ariscatSpo2').value = '24';
+    }
+    atualizarARISCAT();
+    syncStopBangAuto();
+  }
+
+  function syncStopBangAuto(){
+    const imc = num('imc') || 0;
+    const idade = num('idade') || 0;
+    const circ = num('circunferenciaCervical');
+    const sexo = valor('sexo');
+
+    $('sb_b').checked = imc > 35;
+    $('sb_b_note').textContent = imc ? `(IMC ${imc})` : '(informe peso/altura)';
+
+    $('sb_a').checked = idade > 50;
+    $('sb_a_note').textContent = idade ? `(idade ${idade})` : '(informe idade)';
+
+    if (circ !== null) {
+      $('sb_n').checked = circ > 40;
+      let note = `(${circ} cm; clássico >40)`;
+      if (sexo === 'M') note += ' · alt. ♂>43';
+      if (sexo === 'F') note += ' · alt. ♀>41';
+      $('sb_n_note').textContent = note;
+    } else {
+      $('sb_n').checked = false;
+      $('sb_n_note').textContent = '(informe cervical — necessário p/ escore completo)';
+    }
+
+    $('sb_g').checked = sexo === 'M';
+    $('sb_g_note').textContent = sexo ? (sexo==='M'?'masculino':'feminino') : '(informe sexo)';
+
+    // Pressure (STOP-BANG) = HAS — manter alinhado ao checkbox de hipertensão
+    $('sb_p').checked = chk('hipertensao');
+
+    atualizarSTOPBANG();
+  }
+
+  function ariscatPts(id){
+    const v = valor(id);
+    if (v === '') return null;
+    return parseInt(v, 10);
+  }
+
+  function atualizarARISCAT(){
+    const parts = {
+      idade: ariscatPts('ariscatIdade'),
+      spo2: ariscatPts('ariscatSpo2'),
+      inf: ariscatPts('ariscatInfeccao'),
+      anemia: ariscatPts('ariscatAnemia'),
+      inc: ariscatPts('ariscatIncisao'),
+      dur: ariscatPts('ariscatDuracao'),
+      emerg: ariscatPts('ariscatEmergencia')
+    };
+    const map = {idade:'ptIdade',spo2:'ptSpo2',inf:'ptInf',anemia:'ptAnemia',inc:'ptInc',dur:'ptDur',emerg:'ptEmerg'};
+    let complete = true, score = 0;
+    Object.keys(parts).forEach(k=>{
+      const el = $(map[k]);
+      if (parts[k] === null) { el.textContent = '—'; complete = false; }
+      else { el.textContent = parts[k]; score += parts[k]; }
+    });
+    if (!complete) {
+      $('ariscatScore').textContent = '—';
+      $('ariscatClass').className = 'pill inc';
+      $('ariscatClass').textContent = 'Preencha os 7 itens';
+      return {complete:false, score:null, nivel:null, classe:'incompleto'};
+    }
+    let nivel, classe, pill;
+    if (score >= 45) { nivel='alto'; classe='Alto risco pulmonar'; pill='high'; }
+    else if (score >= 26) { nivel='intermediario'; classe='Risco pulmonar intermediário'; pill='inter'; }
+    else { nivel='baixo'; classe='Baixo risco pulmonar'; pill='low'; }
+    $('ariscatScore').textContent = String(score);
+    $('ariscatClass').className = 'pill ' + pill;
+    $('ariscatClass').textContent = classe;
+    return {complete:true, score, nivel, classe};
+  }
+
+  function atualizarSTOPBANG(){
+    let score = 0;
+    ['sb_s','sb_t','sb_o','sb_p','sb_b','sb_a','sb_n','sb_g'].forEach(id=>{ if (chk(id)) score++; });
+    const cervicalOk = num('circunferenciaCervical') !== null;
+    let nivel, classe, pill;
+    if (score >= 5) { nivel='alto'; classe='Alto risco de AOS'; pill='high'; }
+    else if (score >= 3) { nivel='intermediario'; classe='Risco intermediário de AOS'; pill='inter'; }
+    else { nivel='baixo'; classe='Baixo risco de AOS'; pill='low'; }
+    $('stopBangScore').textContent = String(score);
+    $('stopBangClass').className = 'pill ' + pill;
+    $('stopBangClass').textContent = classe;
+    $('stopBangStatus').textContent = cervicalOk ? '' : '· escore incompleto (falta circunferência cervical)';
+    return {score, nivel, classe, completo: cervicalOk, incompleto: !cervicalOk};
+  }
+
+  function calcularARISCAT(){ return atualizarARISCAT(); }
+  function calcularSTOPBANG(){ return atualizarSTOPBANG(); }
+
+  function montarRecomendacoes(ariscat, stopbang){
+    const rec = [];
+    if (chk('tabagismoAtivo')) {
+      rec.push('Cessação do tabagismo: idealmente abstenção ≥4–6 semanas antes de cirurgia eletiva; aconselhar e encaminhar a suporte (PNCT/APS) quando viável.');
+    }
+    if (valor('ariscatInfeccao') === '17') {
+      rec.push('Infecção respiratória no último mês (+17 ARISCAT): em eletiva, considerar adiamento até resolução clínica e redução da hiper-reatividade das vias aéreas, individualizando urgência.');
+    }
+    if (ariscat.complete && ariscat.nivel !== 'baixo') {
+      rec.push('Risco pulmonar ' + ariscat.nivel + ' (ARISCAT ' + ariscat.score + '): fisioterapia respiratória / treinamento muscular inspiratório pré-op quando viável; manobras de expansão pulmonar e mobilização precoce no pós-op.');
+    }
+    if (stopbang.nivel === 'alto' || stopbang.score >= 5) {
+      rec.push('STOP-BANG alto (≥5): alertar anestesia; se já usa CPAP, trazer o equipamento; considerar otimização/CPAP perioperatório e oximetria contínua no pós-op.');
+    } else if (stopbang.nivel === 'intermediario') {
+      rec.push('STOP-BANG intermediário (3–4): comunicar risco de AOS à anestesia; considerar investigação se houver tempo; CPAP se já em uso.');
+    }
+    if (chk('usaCpap')) {
+      rec.push('Paciente em CPAP/BiPAP: orientar uso na noite pré-op e disponibilidade do equipamento no perioperatório.');
+    }
+    if (num('spo2') !== null && num('spo2') <= 92) {
+      rec.push('Hipoxemia em repouso: investigar causa e considerar gasometria/avaliação funcional antes de eletiva.');
+    }
+    const mall = valor('mallampati');
+    if (mall === 'III' || mall === 'IV') {
+      rec.push('Mallampati ' + mall + ': planejar via aérea difícil com anestesia.');
+    }
+    if (valor('asma')) rec.push('Asma: confirmar controle clínico e manutenção de inalatórios no perioperatório.');
+    if (valor('dpoc')) rec.push('DPOC: otimizar broncodilatadores; tratar exacerbação/infecção ativa.');
+    if (!rec.length) rec.push('Conduta perioperatória padrão e vigilância clínica de rotina, alinhada ao ASA e ao procedimento.');
+    return rec;
+  }
+
+  function gerarRelatorio(){
+    if (!chk('pacienteInformado')) { alert('Confirme o consentimento LGPD.'); return false; }
+    const falta = [];
+    ['nomePaciente','idade','sexo','medicoNome','crm'].forEach(id => { if (!valor(id)) falta.push(id); });
+    const ariscat = calcularARISCAT();
+    if (!ariscat.complete) falta.push('ARISCAT (7 itens)');
+    if (falta.length) { alert('Preencha: ' + falta.join(', ')); return false; }
+
+    const stopbang = calcularSTOPBANG();
+    const rec = montarRecomendacoes(ariscat, stopbang);
+    const dataTxt = valor('dataRelatorio')
+      ? new Date(valor('dataRelatorio')+'T12:00:00').toLocaleDateString('pt-BR')
+      : new Date().toLocaleDateString('pt-BR');
+    const sexoTxt = valor('sexo')==='M'?'Masculino':valor('sexo')==='F'?'Feminino':'-';
+    const medicoLinha = [valor('medicoNome'), valor('crm'), valor('rqe')].filter(Boolean).join(' · ');
+
+    const espParts = [];
+    if (valor('vef1pct')) espParts.push('VEF₁ ' + valor('vef1pct') + '% prev.' + (valor('vef1abs')?' ('+valor('vef1abs')+' L)':''));
+    if (valor('cvfpct')) espParts.push('CVF ' + valor('cvfpct') + '% prev.' + (valor('cvfabs')?' ('+valor('cvfabs')+' L)':''));
+    if (valor('vef1Cvf')) espParts.push('VEF₁/CVF ' + valor('vef1Cvf'));
+    if (valor('pfe')) espParts.push('PFE ' + valor('pfe') + ' L/s (opcional)');
+    const espTxt = espParts.length ? espParts.join(' · ') : 'Não informada';
+
+    const html = `
+      <div class="relatorio-header">
+        <h2>AVALIAÇÃO PRÉ-OPERATÓRIA — RISCO RESPIRATÓRIO</h2>
+        <p>PneumoAgents · v5.0 · ARISCAT Canet 2010</p>
+      </div>
+      <div class="relatorio-section">
+        <h3>Identificação</h3>
+        <div class="info-grid">
+          <div><strong>Paciente:</strong> ${esc(valor('nomePaciente'))}</div>
+          <div><strong>CPF:</strong> ${esc(valor('cpf')||'-')}</div>
+          <div><strong>Idade/Sexo:</strong> ${esc(valor('idade'))} anos / ${esc(sexoTxt)}</div>
+          <div><strong>Data:</strong> ${esc(dataTxt)}</div>
+          <div><strong>Hospital:</strong> ${esc(valor('hospital')||'-')}</div>
+          <div><strong>Procedimento:</strong> ${esc(valor('procedimento')||'-')}</div>
+          <div><strong>Cirurgião:</strong> ${esc(valor('cirurgiao')||'-')}</div>
+          <div><strong>ASA:</strong> ${esc(valor('asa')||'-')} <span class="mini">(não pontua ARISCAT)</span></div>
+        </div>
+      </div>
+      <div class="relatorio-section">
+        <h3>Antropometria / vias aéreas</h3>
+        <div class="info-grid">
+          <div><strong>IMC:</strong> ${esc(valor('imc')||'-')} kg/m²</div>
+          <div><strong>SpO₂:</strong> ${esc(valor('spo2')||'-')}%</div>
+          <div><strong>Cervical:</strong> ${esc(valor('circunferenciaCervical')||'-')} cm</div>
+          <div><strong>Mallampati:</strong> ${esc(valor('mallampati')||'-')}</div>
+          <div><strong>Cap. funcional:</strong> ${esc(valor('capacidadeFuncional')||'não avaliada')}</div>
+        </div>
+      </div>
+      <div class="relatorio-section">
+        <h3>ARISCAT (Canet 2010)</h3>
+        <div class="score-box">
+          <strong>Score:</strong> ${ariscat.score} — ${esc(ariscat.classe)}
+          <br><span class="mini">Idade ${valor('ariscatIdade')} · SpO₂ ${valor('ariscatSpo2')} · Infecção ${valor('ariscatInfeccao')} · Anemia ${valor('ariscatAnemia')} · Incisão ${valor('ariscatIncisao')} · Duração ${valor('ariscatDuracao')} · Emergência ${valor('ariscatEmergencia')}</span>
+        </div>
+      </div>
+      <div class="relatorio-section">
+        <h3>STOP-BANG</h3>
+        <div class="score-box">
+          <strong>Score:</strong> ${stopbang.score}/8 — ${esc(stopbang.classe)}
+          ${stopbang.incompleto ? ' · <em>incompleto (sem cervical)</em>' : ''}
+        </div>
+      </div>
+      <div class="relatorio-section">
+        <h3>Respiratório / espirometria</h3>
+        <div class="info-grid">
+          <div><strong>Asma:</strong> ${esc(valor('asma')||'-')}</div>
+          <div><strong>DPOC:</strong> ${esc(valor('dpoc')||'-')}</div>
+          <div><strong>Tabagismo ativo:</strong> ${chk('tabagismoAtivo')?'Sim':'Não'}</div>
+          <div><strong>CPAP prévio:</strong> ${chk('usaCpap')?'Sim':'Não'}</div>
+        </div>
+        <div class="score-box" style="margin-top:6px"><strong>Espirometria:</strong> ${esc(espTxt)}</div>
+        ${valor('alteracoesRadiologicas')?`<p style="margin-top:6px;font-size:.85em"><strong>Imagem/outros:</strong> ${esc(valor('alteracoesRadiologicas'))}</p>`:''}
+        ${valor('medicamentos')?`<p style="margin-top:4px;font-size:.85em"><strong>Medicamentos:</strong> ${esc(valor('medicamentos'))}</p>`:''}
+      </div>
+      <div class="relatorio-section">
+        <h3>Recomendações automáticas (por risco)</h3>
+        <ul class="recomendacoes-list">${rec.map(r=>'<li>'+esc(r)+'</li>').join('')}</ul>
+      </div>
+      <div class="relatorio-section">
+        <h3>Opinião médica</h3>
+        <div class="observacoes-box">${esc(valor('opiniaoProfissional')||'Sem observações adicionais.')}</div>
+      </div>
+      <div class="assinatura">
+        <p class="nome"><strong>${esc(medicoLinha)}</strong></p>
+        <p>PneumoAgents · documento assistencial educacional · ${esc(dataTxt)}</p>
+        <p class="mini">Canet et al., Anesthesiology 2010 · STOP-Bang · Não substitui julgamento clínico.</p>
+      </div>
+    `;
+    $('relatorioConteudo').innerHTML = html;
+    $('secaoRelatorio').classList.remove('hidden');
+    $('secaoRelatorio').scrollIntoView({behavior:'smooth', block:'start'});
+    return true;
+  }
+
+  function imprimirRelatorio(){
+    if ($('secaoRelatorio').classList.contains('hidden')) {
+      if (!gerarRelatorio()) return;
+    }
+    window.print();
+  }
+
+  function collectState(){
+    const state = {};
+    document.querySelectorAll('input, select, textarea').forEach(el=>{
+      if (!el.id) return;
+      if (el.type === 'checkbox' || el.type === 'radio') state[el.id] = el.checked;
+      else state[el.id] = el.value;
+    });
+    return state;
+  }
+  function applyState(state){
+    if (!state) return;
+    Object.keys(state).forEach(id=>{
+      const el = $(id); if (!el) return;
+      if (el.type === 'checkbox' || el.type === 'radio') el.checked = !!state[id];
+      else el.value = state[id];
+    });
+    calcularIMC();
+    atualizarARISCAT();
+    syncStopBangAuto();
+  }
+  function salvarLocal(){
+    try {
+      localStorage.setItem(LS_KEY, JSON.stringify(collectState()));
+      alert('Salvo neste navegador (localStorage).');
+    } catch(e){ alert('Não foi possível salvar: ' + e.message); }
+  }
+  function carregarLocal(){
+    try {
+      const raw = localStorage.getItem(LS_KEY);
+      if (!raw) { alert('Nenhum rascunho salvo.'); return; }
+      applyState(JSON.parse(raw));
+      alert('Rascunho carregado.');
+    } catch(e){ alert('Erro ao carregar: ' + e.message); }
+  }
+  function limparFormulario(){
+    if (!confirm('Limpar todo o formulário?')) return;
+    document.querySelectorAll('input, select, textarea').forEach(el=>{
+      if (el.type === 'checkbox' || el.type === 'radio') el.checked = false;
+      else if (el.id === 'medicoNome') el.value = 'Fernando Lundgren';
+      else if (el.id === 'consultorio') {/*nop*/}
+      else el.value = '';
+    });
+    setDateToday();
+    calcularIMC();
+    atualizarARISCAT();
+    atualizarSTOPBANG();
+    $('secaoRelatorio').classList.add('hidden');
+  }
+
+  // events
+  ['peso','altura'].forEach(id=>$(id).addEventListener('input', calcularIMC));
+  ['idade','spo2'].forEach(id=>$(id).addEventListener('input', syncAriscatFromBasics));
+  ['idade','sexo','circunferenciaCervical','hipertensao'].forEach(id=>{
+    const el = $(id); if (!el) return;
+    el.addEventListener('input', syncStopBangAuto);
+    el.addEventListener('change', syncStopBangAuto);
+  });
+  ['ariscatIdade','ariscatSpo2','ariscatInfeccao','ariscatAnemia','ariscatIncisao','ariscatDuracao','ariscatEmergencia'].forEach(id=>{
+    $(id).addEventListener('change', atualizarARISCAT);
+  });
+  ['sb_s','sb_t','sb_o','sb_p'].forEach(id=>$(id).addEventListener('change', atualizarSTOPBANG));
+
+  // expose
+  window.gerarRelatorio = gerarRelatorio;
+  window.imprimirRelatorio = imprimirRelatorio;
+  window.salvarLocal = salvarLocal;
+  window.carregarLocal = carregarLocal;
+  window.limparFormulario = limparFormulario;
+
+  // init
+  atualizarARISCAT();
+  syncStopBangAuto();
+})();
+</script>
+</body>
+</html>
