@@ -161,7 +161,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid #b9daf1;border-color:#
 
   <header class="topbar">
     <div class="top-inner">
-      <div class="brand"><div class="brand-mark">BX</div><div><h1>Agente Bronquiectasias 2026 <span class="version-chip">v2026.4 · set/2026</span></h1><p>PneumoAgents · Dr. Fernando Lundgren | SBPT 2019 + ERS 2025 + CHEST/ACCP 2026 · revisao educacional set/2026</p></div></div>
+      <div class="brand"><div class="brand-mark">BX</div><div><h1>Agente Bronquiectasias 2026 <span class="version-chip">v2026.5 · set/2026</span></h1><p>PneumoAgents · Dr. Fernando Lundgren | SBPT 2019 + ERS 2025 + CHEST/ACCP 2026 · revisao educacional set/2026</p></div></div>
       <div class="top-actions">
         <button class="btn primary" onclick="calculateAll()">Atualizar analise</button>
         <button class="btn" onclick="runScoreTests()">Validar escores</button>
@@ -203,7 +203,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid #b9daf1;border-color:#
           <h2>Assistente para avaliacao, estratificacao e documentacao de bronquiectasias.</h2>
           <p>Baseado no Consenso Brasileiro SBPT 2019 (diagnostico/etiologia nacional), com manejo atualizado pela ERS 2025 e pela diretriz CHEST/ACCP 2026 (exacerbacoes, clearance e terapias de longo prazo). Protocolos locais continuam prevalecendo.</p>
           <div class="chips" style="margin-top:12px"><span class="chip">SBPT 2019 diagnostico</span><span class="chip">CHEST/ACCP 2026 manejo</span><span class="chip">ERS 2025</span><span class="chip">Pseudomonas/NTM</span><span class="chip">PDF/TXT</span></div>
-          <div class="chest-notice"><b>Condutas alinhadas a diretriz CHEST/ACCP 2026 (Thomson et al.; doi:10.1016/j.chest.2026.06.057)</b>13 recomendacoes condicionais; certeza em geral baixa/muito baixa. Apoio a decisao educacional — nao e protocolo institucional e nao substitui julgamento clinico, bula, antibiograma local nem relacao medico-paciente. Quando SBPT/ERS e CHEST divergirem no manejo, este agente privilegia CHEST 2026 e mantem SBPT 2019 como base diagnostica/etiologica brasileira. ERS 2025: macrolideo e antibiotico inalatorio com recomendacao forte em cenarios de alto risco (ex.: Pseudomonas cronica) — usar como complemento, nao como substituto desta hierarquia. Versao v2026.4 · correcao de escores set/2026 (BRT).</div>
+          <div class="chest-notice"><b>Condutas alinhadas a diretriz CHEST/ACCP 2026 (Thomson et al.; doi:10.1016/j.chest.2026.06.057)</b>13 recomendacoes condicionais; certeza em geral baixa/muito baixa. Apoio a decisao educacional — nao e protocolo institucional e nao substitui julgamento clinico, bula, antibiograma local nem relacao medico-paciente. Quando SBPT/ERS e CHEST divergirem no manejo, este agente privilegia CHEST 2026 e mantem SBPT 2019 como base diagnostica/etiologica brasileira. ERS 2025: macrolideo e antibiotico inalatorio com recomendacao forte em cenarios de alto risco (ex.: Pseudomonas cronica) — usar como complemento, nao como substituto desta hierarquia. Versao v2026.5 · separacao da janela de internacao E-FACED/BSI set/2026 (BRT).</div>
           <div class="science-box">
             <h3>Base cientifica utilizada</h3>
             <div class="science-grid">
@@ -266,7 +266,8 @@ input:focus,select:focus,textarea:focus{outline:2px solid #b9daf1;border-color:#
           <div><label>VEF1 % previsto</label><input id="fev1" type="number" min="0" max="150"></div>
           <div><label>mMRC (0-4; BSI converte para MRC)</label><select id="mmrc"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
           <div><label>Exacerbacoes/ano (todas)</label><input id="exac" type="number" min="0" step="1"></div>
-          <div><label>Internacoes graves (ultimos 2 anos — BSI e E-FACED)</label><input id="hosp" type="number" min="0" step="1"></div>
+          <div><label>Internacoes graves (ultimos 2 anos — BSI)</label><input id="hosp" type="number" min="0" step="1"></div>
+          <div><label>Internacoes por exacerbacao (ultimos 12 meses — E-FACED)</label><input id="hosp12" type="number" min="0" step="1"><p class="hint" id="hospHint" style="display:none;margin:4px 0 0;font-size:12px;color:#8a4b00">Atencao: internacoes em 12 meses nao podem exceder as internacoes em 2 anos (a janela de 12 meses esta contida nos 2 anos). Revisar os dois campos.</p></div>
           <div><label>Hemoptise</label><select id="hemoptysis"><option value="nao">Nao</option><option value="leve">Leve</option><option value="recorrente">Recorrente</option><option value="grave">Grave</option></select></div>
           <div><label>IMC</label><input id="bmi" type="number" min="8" max="60" step="0.1"></div>
           <div class="span-2"><label>Sintomas predominantes</label><input id="symptoms" placeholder="Tosse, escarro, dispneia, fadiga, febre, perda ponderal"></div>
@@ -414,7 +415,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid #b9daf1;border-color:#
 const DB_KEY='agente_bronquiectasias_2026_casos_v1';
 const PROFILE_KEY='agente_bronquiectasias_2026_medico_v1';
 const DRAFT_KEY='agente_bronquiectasias_2026_rascunho_v1';
-const ids=['patName','patBirth','patSex','patCPF','patCNS','patWeight','patHeight','docName','docCRM','docDate','docInst','docCNES','patPhone','hrct','lobes','cysticBronch','fev1','mmrc','exac','hosp','hemoptysis','bmi','symptoms','qol','clinResume','etioCF','etioPCD','etioABPA','etioImmuno','etioNTM','etioAuto','etioAspiration','etioPostInfect','testsDone','likelyEtiology','pseudomonas','ntm','dominantBacteria','pathogen','otherBacteria','sputum','cultureQuality','culture1Date','culture1Bacteria','culture2Date','culture2Bacteria','culture3Date','culture3Bacteria','sensitivityProfile','recentAntibiotic','antibioticResponse','antibioticHistory','microbiome','cultureTimeline','exacTimeline','txClearance','txRehab','txVaccines','txEradication','txMacrolide','txInhaledAbx','txMucoactive','txSpecialist','txTXA','txAvoidRhDNase','txAvoidAtorvastatin','txSurgery','treatmentGoal','clearanceMethod','clearanceFreq','sputumImpact','ntmExcluded','macrolideSafety','inhaledAbxCriteria','followupInterval','vaccineInfluenza','vaccineCovid','vaccinePneumo','vaccineDtpa','vaccineRsv','vaccineZoster','vaccineNotes','rehabIndication','rehabReason','exerciseTest','rehabProgram','currentTherapy','exacPlan','rxAntibiotic','rxMucolytic','rxNac','rxBronchodilator','rxAzithro','rxBrensocatib','rxTXA','antibioticRx','mucolyticRx','nacRx','bronchodilatorRx','azithroRx','brensocatibRx','txaRx','referralReason','visit1Date','visit1Fev1','visit1Mmrc','visit1Exac','visit2Date','visit2Fev1','visit2Mmrc','visit2Exac','visit3Date','visit3Fev1','visit3Mmrc','visit3Exac','visit4Date','visit4Fev1','visit4Mmrc','visit4Exac','followupPlan','treatmentRationale'];
+const ids=['patName','patBirth','patSex','patCPF','patCNS','patWeight','patHeight','docName','docCRM','docDate','docInst','docCNES','patPhone','hrct','lobes','cysticBronch','fev1','mmrc','exac','hosp','hosp12','hemoptysis','bmi','symptoms','qol','clinResume','etioCF','etioPCD','etioABPA','etioImmuno','etioNTM','etioAuto','etioAspiration','etioPostInfect','testsDone','likelyEtiology','pseudomonas','ntm','dominantBacteria','pathogen','otherBacteria','sputum','cultureQuality','culture1Date','culture1Bacteria','culture2Date','culture2Bacteria','culture3Date','culture3Bacteria','sensitivityProfile','recentAntibiotic','antibioticResponse','antibioticHistory','microbiome','cultureTimeline','exacTimeline','txClearance','txRehab','txVaccines','txEradication','txMacrolide','txInhaledAbx','txMucoactive','txSpecialist','txTXA','txAvoidRhDNase','txAvoidAtorvastatin','txSurgery','treatmentGoal','clearanceMethod','clearanceFreq','sputumImpact','ntmExcluded','macrolideSafety','inhaledAbxCriteria','followupInterval','vaccineInfluenza','vaccineCovid','vaccinePneumo','vaccineDtpa','vaccineRsv','vaccineZoster','vaccineNotes','rehabIndication','rehabReason','exerciseTest','rehabProgram','currentTherapy','exacPlan','rxAntibiotic','rxMucolytic','rxNac','rxBronchodilator','rxAzithro','rxBrensocatib','rxTXA','antibioticRx','mucolyticRx','nacRx','bronchodilatorRx','azithroRx','brensocatibRx','txaRx','referralReason','visit1Date','visit1Fev1','visit1Mmrc','visit1Exac','visit2Date','visit2Fev1','visit2Mmrc','visit2Exac','visit3Date','visit3Fev1','visit3Mmrc','visit3Exac','visit4Date','visit4Fev1','visit4Mmrc','visit4Exac','followupPlan','treatmentRationale'];
 const profileIds=['profileDocName','profileDocCRM','profileDocCNS','profileDocInst','profileDocCNES','profileDocPhone','profileDocEmail','profileDocHeader'];
 let lastDocs={};
 function $(id){return document.getElementById(id)}
@@ -464,7 +465,12 @@ function processarEscribaBronq(){
   preencher('fev1',numeroDepois(texto,/(?:vef1|vef 1|fev1)\D{0,10}(\d+(?:[\.,]\d+)?)/));
   preencher('mmrc',numeroDepois(texto,/(?:mmrc|m m r c|dispneia)\D{0,10}([0-4])/));
   preencher('exac',numeroDepois(texto,/(?:exacerbacoes|exacerbacoes|exacerbacao|crises)\D{0,12}(\d+)/));
-  preencher('hosp',numeroDepois(texto,/(?:internacoes|internacao|hospitalizacoes|hospitalizacao)\D{0,12}(\d+)/));
+  const rxHosp12=/(?:internacoes|internacao|hospitalizacoes|hospitalizacao)(?:\s*(?:graves?|por exacerbac(?:ao|oes)))?\s*(?:(?:no|nos|em|nas)\s*)?(?:ultimo ano|ultimos 12 meses|ultimos doze meses|12 meses|doze meses)\D{0,12}(\d+)/;
+  const rxHosp12Antes=/(\d+)\s*(?:internacoes|internacao|hospitalizacoes|hospitalizacao)(?:\s*(?:graves?|por exacerbac(?:ao|oes)))?\s*(?:(?:no|nos|em|nas)\s*)?(?:ultimo ano|ultimos 12 meses|ultimos doze meses|12 meses|doze meses)/;
+  const nHosp=normBronq(texto),mHosp12=nHosp.match(rxHosp12)||nHosp.match(rxHosp12Antes);
+  if(mHosp12)preencher('hosp12',mHosp12[1]);
+  const textoHosp2a=mHosp12?nHosp.replace(mHosp12[0],' '):texto;
+  preencher('hosp',numeroDepois(textoHosp2a,/(?:internacoes|internacao|hospitalizacoes|hospitalizacao)(?:\s*(?:graves?|por exacerbac(?:ao|oes)))?(?:\s*(?:(?:no|nos|em|nas)\s*)?(?:ultimos\s*)?(?:2|dois)\s*anos)?\D{0,12}(\d+)/));
   preencher('bmi',numeroDepois(texto,/(?:imc)\D{0,10}(\d+(?:[\.,]\d+)?)/));
   setBronqSelectByText('hrct',texto,{'tcar confirma':'sim','tomografia confirma':'sim','bronquiectasias confirmadas':'sim','tcar pendente':'nao','nao confirma':'nao','sem confirmacao':'nao'});
   setBronqSelectByText('lobes',texto,{'bilateral':'bilateral','3 lobos':'3','tres lobos':'3','extensa':'bilateral','2 lobos':'2','dois lobos':'2','1 lobo':'1','um lobo':'1'});
@@ -507,9 +513,11 @@ function makeId(){return'bx-'+Date.now().toString(36)+'-'+Math.random().toString
 function collectData(){const d={};ids.forEach(id=>d[id]=val(id));d.caseId=currentCaseId()||makeId();d.updatedAt=new Date().toISOString();d.analysis=analyze(d);d.summary=caseSnapshot(d);return d}
 function ageYears(d){if(!d.patBirth)return null;const birth=new Date(d.patBirth+'T00:00:00');if(Number.isNaN(birth.getTime()))return null;const now=new Date();let age=now.getFullYear()-birth.getFullYear();const m=now.getMonth()-birth.getMonth();if(m<0||(m===0&&now.getDate()<birth.getDate()))age--;return age}
 function scoreLabel(score,cut1,cut2,labels=['leve','moderado','grave']){return score<=cut1?labels[0]:score<=cut2?labels[1]:labels[2]}
-function bsiProjection(score){if(score<=4)return{mortality:'baixo, aprox. 0-5% em 4 anos',hospital:'baixo, aprox. 0-9% em 1 ano'};if(score<=8)return{mortality:'intermediario, aprox. 4-12% em 4 anos',hospital:'intermediario, aprox. 7-20% em 1 ano'};return{mortality:'alto, aprox. 10-30% em 4 anos',hospital:'alto, aprox. 21-53% em 1 ano'}}
+function bsiProjection(score){if(score<=4)return{mortality:'baixo, aprox. 0-5,3% em 4 anos',hospital:'baixo, aprox. 0-3,4% em 1 ano (0-9,2% em 4 anos)'};if(score<=8)return{mortality:'intermediario, aprox. 4-11,3% em 4 anos',hospital:'intermediario, aprox. 1-7,2% em 1 ano (9,9-19,4% em 4 anos)'};return{mortality:'alto, aprox. 9,9-29,2% em 4 anos',hospital:'alto, aprox. 16,7-52,6% em 1 ano (41,2-80,4% em 4 anos)'}}
 function analyze(d){
-  const fev=parseFloat(d.fev1),ex=parseFloat(d.exac)||0,h=parseFloat(d.hosp)||0,mm=parseFloat(d.mmrc)||0,bmi=parseFloat(d.bmi),age=ageYears(d);
+  const fev=parseFloat(d.fev1),ex=parseFloat(d.exac)||0,h=parseFloat(d.hosp)||0,h12=parseFloat(d.hosp12)||0,mm=parseFloat(d.mmrc)||0,bmi=parseFloat(d.bmi),age=ageYears(d);
+  const hospMissing=d.hosp===''||d.hosp==null,hosp12Missing=d.hosp12===''||d.hosp12==null;
+  const hospConflict=!hospMissing&&!hosp12Missing&&h12>h;
   const extensiveFaced=d.lobes==='3'||d.lobes==='bilateral';
   const extensiveBsi=d.lobes==='3'||d.lobes==='bilateral'||d.cysticBronch==='sim';
   const chronicPseud=d.pseudomonas==='cronica';
@@ -519,7 +527,8 @@ function analyze(d){
   if(!Number.isFinite(fev))incomplete.push('VEF1');
   if(!Number.isFinite(bmi))incomplete.push('IMC');
   if(d.exac===''||d.exac==null)incomplete.push('exacerbacoes');
-  if(d.hosp===''||d.hosp==null)incomplete.push('internacoes');
+  if(hospMissing)incomplete.push('internacoes 2 anos (BSI)');
+  if(hosp12Missing)incomplete.push('internacoes 12 meses (E-FACED)');
   const facedParts=[],efacedParts=[],bsiParts=[];
   let faced=0;
   if(Number.isFinite(fev)&&fev<50){faced+=2;facedParts.push('VEF1 <50% (+2)');}else facedParts.push(Number.isFinite(fev)?'VEF1 ≥50% (0)':'VEF1 ausente (0)');
@@ -528,7 +537,8 @@ function analyze(d){
   if(mm>=3){faced+=1;facedParts.push('mMRC ≥3 (+1)');}else facedParts.push('mMRC 0-2 (0)');
   if(extensiveFaced){faced+=1;facedParts.push('extensao >2 lobos (+1)');}else facedParts.push('1-2 lobos (0)');
   let efaced=faced;
-  if(h>=1){efaced+=2;efacedParts.push('≥1 exacerbacao grave/internacao no periodo informado (+2; tabela oficial E-FACED)');}else{efacedParts.push('sem internacao/exacerbacao grave informada (0)');efacedParts.push('exacerbacoes ambulatoriais nao somam no E-FACED');}
+  if(h12>=1){efaced+=2;efacedParts.push('≥1 internacao por exacerbacao nos ultimos 12 meses (+2; tabela oficial E-FACED)');}else{efacedParts.push(hosp12Missing?'internacoes nos ultimos 12 meses nao informadas (0; E-FACED incompleto)':'sem internacao por exacerbacao nos ultimos 12 meses (0)');efacedParts.push('exacerbacoes ambulatoriais nao somam no E-FACED');}
+  if(hospConflict)efacedParts.push('atencao: internacoes em 12 meses > internacoes em 2 anos — revisar');
   let bsi=0;
   if(age!==null){if(age>=80){bsi+=6;bsiParts.push('idade ≥80 (+6)');}else if(age>=70){bsi+=4;bsiParts.push('idade 70-79 (+4)');}else if(age>=50){bsi+=2;bsiParts.push('idade 50-69 (+2)');}else bsiParts.push('idade <50 (0)');}else bsiParts.push('idade ausente (0)');
   if(Number.isFinite(bmi)&&bmi<18.5){bsi+=2;bsiParts.push('IMC <18,5 (+2)');}else bsiParts.push(Number.isFinite(bmi)?'IMC ≥18,5 (0)':'IMC ausente (0)');
@@ -539,13 +549,14 @@ function analyze(d){
   if(chronicPseud){bsi+=3;bsiParts.push('colonizacao cronica por P. aeruginosa (+3)');}else if(otherChronic){bsi+=1;bsiParts.push('outra bacteria cronica documentada (+1)');}else bsiParts.push('sem colonizacao cronica documentada (0; isolado unico nao pontua)');
   if(extensiveBsi){bsi+=1;bsiParts.push('≥3 lobos ou padrao cistico (+1)');}else bsiParts.push('extensao <3 lobos sem cistica (0)');
   const bsiRisk=bsi<=4?'Baixo':bsi<=8?'Intermediario':'Alto';
-  const highEx=ex>=3||h>=1;const chestFreqEx=ex>=2;const pseud=chronicPseud?'Cronica':d.pseudomonas==='novo'?'Novo':'Nao';
+  const highEx=ex>=3||h>=1||h12>=1;const chestFreqEx=ex>=2;const pseud=chronicPseud?'Cronica':d.pseudomonas==='novo'?'Novo':'Nao';
   const projection=bsiProjection(bsi);
-  const qualifier=incomplete.length?` Estimativa limitada: faltam ${incomplete.join(', ')}.`:'';
+  const bsiIncomplete=incomplete.filter(x=>x!=='internacoes 12 meses (E-FACED)');
+  const qualifier=bsiIncomplete.length?` Estimativa limitada: faltam ${bsiIncomplete.join(', ')}.`:'';
   const needSpecialist=bsiRisk==='Alto'||efaced>=7||d.ntm!=='nao'||d.hemoptysis==='grave'||d.etioCF||d.etioPCD||d.etioImmuno;
-  return{points:bsi,risk:bsiRisk,highEx,chestFreqEx,pseud,needSpecialist,faced,facedClass:scoreLabel(faced,2,4),efaced,efacedClass:scoreLabel(efaced,3,6),bsi,bsiRisk,mortality:projection.mortality+qualifier,hospitalization:projection.hospital+qualifier,age,incomplete,facedParts,efacedParts,bsiParts,scoreNote:'E-FACED: +2 apenas se houver exacerbacao grave/internacao (tabela oficial). BSI: internacao em janela de 2 anos; dispneia convertida de mMRC para MRC (mMRC 0-2 = 0 ponto).'}
+  return{points:bsi,risk:bsiRisk,highEx,chestFreqEx,pseud,needSpecialist,faced,facedClass:scoreLabel(faced,2,4),efaced,efacedClass:scoreLabel(efaced,3,6),bsi,bsiRisk,mortality:projection.mortality+qualifier,hospitalization:projection.hospital+qualifier,age,incomplete,hospConflict,facedParts,efacedParts,bsiParts,scoreNote:'E-FACED: +2 apenas se ≥1 internacao por exacerbacao nos ultimos 12 meses (Martinez-Garcia 2017; tabela oficial). BSI: internacao em janela de 2 anos (Chalmers 2014); dispneia convertida de mMRC para MRC (mMRC 0-2 = 0 ponto).'+(hospConflict?' Atencao: internacoes em 12 meses maiores que em 2 anos — revisar os campos.':'')}
 }
-function calculateAll(){const d=collectData(),a=d.analysis;$('scoreFaced').textContent=`${a.faced} ${a.facedClass}`;$('scoreEFaced').textContent=`${a.efaced} ${a.efacedClass}`;$('scoreBsi').textContent=`${a.bsi} ${a.bsiRisk}`;$('riskProjection').innerHTML=`<b>Mortalidade estimada:</b> ${esc(a.mortality)} | <b>Risco de hospitalizacao:</b> ${esc(a.hospitalization)}`;renderScoreResults(d);renderDecisionModules(d);renderAlerts(d);generateDocuments(false)}
+function calculateAll(){const d=collectData(),a=d.analysis;$('scoreFaced').textContent=`${a.faced} ${a.facedClass}`;$('scoreEFaced').textContent=`${a.efaced} ${a.efacedClass}`;$('scoreBsi').textContent=`${a.bsi} ${a.bsiRisk}`;$('riskProjection').innerHTML=`<b>Mortalidade estimada:</b> ${esc(a.mortality)} | <b>Risco de hospitalizacao:</b> ${esc(a.hospitalization)}`;const hospHint=$('hospHint');if(hospHint)hospHint.style.display=a.hospConflict?'block':'none';renderScoreResults(d);renderDecisionModules(d);renderAlerts(d);generateDocuments(false)}
 function renderDecisionModules(d){
   renderConclusion(d);
   renderTreatableTraits(d);
@@ -864,7 +875,8 @@ function reportSuggestions(d){
   if(!d.patBirth)data.push('Data de nascimento ausente: limita calculo de idade/FACED/BSI.');
   if(!d.fev1)data.push('VEF1 % previsto ausente: reduz confiabilidade de FACED, E-FACED e BSI.');
   if(!d.bmi)data.push('IMC ausente: componente relevante do BSI e marcador nutricional.');
-  if(d.exac===''||d.hosp==='')data.push('Numero de exacerbacoes e/ou internacoes no ultimo ano nao informado.');
+  if(d.exac===''||d.hosp===''||d.hosp12==='')data.push('Numero de exacerbacoes/ano, internacoes em 2 anos (BSI) e/ou internacoes por exacerbacao em 12 meses (E-FACED) nao informado.');
+  if(d.analysis&&d.analysis.hospConflict)data.push('Internacoes em 12 meses (E-FACED) maiores que internacoes em 2 anos (BSI): revisar — a janela de 12 meses esta contida nos 2 anos.');
   if(!d.mmrc)data.push('mMRC nao informado: impacta FACED/E-FACED/BSI e indicacao de reabilitacao.');
   if(!d.dominantBacteria&&!hasCulture)data.push('Microbiologia ainda pouco documentada: registrar culturas com data e bacteria isolada.');
   if(!d.currentTherapy)data.push('Tratamento atual nao descrito.');
@@ -924,7 +936,7 @@ function renderTreatmentDecision(d){
   </ul>`;
 }
 function clinicalFactsLine(d){
-  return `VEF1 ${d.fev1||'__'}% previsto; mMRC ${d.mmrc||'__'}; IMC ${d.bmi||'__'}; extensao ${d.lobes||'__'}; exacerbacoes/ano ${d.exac===''||d.exac==null?'__':d.exac}; internacoes graves (2 anos) ${d.hosp===''||d.hosp==null?'__':d.hosp}; Pseudomonas ${d.pseudomonas||'nao informado'}.`;
+  return `VEF1 ${d.fev1||'__'}% previsto; mMRC ${d.mmrc||'__'}; IMC ${d.bmi||'__'}; extensao ${d.lobes||'__'}; exacerbacoes/ano ${d.exac===''||d.exac==null?'__':d.exac}; internacoes graves (2 anos) ${d.hosp===''||d.hosp==null?'__':d.hosp}; internacoes por exacerbacao (12 meses) ${d.hosp12===''||d.hosp12==null?'__':d.hosp12}; Pseudomonas ${d.pseudomonas||'nao informado'}.`;
 }
 function formalSeverityRows(d){
   const a=d.analysis;
@@ -939,7 +951,7 @@ function etiologyIntelligenceHtml(d){
 }
 function patientLine(d){return`${d.patName||'Paciente'}${d.patBirth?' - DN '+brDate(d.patBirth):''}${d.patCPF?' - CPF '+d.patCPF:''}${d.patCNS?' - CNS '+d.patCNS:''}`}
 function etiologySummary(d){const arr=[];[['etioCF','FC'],['etioPCD','DCP'],['etioABPA','ABPA'],['etioImmuno','imunodeficiencia'],['etioNTM','NTM'],['etioAuto','autoimune'],['etioAspiration','aspiracao/DRGE'],['etioPostInfect','pos-infecciosa/TB']].forEach(([id,t])=>{if(d[id])arr.push(t)});return arr.length?arr.join(', '):(d.likelyEtiology||'investigacao etiologica pendente/nao definida')}
-function clinicalSummary(d){return d.clinResume||`Paciente com bronquiectasias ${d.hrct==='sim'?'confirmadas por TCAR':'em confirmacao radiologica'}, extensao ${d.lobes}, VEF1 ${d.fev1||'__'}% previsto, mMRC ${d.mmrc||'__'}, ${d.exac||0} exacerbacao(oes)/ano e ${d.hosp||0} internacao(oes)/ano. Microbiologia: Pseudomonas ${d.pseudomonas}, NTM ${d.ntm}, patogeno predominante ${d.pathogen||'nao informado'}. Etiologia/tracos: ${etiologySummary(d)}.`}
+function clinicalSummary(d){return d.clinResume||`Paciente com bronquiectasias ${d.hrct==='sim'?'confirmadas por TCAR':'em confirmacao radiologica'}, extensao ${d.lobes}, VEF1 ${d.fev1||'__'}% previsto, mMRC ${d.mmrc||'__'}, ${d.exac||0} exacerbacao(oes)/ano, ${d.hosp12||0} internacao(oes) por exacerbacao nos ultimos 12 meses e ${d.hosp||0} internacao(oes) grave(s) em 2 anos. Microbiologia: Pseudomonas ${d.pseudomonas}, NTM ${d.ntm}, patogeno predominante ${d.pathogen||'nao informado'}. Etiologia/tracos: ${etiologySummary(d)}.`}
 function selectedTherapies(d){
   const rows=[];
   if(d.rxAntibiotic||d.antibioticRx)rows.push(['Antibioticos',d.antibioticRx||'Selecionado para exacerbacao/cultura dirigida; definir farmaco, dose e duracao conforme cultura, gravidade, alergias e funcao renal.']);
@@ -954,7 +966,7 @@ function selectedTherapies(d){
   if(d.txSurgery)rows.push(['Cirurgia','Considerar resseccao se doenca localizada refrataria em candidato apropriado apos otimizar tratamento clinico (CHEST 2026).']);
   return rows;
 }
-function refsHtml(){return`<ol><li>Thomson R, Thornton C, Aksamit T, et al. Management of Adult Bronchiectasis: An American College of Chest Physicians Clinical Practice Guideline. CHEST. Published online July 21, 2026. doi:10.1016/j.chest.2026.06.057. Adultos nao-FC; 13 recomendacoes condicionais (GRADE).</li><li>Pereira MC, Athanazio RA, Dalcin PTR, Figueiredo MRF, Gomes M, Freitas CG, Lundgren F, Paschoal IA, Rached SZ, Maurici R. Consenso brasileiro sobre bronquiectasias nao fibrocisticas. J Bras Pneumol. 2019;45(4):e20190122. PMID: 31576908. SBPT.</li><li>Chalmers JD et al. European Respiratory Society clinical practice guideline for the management of adult bronchiectasis. Eur Respir J. 2025;66:2501126. DOI: 10.1183/13993003.01126-2025.</li><li>Martinez-Garcia MA et al. FACED / E-FACED scores for prognostic assessment in non-CF bronchiectasis.</li><li>Chalmers JD et al. The Bronchiectasis Severity Index. Am J Respir Crit Care Med. 2014. PMID: 24628709.</li><li>Choi H, McShane PJ, Aliberti S, Chalmers JD. Bronchiectasis management in adults: state of the art and future directions. Eur Respir J. 2024;63:2400518. DOI: 10.1183/13993003.00518-2024.</li><li>Mac Aogain M et al. Infection and the microbiome in bronchiectasis. Eur Respir Rev. 2024;33:240038. DOI: 10.1183/16000617.0038-2024.</li><li>De Angelis A et al. Exacerbations of bronchiectasis. Eur Respir Rev. 2024;33:240085. DOI: 10.1183/16000617.0085-2024.</li><li>Perea L, Faner R, Chalmers JD, Sibila O. Pathophysiology and genomics of bronchiectasis. Eur Respir Rev. 2024;33:240055. DOI: 10.1183/16000617.0055-2024.</li><li>Chalmers JD et al. Neutrophilic inflammation in bronchiectasis. Eur Respir Rev. 2025;34:240179. DOI: 10.1183/16000617.0179-2024.</li><li>Johnson E, Long MB, Chalmers JD. Biomarkers in bronchiectasis. Eur Respir Rev. 2024;33:230234. DOI: 10.1183/16000617.0234-2023.</li><li>Chalmers JD et al. Phase 3 trial of the DPP-1 inhibitor brensocatib in bronchiectasis (ASPEN). N Engl J Med. 2025;392:1569-1581. PMID: 40267423. DOI: 10.1056/NEJMoa2411664. CHEST 2026 recomenda a molecula brensocatibe (nao a classe DPP-1).</li><li>PneumoAgents · Agente 01 Bronquiectasias · v2026.4 · revisao educacional set/2026 (BRT) · Dr. Fernando Lundgren. Material de apoio — nao substitui protocolo institucional.</li></ol>`}
+function refsHtml(){return`<ol><li>Thomson R, Thornton C, Aksamit T, et al. Management of Adult Bronchiectasis: An American College of Chest Physicians Clinical Practice Guideline. CHEST. Published online July 21, 2026. doi:10.1016/j.chest.2026.06.057. Adultos nao-FC; 13 recomendacoes condicionais (GRADE).</li><li>Pereira MC, Athanazio RA, Dalcin PTR, Figueiredo MRF, Gomes M, Freitas CG, Lundgren F, Paschoal IA, Rached SZ, Maurici R. Consenso brasileiro sobre bronquiectasias nao fibrocisticas. J Bras Pneumol. 2019;45(4):e20190122. PMID: 31576908. SBPT.</li><li>Chalmers JD et al. European Respiratory Society clinical practice guideline for the management of adult bronchiectasis. Eur Respir J. 2025;66:2501126. DOI: 10.1183/13993003.01126-2025.</li><li>Martinez-Garcia MA et al. FACED / E-FACED scores for prognostic assessment in non-CF bronchiectasis. E-FACED: Int J Chron Obstruct Pulmon Dis. 2017;12:275-284. doi:10.2147/COPD.S121943. PMID: 28182132 (+2 se ≥1 internacao por exacerbacao no ano anterior).</li><li>Chalmers JD et al. The Bronchiectasis Severity Index. An international derivation and validation study. Am J Respir Crit Care Med. 2014;189(5):576-85. doi:10.1164/rccm.201309-1575OC. PMID: 24328736.</li><li>Choi H, McShane PJ, Aliberti S, Chalmers JD. Bronchiectasis management in adults: state of the art and future directions. Eur Respir J. 2024;63:2400518. DOI: 10.1183/13993003.00518-2024.</li><li>Mac Aogain M et al. Infection and the microbiome in bronchiectasis. Eur Respir Rev. 2024;33:240038. DOI: 10.1183/16000617.0038-2024.</li><li>De Angelis A et al. Exacerbations of bronchiectasis. Eur Respir Rev. 2024;33:240085. DOI: 10.1183/16000617.0085-2024.</li><li>Perea L, Faner R, Chalmers JD, Sibila O. Pathophysiology and genomics of bronchiectasis. Eur Respir Rev. 2024;33:240055. DOI: 10.1183/16000617.0055-2024.</li><li>Chalmers JD et al. Neutrophilic inflammation in bronchiectasis. Eur Respir Rev. 2025;34:240179. DOI: 10.1183/16000617.0179-2024.</li><li>Johnson E, Long MB, Chalmers JD. Biomarkers in bronchiectasis. Eur Respir Rev. 2024;33:230234. DOI: 10.1183/16000617.0234-2023.</li><li>Chalmers JD et al. Phase 3 trial of the DPP-1 inhibitor brensocatib in bronchiectasis (ASPEN). N Engl J Med. 2025;392:1569-1581. PMID: 40267423. DOI: 10.1056/NEJMoa2411664. CHEST 2026 recomenda a molecula brensocatibe (nao a classe DPP-1).</li><li>PneumoAgents · Agente 01 Bronquiectasias · v2026.4 · revisao educacional set/2026 (BRT) · Dr. Fernando Lundgren. Material de apoio — nao substitui protocolo institucional.</li></ol>`}
 function reportHtml(d){
   const a=d.analysis,rows=selectedTherapies(d);
   return `<div class="print-only-title">Relatorio Clinico - Bronquiectasias</div>
@@ -999,7 +1011,7 @@ function reportHtml(d){
   <h3>Referencias para conferencia</h3>${refsHtml()}
   <p class="muted"><b>${esc(lgpdNotice())}</b></p>
   <p class="muted"><b>${esc(accessNotice())}</b></p>
-  <p class="muted"><b>Disclaimer educacional (PneumoAgents v2026.4 · set/2026):</b> material de apoio a decisao para profissionais de saude; nao e protocolo institucional; nao substitui julgamento clinico, diretrizes, antibiograma local, bulas ou relacao medico-paciente. Condutas CHEST 2026 sao recomendacoes condicionais.</p>
+  <p class="muted"><b>Disclaimer educacional (PneumoAgents v2026.5 · set/2026):</b> material de apoio a decisao para profissionais de saude; nao e protocolo institucional; nao substitui julgamento clinico, diretrizes, antibiograma local, bulas ou relacao medico-paciente. Condutas CHEST 2026 sao recomendacoes condicionais.</p>
   <p style="margin-top:34px">_________________________________________<br>${esc(d.docName)||'Medico(a)'} - ${esc(d.docCRM)||'CRM'}<br>${brDate(d.docDate)}</p>`;
 }
 function rxHtml(d){const rows=selectedTherapies(d);return`<div class="print-only-title">Receita - Bronquiectasias</div><h2>Receituario / Plano de Tratamento</h2><p><b>Paciente:</b> ${esc(patientLine(d))}</p><p class="muted"><b>Sugestoes terapeuticas:</b> a decisao final, posologia, duracao, contraindicações, interacoes, monitorizacao, registro regulatorio e acompanhamento sao responsabilidade exclusiva do medico assistente. Este agente nao substitui bula, protocolos locais, diretrizes ou julgamento clinico.</p><table><tr><th>Item</th><th>Prescricao/orientacao</th></tr><tr><td>Clearance de vias aereas</td><td>${d.txClearance?'Realizar tecnica ensinada diariamente e intensificar em exacerbacao.':'Ensinar tecnica de clearance com fisioterapia respiratoria; ajustar conforme secrecao e tolerancia.'}</td></tr><tr><td>Mucoativo/inalacao</td><td>${d.txMucoactive?'Mucoativo/salina hipertonica conforme tolerancia e protocolo local.':'Considerar se secrecao espessa ou alto volume, apos teste de tolerancia quando aplicavel.'}</td></tr><tr><td>Antibiotico preventivo</td><td>${d.txMacrolide?'Macrolideo prolongado conforme avaliacao clinica, ECG/QT, audicao, interacoes e exclusao de NTM.':'Nao prescrito automaticamente; considerar em alto risco de exacerbacao apos avaliacao.'}</td></tr><tr><td>Antibiotico inalatorio</td><td>${d.txInhaledAbx?'Considerado por ≥2 exacerbacoes/ano (CHEST 2026 sugere ≥3 meses); Pseudomonas cronica reforça (ERS).':'CHEST 2026: ≥2 exacerbacoes/ano por ≥3 meses; ERS reforça se Pseudomonas cronica + alto risco.'}</td></tr>${rows.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join('')||'<tr><td>Prescricao livre</td><td>Nenhuma opcao medicamentosa adicional selecionada; preencher conforme decisao medica.</td></tr>'}</table><p><b>Tratamento atual:</b> ${esc(d.currentTherapy||'nao informado')}</p><p><b>Seguranca:</b> azitromicina prolongada exige avaliar NTM, ECG/QT, audicao, interacoes e resistencia. Brensocatibe deve ter registro/disponibilidade/cobertura local confirmados e nao substitui medidas basicas como clearance e manejo microbiologico.</p><p><b>Observacoes:</b> ${esc(d.treatmentRationale||'Revisar tecnica, aderencia, culturas, vacinas e reabilitacao.')}</p><p class="muted"><b>${esc(lgpdNotice())}</b></p><p style="margin-top:34px">_________________________________________<br>${esc(d.docName)||'Medico(a)'} - ${esc(d.docCRM)||'CRM'}<br>${brDate(d.docDate)}</p>`}
@@ -1009,14 +1021,16 @@ function suggestPlan(d){const a=d.analysis,parts=[];if(d.hrct!=='sim')parts.push
 function birthForAge(age){const d=new Date();return `${d.getFullYear()-age}-01-01`}
 function runScoreTests(){
   const cases=[
-    {name:'Baixo risco jovem',d:{patBirth:birthForAge(40),fev1:'90',mmrc:'0',exac:'0',hosp:'0',bmi:'25',lobes:'1',pseudomonas:'nao',otherBacteria:'nao',ntm:'nao'},e:{faced:0,efaced:0,bsi:0,bsiRisk:'Baixo'}},
-    {name:'Grave exacerbador com Pseudomonas',d:{patBirth:birthForAge(75),fev1:'42',mmrc:'3',exac:'4',hosp:'1',bmi:'17',lobes:'3',pseudomonas:'cronica',otherBacteria:'nao',ntm:'nao'},e:{faced:7,efaced:9,bsi:21,bsiRisk:'Alto'}},
-    {name:'Limite idade 70 com VEF1 preservado',d:{patBirth:birthForAge(70),fev1:'80',mmrc:'1',exac:'0',hosp:'0',bmi:'22',lobes:'1',pseudomonas:'nao',otherBacteria:'nao',ntm:'nao'},e:{faced:2,efaced:2,bsi:4,bsiRisk:'Baixo'}},
-    {name:'mMRC 2 nao pontua BSI',d:{patBirth:birthForAge(40),fev1:'90',mmrc:'2',exac:'0',hosp:'0',bmi:'25',lobes:'1',pseudomonas:'nao',otherBacteria:'nao',ntm:'nao'},e:{faced:0,efaced:0,bsi:0,bsiRisk:'Baixo'}},
-    {name:'2 exacerbacoes ambulatoriais sem internacao: E-FACED sem +2',d:{patBirth:birthForAge(40),fev1:'90',mmrc:'0',exac:'2',hosp:'0',bmi:'25',lobes:'1',pseudomonas:'nao',otherBacteria:'nao',ntm:'nao'},e:{faced:0,efaced:0,bsi:0,bsiRisk:'Baixo'}},
-    {name:'1 internacao sem muitas exacerbacoes: E-FACED +2 e BSI +5',d:{patBirth:birthForAge(40),fev1:'90',mmrc:'0',exac:'1',hosp:'1',bmi:'25',lobes:'1',pseudomonas:'nao',otherBacteria:'nao',ntm:'nao'},e:{faced:0,efaced:2,bsi:5,bsiRisk:'Intermediario'}},
-    {name:'Bacteria dominante isolada nao conta colonizacao cronica',d:{patBirth:birthForAge(40),fev1:'90',mmrc:'0',exac:'0',hosp:'0',bmi:'25',lobes:'1',pseudomonas:'nao',otherBacteria:'nao',dominantBacteria:'Haemophilus influenzae',ntm:'nao'},e:{faced:0,efaced:0,bsi:0,bsiRisk:'Baixo'}},
-    {name:'Pseudomonas nova nao pontua FACED/BSI de cronica',d:{patBirth:birthForAge(40),fev1:'90',mmrc:'0',exac:'0',hosp:'0',bmi:'25',lobes:'1',pseudomonas:'novo',otherBacteria:'nao',ntm:'nao'},e:{faced:0,efaced:0,bsi:0,bsiRisk:'Baixo'}}
+    {name:'Baixo risco jovem',d:{patBirth:birthForAge(40),fev1:'90',mmrc:'0',exac:'0',hosp:'0',hosp12:'0',bmi:'25',lobes:'1',pseudomonas:'nao',otherBacteria:'nao',ntm:'nao'},e:{faced:0,efaced:0,bsi:0,bsiRisk:'Baixo'}},
+    {name:'Grave exacerbador com Pseudomonas',d:{patBirth:birthForAge(75),fev1:'42',mmrc:'3',exac:'4',hosp:'1',hosp12:'1',bmi:'17',lobes:'3',pseudomonas:'cronica',otherBacteria:'nao',ntm:'nao'},e:{faced:7,efaced:9,bsi:21,bsiRisk:'Alto'}},
+    {name:'Limite idade 70 com VEF1 preservado',d:{patBirth:birthForAge(70),fev1:'80',mmrc:'1',exac:'0',hosp:'0',hosp12:'0',bmi:'22',lobes:'1',pseudomonas:'nao',otherBacteria:'nao',ntm:'nao'},e:{faced:2,efaced:2,bsi:4,bsiRisk:'Baixo'}},
+    {name:'mMRC 2 nao pontua BSI',d:{patBirth:birthForAge(40),fev1:'90',mmrc:'2',exac:'0',hosp:'0',hosp12:'0',bmi:'25',lobes:'1',pseudomonas:'nao',otherBacteria:'nao',ntm:'nao'},e:{faced:0,efaced:0,bsi:0,bsiRisk:'Baixo'}},
+    {name:'2 exacerbacoes ambulatoriais sem internacao: E-FACED sem +2',d:{patBirth:birthForAge(40),fev1:'90',mmrc:'0',exac:'2',hosp:'0',hosp12:'0',bmi:'25',lobes:'1',pseudomonas:'nao',otherBacteria:'nao',ntm:'nao'},e:{faced:0,efaced:0,bsi:0,bsiRisk:'Baixo'}},
+    {name:'Internacao ha 13-24 meses (nenhuma em 12 meses): BSI +5, E-FACED sem +2',d:{patBirth:birthForAge(40),fev1:'90',mmrc:'0',exac:'1',hosp:'1',hosp12:'0',bmi:'25',lobes:'1',pseudomonas:'nao',otherBacteria:'nao',ntm:'nao'},e:{faced:0,efaced:0,bsi:5,bsiRisk:'Intermediario'}},
+    {name:'72a, VEF1 45, Pseudomonas cronica, mMRC 3, 3 lobos, internacao so em 2 anos: E-FACED = FACED',d:{patBirth:birthForAge(72),fev1:'45',mmrc:'3',exac:'2',hosp:'1',hosp12:'0',bmi:'22',lobes:'3',pseudomonas:'cronica',otherBacteria:'nao',ntm:'nao'},e:{faced:7,efaced:7,bsi:17,bsiRisk:'Alto'}},
+    {name:'1 internacao sem muitas exacerbacoes: E-FACED +2 e BSI +5',d:{patBirth:birthForAge(40),fev1:'90',mmrc:'0',exac:'1',hosp:'1',hosp12:'1',bmi:'25',lobes:'1',pseudomonas:'nao',otherBacteria:'nao',ntm:'nao'},e:{faced:0,efaced:2,bsi:5,bsiRisk:'Intermediario'}},
+    {name:'Bacteria dominante isolada nao conta colonizacao cronica',d:{patBirth:birthForAge(40),fev1:'90',mmrc:'0',exac:'0',hosp:'0',hosp12:'0',bmi:'25',lobes:'1',pseudomonas:'nao',otherBacteria:'nao',dominantBacteria:'Haemophilus influenzae',ntm:'nao'},e:{faced:0,efaced:0,bsi:0,bsiRisk:'Baixo'}},
+    {name:'Pseudomonas nova nao pontua FACED/BSI de cronica',d:{patBirth:birthForAge(40),fev1:'90',mmrc:'0',exac:'0',hosp:'0',hosp12:'0',bmi:'25',lobes:'1',pseudomonas:'novo',otherBacteria:'nao',ntm:'nao'},e:{faced:0,efaced:0,bsi:0,bsiRisk:'Baixo'}}
   ];
   const results=cases.map(c=>{const d=Object.assign({hrct:'sim',cysticBronch:'nao'},c.d);const a=analyze(d);const ok=a.faced===c.e.faced&&a.efaced===c.e.efaced&&a.bsi===c.e.bsi&&a.bsiRisk===c.e.bsiRisk;return{...c,a,ok}});
   const box=$('scoreTestBox');if(box){box.style.display='block';box.innerHTML='<b>Validacao interna dos escores:</b><br>'+results.map(r=>`<span class="${r.ok?'test-ok':'test-bad'}">${r.ok?'✓':'✕'} ${esc(r.name)}</span>: FACED ${r.a.faced}, E-FACED ${r.a.efaced}, BSI ${r.a.bsi} ${r.a.bsiRisk}`).join('<br>')+'<br><small>Conferir periodicamente com calculadoras externas/colega, especialmente edge cases.</small>'}
@@ -1027,7 +1041,7 @@ function applyTemplate(kind){
     setVal('likelyEtiology','pos-TB / pos-infecciosa');setVal('etioPostInfect',true);setVal('lobes','3');setVal('dominantBacteria','Haemophilus influenzae');setVal('treatmentGoal','estavel');setVal('clearanceMethod','Ciclo ativo da respiracao');setVal('clearanceFreq','2 vezes ao dia');setVal('txClearance',true);
   }
   if(kind==='pseudEx'){
-    setVal('pseudomonas','cronica');setVal('dominantBacteria','Pseudomonas aeruginosa');setVal('culture1Bacteria','Pseudomonas aeruginosa');setVal('culture2Bacteria','Pseudomonas aeruginosa');setVal('exac','3');setVal('hosp','1');setVal('mmrc','3');setVal('treatmentGoal','pseudomonas');setVal('inhaledAbxCriteria','pseudomonas_alto_risco');setVal('txInhaledAbx',true);setVal('txSpecialist',true);
+    setVal('pseudomonas','cronica');setVal('dominantBacteria','Pseudomonas aeruginosa');setVal('culture1Bacteria','Pseudomonas aeruginosa');setVal('culture2Bacteria','Pseudomonas aeruginosa');setVal('exac','3');setVal('hosp','1');setVal('hosp12','1');setVal('mmrc','3');setVal('treatmentGoal','pseudomonas');setVal('inhaledAbxCriteria','pseudomonas_alto_risco');setVal('txInhaledAbx',true);setVal('txSpecialist',true);
   }
   if(kind==='abpa'){
     setVal('etioABPA',true);setVal('likelyEtiology','ABPA / sensibilizacao Aspergillus');setVal('dominantBacteria','Aspergillus spp.');setVal('testsDone','IgE total, eosinofilos; pendente Aspergillus IgE/IgG se nao realizado');setVal('treatmentGoal','encaminhar');setVal('txSpecialist',true);
@@ -1052,7 +1066,7 @@ document.addEventListener('DOMContentLoaded',()=>{setVal('docDate',todayISO());l
 </script>
 
 <footer class="no-print" style="max-width:1280px;margin:12px auto 28px;padding:0 18px;color:#7a8fa6;font-size:12px">
-  PneumoAgents · 01_Bronquiectasias_2026.html · v2026.4 · revisao educacional set/2026 (BRT) · Dr. Fernando Lundgren · CHEST/ACCP 2026 + SBPT 2019 + ERS 2025 · nao substitui protocolo institucional
+  PneumoAgents · 01_Bronquiectasias_2026.html · v2026.5 · revisao educacional set/2026 (BRT) · separacao da janela de internacao E-FACED/BSI · Dr. Fernando Lundgren · CHEST/ACCP 2026 + SBPT 2019 + ERS 2025 · nao substitui protocolo institucional
 </footer>
 </body>
 </html>
