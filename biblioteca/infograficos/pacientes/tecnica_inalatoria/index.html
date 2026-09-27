@@ -260,6 +260,7 @@
     table.t { font-size:15.5px; }
     .orange-head { background: var(--orange); }
     .green-head { background: var(--green); }
+    @media (max-width: 760px) { .toolbar { flex-wrap: wrap; } .strip, .strip.three, .bottom { grid-template-columns: 1fr !important; } h1 { font-size: 40px; } }
   </style>
 </head>
 <body>
@@ -267,7 +268,7 @@
     <button class="button" type="button" onclick="window.print()">Imprimir / exportar PDF</button>
     <a class="button secondary" href="infografico.pdf" download>Baixar PDF pronto</a>
     <a class="button secondary" href="referencias.txt">Referências</a>
-    <a class="button secondary" href="../index.html">Infográficos</a>
+    <a class="button secondary" href="../../../../pacientes/index.html">Área do paciente</a>
     <a class="button secondary" href="../../../../index.html">Voltar ao PneumoAgents</a>
   </nav>
   <article class="sheet">
