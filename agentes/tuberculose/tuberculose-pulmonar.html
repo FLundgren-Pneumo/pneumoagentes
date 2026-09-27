@@ -1,0 +1,2029 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PneumoAgents · Tuberculose Pulmonar — Conhecendo a Tuberculose</title>
+  <style>
+    * { box-sizing: border-box; }
+    :root {
+      --deep: #0a3d5c;
+      --primary: #1c7293;
+      --teal: #2596be;
+      --light-bg: #e8f1f5;
+      --accent: #c9472b;
+      --accent-soft: #fdecea;
+      --gold: #b8860b;
+      --gold-soft: #fff8e1;
+      --green: #2e7d4f;
+      --green-soft: #e8f3ec;
+      --purple: #6b4e8e;
+      --purple-soft: #f0ebf5;
+      --gray-text: #4a5868;
+      --gray-light: #e3e8ed;
+      --gray-border: #d0d8e0;
+      --white: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: #1a2332;
+      background: #f4f6f9;
+      line-height: 1.65;
+      font-size: 16px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.dark-mode {
+      background: #1a1a1a;
+      color: #e0e0e0;
+    }
+
+    /* HEADER */
+    header {
+      background: linear-gradient(135deg, var(--deep) 0%, var(--primary) 100%);
+      color: white;
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    .header-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-size: 1.3rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .header-controls {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .search-box {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      color: white;
+      width: 250px;
+      font-size: 0.9rem;
+    }
+
+    .search-box::placeholder { color: rgba(255,255,255,0.7); }
+
+    .btn-icon {
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: all 0.2s;
+    }
+
+    .btn-icon:hover { background: rgba(255,255,255,0.3); }
+
+    /* LAYOUT */
+    .main-container {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 0;
+      max-width: 1400px;
+      margin: 0 auto;
+      min-height: calc(100vh - 70px);
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      background: white;
+      border-right: 1px solid var(--gray-border);
+      padding: 1.5rem 0;
+      max-height: calc(100vh - 70px);
+      overflow-y: auto;
+      position: sticky;
+      top: 70px;
+    }
+
+    body.dark-mode .sidebar {
+      background: #2a2a2a;
+      border-right-color: #444;
+    }
+
+    .sidebar-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .sidebar-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--primary);
+      padding: 0 1.5rem;
+      margin-bottom: 0.8rem;
+    }
+
+    body.dark-mode .sidebar-title {
+      color: var(--teal);
+    }
+
+    .sidebar-link {
+      display: block;
+      padding: 0.7rem 1.5rem;
+      color: var(--gray-text);
+      text-decoration: none;
+      border-left: 3px solid transparent;
+      transition: all 0.2s;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+
+    body.dark-mode .sidebar-link {
+      color: #b0b0b0;
+    }
+
+    .sidebar-link:hover {
+      background: var(--light-bg);
+      border-left-color: var(--primary);
+      color: var(--primary);
+    }
+
+    body.dark-mode .sidebar-link:hover {
+      background: #3a3a3a;
+      border-left-color: var(--teal);
+      color: var(--teal);
+    }
+
+    .sidebar-link.active {
+      background: var(--light-bg);
+      border-left-color: var(--primary);
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    body.dark-mode .sidebar-link.active {
+      background: #3a3a3a;
+      border-left-color: var(--teal);
+      color: var(--teal);
+    }
+
+    /* CONTEÚDO */
+    .content {
+      padding: 2rem 2.5rem;
+      background: #f4f6f9;
+    }
+
+    body.dark-mode .content {
+      background: #1a1a1a;
+    }
+
+    /* COVER */
+    .cover {
+      background: linear-gradient(135deg, var(--deep) 0%, var(--primary) 60%, var(--teal) 100%);
+      color: white;
+      padding: 4rem 2rem;
+      text-align: center;
+      border-radius: 12px;
+      margin-bottom: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cover::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 60%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cover-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .cover h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin: 0 0 0.5rem;
+      letter-spacing: -0.5px;
+    }
+
+    .cover .subtitle {
+      font-size: 1.1rem;
+      font-weight: 300;
+      opacity: 0.92;
+      margin-bottom: 1.5rem;
+    }
+
+    .cover .author-box {
+      display: inline-block;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+
+    /* SEÇÕES */
+    .section-content {
+      display: none;
+      animation: fadeIn 0.3s;
+    }
+
+    .section-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    section.chapter {
+      background: white;
+      margin: 2rem 0;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(10, 61, 92, 0.06);
+      overflow: hidden;
+    }
+
+    body.dark-mode section.chapter {
+      background: #2a2a2a;
+    }
+
+    .chapter-header {
+      background: linear-gradient(90deg, var(--deep), var(--primary));
+      color: white;
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .chapter-num {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      background: rgba(255,255,255,0.2);
+      border: 2px solid rgba(255,255,255,0.4);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    .chapter-header h2 {
+      margin: 0;
+      font-size: 1.4rem;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+    }
+
+    .chapter-body {
+      padding: 2rem 2.2rem;
+    }
+
+    .chapter-body p {
+      margin: 0 0 1rem;
+    }
+
+    .chapter-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* HEADINGS */
+    h3.section-title {
+      color: var(--deep);
+      font-size: 1.2rem;
+      margin: 2rem 0 1rem;
+      padding-left: 0.8rem;
+      border-left: 4px solid var(--teal);
+      line-height: 1.3;
+    }
+
+    body.dark-mode h3.section-title {
+      color: #e0e0e0;
+    }
+
+    h3.section-title:first-child {
+      margin-top: 0;
+    }
+
+    h4.minor-title {
+      color: var(--primary);
+      font-size: 1.05rem;
+      margin: 1.5rem 0 0.6rem;
+      font-weight: 600;
+    }
+
+    body.dark-mode h4.minor-title {
+      color: var(--teal);
+    }
+
+    /* GRID */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      margin: 1.2rem 0;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1.2rem 0;
+    }
+
+    @media (max-width: 900px) {
+      .grid-2, .grid-3 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* CARDS */
+    .card {
+      background: var(--light-bg);
+      border-left: 4px solid var(--primary);
+      padding: 1rem 1.2rem;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    body.dark-mode .card {
+      background: #3a3a3a;
+      border-left-color: var(--teal);
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(10, 61, 92, 0.1);
+    }
+
+    .card-title {
+      font-weight: 700;
+      color: var(--deep);
+      margin-bottom: 0.4rem;
+      font-size: 0.98rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    body.dark-mode .card-title {
+      color: #e0e0e0;
+    }
+
+    .card p {
+      margin: 0;
+      font-size: 0.93rem;
+      color: var(--gray-text);
+      line-height: 1.55;
+    }
+
+    body.dark-mode .card p {
+      color: #b0b0b0;
+    }
+
+    /* CALLOUTS */
+    .callout {
+      margin: 1.5rem 0;
+      border-radius: 8px;
+      padding: 1.1rem 1.3rem;
+      border-left: 5px solid;
+      display: flex;
+      gap: 0.9rem;
+      align-items: flex-start;
+    }
+
+    .callout-icon {
+      flex-shrink: 0;
+      font-size: 1.4rem;
+      line-height: 1;
+      margin-top: 2px;
+    }
+
+    .callout-content {
+      flex: 1;
+    }
+
+    .callout strong {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-size: 1rem;
+    }
+
+    .callout p {
+      margin: 0;
+      font-size: 0.94rem;
+    }
+
+    .callout.warning {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+    }
+
+    .callout.warning strong {
+      color: var(--accent);
+    }
+
+    .callout.info {
+      background: var(--light-bg);
+      border-color: var(--primary);
+    }
+
+    .callout.info strong {
+      color: var(--primary);
+    }
+
+    .callout.tip {
+      background: var(--green-soft);
+      border-color: var(--green);
+    }
+
+    .callout.tip strong {
+      color: var(--green);
+    }
+
+    /* TABELAS */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.2rem 0;
+      font-size: 0.92rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    thead {
+      background: var(--deep);
+      color: white;
+    }
+
+    th {
+      padding: 0.7rem 0.9rem;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.88rem;
+    }
+
+    td {
+      padding: 0.7rem 0.9rem;
+      border-bottom: 1px solid var(--gray-light);
+      vertical-align: top;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #f8fafc;
+    }
+
+    body.dark-mode tbody tr:nth-child(even) {
+      background: #3a3a3a;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    body.dark-mode td {
+      border-bottom-color: #444;
+      color: #e0e0e0;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 2.5rem 1rem;
+      color: var(--gray-text);
+      font-size: 0.85rem;
+      background: white;
+      margin-top: 3rem;
+      border-top: 3px solid var(--teal);
+    }
+
+    body.dark-mode footer {
+      background: #2a2a2a;
+      border-top-color: var(--teal);
+      color: #b0b0b0;
+    }
+
+    footer p {
+      margin: 0.3rem 0;
+    }
+
+    footer .footer-title {
+      font-weight: 700;
+      color: var(--deep);
+      font-size: 1rem;
+    }
+
+    body.dark-mode footer .footer-title {
+      color: #e0e0e0;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1000px) {
+      .main-container {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        display: none;
+      }
+
+      .header-content {
+        flex-wrap: wrap;
+      }
+
+      .search-box {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .content {
+        padding: 1.5rem 1rem;
+      }
+
+      .cover {
+        padding: 2.5rem 1.5rem;
+      }
+
+      .cover h1 {
+        font-size: 1.8rem;
+      }
+
+      .grid-2, .grid-3 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+        font-size: 10.5pt;
+        line-height: 1.5;
+      }
+
+      header, .sidebar, .search-box, .btn-icon {
+        display: none;
+      }
+
+      .main-container {
+        grid-template-columns: 1fr;
+      }
+
+      .content {
+        padding: 0;
+      }
+
+      section.chapter {
+        page-break-inside: avoid;
+        box-shadow: none;
+      }
+
+      .chapter-header {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+  </style>
+</head>
+<body>
+<div style="background:#0f2744;color:#e8f1ff;font:12px/1.4 system-ui,sans-serif;padding:8px 14px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+  <span><strong>PneumoAgents</strong> · Tuberculose Pulmonar · v set/2026 BPaL · guia educacional</span>
+  <span style="opacity:.85">MS / SBPT · revisão pendente de aprofundamento · 09/2026</span>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-content">
+    <div class="logo">🫁 TB Guia</div>
+    <input type="text" class="search-box" id="searchBox" placeholder="Buscar no guia...">
+    <div class="header-controls">
+      <button class="btn-icon" id="darkModeToggle" title="Modo escuro">🌙</button>
+      <button class="btn-icon" id="printBtn" title="Imprimir">🖨️</button>
+    </div>
+  </div>
+</header>
+
+<!-- CONTAINER PRINCIPAL -->
+<div class="main-container">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-title">FUNDAMENTOS</div>
+      <a class="sidebar-link" onclick="showSection('def')">Definição e conceitos</a>
+      <a class="sidebar-link" onclick="showSection('epi')">Epidemiologia</a>
+      <a class="sidebar-link" onclick="showSection('age')">Agente e transmissão</a>
+      <a class="sidebar-link" onclick="showSection('fis')">Fisiopatologia</a>
+      <a class="sidebar-link" onclick="showSection('apr')">Apresentações clínicas</a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">DIAGNÓSTICO</div>
+      <a class="sidebar-link" onclick="showSection('quad')">Quadro clínico</a>
+      <a class="sidebar-link" onclick="showSection('inv')">Investigação diagnóstica</a>
+      <a class="sidebar-link" onclick="showSection('img')">Testes de imagem</a>
+      <a class="sidebar-link" onclick="showSection('lab')">Testes laboratoriais</a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">TRATAMENTO</div>
+      <a class="sidebar-link" onclick="showSection('prin')">Princípios gerais</a>
+      <a class="sidebar-link" onclick="showSection('ripe')">Esquema RIPE</a>
+      <a class="sidebar-link" onclick="showSection('dur')">Duração e fases</a>
+      <a class="sidebar-link" onclick="showSection('efe')">Efeitos adversos</a>
+      <a class="sidebar-link" onclick="showSection('adendo')">Adendo sobre tratamentos</a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">CONTROLE E PREVENÇÃO</div>
+      <a class="sidebar-link" onclick="showSection('cont')">Investigação de contatos</a>
+      <a class="sidebar-link" onclick="showSection('ilt')">Infecção latente</a>
+      <a class="sidebar-link" onclick="showSection('trat-ilt')">Tratamento da TB Latente</a>
+      <a class="sidebar-link" onclick="showSection('bcg')">Vacinação BCG</a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">CASOS ESPECIAIS</div>
+      <a class="sidebar-link" onclick="showSection('cri')">TB em crianças</a>
+      <a class="sidebar-link" onclick="showSection('hiv')">TB e HIV/aids</a>
+      <a class="sidebar-link" onclick="showSection('res')">TB-DR · BPaL/BPaLM</a>
+    </div>
+  </aside>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <main class="content">
+
+    <!-- CAPA -->
+    <section class="cover">
+      <div class="cover-content">
+        <h1>Tuberculose Pulmonar</h1>
+        <p class="subtitle">Conhecendo a Tuberculose · PneumoAgents</p>
+        <p style="margin-top:0.75rem;font-size:0.95rem;opacity:0.92;">Dr. Fernando Lundgren · guia educacional MS/SBPT · versão set/2026 (aprofundamento BPaL/BPaLM · TB-DR)</p>
+      </div>
+    </section>
+
+    <!-- SEÇÃO: DEFINIÇÃO E CONCEITOS -->
+    <div id="section-def" class="section-content active">
+      <section class="chapter">
+        <div class="chapter-header">
+          <div class="chapter-num">1</div>
+          <h2>Definição e Conceitos Fundamentais</h2>
+        </div>
+        <div class="chapter-body">
+          <p>A <strong>Tuberculose (TB)</strong> é uma doença infecciosa e transmissível, causada pelo <em>Mycobacterium tuberculosis</em>, que acomete prioritariamente os pulmões, embora possa atingir outros órgãos e sistemas. É uma doença <strong>curável em praticamente todos os casos</strong>, desde que utilizada a associação medicamentosa adequada, em doses corretas e pelo período recomendado.</p>
+
+          <h3 class="section-title">Três estados que não devem ser confundidos</h3>
+          <div class="grid-3">
+            <div class="card">
+              <div class="card-title">1️⃣ Exposição</div>
+              <p>Contato com uma pessoa com TB ativa transmissível. Nem todo contato se infecta — depende da carga bacilar da fonte, do ambiente e do tempo de exposição.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">2️⃣ Infecção latente (ILTB)</div>
+              <p>Bacilos contidos pela imunidade, <strong>sem doença e sem transmissão</strong>. A pessoa é assintomática. Identificada por prova tuberculínica (PT) ou IGRA.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">3️⃣ Doença ativa (TB)</div>
+              <p>Multiplicação bacilar com manifestação clínica e/ou radiológica. As formas pulmonar e laríngea são as transmissíveis.</p>
+            </div>
+          </div>
+
+          <div class="callout info">
+            <span class="callout-icon">💡</span>
+            <div class="callout-content">
+              <strong>Conceito-chave para o GT</strong>
+              <p>A TB pulmonar é a forma <strong>mais frequente e mais relevante para a saúde pública</strong>, pois é a principal responsável pela manutenção da cadeia de transmissão. Distinguir <em>infecção latente</em> de <em>doença ativa</em> é o primeiro passo do raciocínio — são situações com condutas completamente diferentes.</p>
+            </div>
+          </div>
+
+          <p style="font-size: 0.9rem; color: var(--gray-text); margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--gray-light);"><strong>Fontes:</strong> Guia de Vigilância em Saúde (MS, 2024) · Manual de Recomendações para o Controle da TB (MS, 2019)</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- SEÇÃO: EPIDEMIOLOGIA -->
+    <div id="section-epi" class="section-content">
+      <section class="chapter">
+        <div class="chapter-header">
+          <div class="chapter-num">2</div>
+          <h2>Epidemiologia e Populações Vulneráveis</h2>
+        </div>
+        <div class="chapter-body">
+          <p>A TB permanece como um dos maiores desafios de saúde pública mundial e nacional. É a <strong>principal causa de morte por um único agente infeccioso</strong> no mundo: em 2024, cerca de 10,7 milhões de pessoas adoeceram e mais de 1 milhão morreram, segundo a OMS.</p>
+
+          <h3 class="section-title">Magnitude no Brasil</h3>
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-title">📈 Incidência</div>
+              <p>Cerca de <strong>84 a 86 mil casos novos/ano</strong>. Em 2024, o coeficiente de incidência foi de aproximadamente <strong>39,7 casos/100 mil habitantes</strong>. O Brasil está entre os 30 países de maior carga da doença.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">⚠️ Mortalidade</div>
+              <p>Mais de <strong>6 mil óbitos/ano</strong>, com coeficiente em torno de <strong>2,2–2,8 óbitos/100 mil habitantes</strong>. A maioria das mortes é evitável com diagnóstico oportuno e adesão ao tratamento.</p>
+            </div>
+          </div>
+
+          <h3 class="section-title">Populações vulneráveis: risco em relação à população geral</h3>
+          <table>
+            <thead>
+              <tr><th>População vulnerável</th><th>Risco de adoecer (vs. população geral)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Pessoas em situação de rua</strong></td><td><strong>54 vezes maior</strong></td></tr>
+              <tr><td><strong>Pessoas privadas de liberdade</strong></td><td>26 vezes maior</td></tr>
+              <tr><td><strong>Pessoas vivendo com HIV/aids (PVHA)</strong></td><td>20 vezes maior</td></tr>
+              <tr><td><strong>Indígenas</strong></td><td>3 vezes maior</td></tr>
+            </tbody>
+          </table>
+
+          <div class="callout warning">
+            <span class="callout-icon">🎯</span>
+            <div class="callout-content">
+              <strong>Por que isso importa na prática</strong>
+              <p>O conceito de <strong>sintomático respiratório</strong> muda conforme a vulnerabilidade. Na população geral, investiga-se quem tem <strong>tosse ≥ 3 semanas</strong>. Já em PVHA, pessoas privadas de liberdade, profissionais de saúde, pessoas em situação de rua e indígenas, considera-se <strong>tosse de qualquer duração</strong>.</p>
+            </div>
+          </div>
+
+          <p style="font-size: 0.9rem; color: var(--gray-text); margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--gray-light);"><strong>Fontes:</strong> Boletim Epidemiológico de TB (MS, 2025/2026) · Guia de Vigilância em Saúde (MS, 2024) · OMS Global TB Report 2025</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- SEÇÃO: AGENTE E TRANSMISSÃO -->
+    <div id="section-age" class="section-content">
+      <section class="chapter">
+        <div class="chapter-header">
+          <div class="chapter-num">3</div>
+          <h2>Agente Etiológico e Transmissão</h2>
+        </div>
+        <div class="chapter-body">
+          <h3 class="section-title">O bacilo</h3>
+          <p>A TB pode ser causada por qualquer uma das sete espécies do <strong>complexo <em>Mycobacterium tuberculosis</em></strong>. Do ponto de vista de saúde pública, a espécie mais importante é o <em>M. tuberculosis</em>. É um bacilo álcool-ácido resistente (BAAR), de crescimento lento e aeróbio estrito — daí sua predileção pelos ápices pulmonares, mais oxigenados. O principal reservatório é o <strong>ser humano</strong>.</p>
+
+          <h3 class="section-title">Como se transmite</h3>
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-title">🫁 Via aérea, por aerossóis</div>
+              <p>A transmissão ocorre pela <strong>inalação de aerossóis</strong> expelidos na tosse, no espirro ou na fala de uma pessoa com TB <strong>pulmonar ou laríngea</strong> ativa. Apenas essas formas transmitem.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">⏱️ Queda da transmissibilidade</div>
+              <p>Com o esquema adequado, a transmissão cai gradualmente; após cerca de <strong>15 dias de tratamento</strong> efetivo já está muito reduzida na maioria dos casos.</p>
+            </div>
+          </div>
+
+          <div class="callout tip">
+            <span class="callout-icon">🔑</span>
+            <div class="callout-content">
+              <strong>Mensagem para o GT</strong>
+              <p>O melhor controle de transmissão é o <strong>diagnóstico precoce + tratamento efetivo da fonte</strong>. Tratar interrompe a cadeia. Por isso, identificar e tratar o caso-índice protege não só o paciente, mas toda a sua rede de contatos.</p>
+            </div>
+          </div>
+
+          <p style="font-size: 0.9rem; color: var(--gray-text); margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--gray-light);"><strong>Fontes:</strong> Guia de Vigilância em Saúde (MS, 2024) · Harrison, Medicina Interna, 21ª ed. (2024)</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- SEÇÃO: FISIOPATOLOGIA -->
+    <div id="section-fis" class="section-content">
+      <section class="chapter">
+        <div class="chapter-header">
+          <div class="chapter-num">4</div>
+          <h2>Fisiopatologia: da Infecção ao Adoecimento</h2>
+        </div>
+        <div class="chapter-body">
+          <p>Compreender a história natural explica por que a maioria dos infectados <em>não</em> adoece e por que alguns grupos adoecem tanto.</p>
+
+          <h3 class="section-title">Sequência de eventos</h3>
+          <ol style="padding-left: 1.5rem;">
+            <li><strong>Inalação e primoinfecção:</strong> Os bacilos inalados alcançam os alvéolos e são fagocitados por macrófagos alveolares.</li>
+            <li><strong>Resposta imune celular:</strong> Em 2 a 8 semanas, a imunidade mediada por linfócitos T ativa os macrófagos e organiza o granuloma.</li>
+            <li><strong>Contenção (a regra):</strong> Na maioria das pessoas, os bacilos ficam encapsulados em focos quiescentes — é a infecção latente (ILTB).</li>
+            <li><strong>Adoecimento precoce (≈ 5%):</strong> Cerca de 5% dos infectados não contêm a multiplicação inicial e adoecem — TB primária.</li>
+            <li><strong>Adoecimento tardio (≈ 5%):</strong> Outros ~5% adoecem por reativação endógena ou reinfecção — TB pós-primária.</li>
+          </ol>
+
+          <div class="callout warning">
+            <span class="callout-icon">🛡️</span>
+            <div class="callout-content">
+              <strong>O fiel da balança é a imunidade</strong>
+              <p>A probabilidade de a ILTB evoluir para doença depende sobretudo da <strong>competência imunológica do hospedeiro</strong>. O risco é maior em PVHA, em uso de imunossupressores, nos extremos de idade e em desnutridos.</p>
+            </div>
+          </div>
+
+          <p style="font-size: 0.9rem; color: var(--gray-text); margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--gray-light);"><strong>Fontes:</strong> Harrison, Medicina Interna, 21ª ed. (2024) · Guia de Vigilância em Saúde (MS, 2024)</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- SEÇÃO: APRESENTAÇÕES CLÍNICAS -->
+    <div id="section-apr" class="section-content">
+      <section class="chapter">
+        <div class="chapter-header">
+          <div class="chapter-num">5</div>
+          <h2>Apresentações: Primária, Pós-Primária e Miliar</h2>
+        </div>
+        <div class="chapter-body">
+          <p>Conhecer as três grandes apresentações da TB pulmonar ajuda a reconhecer cenários clínicos e a interpretar a imagem — lembrando que <strong>nenhuma imagem é patognomônica</strong> e a confirmação é sempre laboratorial.</p>
+
+          <div class="grid-3">
+            <div class="card">
+              <div class="card-title">🌱 TB primária</div>
+              <p>Decorre da primoinfecção, mais comum em crianças. Predomina o componente ganglionar e infiltrados nos campos médios/inferiores. Costuma ser paucibacilar e oligossintomática.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">🔁 TB pós-primária</div>
+              <p>Forma do adolescente e adulto. Acomete preferencialmente os ápices e segmentos posteriores dos lobos superiores, com tendência à cavitação. É a forma mais bacilífera.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">⭐ TB miliar</div>
+              <p>Forma disseminada por via hematogênica, grave. Micronódulos difusos em ambos os pulmões. Mais frequente em imunossuprimidos e crianças pequenas.</p>
+            </div>
+          </div>
+
+          <h3 class="section-title">Comparativo rápido</h3>
+          <table>
+            <thead>
+              <tr><th>Característica</th><th>Primária</th><th>Pós-primária</th><th>Miliar</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Quem</strong></td><td>Crianças</td><td>Adolescentes/adultos</td><td>Imunossuprimidos</td></tr>
+              <tr><td><strong>Topografia típica</strong></td><td>Hilar/campos médios</td><td>Ápices, cavitação</td><td>Difusa, micronodular</td></tr>
+              <tr><td><strong>Carga bacilar</strong></td><td>Baixa (paucibacilar)</td><td>Alta (bacilífera)</td><td>Variável</td></tr>
+              <tr><td><strong>Transmite?</strong></td><td>Pouco</td><td>Sim, principal fonte</td><td>Depende</td></tr>
+            </tbody>
+          </table>
+
+          <p style="font-size: 0.9rem; color: var(--gray-text); margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--gray-light);"><strong>Fontes:</strong> Harrison, Medicina Interna, 21ª ed. (2024) · Guia de Vigilância em Saúde (MS, 2024)</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- SEÇÃO: QUADRO CLÍNICO -->
+    <div id="section-quad" class="section-content">
+      <section class="chapter">
+        <div class="chapter-header">
+          <div class="chapter-num">6</div>
+          <h2>Quadro Clínico</h2>
+        </div>
+        <div class="chapter-body">
+          <p>A apresentação clínica da TB é frequentemente insidiosa, com evolução subaguda a crônica. Os sintomas variam conforme a forma e o grau de disseminação.</p>
+
+          <h3 class="section-title">Sintomas Respiratórios</h3>
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-title">🫁 Tosse</div>
+              <p><strong>Principal sintoma</strong>, presente em ≥ 3 semanas. Inicialmente seca, pode evoluir para produtiva. Hemoptise indica cavitação.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">💨 Dispneia</div>
+              <p>Progressiva, correlacionada com extensão da doença. Pode estar presente desde o início ou evoluir gradualmente.</p>
+            </div>
+          </div>
+
+          <h3 class="section-title">Sintomas Sistêmicos</h3>
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-title">🌡️ Febre</div>
+              <p>Tipicamente vespertina (sobe à tarde/noite), com queda matinal. Pode estar ausente em imunocomprometidos.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">💧 Sudorese noturna</div>
+              <p>Profusa, frequentemente molhando roupas e lençóis. Sintoma muito sugestivo de TB.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">⬇️ Perda de peso</div>
+              <p>Progressiva, às vezes importante. Acompanhada de astenia e fadiga.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">😴 Astenia</div>
+              <p>Fadiga generalizada, redução da capacidade funcional.</p>
+            </div>
+          </div>
+
+          <p style="font-size: 0.9rem; color: var(--gray-text); margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--gray-light);"><strong>Fontes:</strong> Harrison, Medicina Interna, 21ª ed. (2024)</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- SEÇÃO: INVESTIGAÇÃO DIAGNÓSTICA -->
+    <div id="section-inv" class="section-content">
+      <section class="chapter">
+        <div class="chapter-header">
+          <div class="chapter-num">7</div>
+          <h2>Investigação Diagnóstica</h2>
+        </div>
+        <div class="chapter-body">
+          <p>O diagnóstico de TB combina achados clínicos, radiológicos e laboratoriais. <strong>Nenhum teste isolado é definitivo</strong> — a confirmação requer evidência microbiológica ou histopatológica.</p>
+
+          <h3 class="section-title">Algoritmo Diagnóstico Recomendado</h3>
+          <ol style="padding-left: 1.5rem;">
+            <li><strong>Suspeita clínica:</strong> Identificar sintomático respiratório</li>
+            <li><strong>GeneXpert MTB/RIF:</strong> Teste molecular em amostra respiratória (escarro, aspirado, lavado)</li>
+            <li><strong>Se positivo:</strong> Iniciar tratamento + investigar resistência</li>
+            <li><strong>Se negativo mas alta suspeita:</strong> Repetir teste, considerar cultura e/ou imagem</li>
+          </ol>
+
+          <div class="callout info">
+            <span class="callout-icon">🔍</span>
+            <div class="callout-content">
+              <strong>Importância da Amostra</strong>
+              <p>A qualidade da amostra é crucial. Preferir escarro espontâneo ou induzido. Em crianças, considerar aspirado gástrico. Amostras inadequadas reduzem sensibilidade.</p>
+            </div>
+          </div>
+
+          <p style="font-size: 0.9rem; color: var(--gray-text); margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--gray-light);"><strong>Fontes:</strong> Guia de Vigilância em Saúde (MS, 2024) · Manual de Recomendações para o Controle da TB (MS, 2019)</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- SEÇÃO: TESTES DE IMAGEM -->
+    <div id="section-img" class="section-content">
+      <section class="chapter">
+        <div class="chapter-header">
+          <div class="chapter-num">8</div>
+          <h2>Testes de Imagem</h2>
+        </div>
+        <div class="chapter-body">
+          <p>A radiografia de tórax é o primeiro teste de imagem. Achados típicos variam conforme a apresentação clínica.</p>
+
+          <h3 class="section-title">Radiografia de Tórax</h3>
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-title">📸 TB Pós-primária</div>
+              <p>Infiltrados nos ápices e segmentos posteriores dos lobos superiores. Cavitação é frequente. Pode haver disseminação broncogênica.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">📸 TB Primária</div>
+              <p>Adenomegalia hilar/mediastinal proeminente. Infiltrados em campos médios/inferiores. Derrame pleural pode estar presente.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">📸 TB Miliar</div>
+              <p>Micronódulos difusos em ambos os pulmões ("grãos de milho"). Aspecto característico, mas requer correlação clínica.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">📸 Achados Inespecíficos</div>
+              <p>Infiltrados em qualquer topografia, consolidações, atelectasias, derrame pleural, pneumotórax espontâneo.</p>
+            </div>
+          </div>
+
+          <h3 class="section-title">Tomografia Computadorizada</h3>
+          <p>Indicada quando RX é inconclusivo ou para melhor caracterização de lesões. Mais sensível para detectar cavitação e disseminação broncogênica.</p>
+
+          <p style="font-size: 0.9rem; color: var(--gray-text); margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--gray-light);"><strong>Fontes:</strong> Harrison, Medicina Interna, 21ª ed. (2024)</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- SEÇÃO: TESTES LABORATORIAIS -->
+    <div id="section-lab" class="section-content">
+      <section class="chapter">
+        <div class="chapter-header">
+          <div class="chapter-num">9</div>
+          <h2>Testes Laboratoriais</h2>
+        </div>
+        <div class="chapter-body">
+          <p>Os testes laboratoriais são essenciais para confirmar o diagnóstico e avaliar resistência a drogas.</p>
+
+          <h3 class="section-title">Testes Disponíveis</h3>
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-title">🔬 Baciloscopia</div>
+              <p>Exame de escarro corado pelo Ziehl-Neelsen. Rápido, barato, identifica casos bacilíferos. Sensibilidade ~50-80% em TB pulmonar.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">🧬 GeneXpert MTB/RIF</div>
+              <p>Teste molecular automatizado. Sensibilidade ~95%, especificidade ~99%. Detecta TB e resistência a rifampicina em 2 horas. <strong>Recomendado como teste inicial.</strong></p>
+            </div>
+            <div class="card">
+              <div class="card-title">🧫 Cultura</div>
+              <p>Padrão-ouro, mas lento (2-8 semanas). Permite identificação de espécie e teste de sensibilidade a drogas.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">🧪 IGRA/PT</div>
+              <p>Detectam infecção latente ou ativa. PT: teste tuberculínico intradérmico. IGRA: interferon-gamma release assay. Não diferenciam ILTB de TB ativa.</p>
+            </div>
+          </div>
+
+          <p style="font-size: 0.9rem; color: var(--gray-text); margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--gray-light);"><strong>Fontes:</strong> Guia de Vigilância em Saúde (MS, 2024) · Manual de Recomendações para o Controle da TB (MS, 2019)</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- SEÇÃO: PRINCÍPIOS GERAIS -->
+    <div id="section-prin" class="section-content">
+      <section class="chapter">
+        <div class="chapter-header">
+          <div class="chapter-num">10</div>
+          <h2>Princípios Gerais do Tratamento</h2>
+        </div>
+        <div class="chapter-body">
+          <p>O tratamento padronizado é o esquema RIPE com duração total de <strong>6 meses</strong>, dividido em duas fases com objetivos distintos.</p>
+
+          <h3 class="section-title">Objetivos do Tratamento</h3>
+          <ul style="padding-left: 1.5rem;">
+            <li>Curar o paciente</li>
+            <li>Prevenir recaída</li>
+            <li>Reduzir transmissão</li>
+            <li>Prevenir resistência a drogas</li>
+          </ul>
+
+          <h3 class="section-title">Princípios Fundamentais</h3>
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-title">💊 Associação de drogas</div>
+              <p>Nunca usar monodrogas. Sempre combinar ≥ 4 drogas na fase intensiva para evitar resistência.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">⏰ Duração adequada</div>
+              <p>Mínimo 6 meses. Interrupção precoce leva a recaída e resistência.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">📋 Doses corretas</div>
+              <p>Ajustar conforme peso corporal. Doses inadequadas comprometem eficácia.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">✅ Adesão</div>
+              <p>Fundamental para sucesso. Meta ≥ 90% de doses tomadas. Considerar observação direta (DOT).</p>
+            </div>
+          </div>
+
+          <p style="font-size: 0.9rem; color: var(--gray-text); margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--gray-light);"><strong>Fontes:</strong> Manual de Recomendações para o Controle da TB (MS, 2019)</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- SEÇÃO: ESQUEMA RIPE -->
+    <div id="section-ripe" class="section-content">
+      <section class="chapter">
+        <div class="chapter-header">
+          <div class="chapter-num">11</div>
+          <h2>Esquema RIPE</h2>
+        </div>
+        <div class="chapter-body">
+          <p>O esquema RIPE é o tratamento de primeira linha recomendado para TB pulmonar sensível.</p>
+
+          <h3 class="section-title">Composição das Fases</h3>
+          <div class="grid-2">
+            <div style="background: linear-gradient(135deg, var(--deep), var(--primary)); color: white; padding: 1.5rem; border-radius: 8px;">
+              <h4 style="margin-top: 0; color: white;">Fase Intensiva (2 meses) — 2RHZE</h4>
+              <p style="color: rgba(255,255,255,0.95);">
+                <strong>RHZE</strong> em comprimido de dose fixa combinada (150/75/400/275 mg)<br>
+                • Rifampicina + Isoniazida + Pirazinamida + Etambutol
+              </p>
+            </div>
+            <div style="background: linear-gradient(135deg, var(--primary), var(--teal)); color: white; padding: 1.5rem; border-radius: 8px;">
+              <h4 style="margin-top: 0; color: white;">Fase Manutenção (4 meses) — 4RH</h4>
+              <p style="color: rgba(255,255,255,0.95);">
+                <strong>RH</strong> em comprimido de dose fixa combinada (300/150 mg ou 150/75 mg)<br>
+                <em>Etambutol e pirazinamida descontinuados</em>
+              </p>
+            </div>
+          </div>
+
+          <div class="callout warning">
+            <span class="callout-icon">⚖️</span>
+            <div class="callout-content">
+              <strong>Correção de campo</strong>
+              <p>O Esquema Básico brasileiro <strong>não</strong> é prescrito como "600 mg/dia de rifampicina + 300 mg/dia de isoniazida + doses fixas em mg/kg" para todo adulto. Ele é padronizado em <strong>comprimidos de dose fixa combinada (DFC), ajustados por faixa de peso</strong> (Quadro 20, Manual MS 2019) — ver tabela abaixo.</p>
+            </div>
+          </div>
+
+          <h3 class="section-title">Quadro 20 — Esquema Básico em adultos e adolescentes (≥ 10 anos)</h3>
+          <table>
+            <thead>
+              <tr><th>Faixa de peso</th><th>Fase intensiva — RHZE 150/75/400/275 mg (2 meses)</th><th>Fase manutenção — RH 300/150 mg (4 meses)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>20 a 35 kg</td><td>2 comprimidos/dia</td><td>1 comp. 300/150 mg (ou 2 comp. 150/75 mg)/dia</td></tr>
+              <tr><td>36 a 50 kg</td><td>3 comprimidos/dia</td><td>1 comp. 300/150 mg + 1 comp. 150/75 mg (ou 3 comp. 150/75 mg)/dia</td></tr>
+              <tr><td>51 a 70 kg</td><td>4 comprimidos/dia</td><td>2 comp. 300/150 mg (ou 4 comp. 150/75 mg)/dia</td></tr>
+              <tr><td>Acima de 70 kg</td><td>5 comprimidos/dia</td><td>2 comp. 300/150 mg + 1 comp. 150/75 mg (ou 5 comp. 150/75 mg)/dia</td></tr>
+            </tbody>
+          </table>
+          <p style="font-size: 0.85rem; color: var(--gray-text);">Dose para um adulto de referência (comprimido de 51–70 kg, 4 comp.): rifampicina 600 mg + isoniazida 300 mg + pirazinamida 1.600 mg + etambutol 1.100 mg/dia — por isso "600 mg" e "300 mg" só se aplicam a essa faixa de peso, não como regra geral.</p>
+
+          <div class="callout info">
+            <span class="callout-icon">💊</span>
+            <div class="callout-content">
+              <strong>RH 300/150 mg (dose plena) — nota MS</strong>
+              <p>Desde 2021 o SUS disponibiliza a DFC <strong>RH 300/150 mg</strong> (rifampicina 300 mg + isoniazida 150 mg) na fase de manutenção, incorporada pela Portaria nº 30/GM/MS (28/08/2018) e orientada pelo Ofício nº 104/2021-CGDR/DCCI/SVS/MS. Objetivo: <strong>menos comprimidos/dia</strong> e melhor adesão. O RH 150/75 mg passa a ser usado preferencialmente para <strong>ajuste de dose</strong>. Material educativo MS (tratamento em adolescentes e adultos) confirma a mesma tabela por faixa de peso. Orientar bem na dispensação para evitar troca entre dose plena e meia dose.</p>
+            </div>
+          </div>
+
+          <div class="callout warning">
+            <span class="callout-icon">🧠</span>
+            <div class="callout-content">
+              <strong>Exceção: TB meningoencefálica e osteoarticular</strong>
+              <p>Nessas formas, o esquema é <strong>2RHZE/10RH</strong> (fase de manutenção estendida para 10 meses, tratamento total de 12 meses), e não 2RHZE/4RH. Associar corticosteroide (prednisona 1–2 mg/kg/dia por 4 semanas, ou dexametasona IV em casos graves de TB meningoencefálica). TB osteoarticular de baixa complexidade pode, a critério clínico, ser tratada em 6 meses.</p>
+            </div>
+          </div>
+
+          <h3 class="section-title">Administração</h3>
+          <ul style="padding-left: 1.5rem;">
+            <li>Preferencialmente em dose única diária</li>
+            <li>Tomar em jejum (1 hora antes ou 2 horas após refeição) para melhor absorção</li>
+            <li>Rifampicina pode ser tomada com alimento se houver intolerância gástrica</li>
+            <li>Considerar observação direta (DOT) em casos de risco de não adesão</li>
+          </ul>
+
+          <p style="font-size: 0.9rem; color: var(--gray-text); margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--gray-light);"><strong>Fontes:</strong> Manual de Recomendações para o Controle da TB no Brasil, 2ª ed. atualizada (MS, 2019) — Quadros 20 e 21 · Ofício nº 104/2021-CGDR/DCCI/SVS/MS (RH 300/150 dose plena) · Portaria nº 30/GM/MS, 28/08/2018 · MS — Tratamento da TB em adolescentes e adultos (material educativo SVSA)</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- SEÇÃO: DURAÇÃO E FASES -->
+    <div id="section-dur" class="section-content">
+      <section class="chapter">
+        <div class="chapter-header">
+          <div class="chapter-num">12</div>
+          <h2>Duração e Fases do Tratamento</h2>
+        </div>
+        <div class="chapter-body">
+          <p>O tratamento de TB pulmonar sensível tem duração total de <strong>6 meses</strong>, com dois períodos distintos. <strong>Exceção:</strong> nas formas meningoencefálica e osteoarticular, a fase de manutenção se estende para 10 meses (esquema 2RHZE/10RH), totalizando 12 meses — ver Cap. 11.</p>
+
+          <h3 class="section-title">Fase Intensiva (2 meses)</h3>
+          <p><strong>Objetivo:</strong> Reduzir rapidamente a carga bacilar e tornar o paciente não transmissível.</p>
+          <ul style="padding-left: 1.5rem;">
+            <li>Uso de 4 drogas (RIPE)</li>
+            <li>Baciloscopia de controle no 2º mês (deve negativar)</li>
+            <li>Avaliação clínica mensal</li>
+            <li>Após 2 meses, se baciloscopia ainda positiva: investigar adesão, má absorção, resistência</li>
+          </ul>
+
+          <h3 class="section-title">Fase Manutenção (4 meses)</h3>
+          <p><strong>Objetivo:</strong> Eliminar bacilos residuais e prevenir recaída.</p>
+          <ul style="padding-left: 1.5rem;">
+            <li>Uso de 2 drogas (RI)</li>
+            <li>Avaliação clínica mensal</li>
+            <li>Ganho de peso esperado</li>
+            <li>Não é necessário repetir baciloscopia se negativou na fase intensiva</li>
+          </ul>
+
+          <h3 class="section-title">Monitoramento Durante Tratamento</h3>
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-title">📋 Clínico</div>
+              <p>Avaliação mensal de sintomas, ganho de peso, tolerância às drogas.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">🔬 Laboratorial</div>
+              <p>Baciloscopia no 2º mês. Função hepática (TGO/TGP) no início e se sintomas.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">💊 Adesão</div>
+              <p>Verificar regularidade de comparecimento, tomar medicações conforme prescrito.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">👁️ Efeitos adversos</div>
+              <p>Monitorar acuidade visual se etambutol prolongado, neuropatia periférica com isoniazida.</p>
+            </div>
+          </div>
+
+          <p style="font-size: 0.9rem; color: var(--gray-text); margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--gray-light);"><strong>Fontes:</strong> Manual de Recomendações para o Controle da TB (MS, 2019)</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- SEÇÃO: EFEITOS ADVERSOS -->
+    <div id="section-efe" class="section-content">
+      <section class="chapter">
+        <div class="chapter-header">
+          <div class="chapter-num">13</div>
+          <h2>Efeitos Adversos das Drogas Antituberculosas</h2>
+        </div>
+        <div class="chapter-body">
+          <p>Os efeitos adversos são frequentes, mas a maioria é reversível e não requer suspensão do tratamento.</p>
+
+          <h3 class="section-title">Efeitos Adversos por Droga</h3>
+          <table>
+            <thead>
+              <tr><th>Droga</th><th>Efeitos Adversos Principais</th><th>Manejo</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Rifampicina</strong></td>
+                <td>Coloração avermelhada de secreções, hepatotoxicidade, interações medicamentosas</td>
+                <td>Informar paciente sobre coloração. Monitorar LFTs. Ajustar doses de outros medicamentos.</td>
+              </tr>
+              <tr>
+                <td><strong>Isoniazida</strong></td>
+                <td>Neuropatia periférica (efeito adverso comum da isoniazida; incomum com etambutol), hepatotoxicidade, reações de hipersensibilidade</td>
+                <td>Diante de neuropatia periférica manifesta, medicar com piridoxina (vitamina B6) 50 mg/dia. Monitorar LFTs.</td>
+              </tr>
+              <tr>
+                <td><strong>Pirazinamida</strong></td>
+                <td>Hiperuricemia, hepatotoxicidade, artralgia</td>
+                <td>Monitorar ácido úrico. Considerar alopurinol se gota. Monitorar LFTs.</td>
+              </tr>
+              <tr>
+                <td><strong>Etambutol</strong></td>
+                <td>Neurite óptica (risco com doses altas), daltonismo</td>
+                <td>Testar acuidade visual e visão de cores no início. Monitorar se dose > 25 mg/kg/dia.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3 class="section-title">Hepatotoxicidade</h3>
+          <div class="callout warning">
+            <span class="callout-icon">⚠️</span>
+            <div class="callout-content">
+              <strong>Quando Suspender Drogas (correção de campo)</strong>
+              <p>São <strong>dois critérios independentes</strong> (Quadro 24, Manual MS 2019) — qualquer um deles indica suspensão:</p>
+              <p>• TGO/TGP ≥ <strong>5x</strong> o limite superior da normalidade (LSN), <strong>mesmo sem sintomas</strong>; <br>• TGO/TGP ≥ <strong>3x</strong> o LSN <strong>com sintomas</strong> (dispepsia, náusea) <strong>ou tão logo surja icterícia</strong>.</p>
+              <p>Elevação assintomática discreta nos 2 primeiros meses, sem chegar a esses limiares, não exige interrupção — normaliza espontaneamente na maioria dos casos. Após suspensão, reintroduzir de forma escalonada (RE → RE+H → REHZ), com reavaliação hepática antes de cada reintrodução; se TGO/TGP permanecer ≥3x LSN após 4 semanas, ou em casos graves/cirrose prévia, iniciar esquema alternativo.</p>
+            </div>
+          </div>
+
+          <p style="font-size: 0.9rem; color: var(--gray-text); margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--gray-light);"><strong>Fontes:</strong> Manual de Recomendações para o Controle da TB no Brasil, 2ª ed. atualizada (MS, 2019) — Quadros 24, 32 e 33, p. 111–129</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- SEÇÃO: INVESTIGAÇÃO DE CONTATOS -->
+    <div id="section-cont" class="section-content">
+      <section class="chapter">
+        <div class="chapter-header">
+          <div class="chapter-num">14</div>
+          <h2>Investigação de Contatos</h2>
+        </div>
+        <div class="chapter-body">
+          <p>A investigação de contatos é essencial para identificar novos casos e prevenir progressão para TB ativa.</p>
+
+          <h3 class="section-title">Objetivo</h3>
+          <p>Identificar pessoas expostas ao caso-índice para diagnóstico precoce de TB ativa e tratamento preventivo de ILTB, interrompendo a cadeia de transmissão.</p>
+
+          <h3 class="section-title">Tipos de Contato</h3>
+          <table>
+            <thead>
+              <tr><th>Tipo de Contato</th><th>Investigação</th><th>Conduta</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Contato próximo domiciliar</strong></td>
+                <td>Obrigatória</td>
+                <td>Avaliação clínica + GeneXpert/baciloscopia + PT/IGRA</td>
+              </tr>
+              <tr>
+                <td><strong>Contato ocupacional</strong></td>
+                <td>Recomendada</td>
+                <td>Avaliação clínica + PT/IGRA</td>
+              </tr>
+              <tr>
+                <td><strong>Contato casual</strong></td>
+                <td>Seletiva</td>
+                <td>Depende de duração/intensidade da exposição</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3 class="section-title">Grupos Prioritários</h3>
+          <ul style="padding-left: 1.5rem;">
+            <li>Crianças menores de 5 anos</li>
+            <li>Gestantes</li>
+            <li>PVHA com CD4 < 200 células/mm³</li>
+            <li>Pessoas com diabetes, insuficiência renal crônica, desnutrição</li>
+            <li>Usuários de álcool e drogas</li>
+          </ul>
+
+          <p style="font-size: 0.9rem; color: var(--gray-text); margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--gray-light);"><strong>Fontes:</strong> Guia de Vigilância em Saúde (MS, 2024)</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- SEÇÃO: INFECÇÃO LATENTE -->
+    <div id="section-ilt" class="section-content">
+      <section class="chapter">
+        <div class="chapter-header">
+          <div class="chapter-num">15</div>
+          <h2>Tratamento da Infecção Latente (ILTB)</h2>
+        </div>
+        <div class="chapter-body">
+          <p>O tratamento da ILTB previne progressão para TB ativa, reduzindo risco em ~60-90%. O Ministério da Saúde do Brasil recomenda atualmente o esquema <strong>3HP (Rifapentina + Isoniazida)</strong> como primeira linha.</p>
+
+          <h3 class="section-title">Indicações Principais</h3>
+          <ul style="padding-left: 1.5rem;">
+            <li>Contatos de casos bacilíferos com PT/IGRA positivo</li>
+            <li>PVHA com PT/IGRA positivo (independente de CD4)</li>
+            <li>Pessoas em uso de anti-TNF</li>
+            <li>Candidatos a transplante de órgãos</li>
+            <li>Profissionais de saúde com conversão de PT/IGRA</li>
+            <li>Crianças menores de 5 anos expostas</li>
+            <li>Pessoas com diabetes, insuficiência renal crônica, desnutrição</li>
+          </ul>
+
+          <h3 class="section-title">Esquema 3HP (Recomendado - Primeira Linha)</h3>
+          <p><strong>Rifapentina + Isoniazida</strong> — Novo esquema de curta duração recomendado pelo Ministério da Saúde do Brasil.</p>
+          
+          <div class="grid-2">
+            <div style="background: linear-gradient(135deg, var(--green), #4caf6e); color: white; padding: 1.5rem; border-radius: 8px;">
+              <h4 style="margin-top: 0; color: white;">Duração</h4>
+              <p style="color: rgba(255,255,255,0.95);"><strong>3 meses</strong> (12 doses semanais)<br>Pode ser prorrogado para 15 semanas conforme necessidade</p>
+            </div>
+            <div style="background: linear-gradient(135deg, var(--primary), var(--teal)); color: white; padding: 1.5rem; border-radius: 8px;">
+              <h4 style="margin-top: 0; color: white;">Posologia</h4>
+              <p style="color: rgba(255,255,255,0.95);"><strong>1x por semana</strong><br>Índice de adesão muito maior que esquemas diários</p>
+            </div>
+          </div>
+
+          <h4 class="minor-title">Doses por Faixa Etária</h4>
+          <table>
+            <thead>
+              <tr><th>População</th><th>Isoniazida/semana</th><th>Rifapentina/semana</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Adultos (>14 anos, ≥30kg)</strong></td>
+                <td>900 mg</td>
+                <td>900 mg</td>
+              </tr>
+              <tr>
+                <td><strong>Crianças 10-15kg</strong></td>
+                <td>300 mg</td>
+                <td>300 mg</td>
+              </tr>
+              <tr>
+                <td><strong>Crianças 16-23kg</strong></td>
+                <td>500 mg</td>
+                <td>450 mg</td>
+              </tr>
+              <tr>
+                <td><strong>Crianças 24-30kg</strong></td>
+                <td>600 mg</td>
+                <td>600 mg</td>
+              </tr>
+              <tr>
+                <td><strong>Crianças >30kg</strong></td>
+                <td>700 mg</td>
+                <td>750 mg</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3 class="section-title">Vantagens do Esquema 3HP</h3>
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-title">⏱️ Curta duração</div>
+              <p>Apenas 3 meses vs 6 meses com isoniazida diária. Reduz significativamente o tempo de tratamento.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">📅 Dose semanal</div>
+              <p>Tomada apenas 1x/semana, no mesmo dia (ex: todas as quartas-feiras). Aumenta adesão.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">✅ Adesão</div>
+              <p>Comodidade posológica favorece maior adesão ao tratamento completo.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">👨‍⚕️ TDO facilitado</div>
+              <p>Observação direta do tratamento é mais viável com dose semanal.</p>
+            </div>
+          </div>
+
+          <h3 class="section-title">Esquemas Alternativos</h3>
+          <p>Para situações onde o 3HP não pode ser utilizado:</p>
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-title">💊 Isoniazida</div>
+              <p><strong>300 mg/dia por 6 meses</strong>. Bem tolerada, baixo custo. Requer monitoramento de função hepática.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">💊 Rifampicina</div>
+              <p><strong>600 mg/dia por 4 meses</strong>. Útel em casos de intolerância a isoniazida ou resistência a INH.</p>
+            </div>
+          </div>
+
+          <h3 class="section-title">Contraindicações e Restrições do 3HP</h3>
+          <div class="callout warning">
+            <span class="callout-icon">⚠️</span>
+            <div class="callout-content">
+              <strong>Não recomendado em:</strong>
+              <p>• Gestantes<br>• Contatos com monorresistência à isoniazida ou rifampicina<br>• Efeitos adversos graves a qualquer medicamento do 3HP</p>
+            </div>
+          </div>
+
+          <h3 class="section-title">Pontos Importantes</h3>
+          <ul style="padding-left: 1.5rem;">
+            <li><strong>Descartar TB ativa:</strong> Sempre afastar TB ativa antes de iniciar ILTB com avaliação clínica, radiológica e, se necessário, baciloscopia/GeneXpert</li>
+            <li><strong>Notificação:</strong> Todos os casos de ILTB devem ser notificados e encerrados no Sistema IL-TB</li>
+            <li><strong>Mesmo dia da semana:</strong> Os medicamentos devem ser tomados sempre no mesmo dia da semana</li>
+            <li><strong>Interações:</strong> Atentar para possíveis interações medicamentosas, especialmente em PVHA</li>
+          </ul>
+
+          <p style="font-size: 0.9rem; color: var(--gray-text); margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--gray-light);"><strong>Fontes:</strong> Ministério da Saúde - Tratamento da Infecção Latente com Rifapentina + Isoniazida (3HP) · Nota Informativa Nº 4/2024-CGTM/DATHI/SVSA/MS · Guia de Vigilância em Saúde (MS, 2024)</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- SEÇÃO: TRATAMENTO DA TB LATENTE -->
+    <div id="section-trat-ilt" class="section-content">
+      <section class="chapter">
+        <div class="chapter-header">
+          <div class="chapter-num">15A</div>
+          <h2>Tratamento da TB Latente - Esquema 3HP</h2>
+        </div>
+        <div class="chapter-body">
+          <p>O esquema <strong>3HP (Rifapentina + Isoniazida)</strong> é o novo padrão recomendado pelo Ministério da Saúde do Brasil para o tratamento da infecção latente pelo <em>Mycobacterium tuberculosis</em>. É um esquema de curta duração que melhora significativamente a adesão ao tratamento.</p>
+
+          <h3 class="section-title">O que é o 3HP?</h3>
+          <p>O 3HP é um esquema de tratamento da ILTB de curta duração. Consiste na tomada <strong>uma vez (1x) por semana</strong> dos medicamentos <strong>isoniazida (H)</strong> e <strong>rifapentina (P)</strong>, durante <strong>três meses</strong>. O 3HP já está disponível no SUS.</p>
+
+          <h3 class="section-title">Quantas Doses são Necessárias?</h3>
+          <p>O tratamento estará completo quando ocorrer a tomada de <strong>12 doses</strong> de isoniazida + rifapentina por <strong>12 semanas</strong>. Dependendo do caso, esse prazo pode ser prorrogado para <strong>15 semanas</strong>.</p>
+
+          <h3 class="section-title">Posologia do 3HP</h3>
+          <table>
+            <thead>
+              <tr><th>População</th><th>Isoniazida/semana</th><th>Rifapentina/semana</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Adultos (>14 anos, ≥30kg)</strong></td>
+                <td>900 mg</td>
+                <td>900 mg</td>
+              </tr>
+              <tr>
+                <td><strong>Crianças 10-15kg</strong></td>
+                <td>300 mg</td>
+                <td>300 mg</td>
+              </tr>
+              <tr>
+                <td><strong>Crianças 16-23kg</strong></td>
+                <td>500 mg</td>
+                <td>450 mg</td>
+              </tr>
+              <tr>
+                <td><strong>Crianças 24-30kg</strong></td>
+                <td>600 mg</td>
+                <td>600 mg</td>
+              </tr>
+              <tr>
+                <td><strong>Crianças >30kg</strong></td>
+                <td>700 mg</td>
+                <td>750 mg</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3 class="section-title">Vantagens do Esquema 3HP</h3>
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-title">⏱️ Redução do tempo</div>
+              <p>Apenas 3 meses de tratamento vs 6 meses com isoniazida diária.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">📅 Comodidade posológica</div>
+              <p>Medicamentos tomados apenas 1x/semana, no mesmo dia da semana.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">✅ Aumento da adesão</div>
+              <p>Esquema semanal favorece maior adesão ao tratamento completo.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">👨‍⚕️ TDO facilitado</div>
+              <p>Observação direta do tratamento é mais viável com dose semanal.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">💰 Redução de custos</div>
+              <p>Potencial redução de custos com armazenamento e distribuição.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">🏥 Otimização de serviços</div>
+              <p>Melhora na eficiência dos serviços de saúde em todos os níveis.</p>
+            </div>
+          </div>
+
+          <h3 class="section-title">Administração Prática</h3>
+          <ul style="padding-left: 1.5rem;">
+            <li>Os medicamentos devem ser tomados <strong>sempre no mesmo dia da semana</strong>. Por exemplo: todas as quartas-feiras</li>
+            <li>Preferencialmente em dose única</li>
+            <li>Pode ser tomado com alimento se houver intolerância gástrica</li>
+            <li>Considerar observação direta (DOT) em casos de risco de não adesão</li>
+          </ul>
+
+          <h3 class="section-title">Contraindições e Restrições</h3>
+          <div class="callout warning">
+            <span class="callout-icon">⚠️</span>
+            <div class="callout-content">
+              <strong>O esquema 3HP NÃO deve ser utilizado em:</strong>
+              <p>• <strong>Gestantes</strong><br>• Contato com <strong>monorresistência à isoniazida</strong> ou <strong>rifampicina</strong><br>• <strong>Efeitos adversos graves</strong> a qualquer dos medicamentos do 3HP</p>
+            </div>
+          </div>
+
+          <h3 class="section-title">Pontos Importantes de Atenção</h3>
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-title">📋 Descartar TB Ativa</div>
+              <p>Antes de efetuar o tratamento da ILTB, deve-se afastar definitivamente a TB ativa com avaliação clínica, radiológica e laboratorial.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">📄 Atenção na Dispensação</div>
+              <p>É necessário atenção redobrada na dispensação, pois há duas concentrações de isoniazida disponíveis (300mg e 50mg).</p>
+            </div>
+            <div class="card">
+              <div class="card-title">📌 Notificação</div>
+              <p>Todos os casos de ILTB devem ser notificados e posteriormente encerrados no Sistema de Informação IL-TB.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">🔍 Interações Medicamentosas</div>
+              <p>Atentar para possíveis interações medicamentosas, especialmente em pessoas vivendo com HIV (PVHA).</p>
+            </div>
+          </div>
+
+          <h3 class="section-title">Esquemas Alternativos</h3>
+          <p>Para situações onde o 3HP não pode ser utilizado:</p>
+          <div class="grid-2">
+            <div style="background: linear-gradient(135deg, var(--light-bg), white); border: 2px solid var(--primary); padding: 1.2rem; border-radius: 8px;">
+              <h4 style="margin-top: 0; color: var(--primary);">Isoniazida</h4>
+              <p><strong>300 mg/dia por 6 meses</strong><br>Bem tolerada, baixo custo. Requer monitoramento de função hepática.</p>
+            </div>
+            <div style="background: linear-gradient(135deg, var(--light-bg), white); border: 2px solid var(--primary); padding: 1.2rem; border-radius: 8px;">
+              <h4 style="margin-top: 0; color: var(--primary);">Rifampicina</h4>
+              <p><strong>600 mg/dia por 4 meses</strong><br>Útil em casos de intolerância a isoniazida ou resistência a INH.</p>
+            </div>
+          </div>
+
+          <h3 class="section-title">Monitoramento Durante Tratamento</h3>
+          <ul style="padding-left: 1.5rem;">
+            <li>Avaliação clínica no início do tratamento</li>
+            <li>Monitoramento de tolerância aos medicamentos</li>
+            <li>Verificação de adesão (presença nas datas agendadas)</li>
+            <li>Testes de função hepática se sintomas de hepatotoxicidade</li>
+            <li>Avaliação final ao término do tratamento</li>
+          </ul>
+
+          <div class="callout info">
+            <span class="callout-icon">💡</span>
+            <div class="callout-content">
+              <strong>Recomendação do MS</strong>
+              <p>O esquema 3HP é recomendado para <strong>todas as pessoas com diagnóstico de ILTB</strong> e/ou com indicação de tratamento da ILTB, incluindo pessoas vivendo com HIV (PVHA), atentando para eventuais interações medicamentosas.</p>
+            </div>
+          </div>
+
+          <p style="font-size: 0.9rem; color: var(--gray-text); margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--gray-light);"><strong>Fontes:</strong> Ministério da Saúde - Tratamento da Infecção Latente com Rifapentina + Isoniazida (3HP) · Nota Informativa Nº 4/2024-CGTM/DATHI/SVSA/MS · Nota Informativa Nº 5/2021-CGDR/DCCI/SVS/MS</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- SEÇÃO: VACINAÇÃO BCG -->
+    <div id="section-bcg" class="section-content">
+      <section class="chapter">
+        <div class="chapter-header">
+          <div class="chapter-num">16</div>
+          <h2>Vacinação BCG</h2>
+        </div>
+        <div class="chapter-body">
+          <p>A vacina BCG (Bacillus Calmette-Guérin) é uma vacina de vírus vivo atenuado que oferece proteção contra formas graves de TB em crianças.</p>
+
+          <h3 class="section-title">Características</h3>
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-title">📅 Aplicação</div>
+              <p>Aplicada ao nascer (dose única). Não requer revacinação. Parte do calendário de vacinação do PNI.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">🛡️ Eficácia</div>
+              <p>Eficácia ~70-80% contra TB miliar e meníngea em crianças. Proteção reduzida contra TB pulmonar em adultos.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">❌ Contraindicações</div>
+              <p>Contraindicada em imunocomprometidos (PVHA com CD4 < 200, em uso de imunossupressores, prematuros extremos).</p>
+            </div>
+            <div class="card">
+              <div class="card-title">✅ Indicações</div>
+              <p>Recomendada para todas as crianças ao nascer em áreas de alta prevalência de TB.</p>
+            </div>
+          </div>
+
+          <h3 class="section-title">Interpretação da Cicatriz Vacinal</h3>
+          <p>A presença de cicatriz no local da injeção (geralmente no braço) indica vacinação bem-sucedida. Ausência não significa falha vacinal — alguns indivíduos não desenvolvem cicatriz visível.</p>
+
+          <p style="font-size: 0.9rem; color: var(--gray-text); margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--gray-light);"><strong>Fontes:</strong> Programa Nacional de Imunizações (MS) · Guia de Vigilância em Saúde (MS, 2024)</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- SEÇÃO: TB EM CRIANÇAS -->
+    <div id="section-cri" class="section-content">
+      <section class="chapter">
+        <div class="chapter-header">
+          <div class="chapter-num">17</div>
+          <h2>TB em Crianças</h2>
+        </div>
+        <div class="chapter-body">
+          <p>A TB em crianças representa um desafio diagnóstico único. Crianças menores de 10 anos frequentemente apresentam TB paucibacilar (baciloscopia negativa).</p>
+
+          <h3 class="section-title">Características Peculiares</h3>
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-title">🌱 Forma Clínica</div>
+              <p>TB primária é mais comum. Apresentação: adenomegalia hilar/mediastinal, infiltrados em campos médios/inferiores, febre prolongada.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">🔍 Diagnóstico</div>
+              <p>Frequentemente clínico-radiológico. Baciloscopia geralmente negativa. GeneXpert em amostras gástricas pode ajudar.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">💊 Tratamento (correção de campo)</div>
+              <p>Para crianças <strong>&lt; 10 anos</strong>, o esquema é <strong>2RHZ/4RH</strong> — <strong>sem etambutol</strong> (risco de neurite óptica não monitorável nessa faixa etária) —, não o RIPE completo do adulto. Duração total 6 meses. Doses por kg (Quadro 22, MS 2019): Rifampicina 15 (10–20) mg/kg/dia; Isoniazida 10 (7–15) mg/kg/dia; Pirazinamida 35 (30–40) mg/kg/dia, ajustadas por faixa de peso corporal. Crianças com TB, HIV ou desnutrição devem receber piridoxina (vitamina B6) 5–10 mg/dia. Na forma meningoencefálica ou osteoarticular, usa-se 2RHZ/10RH (12 meses no total).</p>
+            </div>
+            <div class="card">
+              <div class="card-title">👥 Contatos</div>
+              <p>Toda criança com contato bacilífero deve ser investigada. Se PT/IGRA positivo: iniciar ILTB.</p>
+            </div>
+          </div>
+
+          <div class="callout warning">
+            <span class="callout-icon">⚠️</span>
+            <div class="callout-content">
+              <strong>Investigação de Contatos em Crianças</strong>
+              <p>Crianças menores de 5 anos expostas a caso bacilífero devem receber ILTB mesmo com PT/IGRA negativo, pois risco de progressão é muito alto.</p>
+            </div>
+          </div>
+
+          <p style="font-size: 0.9rem; color: var(--gray-text); margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--gray-light);"><strong>Fontes:</strong> Manual de Recomendações para o Controle da TB (MS, 2019) · Guia de Vigilância em Saúde (MS, 2024)</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- SEÇÃO: TB E HIV/AIDS -->
+    <div id="section-hiv" class="section-content">
+      <section class="chapter">
+        <div class="chapter-header">
+          <div class="chapter-num">18</div>
+          <h2>TB e HIV/aids</h2>
+        </div>
+        <div class="chapter-body">
+          <p>A coinfecção TB/HIV é uma das maiores causas de morte em PVHA. A TB pode ocorrer em qualquer contagem de CD4, mas é mais frequente com CD4 < 200 células/mm³.</p>
+
+          <h3 class="section-title">Desafios Clínicos</h3>
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-title">🔍 Apresentação Atípica</div>
+              <p>Com CD4 muito baixo: infiltrados em campos médios/inferiores, ausência de cavitação, adenomegalia, TB extrapulmonar mais frequente.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">⚡ Síndrome Inflamatória</div>
+              <p>Paradoxo imunológico: piora clínica nos primeiros meses após início de TARV, apesar de melhora imunológica.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">💊 Interações Medicamentosas</div>
+              <p>Rifampicina induz metabolismo de inibidores de protease e integrases. Pode ser necessário ajuste de doses de TARV.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">📅 Timing de TARV</div>
+              <p>Iniciar TARV conforme CD4: se CD4 < 50: após 2 semanas de TB; se CD4 > 50: após 8 semanas de TB.</p>
+            </div>
+          </div>
+
+          <div class="callout info">
+            <span class="callout-icon">💊</span>
+            <div class="callout-content">
+              <strong>Recomendação Importante</strong>
+              <p>Toda PVHA com TB deve ser tratada com esquema RIPE padrão. Consultar especialista em HIV para manejo de TARV e interações medicamentosas.</p>
+            </div>
+          </div>
+
+          <p style="font-size: 0.9rem; color: var(--gray-text); margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--gray-light);"><strong>Fontes:</strong> Manual de Recomendações para o Controle da TB (MS, 2019) · Guia de Vigilância em Saúde (MS, 2024)</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- SEÇÃO: TB RESISTENTE -->
+    <div id="section-res" class="section-content">
+      <section class="chapter">
+        <div class="chapter-header">
+          <div class="chapter-num">19</div>
+          <h2>TB Drogarresistente (TB-DR) — BPaL / BPaLM</h2>
+        </div>
+        <div class="chapter-body">
+          <p>A resistência a fármacos antituberculose exige definição precisa do padrão de resistência, testes de sensibilidade (incluindo fluoroquinolonas, linezolida e bedaquilina) e esquemas padronizados. No Brasil, a referência operacional atual para RR/MDR/Pré-XDR/XDR com pretomanida é a <strong>Nota Informativa nº 1/2025-CGTM/DATHI/SVSA/MS</strong> (processo SEI 25000.005639/2025-79; assinaturas jan/2025). O Manual MS 2019 permanece válido para resistências e detalhes não cobertos pela Nota.</p>
+
+          <div class="callout warning">
+            <span class="callout-icon">🇧🇷</span>
+            <div class="callout-content">
+              <strong>Brasil agora (NI 1/2025): BPaL — não BPaLM de rotina</strong>
+              <p>A pretomanida foi incorporada ao SUS pela <strong>Portaria SECTICS/MS nº 49, de 21/09/2023</strong>. A NI 1/2025 reconhece que BPaL e BPaLM têm eficácia em geral semelhante e que a OMS prioriza BPaLM quando a fluoroquinolona é sensível; <strong>neste momento, o MS recomenda a utilização somente do esquema BPaL</strong> (bedaquilina + pretomanida + linezolida). Não inventar data de “virada” para BPaLM no SUS além do que a Nota afirma.</p>
+            </div>
+          </div>
+
+          <h3 class="section-title">1. Definições atualizadas (MS / alinhadas à OMS)</h3>
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-title">Monorresistência</div>
+              <p>Resistência a <strong>somente um</strong> fármaco. Vigilância prioritária: rifampicina ou isoniazida — notificar no Site-TB.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">Polirresistência</div>
+              <p>Resistência a dois ou mais fármacos, <strong>exceto</strong> a associação rifampicina + isoniazida.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">TB RR</div>
+              <p><strong>Resistente à rifampicina</strong> identificada exclusivamente pelo TRM-TB, ainda sem TS completo aos demais fármacos (sem outras resistências conhecidas).</p>
+            </div>
+            <div class="card">
+              <div class="card-title">TB MDR</div>
+              <p><strong>Multirresistência:</strong> resistência a pelo menos <strong>rifampicina E isoniazida</strong>.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">Pré-XDR</div>
+              <p>Resistência à rifampicina (± isoniazida) <strong>+ resistência a uma fluoroquinolona</strong> (qualquer delas).</p>
+            </div>
+            <div class="card">
+              <div class="card-title">TB XDR</div>
+              <p>Resistência à rifampicina (± isoniazida) + fluoroquinolona <strong>+ resistência à linezolida e/ou bedaquilina</strong>. <em>Definição antiga (FQ + injetável) está obsoleta</em> — não usar.</p>
+            </div>
+          </div>
+
+          <div class="callout info">
+            <span class="callout-icon">🔬</span>
+            <div class="callout-content">
+              <strong>Testes obrigatórios / prioritários</strong>
+              <p>Todo caso RR/MDR deve ter TS oportuno a fluoroquinolonas, linezolida e bedaquilina. <strong>Ainda não há teste padronizado para pretomanida.</strong> Pretomanida só pode entrar em BPaL (ou, conceitualmente, BPaLM) — <strong>não</strong> em esquemas individualizados soltos.</p>
+            </div>
+          </div>
+
+          <h3 class="section-title">2. Quando suspeitar e o que fazer</h3>
+          <ul style="padding-left: 1.5rem;">
+            <li>Falha terapêutica (baciloscopia positiva após tratamento correto)</li>
+            <li>Contato com caso resistente; TB prévia; má adesão; PVHA</li>
+            <li>TRM-TB com resistência à rifampicina → referir e montar esquema conforme NI 1/2025</li>
+          </ul>
+          <div class="callout warning">
+            <span class="callout-icon">🚨</span>
+            <div class="callout-content">
+              <strong>Ação imediata</strong>
+              <p>Solicitar TRM-TB / cultura com TS de 1ª e 2ª linha. Encaminhar a referência de TB-DR. Notificar no <strong>Site-TB</strong>. Tratamentos já iniciados antes da Nota, sem indicação de mudança, devem ser mantidos até o encerramento.</p>
+            </div>
+          </div>
+
+          <h3 class="section-title">3. Esquema BPaL (Brasil — NI 1/2025)</h3>
+          <p><strong>Componentes:</strong> bedaquilina (Bdq) + pretomanida (Pa) + linezolida (Lzd). Duração padrão: <strong>6 meses (26 semanas)</strong>, totalmente oral. Pode estender para <strong>9 meses (39 semanas)</strong> se não houver conversão da cultura ou melhora clínica entre o 4º e o 6º mês, desde que o tratamento tenha sido feito sem interrupções relevantes.</p>
+
+          <table>
+            <thead>
+              <tr><th>Medicamento</th><th>Posologia (adultos / adolescentes ≥ 14 anos)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Bedaquilina</strong></td><td>400 mg 1×/dia por 2 semanas → 200 mg 3×/semana <em>OU</em> 200 mg/dia por 8 semanas → 100 mg/dia</td></tr>
+              <tr><td><strong>Pretomanida</strong></td><td>200 mg 1×/dia</td></tr>
+              <tr><td><strong>Linezolida</strong></td><td>600 mg 1×/dia</td></tr>
+            </tbody>
+          </table>
+          <p style="font-size: 0.85rem; color: var(--gray-text);">Administrar com alimento e água (biodisponibilidade de Bdq e Pa aumenta com alimento). Sem ajuste de Bdq/Pa/Lzd se ClCr &lt; 30 mL/min; em hemodiálise, medicar após a sessão.</p>
+
+          <h4 style="color: var(--primary); margin-top: 1.5rem;">Indicações (elegibilidade)</h4>
+          <ul style="padding-left: 1.5rem;">
+            <li>TB RR, MDR ou Pré-XDR</li>
+            <li>TB pulmonar confirmada e EP <strong>exceto</strong> SNC, osteoarticular ou disseminada/miliar</li>
+            <li>Adultos e adolescentes <strong>≥ 14 anos</strong></li>
+            <li>Independente do status HIV</li>
+          </ul>
+
+          <h4 style="color: var(--accent); margin-top: 1.25rem;">Contraindicações / exclusões</h4>
+          <ul style="padding-left: 1.5rem;">
+            <li><strong>Gestantes e lactantes</strong> (evidência limitada; toxicidade fetal em estudos animais com pretomanida)</li>
+            <li>Idade &lt; 14 anos</li>
+            <li>TB SNC, osteoarticular ou disseminada/miliar</li>
+            <li>Exposição prévia &gt; 30 dias a Bdq, Lzd, Pa ou delamanida (resistência cruzada Dlm↔Pa), salvo TS sem resistência detectada</li>
+            <li>Cautela se QTc &gt; 450 ms, síncope, arritmias, QT longo, bradiarritmia ou cardiomiopatia</li>
+          </ul>
+
+          <h3 class="section-title">4. BPaLM — contexto OMS vs Brasil</h3>
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-title">🌐 OMS (contexto internacional)</div>
+              <p>BPaLM (Bdq + Pa + Lzd 600 mg + moxifloxacino) é o esquema de 6 meses <strong>priorizado</strong> para MDR/RR elegíveis (≥ 14 anos). Se resistência documentada a FQ → usar <strong>BPaL</strong> (sem moxi). Rapid communication jun–ago/2024 mantém BPaLM/BPaL como escolha e acrescenta alternativas (ex. BDLLfxC) para inelegíveis à pretomanida (crianças pequenas, gestantes etc.).</p>
+            </div>
+            <div class="card">
+              <div class="card-title">🇧🇷 Brasil (NI 1/2025)</div>
+              <p>Texto da Nota: BPaL e BPaLM têm eficácia semelhante; BPaLM seria preferível com TS a FQ <strong>sem</strong> resistência detectada — <strong>mas, no momento, recomenda-se somente BPaL</strong>. Matéria institucional MS (fev/2025) menciona BPaL e BPaLM de forma ampla; na prática operacional prevalece o texto da Nota. Acompanhar novas notas antes de rotular BPaLM como padrão SUS.</p>
+            </div>
+          </div>
+
+          <h3 class="section-title">5. Monitoramento de segurança (alto nível)</h3>
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-title">🩸 Mielossupressão (linezolida)</div>
+              <p>Hemograma no início, idealmente na 2ª semana, depois mensal. Atenção se Hb ≤ 8 g/dL ou plaquetas &lt; 75.000/mm³. Manejo de dose (reduzir a 300 mg após 9ª semana, pausas limitadas) conforme NI — efeitos graves precoces podem exigir trocar para esquema longo.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">❤️ Intervalo QT (bedaquilina ± pretomanida)</div>
+              <p>ECG inicial e mensal (mais se cardiopatia, desnutrição IMC &lt; 17, neuropatia grave). Suspender BPaL se QTc &gt; 500 ms. Evitar associações que prolongam QT e indutores/inibidores fortes de CYP3A4.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">🦶 Neuropatia (linezolida)</div>
+              <p>Periférica (geralmente após ~3 meses) e ótica. Neuropatia ótica → suspender Lzd definitivamente. Piridoxina <strong>não</strong> previne neuropatia por Lzd. Pode ser irreversível — identificar cedo.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">🫀 Hepatotoxicidade (Bdq / Pa)</div>
+              <p>Monitorar TGO/TGP, FA, bilirrubinas. Se enzimas ≥ 3× LSN → suspender todo o esquema; reavaliar em 3–7 dias. Interrupção &gt; 14 dias consecutivos → considerar esquema longo. Corrigir K⁺, Ca²⁺, Mg²⁺.</p>
+            </div>
+          </div>
+
+          <p style="font-size: 0.9rem;"><strong>Seguimento clínico (resumo NI):</strong> TDO durante todo o tratamento; consultas mensais; baciloscopia mensal; cultura mensal; função hepática início e a cada 2 meses; hemograma mensal; Rx tórax início/término; TS se baciloscopia/cultura positivas a partir do 3º mês ou suspeita de falência. Seguimento pós-cura até 12 meses (recidiva precoce). Interrupções: ≤ 14 dias consecutivos; ≤ 4 semanas cumulativas não consecutivas; Bdq/Pa não podem ser pausados isoladamente — se um for interrompido, suspende-se o esquema.</p>
+
+          <h3 class="section-title">6. Quando usar esquemas longos (≥ 18 meses) em vez de BPaL</h3>
+          <ul style="padding-left: 1.5rem;">
+            <li>Inelegibilidade ao BPaL (gestação/lactação, &lt; 14 anos, SNC/OA/miliar, exposição prévia &gt; 30 dias sem TS favorável)</li>
+            <li>Falha, resistência a componente do BPaL ou EA graves que forçam suspensão</li>
+            <li>TB XDR (resistência a FQ + Lzd e/ou Bdq) — individualizar com Grupos A/B/C OMS</li>
+          </ul>
+          <p>Esquema longo: preferir todos os fármacos do <strong>Grupo A</strong> (FQ, Bdq, Lzd) + ≥ 1 do Grupo B (Cfz, Trd); completar com Grupo C se necessário. Intensiva ~6 meses (≥ 2 culturas negativas); total ~18 meses (máx. ~20). Exemplos e posologias: Quadros 5–7 da NI 1/2025 e Manual 2019. Gestantes: Bdq, Lfx/Mfx, Lzd, Trd, Dlm, E, Z geralmente utilizáveis com monitoramento; evitar amicacina/estreptomicina e, se possível, etionamida/PAS.</p>
+
+          <div class="callout info">
+            <span class="callout-icon">HIV</span>
+            <div class="callout-content">
+              <strong>PVHA + BPaL</strong>
+              <p>Evitar <strong>efavirenz</strong> (reduz Pa e Bdq). Preferir esquemas com <strong>dolutegravir</strong> + 2 ITRN. Coinfecção HBV/HCV: não atrasar tratamento da hepatite — monitorar interações (mielossupressão, ALT).</p>
+            </div>
+          </div>
+
+          <h3 class="section-title">7. SBPT</h3>
+          <p>A SBPT esteve em etapa final das <em>Diretrizes de Tratamento da Tuberculose Multirresistente em adultos</em> (reunião presencial fev/2025; metodologia GRADE; publicação prevista no Jornal Brasileiro de Pneumologia). <strong>Até a publicação formal, alinhar conduta à NI 1/2025 do MS</strong> e ao Manual 2019 no que a Nota não cobre. Não citar recomendações SBPT MDR como texto publicado se ainda não saíram no JBP.</p>
+
+          <p style="font-size: 0.9rem; color: var(--gray-text); margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--gray-light);"><strong>Fontes:</strong> Nota Informativa nº 1/2025-CGTM/DATHI/SVSA/MS — <a href="http://sitetb.saude.gov.br/download/Nota_Informativa_2025-1.pdf" target="_blank" rel="noopener">PDF Site-TB</a> · Portaria SECTICS/MS nº 49/2023 (pretomanida) · Manual MS TB 2ª ed. 2019 · WHO consolidated guidelines / operational handbook Module 4 (2022) · WHO Rapid communication DR-TB (jun/2024; notícia 23/08/2024) · Nyang'wa BT et al. NEJM 2022 (TB-PRACTECAL) PMID <a href="https://pubmed.ncbi.nlm.nih.gov/36546625/" target="_blank" rel="noopener">36546625</a> · Conradie F et al. NEJM 2022 (ZeNix) PMID <a href="https://pubmed.ncbi.nlm.nih.gov/36053506/" target="_blank" rel="noopener">36053506</a> · SBPT (nota de processo de diretrizes MDR, portal sbpt.org.br)</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- SEÇÃO: ADENDO SOBRE TRATAMENTOS -->
+    <div id="section-adendo" class="section-content">
+      <section class="chapter">
+        <div class="chapter-header">
+          <div class="chapter-num">20</div>
+          <h2>Adendo sobre Tratamentos</h2>
+        </div>
+        <div class="chapter-body">
+          <p>Complemento ao Cap. 11 (Esquema RIPE) e ao Cap. 19 (TB Resistente): panorama sobre esquemas encurtados, tratamento diretamente observado (TDO) e a questão da posologia intermitente. Parte deste conteúdo é <strong>posterior ao Manual MS 2019</strong> e está identificada como tal — não confundir com o Esquema Básico vigente, que segue sendo 2RHZE/4RH.</p>
+
+          <h3 class="section-title">1. Esquemas encurtados (4 meses)</h3>
+          <p>Adultos e adolescentes ≥ 12 anos com TB pulmonar sensível, sem critérios de gravidade, podem ser tratados com o esquema <strong>2HPZM/2HPM</strong> (isoniazida + rifapentina + pirazinamida + moxifloxacino, 17 semanas), que se mostrou não inferior ao Esquema Básico de 6 meses no estudo 31/A5349 (Dorman SE et al., <em>N Engl J Med</em> 2021;384:1705-18), com recomendação condicional da OMS (2022, evidência de certeza moderada).</p>
+
+          <div class="callout warning">
+            <span class="callout-icon">⚖️</span>
+            <div class="callout-content">
+              <strong>Status no Brasil</strong>
+              <p>Em <strong>adultos</strong>, o 2HPZM/2HPM ainda <strong>não foi incorporado</strong> ao Esquema Básico do SUS — tratar como esquema em avaliação/incorporação parcial, não como rotina. Em <strong>crianças</strong>, o MS já adotou o encurtamento: pela Nota Informativa nº 5/2024, TB pulmonar não grave e sensível em pediatria pode ser tratada com <strong>2RHZ/2RH (4 meses)</strong>, em vez dos tradicionais 6 meses, em situações específicas.</p>
+            </div>
+          </div>
+
+          <p style="font-size: 0.9rem; color: var(--gray-text);">Ao usar moxifloxacino, monitorar intervalo QTc e vigiar eventos adversos associados a quinolonas (tendinopatia, disglicemia, expansão de aneurismas vasculares, delirium), especialmente em idosos ou pacientes policomórbidos.</p>
+
+          <h3 class="section-title">2. Tratamento Diretamente Observado (TDO)</h3>
+          <p>É a estratégia central de adesão do Manual MS 2019: recomendada para <strong>todo caso de TB</strong> (novo ou retratamento), pois não é possível prever quem irá abandonar o tratamento — não deve ser reservada apenas a pacientes considerados de maior risco.</p>
+
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-title">📅 Frequência</div>
+              <p>Observação da ingestão medicamentosa, idealmente <strong>diária, de segunda a sexta-feira</strong>. A modalidade de TDO é definida em conjunto com o paciente, conforme a realidade e a estrutura do serviço de saúde.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">🤝 Vínculo</div>
+              <p>TDO é mais do que observar a deglutição do comprimido — envolve construir vínculo profissional-paciente e remover barreiras à adesão (reabilitação social, autoestima, qualificação profissional).</p>
+            </div>
+            <div class="card">
+              <div class="card-title">📱 TDO digital</div>
+              <p>Desde 2023, o MS oficializou o uso de tecnologias digitais como modalidade válida de TDO: aplicativos, WhatsApp, videochamada e SMS, ampliando o acesso após a queda de cobertura observada na pandemia.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">📉 Cobertura</div>
+              <p>A cobertura de TDO no Brasil está historicamente aquém da meta: 35,4% dos casos notificados em 2019, caindo para 30,2% em 2021 — o menor patamar desde 2008.</p>
+            </div>
+          </div>
+
+          <h3 class="section-title">3. Posologia intermitente (menos dias por semana)</h3>
+          <div class="callout warning">
+            <span class="callout-icon">🚫</span>
+            <div class="callout-content">
+              <strong>Não recomendada para o Esquema Básico</strong>
+              <p>O Manual MS 2019 <strong>não recomenda</strong> posologia intermitente (2–3x/semana) para o esquema RIPE de TB sensível — a tomada deve ser <strong>diária</strong>. Esquemas intermitentes aumentam o risco de resistência adquirida à rifampicina, principalmente em pessoas vivendo com HIV/aids.</p>
+            </div>
+          </div>
+
+          <p>A posologia semanal ou intermitente hoje só é usada no Brasil em contextos específicos já incorporados ao SUS:</p>
+          <ul style="padding-left: 1.5rem;">
+            <li><strong>3HP para ILTB</strong> (Cap. 15): isoniazida + rifapentina, 1x por semana, por 3 meses — única exceção de dose semanal já padronizada.</li>
+            <li><strong>Esquemas para TB-DR</strong> (Cap. 19): no BPaL, a bedaquilina pode usar 200 mg 3×/semana após as 2 semanas iniciais (alternativa de ataque diário também prevista na NI 1/2025). Esquemas longos podem incluir injetáveis em situações selecionadas — ver Nota, não o Quadro 44 antigo como primeira linha.</li>
+          </ul>
+
+          <h3 class="section-title">4. Nota complementar: BPaL / BPaLM (ver Cap. 19 completo)</h3>
+          <div class="callout info">
+            <span class="callout-icon">💊</span>
+            <div class="callout-content">
+              <strong>Atualização posterior ao Manual MS 2019</strong>
+              <p>A pretomanida (Portaria SECTICS/MS nº 49/2023) viabiliza esquemas orais de ~6 meses. Pela <strong>NI nº 1/2025</strong>, o Brasil recomenda <strong>BPaL</strong> para RR/MDR/Pré-XDR elegíveis (≥ 14 anos), não o esquema longo de 18 meses do Manual 2019 como primeira opção nesses casos. A OMS prioriza <strong>BPaLM</strong> (com retirada do moxi se FQ-R); a Nota brasileira, no momento, recomenda <strong>somente BPaL</strong>. Detalhes de elegibilidade, monitoramento e esquemas longos: <strong>Cap. 19</strong>.</p>
+            </div>
+          </div>
+
+          <p style="font-size: 0.9rem; color: var(--gray-text); margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--gray-light);"><strong>Fontes:</strong> Dorman SE et al., <em>N Engl J Med</em> 2021;384:1705-18 (estudo 31/A5349) · OMS Module 4 / Rapid communication DR-TB 2024 · Manual MS TB 2019 (TDO) · Nota Informativa nº 5/2024-MS (pediátrico encurtado) · Nota Informativa nº 1/2025-CGTM/DATHI/SVSA/MS (BPaL) · CGTM/Dathi/MS (2023, TDO digital)</p>
+        </div>
+      </section>
+    </div>
+
+  </main>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-title">PneumoAgents · Tuberculose Pulmonar — Conhecendo a Tuberculose</p>
+  <p>Dr. Fernando Lundgren · guia educacional (não é protocolo institucional)</p>
+  <p>Baseado em: Guia de Vigilância em Saúde (MS, 2024) · Manual de Recomendações para o Controle da Tuberculose no Brasil, 2ª ed. atualizada (MS, 2019) · Nota Informativa nº 1/2025-CGTM/DATHI/SVSA/MS (BPaL / TB-DR) · OMS Module 4 / Rapid communication DR-TB 2024 (contexto internacional)</p>
+  <p style="font-size: 0.8rem; margin-top: 1rem; opacity: 0.8;"><strong>Disclaimer educacional:</strong> material de apoio à decisão para profissionais de saúde. Não substitui julgamento clínico, bulas, Site-TB, notas vigentes do MS, protocolos locais nem a relação médico–paciente. Condutas de TB-DR devem seguir a referência estadual/nacional vigente.</p>
+  <p style="font-size: 0.8rem; margin-top: 0.5rem; opacity: 0.8;">Versão set/2026 · aprofundamento BPaL/BPaLM · backup <code>.bak_pre_bpal_20260920</code> · auditoria <code>tb_bpal_audit_20260920.md</code>. Campos RIPE/RH 300/150 e hepatotoxicidade alinhados ao Manual 2019 + Ofício 104/2021; definições Pré-XDR/XDR e BPaL alinhados à NI 1/2025.</p>
+  <p style="font-size: 0.8rem; margin-top: 0.5rem; opacity: 0.8;">© 2026 PneumoAgents — Todos os direitos reservados</p>
+</footer>
+
+<script>
+  // DARK MODE
+  const darkModeToggle = document.getElementById('darkModeToggle');
+  darkModeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    darkModeToggle.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+    localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+  });
+
+  if (localStorage.getItem('darkMode') === 'true') {
+    document.body.classList.add('dark-mode');
+    darkModeToggle.textContent = '☀️';
+  }
+
+  // MOSTRAR SEÇÃO
+  function showSection(sectionId) {
+    // Ocultar todas as seções
+    const sections = document.querySelectorAll('.section-content');
+    sections.forEach(section => section.classList.remove('active'));
+
+    // Mostrar seção selecionada
+    const selectedSection = document.getElementById('section-' + sectionId);
+    if (selectedSection) {
+      selectedSection.classList.add('active');
+      selectedSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Atualizar sidebar
+    const links = document.querySelectorAll('.sidebar-link');
+    links.forEach(link => link.classList.remove('active'));
+    event.target.classList.add('active');
+  }
+
+  // PRINT
+  document.getElementById('printBtn').addEventListener('click', () => {
+    window.print();
+  });
+
+  // BUSCA
+  const searchBox = document.getElementById('searchBox');
+  searchBox.addEventListener('input', (e) => {
+    const query = e.target.value.toLowerCase();
+    const sections = document.querySelectorAll('.section-content');
+
+    sections.forEach(section => {
+      const text = section.textContent.toLowerCase();
+      if (text.includes(query)) {
+        section.style.display = 'block';
+      } else {
+        section.style.display = 'none';
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

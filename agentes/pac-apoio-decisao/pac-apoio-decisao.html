@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PneumoAgents · PAC — Apoio à Decisão Clínica v1.0</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(135deg,#e0f2f1 0%,#c8e6e9 100%);padding:20px;line-height:1.45;color:#222}
+.container{max-width:210mm;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 4px 20px rgba(0,0,0,.1);padding:28px}
+.header{text-align:center;margin-bottom:18px;padding-bottom:14px;border-bottom:3px solid #00796b}
+.header h1{color:#004d40;font-size:1.5em;margin-bottom:6px}
+.header .brand{color:#00796b;font-weight:700;letter-spacing:.02em}
+.header .sub{color:#00897b;font-size:.95em}
+.header .ver{color:#4db6ac;font-size:.78em;margin-top:6px}
+.header a.link17{font-size:.8em;color:#00695c}
+.section{margin-bottom:14px;padding:14px;background:#f7fbfb;border-radius:8px;border-left:4px solid #00796b}
+.section h2{color:#004d40;margin-bottom:10px;font-size:1.05em}
+.section h3{color:#00695c;margin:10px 0 6px;font-size:.92em}
+.hint{font-size:.8em;color:#666;margin-bottom:8px}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.form-group{display:flex;flex-direction:column}
+.form-group label{font-weight:600;color:#333;margin-bottom:4px;font-size:.84em}
+.form-group input,.form-group select,.form-group textarea{padding:8px;border:2px solid #ddd;border-radius:5px;font-size:.9em}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:#00796b}
+.chk-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:4px 10px}
+.checkbox-group{display:flex;align-items:flex-start;gap:8px;padding:5px 0}
+.checkbox-group input{width:16px;height:16px;margin-top:2px;flex-shrink:0;cursor:pointer}
+.checkbox-group span{margin:0;cursor:pointer;font-weight:normal;font-size:.86em}
+.score-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:#e0f2f1;padding:10px;border-radius:6px;margin-top:10px;border-left:4px solid #00796b;font-size:.88em}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:.76em;font-weight:700}
+.pill.low{background:#c8e6c9;color:#1b5e20}
+.pill.inter{background:#ffe082;color:#e65100}
+.pill.high{background:#ffcdd2;color:#b71c1c}
+.pill.icu{background:#b71c1c;color:#fff}
+.pill.inc{background:#eceff1;color:#455a64}
+.pill.info{background:#b2dfdb;color:#004d40}
+.result-box{background:#fff;border:1px solid #b2dfdb;border-radius:8px;padding:12px;margin-top:10px}
+.result-box h3{margin-top:0;color:#004d40}
+.result-box ul{padding-left:1.2rem;font-size:.88em;margin:6px 0}
+.result-box li{margin:4px 0}
+.tx-table{width:100%;border-collapse:collapse;font-size:.82em;margin-top:8px}
+.tx-table th,.tx-table td{border:1px solid #cfd8dc;padding:6px 8px;vertical-align:top;text-align:left}
+.tx-table th{background:#e0f2f1;color:#004d40}
+.tx-table tr.hl{background:#fff8e1}
+.button-group{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.btn{padding:10px 16px;border:none;border-radius:5px;font-size:.9em;font-weight:600;cursor:pointer}
+.btn-primary{background:#00796b;color:#fff}
+.btn-primary:hover{background:#00695c}
+.btn-success{background:#43a047;color:#fff}
+.btn-outline{background:#fff;color:#00796b;border:2px solid #00796b}
+.btn-danger{background:#e53935;color:#fff;margin-left:auto}
+.disclaimer{background:#fff8e1;border-left:4px solid #ff9800;padding:10px 12px;border-radius:6px;font-size:.78em;color:#5d4037;margin-top:12px}
+.cite{font-size:.72em;color:#666;margin-top:6px;line-height:1.4}
+.hidden{display:none!important}
+.relatorio{margin-top:20px;padding:16px;background:#fff;border:2px solid #00796b;border-radius:8px;font-size:.88em}
+.relatorio-header{background:#004d40;color:#fff;padding:12px;margin:-16px -16px 12px;border-radius:6px 6px 0 0;text-align:center}
+.relatorio-header h2{color:#fff;font-size:1.1em;margin-bottom:2px}
+.relatorio-section{margin-bottom:10px;page-break-inside:avoid}
+.relatorio-section h3{color:#004d40;margin-bottom:4px;font-size:.9em;border-bottom:2px solid #e0f2f1;padding-bottom:2px}
+.info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:3px 10px;font-size:.82em}
+.score-box{background:#e0f2f1;padding:7px;border-radius:5px;margin:4px 0;font-size:.82em}
+.mini{font-size:.72em;color:#888}
+.sticky-scores{position:sticky;top:0;z-index:20;background:#fff;padding:8px 0;margin-bottom:8px;border-bottom:1px solid #e0e0e0}
+@page{size:A4;margin:8mm}
+@media print{
+  html,body{background:#fff!important;margin:0;padding:0;width:210mm}
+  body{padding:0!important}
+  .container{box-shadow:none!important;padding:0!important;max-width:210mm;border-radius:0;margin:0;width:100%}
+  .no-print,.header,.section,.button-group,.btn,.disclaimer,.cite,.ver,.sticky-scores{display:none!important}
+  #secaoRelatorio,#secaoRelatorio.hidden{display:block!important;margin:0!important;padding:0!important;visibility:visible!important}
+  .relatorio{border:none!important;padding:0!important;margin:0!important;font-size:8pt!important;line-height:1.2!important;border-radius:0!important}
+  .relatorio-header{background:#fff!important;color:#000!important;border-bottom:1.5pt solid #000;margin:0 0 4pt;padding:0 0 3pt;border-radius:0!important}
+  .relatorio-header h2{color:#000!important;font-size:11pt!important;margin:0 0 1pt!important}
+  .relatorio-header p{color:#000!important;font-size:7.5pt!important;margin:0!important}
+  .relatorio-section{margin:0 0 3pt!important}
+  .relatorio-section h3{color:#000!important;font-size:8.5pt!important;margin:0 0 1pt!important;padding:0 0 1pt!important;border-bottom:0.5pt solid #333}
+  .info-grid{gap:1pt 6pt!important;font-size:7.5pt!important}
+  .score-box{background:#fff!important;border:0.5pt solid #000;padding:2pt 4pt!important;margin:1pt 0!important;font-size:7.5pt!important;border-radius:0!important}
+  .tx-table{font-size:7pt!important}
+  .tx-table th,.tx-table td{padding:2pt 3pt!important}
+  .pill{border:0.4pt solid #000;font-size:6.5pt!important}
+  .assinatura{margin-top:6pt!important;padding-top:4pt!important;border-top:0.8pt solid #000;font-size:7.5pt!important;text-align:center}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header no-print">
+    <div class="brand">PneumoAgents</div>
+    <h1>PAC — Apoio à Decisão Clínica</h1>
+    <p class="sub">Adultos com suspeita de pneumonia adquirida na comunidade · Dr. Fernando Lundgren</p>
+    <p class="ver">v1.0 · set/2026 · SBPT 2018 · ATS/IDSA 2019 · ERS grave 2023 · ATS 2025/26</p>
+    <p><a class="link17" href="17_Pneumonia_PAC_Adultos.html">Ver revisão completa (agente 17)</a></p>
+  </div>
+
+  <div class="sticky-scores no-print" id="liveBar">
+    <div class="score-bar" style="margin:0">
+      <span><strong>CRB-65:</strong> <span id="pillCrb">—</span></span>
+      <span><strong>CURB-65:</strong> <span id="pillCurb">—</span></span>
+      <span><strong>ATS:</strong> <span id="pillAts">—</span></span>
+      <span><strong>Local:</strong> <span id="pillSite" class="pill inc">Preencha dados</span></span>
+    </div>
+  </div>
+
+  <!-- 1 Identificação -->
+  <div class="section no-print">
+    <h2>1. Identificação</h2>
+    <div class="form-grid">
+      <div class="form-group"><label for="dataAvaliacao">Data *</label><input type="date" id="dataAvaliacao"></div>
+      <div class="form-group"><label for="medicoNome">Médico *</label><input type="text" id="medicoNome" value="Fernando Lundgren"></div>
+      <div class="form-group"><label for="crm">CRM</label><input type="text" id="crm" placeholder="CRM-XX 00000"></div>
+      <div class="form-group"><label for="localAtend">Local do atendimento</label>
+        <select id="localAtend">
+          <option value="ambulatorio">Ambulatório / APS</option>
+          <option value="ps">Pronto-socorro</option>
+          <option value="enfermaria">Enfermaria</option>
+          <option value="uti">UTI</option>
+        </select>
+      </div>
+      <div class="form-group"><label for="nomePaciente">Paciente *</label><input type="text" id="nomePaciente" placeholder="Nome"></div>
+      <div class="form-group"><label for="idade">Idade (anos) *</label><input type="number" id="idade" min="18" max="120" placeholder="≥18"></div>
+      <div class="form-group"><label for="sexo">Sexo</label>
+        <select id="sexo"><option value="">—</option><option value="M">Masculino</option><option value="F">Feminino</option></select>
+      </div>
+      <div class="form-group"><label for="peso">Peso (kg)</label><input type="number" id="peso" min="20" max="300" step="0.1"></div>
+    </div>
+  </div>
+
+  <!-- 2 Sinais vitais / escores -->
+  <div class="section no-print">
+    <h2>2. Sinais vitais e componentes CRB/CURB-65</h2>
+    <p class="hint">CRB-65 = Confusão + FR≥30 + PAS&lt;90 ou PAD≤60 + idade≥65. CURB-65 acrescenta ureia/BUN. Hipoxemia e necessidade de O₂/IV não entram no escore, mas influenciam o local de cuidado.</p>
+    <div class="form-grid">
+      <div class="form-group"><label for="fr">FR (inc/min) *</label><input type="number" id="fr" min="5" max="60" placeholder="ex. 22"></div>
+      <div class="form-group"><label for="pas">PAS (mmHg)</label><input type="number" id="pas" min="40" max="250" placeholder="ex. 120"></div>
+      <div class="form-group"><label for="pad">PAD (mmHg)</label><input type="number" id="pad" min="20" max="150" placeholder="ex. 70"></div>
+      <div class="form-group"><label for="spo2">SpO₂ (%)</label><input type="number" id="spo2" min="50" max="100" placeholder="em ar ambiente se possível"></div>
+      <div class="form-group"><label for="fc">FC (bpm)</label><input type="number" id="fc" min="30" max="220"></div>
+      <div class="form-group"><label for="temp">Temperatura (°C)</label><input type="number" id="temp" min="30" max="43" step="0.1"></div>
+      <div class="form-group"><label for="ureia">Ureia (mg/dL)</label><input type="number" id="ureia" min="0" max="400" step="0.1" placeholder="Brasil: ≥50 → U+"></div>
+      <div class="form-group"><label for="bun">BUN (mg/dL)</label><input type="number" id="bun" min="0" max="200" step="0.1" placeholder="ATS: ≥20 → U+"></div>
+    </div>
+    <div class="chk-grid" style="margin-top:8px">
+      <label class="checkbox-group"><input type="checkbox" id="confusao"><span>Confusão / desorientação nova (C)</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="precisaO2"><span>Necessita O₂ suplementar</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="precisaIV"><span>Necessita terapia IV / não tolera VO</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="instavelSocial"><span>Sem suporte social / retorno incerto</span></label>
+    </div>
+    <div id="ureaNote" class="hint" style="margin-top:8px"></div>
+  </div>
+
+  <!-- 3 ATS grave -->
+  <div class="section no-print">
+    <h2>3. Critérios ATS de PAC grave</h2>
+    <h3>Maiores (1 → UTI)</h3>
+    <div class="chk-grid">
+      <label class="checkbox-group"><input type="checkbox" id="vmInvasiva"><span>Ventilação mecânica invasiva</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="choqueVaso"><span>Choque séptico em vasopressor</span></label>
+    </div>
+    <h3>Menores (≥3 → considerar UTI / PAC grave)</h3>
+    <p class="hint">Itens derivados automaticamente de vitais/labs quando preenchidos (marcados ★). Ajuste manual se necessário.</p>
+    <div class="chk-grid">
+      <label class="checkbox-group"><input type="checkbox" id="min_fr30"><span>★ FR ≥30/min</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="min_pao2fio2"><span>PaO₂/FiO₂ ≤250</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="min_multilobar"><span>Infiltrados multilobares</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="min_confusao"><span>★ Confusão / desorientação</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="min_bun20"><span>★ BUN ≥20 ou ureia ≥50 mg/dL</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="min_leuco"><span>Leucócitos &lt;4.000/mm³</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="min_plaq"><span>Plaquetas &lt;100.000/mm³</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="min_hipotermia"><span>★ Temperatura &lt;36 °C</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="min_hipotensao"><span>★ Hipotensão com reposição volêmica agressiva</span></label>
+    </div>
+    <div class="form-grid" style="margin-top:8px">
+      <div class="form-group"><label for="leuco">Leucócitos (/mm³)</label><input type="number" id="leuco" min="0" max="100000"></div>
+      <div class="form-group"><label for="plaq">Plaquetas (/mm³)</label><input type="number" id="plaq" min="0" max="1000000"></div>
+      <div class="form-group"><label for="pcr">PCR (mg/L) — opcional</label><input type="number" id="pcr" min="0" max="500" step="0.1"></div>
+      <div class="form-group"><label for="pao2fio2">PaO₂/FiO₂ (se disponível)</label><input type="number" id="pao2fio2" min="40" max="600"></div>
+    </div>
+  </div>
+
+  <!-- 4 Comorbidades -->
+  <div class="section no-print">
+    <h2>4. Comorbidades e contexto</h2>
+    <div class="chk-grid">
+      <label class="checkbox-group"><input type="checkbox" id="co_coracao"><span>Doença cardíaca crônica</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="co_pulmao"><span>Doença pulmonar crônica (DPOC/asma/bronquiectasia)</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="co_figado"><span>Hepatopatia crônica</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="co_renal"><span>Doença renal crônica</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="co_cancer"><span>Neoplasia / câncer</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="co_imuno"><span>Imunossupressão</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="co_asplenia"><span>Asplenia / disfunção esplênica</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="co_dm"><span>Diabetes mellitus</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="co_alcool"><span>Alcoolismo / abuso de álcool</span></label>
+    </div>
+  </div>
+
+  <!-- 5 Riscos MRSA / Pseudomonas -->
+  <div class="section no-print">
+    <h2>5. Fatores de risco MRSA / Pseudomonas (estilo ATS — sem HCAP)</h2>
+    <p class="hint">Não reativar HCAP como categoria. Avaliar fatores individuais + ecologia local; culturas e descalonamento.</p>
+    <div class="chk-grid">
+      <label class="checkbox-group"><input type="checkbox" id="abRecente"><span>Antibiótico parenteral nos últimos 90 dias</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="hospRecente"><span>Internação hospitalar recente (≈90 dias)</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="mrsaPrevio"><span>Colonização / infecção prévia por MRSA</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="pseudoPrevio"><span>Colonização / infecção prévia por Pseudomonas</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="bronqEstrut"><span>Doença estrutural grave (bronquiectasia / DPOC avançada com Pseud.)</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="altaPrevMrsa"><span>Alta prevalência local de MRSA (critério institucional)</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="altaPrevPseudo"><span>Alta prevalência local de Pseudomonas (critério institucional)</span></label>
+    </div>
+  </div>
+
+  <!-- 6 Viral -->
+  <div class="section no-print">
+    <h2>6. Influenza / COVID / viral</h2>
+    <div class="chk-grid">
+      <label class="checkbox-group"><input type="checkbox" id="epocaFlu"><span>Época de influenza / surto local</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="suspeitaFlu"><span>Suspeita clínica de influenza</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="suspeitaCovid"><span>Suspeita de COVID-19</span></label>
+      <label class="checkbox-group"><input type="checkbox" id="srag"><span>Critérios de SRAG</span></label>
+    </div>
+  </div>
+
+  <!-- 7 Observações -->
+  <div class="section no-print">
+    <h2>7. Observações clínicas</h2>
+    <div class="form-group">
+      <label for="obsClinica">Quadro, imagem, alergias, evolução</label>
+      <textarea id="obsClinica" rows="3" placeholder="Ex.: tosse produtiva 4 dias, RX com condensação LIE, alergia a penicilina…"></textarea>
+    </div>
+    <label class="checkbox-group" style="margin-top:8px">
+      <input type="checkbox" id="lgpdOk">
+      <span>Paciente informado sobre coleta de dados (LGPD) — necessário para gerar resumo</span>
+    </label>
+  </div>
+
+  <!-- Resultados ao vivo -->
+  <div class="section no-print" id="secResultados">
+    <h2>8. Sugestões (ao vivo)</h2>
+    <div class="result-box" id="boxSite">
+      <h3>Local de cuidado <span class="pill info">sugestão — não ordem</span></h3>
+      <p id="txtSite" class="hint">Preencha idade e pelo menos FR ou confusão/PA para calcular.</p>
+    </div>
+    <div class="result-box" id="boxExames">
+      <h3>Exames recomendados (por gravidade)</h3>
+      <ul id="listaExames"><li class="hint">Aguardando cálculo…</li></ul>
+    </div>
+    <div class="result-box" id="boxTx">
+      <h3>Orientação empírica (classes / padrões de diretriz)</h3>
+      <p class="hint" style="margin-bottom:6px">Não inventa protocolo novo. Sem doses — ajustar à função renal, alergia e antibiograma local. Macrolídeo monoterapia desencorajado no BR (SIREVA invasivo eritromicina ~46%).</p>
+      <div id="txContent"></div>
+    </div>
+  </div>
+
+  <div class="button-group no-print">
+    <button type="button" class="btn btn-primary" onclick="calcularTudo()">Calcular</button>
+    <button type="button" class="btn btn-success" onclick="gerarResumo()">Gerar resumo</button>
+    <button type="button" class="btn btn-outline" onclick="imprimirA4()">Imprimir A4</button>
+    <button type="button" class="btn btn-outline" onclick="salvarLocal()">Salvar</button>
+    <button type="button" class="btn btn-outline" onclick="carregarLocal()">Carregar</button>
+    <button type="button" class="btn btn-danger" onclick="limparForm()">Limpar</button>
+  </div>
+
+  <div class="disclaimer no-print">
+    <strong>Aviso educacional (PneumoAgents):</strong> ferramenta de apoio à decisão para profissionais. Não é protocolo institucional, não substitui exame clínico, antibiograma local, bula nem julgamento médico. O clínico sempre pode (e deve) sobrescrever a sugestão. Sem categoria HCAP.
+    <div class="cite">
+      Fontes: SBPT/JBP 2018 (Corrêa et al.); ATS/IDSA 2019 (Metlay et al.); ERS/ESICM/ESCMID/ALAT 2023 (PAC grave); ATS CPG 2025/26 (atualização focal); SIREVA II/IAL NMPI 2018–2023 (eritromicina ~46% invasivo — caveat). Revisão completa: <code>17_Pneumonia_PAC_Adultos.html</code>.
+    </div>
+  </div>
+
+  <div id="secaoRelatorio" class="hidden">
+    <div class="relatorio" id="relatorioConteudo"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const LS_KEY = 'pneumoagents_pac_apoio_v1';
+  const $ = id => document.getElementById(id);
+  const valor = id => (($(id)||{}).value || '').trim();
+  const num = id => { const v = parseFloat(String(valor(id)).replace(',','.')); return Number.isFinite(v) ? v : null; };
+  const chk = id => !!($(id)||{}).checked;
+  const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+  function setDateToday(){
+    if (!$('dataAvaliacao').value) {
+      const d = new Date();
+      const off = d.getTimezoneOffset();
+      const local = new Date(d.getTime() - off*60000);
+      $('dataAvaliacao').value = local.toISOString().slice(0,10);
+    }
+  }
+  setDateToday();
+
+  /* —— Urea / BUN dual interpretation —— */
+  function ureaFlags(){
+    const ureia = num('ureia');
+    const bun = num('bun');
+    // SBPT BR figure often uses ureia ≥50 mg/dL
+    const sbpt = ureia !== null && ureia >= 50;
+    // ATS minor / classic: BUN ≥20; urea >7 mmol/L ≈ 42 mg/dL urea
+    const bunPos = bun !== null && bun >= 20;
+    const ureaClassic = ureia !== null && ureia >= 42;
+    // Derived BUN from urea ≈ urea/2.14 (approx) if only urea given
+    const bunDeriv = (ureia !== null && bun === null) ? (ureia / 2.14) : null;
+    const bunDerivPos = bunDeriv !== null && bunDeriv >= 20;
+    const positive = sbpt || bunPos || ureaClassic || bunDerivPos;
+    return {ureia, bun, sbpt, bunPos, ureaClassic, bunDeriv, bunDerivPos, positive};
+  }
+
+  function syncDerivedMinors(){
+    const fr = num('fr');
+    if (fr !== null) $('min_fr30').checked = fr >= 30;
+    $('min_confusao').checked = chk('confusao');
+    const uf = ureaFlags();
+    if (num('ureia') !== null || num('bun') !== null) $('min_bun20').checked = uf.positive;
+    const temp = num('temp');
+    if (temp !== null) $('min_hipotermia').checked = temp < 36;
+    const leuco = num('leuco');
+    if (leuco !== null) $('min_leuco').checked = leuco < 4000;
+    const plaq = num('plaq');
+    if (plaq !== null) $('min_plaq').checked = plaq < 100000;
+    const pf = num('pao2fio2');
+    if (pf !== null) $('min_pao2fio2').checked = pf <= 250;
+    const pas = num('pas'), pad = num('pad');
+    // Hypotension aggressive fluids: mark if BP meets CURB hypotension (clinician can uncheck)
+    if (pas !== null || pad !== null) {
+      const low = (pas !== null && pas < 90) || (pad !== null && pad <= 60);
+      if (low) $('min_hipotensao').checked = true;
+    }
+    // urea note
+    const notes = [];
+    if (uf.ureia !== null) {
+      notes.push('Ureia ' + uf.ureia + ' mg/dL → SBPT (≥50): ' + (uf.sbpt?'positivo':'negativo') + '; clássico (~≥42): ' + (uf.ureaClassic?'positivo':'negativo'));
+      if (uf.bunDeriv !== null) notes.push('BUN estimado ≈ ' + uf.bunDeriv.toFixed(1) + ' mg/dL (ureia/2,14)');
+    }
+    if (uf.bun !== null) notes.push('BUN ' + uf.bun + ' mg/dL → ATS (≥20): ' + (uf.bunPos?'positivo':'negativo'));
+    if (!notes.length) notes.push('Informe ureia (mg/dL) e/ou BUN (mg/dL). Positivo se ureia≥50 (SBPT) OU BUN≥20 (ATS) OU ureia≥42 (≈7 mmol/L).');
+    $('ureaNote').textContent = notes.join(' · ');
+  }
+
+  function calcCRB(){
+    const idade = num('idade');
+    if (idade === null) return {score:null, ok:false};
+    let s = 0;
+    const parts = [];
+    if (chk('confusao')) { s++; parts.push('C'); }
+    const fr = num('fr');
+    if (fr !== null && fr >= 30) { s++; parts.push('R'); }
+    const pas = num('pas'), pad = num('pad');
+    const bp = (pas !== null && pas < 90) || (pad !== null && pad <= 60);
+    if (bp) { s++; parts.push('B'); }
+    if (idade >= 65) { s++; parts.push('65'); }
+    return {score:s, ok:true, parts, max:4};
+  }
+
+  function calcCURB(){
+    const crb = calcCRB();
+    if (!crb.ok) return {score:null, ok:false};
+    const uf = ureaFlags();
+    let s = crb.score;
+    const parts = crb.parts.slice();
+    // U only counts if lab available; if neither ureia nor bun entered, CURB incomplete but we still show CRB-based
+    const hasLab = num('ureia') !== null || num('bun') !== null;
+    if (hasLab && uf.positive) { s++; parts.push('U'); }
+    return {
+      score: hasLab ? s : null,
+      ok: hasLab,
+      partial: !hasLab,
+      crbScore: crb.score,
+      parts,
+      urea: uf,
+      max:5
+    };
+  }
+
+  function calcATS(){
+    const major = [];
+    if (chk('vmInvasiva')) major.push('VM invasiva');
+    if (chk('choqueVaso')) major.push('Choque + vasopressor');
+    const minorIds = [
+      ['min_fr30','FR≥30'],
+      ['min_pao2fio2','PaO₂/FiO₂≤250'],
+      ['min_multilobar','Multilobar'],
+      ['min_confusao','Confusão'],
+      ['min_bun20','BUN/ureia'],
+      ['min_leuco','Leucopenia'],
+      ['min_plaq','Trombocitopenia'],
+      ['min_hipotermia','Hipotermia'],
+      ['min_hipotensao','Hipotensão + volume']
+    ];
+    const minors = [];
+    minorIds.forEach(([id,lab])=>{ if (chk(id)) minors.push(lab); });
+    return {major, minors, majorN: major.length, minorN: minors.length, severe: major.length>=1 || minors.length>=3};
+  }
+
+  function hasComorb(){
+    return ['co_coracao','co_pulmao','co_figado','co_renal','co_cancer','co_imuno','co_asplenia','co_dm','co_alcool'].some(chk);
+  }
+
+  function riskFlags(){
+    return {
+      mrsa: chk('mrsaPrevio') || chk('altaPrevMrsa') || (chk('abRecente') && chk('hospRecente')),
+      pseudo: chk('pseudoPrevio') || chk('altaPrevPseudo') || chk('bronqEstrut') || (chk('abRecente') && chk('hospRecente')),
+      abRecente: chk('abRecente'),
+      hospRecente: chk('hospRecente')
+    };
+  }
+
+  function siteOfCare(crb, curb, ats){
+    // Returns {code, label, pill, reasons[]}
+    const reasons = [];
+    if (ats.majorN >= 1) {
+      reasons.push('Critério maior ATS (' + ats.major.join(', ') + ')');
+      return {code:'uti', label:'UTI (PAC grave)', pill:'icu', reasons};
+    }
+    if (ats.minorN >= 3) {
+      reasons.push('≥3 critérios menores ATS (' + ats.minors.join('; ') + ')');
+      return {code:'uti', label:'Considerar UTI / unidade intermediária', pill:'icu', reasons};
+    }
+    const spo2 = num('spo2');
+    const needsO2 = chk('precisaO2') || (spo2 !== null && spo2 < 92);
+    const needsIV = chk('precisaIV');
+    const social = chk('instavelSocial');
+    const scoreRef = curb.ok ? curb.score : (crb.ok ? crb.score : null);
+    const scoreName = curb.ok ? 'CURB-65' : 'CRB-65';
+
+    if (scoreRef === null) {
+      return {code:'reavaliar', label:'Reavaliar — dados incompletos', pill:'inc', reasons:['Informe idade e sinais vitais / laboratório']};
+    }
+
+    // High score → ward/ICU path already covered minors; ≥3 CURB often hospitalize
+    if ((curb.ok && curb.score >= 3) || (!curb.ok && crb.score >= 3)) {
+      reasons.push(scoreName + ' = ' + scoreRef + ' (alto risco)');
+      if (ats.minorN >= 1) reasons.push('Menores ATS: ' + ats.minors.join('; '));
+      return {code:'enfermaria', label:'Enfermaria (avaliar UTI se deteriorar)', pill:'high', reasons};
+    }
+
+    if ((curb.ok && curb.score === 2) || (!curb.ok && crb.score === 2) || needsO2 || needsIV || social) {
+      if (curb.ok || crb.ok) reasons.push(scoreName + ' = ' + scoreRef);
+      if (needsO2) reasons.push('Necessidade de O₂ / SpO₂ baixa');
+      if (needsIV) reasons.push('Necessidade de IV / VO inviável');
+      if (social) reasons.push('Suporte social / retorno incerto');
+      if (ats.minorN > 0 && ats.minorN < 3) reasons.push('Menores ATS: ' + ats.minors.join('; '));
+      return {code:'enfermaria', label:'Enfermaria / observação', pill:'inter', reasons};
+    }
+
+    // Low score, stable
+    if (ats.minorN === 2) {
+      reasons.push(scoreName + ' baixo, porém 2 menores ATS — juízo clínico');
+      return {code:'reavaliar', label:'Reavaliar — zona intermediária (2 menores ATS)', pill:'inter', reasons};
+    }
+    reasons.push((curb.ok?'CURB-65 ':'CRB-65 ') + '= ' + scoreRef + ' · estável · sem cluster de menores');
+    if (hasComorb()) reasons.push('Comorbidades presentes — considerar observação se dúvida');
+    return {code:'ambulatorio', label:'Ambulatório (se VO, SpO₂ ok, retorno confiável)', pill:'low', reasons};
+  }
+
+  function exames(site, ats){
+    const list = [];
+    list.push('Oximetria de pulso (SpO₂)');
+    list.push('Radiografia de tórax (ou TC se indicação: dúvida diagnóstica, complicação, imunodeprimido)');
+    list.push('Hemograma completo');
+    list.push('Bioquímica (ureia/creatinina, eletrólitos, glicemia); enzimas hepáticas se pertinente');
+    if (site.code !== 'ambulatorio' || ats.severe) {
+      list.push('Hemoculturas (2 pares) — priorizar se grave / internado (colher sem atrasar ATB se necessário)');
+    }
+    if (chk('min_multilobar') || ats.severe || site.code === 'uti' || site.code === 'enfermaria') {
+      list.push('PCR (opcional / complementar) — não diagnóstico isolado');
+    }
+    if (ats.severe || site.code === 'uti') {
+      list.push('Antígeno urinário pneumocócico e Legionella (PAC grave)');
+      list.push('Escarro (se produtivo) para Gram/cultura');
+      list.push('Gasometria arterial se insuficiência respiratória / acidose suspeita');
+    } else if (chk('precisaO2') || (num('spo2')!==null && num('spo2')<92)) {
+      list.push('Considerar gasometria se falência respiratória');
+    }
+    if (chk('epocaFlu') || chk('suspeitaFlu') || chk('suspeitaCovid') || chk('srag') || ats.severe) {
+      list.push('PCR viral (influenza ± SARS-CoV-2 ± outros) conforme época/suspeita/SRAG');
+    }
+    if (chk('suspeitaFlu') || chk('srag') || (chk('epocaFlu') && ats.severe)) {
+      list.push('Se influenza provável + SRAG/risco: oseltamivir precoce (MS SRAG) sem aguardar lab');
+    }
+    list.push('Ultrassom pulmonar: alternativa à RX onde houver competência (ATS 2025/26, condicional)');
+    return list;
+  }
+
+  function tratamento(site, ats){
+    const comorb = hasComorb();
+    const rf = riskFlags();
+    let setting, regimen, alt, notes = [];
+
+    if (site.code === 'uti' || ats.severe) {
+      setting = 'PAC grave / UTI';
+      regimen = 'Betalactâmico (ex.: ceftriaxona ou ampicilina-sulbactam) + macrolídeo';
+      alt = 'ERS favorece betalactâmico+macrolídeo frente a betalactâmico+fluoroquinolona na PAC grave';
+      notes.push('Corticosteroide: ERS sugere na PAC grave com choque; ATS 2025/26 sugere em PAC grave (exceto influenza); não rotina na não grave.');
+    } else if (site.code === 'enfermaria' || site.code === 'reavaliar' && (chk('precisaO2')||chk('precisaIV'))) {
+      setting = 'Enfermaria / observação';
+      regimen = 'Betalactâmico (ex.: ceftriaxona) + macrolídeo';
+      alt = 'Alternativa: fluoroquinolona respiratória em monoterapia (se adequada)';
+    } else if (comorb) {
+      setting = 'Ambulatório com comorbidades';
+      regimen = 'Amoxicilina-clavulanato + macrolídeo (ou doxiciclina)';
+      alt = 'Alternativa: fluoroquinolona respiratória';
+    } else {
+      setting = 'Ambulatório sem comorbidades';
+      regimen = 'Amoxicilina (padrão ATS/IDSA / alinhado SBPT)';
+      alt = 'Alternativa ATS: doxiciclina. Macrolídeo isolado só se resistência pneumocócica local &lt;25% — no Brasil, tendência SIREVA invasiva (~46% eritromicina) desencoraja monoterapia empírica de rotina.';
+    }
+
+    notes.push('Evitar macrolídeo em monoterapia empírica quando resistência local desconhecida (SIREVA/IAL invasivo 2018–23).');
+    notes.push('Duração: SBPT tipicamente 5–7 dias na baixa gravidade se estável; ATS 2025/26 permite cursos ≥3 dias em PAC não grave selecionada e estável; grave ≥5 dias.');
+    notes.push('Descalonar com culturas e evolução em 48–72 h. Preferir antibiograma do serviço.');
+
+    if (rf.mrsa) notes.push('Flag MRSA: considerar cobertura anti-MRSA dirigida + culturas; não ampliar automaticamente só por institucionalização.');
+    if (rf.pseudo) notes.push('Flag Pseudomonas: considerar cobertura antipseudomonas dirigida + culturas/descalonamento (ERS risco estruturado).');
+    if (chk('suspeitaFlu') || chk('srag')) notes.push('Influenza: avaliar oseltamivir precoce se SRAG/risco (guia MS).');
+    if (chk('co_imuno')) notes.push('Imunossupressão: escores pouco validados; menor limiar para internação e investigação ampliada (CHEST 2020).');
+
+    return {setting, regimen, alt, notes, comorb, rf};
+  }
+
+  function setPill(el, text, cls){
+    el.className = 'pill ' + cls;
+    el.textContent = text;
+  }
+
+  function calcularTudo(){
+    syncDerivedMinors();
+    const crb = calcCRB();
+    const curb = calcCURB();
+    const ats = calcATS();
+    const site = siteOfCare(crb, curb, ats);
+
+    if (crb.ok) setPill($('pillCrb'), crb.score + '/4' + (crb.parts.length? ' ('+crb.parts.join('+')+')':''), crb.score>=3?'high':crb.score===2?'inter':'low');
+    else setPill($('pillCrb'), '—', 'inc');
+
+    if (curb.ok) setPill($('pillCurb'), curb.score + '/5' + (curb.parts.length? ' ('+curb.parts.join('+')+')':''), curb.score>=3?'high':curb.score===2?'inter':'low');
+    else if (crb.ok) setPill($('pillCurb'), 'lab ausente (use CRB)', 'inc');
+    else setPill($('pillCurb'), '—', 'inc');
+
+    let atsTxt, atsCls;
+    if (ats.majorN) { atsTxt = 'MAIOR → UTI'; atsCls='icu'; }
+    else if (ats.minorN >= 3) { atsTxt = ats.minorN + ' menores → grave'; atsCls='icu'; }
+    else if (ats.minorN) { atsTxt = ats.minorN + ' menor(es)'; atsCls='inter'; }
+    else { atsTxt = '0 maior / 0 menor'; atsCls='low'; }
+    setPill($('pillAts'), atsTxt, atsCls);
+    setPill($('pillSite'), site.label, site.pill);
+
+    // Site box
+    $('txtSite').innerHTML = '<strong>' + esc(site.label) + '</strong><br><span class="mini">' +
+      site.reasons.map(esc).join(' · ') +
+      '</span><br><span class="mini">Clínico sobrescreve sempre. Educacional — não é ordem de internação.</span>';
+
+    // Exams
+    const ex = exames(site, ats);
+    $('listaExames').innerHTML = ex.map(e => '<li>'+e+'</li>').join('');
+
+    // Treatment
+    const tx = tratamento(site, ats);
+    let html = '<table class="tx-table"><thead><tr><th>Cenário sugerido</th><th>Esquema de referência (classes)</th></tr></thead><tbody>';
+    html += '<tr class="hl"><td>'+esc(tx.setting)+'</td><td><strong>'+tx.regimen+'</strong><br><span class="mini">'+tx.alt+'</span></td></tr>';
+    html += '<tr><td>Ambulatório sem comorbidade</td><td>Amoxicilina; alt. doxiciclina; evitar macrolídeo mono se resistência desconhecida</td></tr>';
+    html += '<tr><td>Ambulatório com comorbidade</td><td>Amoxicilina-clavulanato + macrolídeo/doxiciclina; ou FQ respiratória</td></tr>';
+    html += '<tr><td>Enfermaria</td><td>Betalactâmico (ex. ceftriaxona) + macrolídeo; ou FQ respiratória</td></tr>';
+    html += '<tr><td>PAC grave</td><td>Betalactâmico + macrolídeo (preferência ERS vs BL+FQ)</td></tr>';
+    html += '</tbody></table>';
+    html += '<ul>' + tx.notes.map(n => '<li>'+n+'</li>').join('') + '</ul>';
+    $('txContent').innerHTML = html;
+
+    return {crb, curb, ats, site, tx, ex};
+  }
+
+  function gerarResumo(){
+    if (!chk('lgpdOk')) { alert('Confirme o consentimento LGPD.'); return false; }
+    if (!valor('nomePaciente') || num('idade')===null) { alert('Preencha pelo menos paciente e idade.'); return false; }
+    const r = calcularTudo();
+    const dataTxt = valor('dataAvaliacao')
+      ? new Date(valor('dataAvaliacao')+'T12:00:00').toLocaleDateString('pt-BR')
+      : new Date().toLocaleDateString('pt-BR');
+    const sexoTxt = valor('sexo')==='M'?'M':valor('sexo')==='F'?'F':'-';
+    const comorbLabels = [
+      ['co_coracao','cardíaca'],['co_pulmao','pulmonar'],['co_figado','hepática'],['co_renal','renal'],
+      ['co_cancer','câncer'],['co_imuno','imunossupressão'],['co_asplenia','asplenia'],['co_dm','DM'],['co_alcool','álcool']
+    ].filter(([id])=>chk(id)).map(([,l])=>l);
+    const uf = r.curb.urea || ureaFlags();
+    let ureaLine = 'não informada';
+    if (uf.ureia!==null || uf.bun!==null) {
+      ureaLine = [];
+      if (uf.ureia!==null) ureaLine.push('ureia '+uf.ureia+' mg/dL (SBPT≥50: '+(uf.sbpt?'+':'-')+'; cláss.≥42: '+(uf.ureaClassic?'+':'-')+')');
+      if (uf.bun!==null) ureaLine.push('BUN '+uf.bun+' mg/dL (ATS≥20: '+(uf.bunPos?'+':'-')+')');
+      ureaLine = ureaLine.join(' · ');
+    }
+
+    const html = `
+      <div class="relatorio-header">
+        <h2>PAC — RESUMO CLÍNICO (APOIO À DECISÃO)</h2>
+        <p>PneumoAgents v1.0 · set/2026 · SBPT 2018 · ATS/IDSA 2019 · ERS 2023 · ATS 2025/26</p>
+      </div>
+      <div class="relatorio-section">
+        <h3>Identificação</h3>
+        <div class="info-grid">
+          <div><strong>Paciente:</strong> ${esc(valor('nomePaciente'))}</div>
+          <div><strong>Idade/Sexo:</strong> ${esc(valor('idade'))} a / ${esc(sexoTxt)}</div>
+          <div><strong>Data:</strong> ${esc(dataTxt)}</div>
+          <div><strong>Local:</strong> ${esc(valor('localAtend'))}</div>
+          <div><strong>Médico:</strong> ${esc(valor('medicoNome'))}${valor('crm')?' · '+esc(valor('crm')):''}</div>
+          <div><strong>Peso:</strong> ${esc(valor('peso')||'-')} kg</div>
+        </div>
+      </div>
+      <div class="relatorio-section">
+        <h3>Vitais / laboratório</h3>
+        <div class="info-grid">
+          <div><strong>FR:</strong> ${esc(valor('fr')||'-')} /min</div>
+          <div><strong>PA:</strong> ${esc(valor('pas')||'-')}/${esc(valor('pad')||'-')} mmHg</div>
+          <div><strong>SpO₂:</strong> ${esc(valor('spo2')||'-')}% ${chk('precisaO2')?'(+O₂)':''}</div>
+          <div><strong>FC / T°:</strong> ${esc(valor('fc')||'-')} · ${esc(valor('temp')||'-')} °C</div>
+          <div><strong>Confusão:</strong> ${chk('confusao')?'Sim':'Não'}</div>
+          <div><strong>Ureia/BUN:</strong> ${esc(ureaLine)}</div>
+          <div><strong>Leuco/Plaq:</strong> ${esc(valor('leuco')||'-')} / ${esc(valor('plaq')||'-')}</div>
+          <div><strong>PCR:</strong> ${esc(valor('pcr')||'-')} mg/L</div>
+        </div>
+      </div>
+      <div class="relatorio-section">
+        <h3>Escores</h3>
+        <div class="score-box">
+          <strong>CRB-65:</strong> ${r.crb.ok? r.crb.score+'/4 ('+r.crb.parts.join('+')+')' : '—'}
+          &nbsp;|&nbsp; <strong>CURB-65:</strong> ${r.curb.ok? r.curb.score+'/5 ('+r.curb.parts.join('+')+')' : 'lab ausente'}
+          <br><strong>ATS maior:</strong> ${r.ats.majorN? esc(r.ats.major.join(', ')) : '0'}
+          &nbsp;|&nbsp; <strong>Menores:</strong> ${r.ats.minorN}/9 ${r.ats.minorN? '('+esc(r.ats.minors.join('; '))+')':''}
+          ${r.ats.severe?' · <strong>PAC grave</strong>':''}
+        </div>
+      </div>
+      <div class="relatorio-section">
+        <h3>Sugestão de local de cuidado</h3>
+        <div class="score-box"><strong>${esc(r.site.label)}</strong><br><span class="mini">${r.site.reasons.map(esc).join(' · ')}</span>
+        <br><span class="mini">Sugestão educacional — clínico decide.</span></div>
+      </div>
+      <div class="relatorio-section">
+        <h3>Comorbidades / riscos</h3>
+        <div class="score-box">
+          Comorbidades: ${comorbLabels.length? esc(comorbLabels.join(', ')) : 'nenhuma marcada'}
+          <br>MRSA flag: ${r.tx.rf.mrsa?'sim':'não'} · Pseudomonas flag: ${r.tx.rf.pseudo?'sim':'não'}
+          · ATB 90d: ${chk('abRecente')?'sim':'não'} · Hosp. recente: ${chk('hospRecente')?'sim':'não'}
+          <br>Flu/COVID: época ${chk('epocaFlu')?'sim':'não'} · susp. flu ${chk('suspeitaFlu')?'sim':'não'} · COVID ${chk('suspeitaCovid')?'sim':'não'} · SRAG ${chk('srag')?'sim':'não'}
+        </div>
+      </div>
+      <div class="relatorio-section">
+        <h3>Exames sugeridos</h3>
+        <div class="score-box">${r.ex.map(esc).join(' · ')}</div>
+      </div>
+      <div class="relatorio-section">
+        <h3>Orientação empírica (classes)</h3>
+        <div class="score-box">
+          <strong>${esc(r.tx.setting)}:</strong> ${r.tx.regimen}
+          <br><span class="mini">${r.tx.alt}</span>
+          <br><span class="mini">${r.tx.notes.slice(0,3).map(esc).join(' | ')}</span>
+        </div>
+      </div>
+      ${valor('obsClinica')?`<div class="relatorio-section"><h3>Observações</h3><div class="score-box">${esc(valor('obsClinica'))}</div></div>`:''}
+      <div class="assinatura">
+        <div class="nome"><strong>${esc(valor('medicoNome'))}</strong></div>
+        <div>${esc(valor('crm')||'')}</div>
+        <div class="mini">PneumoAgents · 18_PAC_Apoio_Decisao.html · revisão: 17_Pneumonia_PAC_Adultos.html · educacional</div>
+      </div>
+    `;
+    $('relatorioConteudo').innerHTML = html;
+    $('secaoRelatorio').classList.remove('hidden');
+    $('secaoRelatorio').scrollIntoView({behavior:'smooth', block:'start'});
+    return true;
+  }
+
+  function imprimirA4(){
+    if ($('secaoRelatorio').classList.contains('hidden')) {
+      if (!gerarResumo()) return;
+    }
+    window.print();
+  }
+
+  function collectState(){
+    const ids = [...document.querySelectorAll('input,select,textarea')].map(el=>el.id).filter(Boolean);
+    const state = {};
+    ids.forEach(id=>{
+      const el = $(id);
+      if (!el) return;
+      if (el.type === 'checkbox') state[id] = el.checked;
+      else state[id] = el.value;
+    });
+    return state;
+  }
+  function applyState(state){
+    if (!state) return;
+    Object.keys(state).forEach(id=>{
+      const el = $(id);
+      if (!el) return;
+      if (el.type === 'checkbox') el.checked = !!state[id];
+      else el.value = state[id];
+    });
+    calcularTudo();
+  }
+  function salvarLocal(){
+    try {
+      localStorage.setItem(LS_KEY, JSON.stringify(collectState()));
+      alert('Salvo neste navegador (localStorage).');
+    } catch(e){ alert('Falha ao salvar: '+e.message); }
+  }
+  function carregarLocal(){
+    try {
+      const raw = localStorage.getItem(LS_KEY);
+      if (!raw) { alert('Nenhum dado salvo.'); return; }
+      applyState(JSON.parse(raw));
+      alert('Dados carregados.');
+    } catch(e){ alert('Falha ao carregar: '+e.message); }
+  }
+  function limparForm(){
+    if (!confirm('Limpar todo o formulário?')) return;
+    document.querySelectorAll('input[type=checkbox]').forEach(el=>el.checked=false);
+    document.querySelectorAll('input:not([type=checkbox]),select,textarea').forEach(el=>{
+      if (el.id==='medicoNome') el.value='Fernando Lundgren';
+      else el.value='';
+    });
+    setDateToday();
+    $('secaoRelatorio').classList.add('hidden');
+    calcularTudo();
+  }
+
+  // Live updates
+  document.querySelectorAll('input,select,textarea').forEach(el=>{
+    el.addEventListener('input', ()=>calcularTudo());
+    el.addEventListener('change', ()=>calcularTudo());
+  });
+  // Keep confusion sync both ways
+  $('confusao').addEventListener('change', ()=>{ $('min_confusao').checked = chk('confusao'); calcularTudo(); });
+
+  window.calcularTudo = calcularTudo;
+  window.gerarResumo = gerarResumo;
+  window.imprimirA4 = imprimirA4;
+  window.salvarLocal = salvarLocal;
+  window.carregarLocal = carregarLocal;
+  window.limparForm = limparForm;
+
+  calcularTudo();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,2007 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PneumoAgents · DPOC Imunobiológicos | v1.0 unificado 09/2026</title>
+<style>
+/* ===== FONTES EMBUTIDAS (offline — sem dependência externa) ===== */
+
+
+
+
+
+
+
+
+
+
+.step-panel { display:none; }
+.step-panel.active, #step-form.active, #step-dec.active, #step-rep.active, #step-lme.active, #step-rx.active { display:block; }
+#step-rx { display:none; }
+#step-rx.active { display:block; }
+.rx-sheet { background:#fff; border:1px solid var(--line); border-radius:var(--r); padding:22px; color:#111; }
+.tip { line-height:1.45; }
+body.print-rx .masthead,
+body.print-rx .status-bar,
+body.print-rx .stepper,
+body.print-rx .no-print,
+body.print-rx #step-form,
+body.print-rx #step-dec,
+body.print-rx #step-rep,
+body.print-rx #step-lme { display:none!important; }
+body.print-rx #step-rx { display:block!important; }
+body.print-rx #step-rx .section { box-shadow:none; border:0; }
+
+</style>
+<style>
+/* ============================================================
+   DESIGN SYSTEM — DPOC / COPD
+   Paleta: azul ardósia profundo + âmbar quente + cinza claro
+   Tipografia: Lora (serif, títulos) + Source Sans 3 (corpo)
+   ============================================================ */
+:root {
+  --slate:   #1E3A5F;   /* azul ardósia */
+  --slate-m: #2C5282;
+  --slate-l: #3B82B4;
+  --amber:   #B7600A;
+  --amber-l: #E07C1A;
+  --gold:    #F5A623;
+  --rose:    #B91C1C;
+  --sage:    #166534;
+  --sky:     #0369A1;
+  --mist:    #EEF4FB;
+  --cloud:   #F5F7FA;
+  --line:    #CBD5E8;
+  --text:    #1A2535;
+  --sub:     #4B5E7A;
+  --serif:   Georgia, 'Times New Roman', serif;
+  --sans:    system-ui, -apple-system, 'Segoe UI', Roboto, Ubuntu, 'Helvetica Neue', Arial, sans-serif;
+  --mono:    ui-monospace, 'Cascadia Code', 'Segoe UI Mono', Menlo, Consolas, monospace;
+  --r:       8px;
+  --r2:      14px;
+  --sh:      0 4px 20px rgba(30,58,95,.10);
+  --sh2:     0 8px 36px rgba(30,58,95,.16);
+}
+
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+
+body {
+  font-family: var(--sans);
+  background: var(--cloud);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ===== HEADER ===== */
+.masthead {
+  background: linear-gradient(135deg, var(--slate) 0%, #0F2D50 100%);
+  color: #fff;
+  padding: 26px 40px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 4px solid var(--amber-l);
+}
+.mast-icon {
+  width: 56px; height: 56px;
+  background: rgba(255,255,255,.12);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px; flex-shrink: 0;
+  border: 2px solid rgba(255,255,255,.2);
+}
+.mast-title { font-family: var(--serif); font-size: 22px; font-weight: 700; line-height: 1.2; }
+.mast-sub   { font-size: 11px; opacity: .65; font-family: var(--mono); letter-spacing: .05em; margin-top: 3px; }
+.mast-badge {
+  margin-left: auto;
+  background: var(--amber-l);
+  color: #fff;
+  padding: 6px 14px; border-radius: 20px;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .05em; white-space: nowrap;
+}
+
+/* ===== GOLD-STATUS BAR ===== */
+.status-bar {
+  background: linear-gradient(90deg, #1a3560 0%, #243d6e 100%);
+  color: #fff;
+  padding: 12px 40px;
+  font-size: 12px;
+  display: flex; gap: 32px; flex-wrap: wrap; align-items: center;
+}
+.status-bar .sb-item { display: flex; gap: 6px; align-items: center; }
+.status-bar .sb-dot  { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.sb-green  { background: #4ade80; }
+.sb-yellow { background: #fbbf24; }
+.sb-orange { background: #fb923c; }
+.sb-red    { background: #f87171; }
+
+/* ===== STEPPER ===== */
+.stepper {
+  display: flex;
+  background: #fff;
+  border-bottom: 1px solid var(--line);
+  padding: 0 40px;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+}
+.step {
+  display: flex; align-items: center; gap: 9px;
+  padding: 15px 18px 15px 0; margin-right: 6px;
+  font-size: 13px; font-weight: 500; color: var(--sub);
+  border-bottom: 3px solid transparent; transition: all .2s;
+}
+.step.active { border-bottom-color: var(--slate-l); color: var(--slate); }
+.step.done   { color: var(--sage); }
+.step .num {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid currentColor;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; flex-shrink: 0;
+}
+.step.done .num { background: var(--sage); border-color: var(--sage); color: #fff; }
+
+/* ===== MAIN ===== */
+.main { max-width: 980px; margin: 0 auto; padding: 32px 22px 60px; }
+
+/* ===== SECTION ===== */
+.section {
+  background: #fff;
+  border-radius: var(--r2);
+  padding: 30px;
+  margin-bottom: 22px;
+  box-shadow: var(--sh);
+  border: 1px solid var(--line);
+}
+.sec-head {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 22px; padding-bottom: 14px;
+  border-bottom: 2px solid var(--mist);
+}
+.sec-ico {
+  width: 38px; height: 38px; border-radius: 10px;
+  background: var(--mist);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.sec-head h2 { font-family: var(--serif); font-size: 17px; color: var(--slate); }
+.sec-head p  { font-size: 12px; color: var(--sub); margin-top: 2px; }
+
+/* ===== FORM ===== */
+.fg { display: flex; flex-direction: column; gap: 6px; }
+.fg label {
+  font-size: 11px; font-weight: 600; color: var(--sub);
+  text-transform: uppercase; letter-spacing: .06em;
+}
+.fg input, .fg select, .fg textarea {
+  padding: 10px 13px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--r);
+  font-family: var(--sans); font-size: 14px; color: var(--text);
+  background: #fff; transition: border-color .2s, box-shadow .2s; width: 100%;
+}
+.fg input:focus, .fg select:focus, .fg textarea:focus {
+  outline: none; border-color: var(--slate-l);
+  box-shadow: 0 0 0 3px rgba(59,130,180,.10);
+}
+.fg textarea { resize: vertical; min-height: 75px; }
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+.grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 14px; }
+.span-2 { grid-column: span 2; }
+.span-3 { grid-column: span 3; }
+.span-4 { grid-column: span 4; }
+
+/* slider */
+.slider-row { display: flex; align-items: center; gap: 12px; }
+.slider-row input[type=range] { flex: 1; accent-color: var(--slate-l); }
+.sv {
+  min-width: 58px; text-align: center;
+  font-family: var(--mono); font-size: 14px; font-weight: 600;
+  color: var(--slate); background: var(--mist);
+  border-radius: 6px; padding: 4px 8px;
+}
+
+/* checks */
+.check-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.ci {
+  display: flex; align-items: center; gap: 9px;
+  padding: 9px 12px; border: 1.5px solid var(--line);
+  border-radius: var(--r); cursor: pointer; transition: all .18s;
+}
+.ci:hover { border-color: var(--slate-l); background: var(--mist); }
+.ci input  { width: 15px; height: 15px; accent-color: var(--slate-l); flex-shrink: 0; }
+.ci label  { font-size: 13px; cursor: pointer; }
+.ci.checked{ border-color: var(--slate-l); background: #EEF4FB; }
+
+/* alerts */
+.alert { padding: 11px 15px; border-radius: var(--r); margin: 10px 0; font-size: 13px; line-height: 1.5; }
+.a-info { background: #EEF4FB; border-left: 4px solid var(--slate-l); color: #1E3A5F; }
+.a-warn { background: #FFF7ED; border-left: 4px solid var(--amber-l); color: #7C2D12; }
+.a-ok   { background: #F0FDF4; border-left: 4px solid var(--sage); color: #14532D; }
+.a-err  { background: #FEF2F2; border-left: 4px solid var(--rose); color: #7F1D1D; }
+
+/* buttons */
+.btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 11px 26px; border: none; border-radius: var(--r);
+  font-family: var(--sans); font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: all .18s; text-decoration: none;
+}
+.btn-primary { background: var(--slate); color: #fff; }
+.btn-primary:hover { background: var(--slate-m); transform: translateY(-1px); box-shadow: var(--sh); }
+.btn-amber   { background: var(--amber-l); color: #fff; }
+.btn-amber:hover { background: var(--gold); transform: translateY(-1px); }
+.btn-outline { background: #fff; color: var(--slate); border: 2px solid var(--slate-l); }
+.btn-outline:hover { background: var(--mist); }
+.btn-ghost   { background: var(--mist); color: var(--sub); }
+.btn-ghost:hover { background: var(--line); }
+.btn-print   { background: var(--sage); color: #fff; }
+.btn-full    { width: 100%; justify-content: center; }
+.btn-row     { display: flex; gap: 11px; flex-wrap: wrap; margin-top: 22px; }
+
+/* ===== DRUG CARDS ===== */
+.drug-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+.drug-card {
+  border: 2px solid var(--line);
+  border-radius: var(--r2); padding: 20px;
+  position: relative; transition: all .18s; cursor: pointer;
+  background: #fff;
+}
+.drug-card:hover { border-color: var(--slate-l); box-shadow: var(--sh); }
+.drug-card.r1 { border-color: var(--gold); background: linear-gradient(135deg,#FFFBF0,#FDF6E0); }
+.drug-card.r2 { border-color: var(--slate-l); background: linear-gradient(135deg,#EEF4FB,#E3EFFA); }
+.drug-card.r3 { border-color: #7EA9C4; background: linear-gradient(135deg,#F3F8FC,#E9F3F8); }
+.drug-card.not-el { opacity: .42; filter: grayscale(.4); cursor: not-allowed; }
+.drug-card.pipeline { border-style: dashed; opacity: .75; }
+
+.dr-rank {
+  position: absolute; top: -10px; left: 16px;
+  font-family: var(--serif); font-size: 10px; font-weight: 700;
+  padding: 3px 10px; border-radius: 20px;
+  background: var(--slate); color: #fff;
+}
+.dr-rank.rk1 { background: var(--gold); color: #5a3a00; }
+.dr-rank.rk2 { background: var(--slate-l); color: #fff; }
+.dr-rank.rk3 { background: #7EA9C4; color: #fff; }
+.dr-rank.rk-pipe { background: #9ca3af; }
+
+.drug-card h3 { font-family: var(--serif); font-size: 16px; margin: 6px 0 3px; }
+.drug-card .brand { font-size: 11px; color: var(--sub); margin-bottom: 10px; }
+.drug-card .score { font-family: var(--mono); font-size: 26px; font-weight: 700; color: var(--slate-l); margin-bottom: 6px; }
+.drug-card.r1 .score { color: #a06800; }
+
+.dm { display: flex; flex-direction: column; gap: 4px; font-size: 12px; }
+.dm .row { display: flex; gap: 5px; }
+.dm .lbl { color: var(--sub); width: 80px; flex-shrink: 0; }
+.dm .val { color: var(--text); font-weight: 500; }
+
+.tag {
+  display: inline-block; font-size: 10px; font-weight: 700;
+  padding: 2px 8px; border-radius: 12px; margin: 2px 2px 0 0;
+  letter-spacing: .03em;
+}
+.tag-green  { background: #D1FAE5; color: #065F46; }
+.tag-amber  { background: #FEF3C7; color: #92400E; }
+.tag-slate  { background: #DBEAFE; color: #1E3A5F; }
+.tag-red    { background: #FEE2E2; color: #991B1B; }
+.tag-gray   { background: #F3F4F6; color: #374151; }
+.tag-pipe   { background: #E0E7FF; color: #3730A3; font-style:italic; }
+.tag-anvisa { background: #15803D; color: #fff; }
+.tag-fda    { background: #1D4ED8; color: #fff; }
+.tag-ans    { background: #7C3AED; color: #fff; }
+.tag-sus    { background: #0369A1; color: #fff; }
+
+.cover-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+.chip {
+  display: flex; align-items: center; gap: 4px;
+  padding: 3px 9px; border-radius: 20px;
+  font-size: 10px; font-weight: 700;
+}
+.chip-ok   { background: #D1FAE5; color: #065F46; }
+.chip-warn { background: #FEF3C7; color: #92400E; }
+.chip-no   { background: #FEE2E2; color: #991B1B; }
+.chip-pipe { background: #E0E7FF; color: #3730A3; }
+
+/* table */
+.tw { overflow-x: auto; margin: 16px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+th, td { padding: 9px 11px; border: 1px solid var(--line); text-align: left; }
+th { background: var(--slate); color: #fff; font-weight: 600; }
+tr:nth-child(even) td { background: var(--mist); }
+.hl { background: #FEF3C7!important; font-weight: 700; }
+.pipe-row td { color: #6B7280; font-style: italic; }
+
+/* ===== HELMINTH ===== */
+.helm-box {
+  background: linear-gradient(135deg,#FFFBF0,#FFF7ED);
+  border: 2px solid var(--amber-l); border-radius: var(--r2);
+  padding: 18px 20px; margin: 14px 0;
+}
+.helm-box h4 { font-family: var(--serif); font-size: 13px; color: #7C2D12; margin-bottom: 10px; }
+.helm-item {
+  background: #fff; border-radius: var(--r);
+  padding: 9px 13px; margin-bottom: 7px;
+  border-left: 4px solid var(--amber-l);
+  font-size: 12.5px; line-height: 1.55;
+}
+.helm-item .dn  { font-weight: 700; color: var(--text); margin-bottom: 2px; }
+.helm-item .bt  { color: var(--sub); font-style: italic; }
+
+/* ===== GOLD STAGES ===== */
+.gold-stages {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 8px;
+  margin: 12px 0;
+}
+.gold-stage {
+  border-radius: var(--r); padding: 10px;
+  border: 1.5px solid var(--line);
+  font-size: 12px; text-align: center; cursor: pointer;
+  transition: all .15s;
+}
+.gold-stage:hover { border-color: var(--slate-l); background: var(--mist); }
+.gold-stage.sel   { border-color: var(--slate); background: var(--slate); color: #fff; }
+.gold-stage .gn   { font-family: var(--serif); font-size: 20px; font-weight: 700; }
+.gold-stage .gl   { font-size: 10px; opacity: .8; margin-top: 2px; }
+
+/* ===== REPORT ===== */
+.report-sheet {
+  background: #fff;
+  border: 2px solid var(--slate);
+  border-radius: var(--r2);
+  overflow: hidden;
+  box-shadow: var(--sh2);
+}
+.rp-head {
+  background: linear-gradient(135deg, var(--slate) 0%, #0F2D50 100%);
+  color: #fff;
+  padding: 26px 34px 22px;
+  display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: start;
+}
+.rp-head h1   { font-family: var(--serif); font-size: 20px; }
+.rp-head .sub { font-size: 11px; opacity: .65; font-family: var(--mono); margin-top: 4px; }
+.rp-stamp     { text-align: right; font-family: var(--mono); font-size: 11px; opacity: .75; }
+.rp-body      { padding: 34px; }
+
+.rp-sec { margin-bottom: 26px; }
+.rp-sec h3 {
+  font-family: var(--serif); font-size: 13px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .07em;
+  color: var(--slate-l); margin-bottom: 10px;
+  padding-bottom: 5px; border-bottom: 1.5px solid var(--line);
+}
+.rp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px 22px; }
+.rpf { font-size: 13px; line-height: 1.5; }
+.rpf .lbl { font-size: 11px; font-weight: 600; text-transform: uppercase; color: var(--sub); }
+.rpf .val { font-weight: 500; }
+
+.presc-box {
+  background: var(--slate);
+  color: #fff;
+  border-radius: var(--r);
+  padding: 16px 20px;
+  font-family: var(--mono);
+  font-size: 12.5px; line-height: 1.85; margin: 12px 0;
+}
+.presc-box .pl  { display: flex; gap: 10px; }
+.presc-box .pk  { opacity: .6; width: 130px; flex-shrink: 0; }
+
+.ind-box {
+  background: linear-gradient(135deg,#EEF4FB,#E3EFFA);
+  border: 2px solid var(--slate-l);
+  border-radius: var(--r2); padding: 20px; margin: 16px 0;
+}
+.ind-box h2  { font-family: var(--serif); font-size: 19px; color: var(--slate); margin-bottom: 3px; }
+.ind-box .br { font-size: 12px; color: var(--sub); margin-bottom: 12px; }
+
+.crit-list { list-style: none; }
+.crit-list li {
+  display: flex; align-items: flex-start; gap: 8px;
+  padding: 6px 0; border-bottom: 1px solid var(--line);
+  font-size: 13px; line-height: 1.5;
+}
+.crit-list li:last-child { border: none; }
+.crit-list .ck { color: var(--sage); font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+.crit-list .wn { color: var(--amber); font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+
+.rp-foot {
+  border-top: 2px solid var(--line);
+  padding: 22px 34px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 22px;
+}
+.sig-block { text-align: center; }
+.sig-line { margin: 38px auto 5px; border-top: 1.5px solid var(--slate); width: 190px; }
+.sig-lbl  { font-size: 11px; color: var(--sub); }
+
+.ref-box {
+  background: var(--mist);
+  border-radius: var(--r); padding: 14px;
+  font-size: 11px; color: var(--sub); line-height: 1.6;
+}
+.ref-box ol { padding-left: 14px; }
+.ref-box li { margin-bottom: 4px; }
+
+/* ===== STEP VISIBILITY ===== */
+#step-form, #step-dec, #step-rep, #step-lme { display: none; }
+#step-form.active, #step-dec.active, #step-rep.active, #step-lme.active { display: block; }
+
+/* ===== PRINT ===== */
+@media print {
+  .masthead, .status-bar, .stepper, .no-print { display: none!important; }
+  body { background: #fff; }
+  .main { padding: 0; max-width: 100%; }
+  .report-sheet { border-radius: 0; box-shadow: none; }
+}
+
+@media (max-width: 680px) {
+  .grid-2, .grid-3, .grid-4, .drug-grid, .gold-stages,
+  .rp-grid, .rp-foot { grid-template-columns: 1fr; }
+  .span-2, .span-3, .span-4 { grid-column: span 1; }
+  .check-grid { grid-template-columns: 1fr; }
+  .masthead { padding: 16px 18px; }
+  .section { padding: 18px; }
+  .rp-head, .rp-body, .rp-foot { padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="mast-icon">🫁</div>
+  <div>
+    <div class="mast-title">PneumoAgents · DPOC Imunobiológicos</div>
+    <div class="mast-sub">DPOC EOSINOFÍLICA / TIPO 2 · IMUNOBIOLÓGICOS · LME / LAUDO · v1.0 · unificado 09/2026</div>
+  </div>
+  <div class="mast-badge">GOLD 2025 · clínico geral + pneumologista</div>
+</header>
+
+<!-- STATUS BAR -->
+<div class="status-bar">
+  <div class="sb-item"><div class="sb-dot sb-green"></div> Dupilumabe — ANVISA ✅ Set/2024 | ANS ✅ RN 651/2025 (DPOC)</div>
+  <div class="sb-item"><div class="sb-dot sb-yellow"></div> Mepolizumabe — ANVISA ✅ Abr/2026 (DPOC) | fora do rol ANS</div>
+  <div class="sb-item"><div class="sb-dot sb-orange"></div> Benralizumabe — Fase III RESOLUTE (em andamento)</div>
+  <div class="sb-item"><div class="sb-dot sb-red"></div> Tezepelumabe — Fase III JOURNEY/EMBARK (em andamento)</div>
+</div>
+
+
+<!-- DISCLAIMER EDUCACIONAL -->
+<div class="alert a-warn no-print" style="margin:12px 18px 0; max-width:1100px; margin-left:auto; margin-right:auto;">
+  <strong>⚠️ Ferramenta educacional de apoio à decisão (PneumoAgents · v1.0 · 09/2026).</strong>
+  Não substitui julgamento clínico, bula ANVISA, relatório GOLD, DUT/PCDT, normas da ANS/CONITEC/MS nem protocolos locais.
+  Confira sempre a bula e o status regulatório vigente antes de solicitar ou iniciar imunobiológico.
+  Público: clínico geral e pneumologista — dicas curtas quando a conduta diverge.
+</div>
+
+<!-- STEPPER -->
+<nav class="stepper" id="stepper">
+  <div class="step active" id="s-form"><div class="num">1</div>Dados Clínicos</div>
+  <div class="step"         id="s-dec"> <div class="num">2</div>Análise e Decisão</div>
+  <div class="step"         id="s-rep"> <div class="num">3</div>Laudo &amp; Solicitação</div>
+  <div class="step"         id="s-lme"> <div class="num">4</div>LME (SUS)</div>
+  <div class="step"         id="s-rx">  <div class="num">5</div>Receita</div>
+</nav>
+
+<main class="main">
+
+<!-- ============================================================
+     STEP 1 — FORMULÁRIO CLÍNICO
+     ============================================================ -->
+<div id="step-form" class="active">
+
+  <div class="alert a-info" style="margin-bottom:18px;">
+    <strong>⚕️ GOLD 2025 (clínico geral + pneumo):</strong> O dupilumabe é o <strong>único imunobiológico com cobertura obrigatória pela ANS</strong> (RN 651/2025, vigência 02/03/2026) para DPOC eosinofílica, indicado na inflamação Tipo 2 (eosinófilos ≥300 céls/µL) sob terapia tripla inalatória (LAMA+LABA+CI) com exacerbações frequentes. O <strong>mepolizumabe</strong> foi aprovado pela ANVISA para DPOC em 22/04/2026 (RE 1.583/2026), porém <strong>ainda fora do rol da ANS</strong> para essa indicação.
+  </div>
+
+  <!-- MÉDICO -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-ico">👨‍⚕️</div><div><h2>Dados do Médico Solicitante</h2><p>Informações para o laudo oficial</p></div></div>
+    <div class="grid-2">
+      <div class="fg span-2"><label>Nome completo do médico</label><input id="docName" type="text" placeholder="Dr. / Dra."></div>
+      <div class="fg"><label>CRM</label><input id="docCRM" type="text" placeholder="Ex: 12345-CE"></div>
+      <div class="fg"><label>RQE (Especialidade)</label><input id="docRQE" type="text" placeholder="Ex: RQE 67890 – Pneumologia"></div>
+      <div class="fg"><label>Instituição / Consultório</label><input id="docInst" type="text" placeholder="Hospital / Clínica"></div>
+      <div class="fg"><label>CNES (unidade de saúde)</label><input id="docCNES" type="text" placeholder="Nº CNES (obrigatório p/ LME-SUS)"></div>
+      <div class="fg"><label>CNS do médico (LME campo 15)</label><input id="docCNS" type="text" placeholder="CNS do médico solicitante"></div>
+      <div class="fg"><label>Data do Laudo</label><input id="docDate" type="date"></div>
+      <div class="fg span-2"><label>Cabeçalho institucional (receita)</label><input id="docHeader" type="text" placeholder="Ex.: Ambulatório de Pneumologia — Município/UF"></div>
+    </div>
+    <p class="tip no-print" style="margin-top:10px;font-size:12px;color:var(--sub);">💡 <strong>Pneumologista:</strong> RQE facilita laudos a convênios. <strong>Clínico geral:</strong> CNS + CNES são os campos críticos do LME-SUS.</p>
+  </div>
+
+  <!-- PACIENTE -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-ico">🧑‍💼</div><div><h2>Dados do Paciente</h2><p>Identificação completa para a solicitação ao convênio / SUS</p></div></div>
+    <div class="grid-2">
+      <div class="fg span-2"><label>Nome completo</label><input id="patName" type="text" placeholder="Nome completo do paciente"></div>
+      <div class="fg span-2"><label>Nome da mãe (LME-SUS)</label><input id="patMother" type="text" placeholder="Nome completo da mãe"></div>
+      <div class="fg"><label>CPF</label><input id="patCPF" type="text" placeholder="000.000.000-00" maxlength="14"></div>
+      <div class="fg"><label>Data de Nascimento</label><input id="patDOB" type="date"></div>
+      <div class="fg"><label>CNS — Cartão Nacional de Saúde</label><input id="patCNS" type="text" placeholder="000 0000 0000 0000 (LME-SUS)"></div>
+      <div class="fg"><label>Carteirinha / Beneficiário</label><input id="patPlan" type="text" placeholder="Nº beneficiário (convênio)"></div>
+      <div class="fg"><label>Convênio / Operadora</label><input id="patConv" type="text" placeholder="Ex: Unimed, Bradesco, SUS"></div>
+      <div class="fg"><label>Telefone para contato</label><input id="patPhone" type="text" placeholder="(00) 00000-0000"></div>
+      <div class="fg"><label>E-mail do paciente (LME campo 22)</label><input id="patEmail" type="email" placeholder="email@exemplo.com"></div>
+      <div class="fg"><label>Prontuário</label><input id="patMR" type="text" placeholder="Nº do prontuário"></div>
+      <div class="fg"><label>Peso (kg)</label><input id="patWeight" type="number" placeholder="Ex: 72" step="0.1"></div>
+      <div class="fg"><label>Altura (cm)</label><input id="patHeight" type="number" placeholder="Ex: 168"></div>
+      <div class="fg span-2"><label>Endereço</label><input id="patAddress" type="text" placeholder="Endereço completo (receita / LME)"></div>
+    </div>
+  </div>
+
+  <!-- DIAGNÓSTICO DPOC -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-ico">🔬</div><div><h2>Diagnóstico e Estadiamento da DPOC</h2><p>Critérios GOLD 2025 — espirometria obrigatória</p></div></div>
+
+    <div class="alert a-warn">
+      <strong>Critério obrigatório:</strong> O diagnóstico de DPOC requer espirometria com <strong>VEF1/CVF &lt; 0,70 pós-broncodilatador</strong> (GOLD 2025). Para elegibilidade ao dupilumabe, é necessário excluir asma como diagnóstico principal.
+    </div>
+
+    <div class="grid-3" style="margin-top:14px;">
+      <div class="fg"><label>VEF1 pós-BD (% predito)</label><input id="vef1" type="number" placeholder="Ex: 55"></div>
+      <div class="fg"><label>VEF1/CVF pós-BD</label><input id="ratio" type="number" step="0.01" placeholder="Ex: 0.62"></div>
+      <div class="fg"><label>mMRC (Dispneia)</label>
+        <select id="mmrc">
+          <option value="">Selecione</option>
+          <option value="0">0 — Apenas dispneia a exercício intenso</option>
+          <option value="1">1 — Dispneia ao subir rampas / ladeiras</option>
+          <option value="2">2 — Marcha lenta por falta de ar</option>
+          <option value="3">3 — Para por falta de ar após 100m</option>
+          <option value="4">4 — Não sai de casa / falta de ar ao vestir</option>
+        </select>
+      </div>
+    </div>
+
+    <div style="margin-top:16px;">
+      <div class="fg"><label style="margin-bottom:8px; display:block;">Estágio GOLD (VEF1 % predito)</label></div>
+      <div class="gold-stages">
+        <div class="gold-stage" id="gold-1" onclick="selGold(1)"><div class="gn">I</div><div class="gl">≥80% — Leve</div></div>
+        <div class="gold-stage" id="gold-2" onclick="selGold(2)"><div class="gn">II</div><div class="gl">50–79% — Moderado</div></div>
+        <div class="gold-stage" id="gold-3" onclick="selGold(3)"><div class="gn">III</div><div class="gl">30–49% — Grave</div></div>
+        <div class="gold-stage" id="gold-4" onclick="selGold(4)"><div class="gn">IV</div><div class="gl">&lt;30% — Muito Grave</div></div>
+      </div>
+    </div>
+
+    <div class="grid-3" style="margin-top:14px;">
+      <div class="fg"><label>CAT (COPD Assessment Test)</label><input id="cat" type="number" placeholder="0–40 pontos" min="0" max="40"></div>
+      <div class="fg"><label>Exacerbações moderadas/graves (último ano)</label><input id="exac" type="number" placeholder="Ex: 3" min="0"></div>
+      <div class="fg"><label>Hospitalizações por DPOC (último ano)</label><input id="hosp" type="number" placeholder="Ex: 1" min="0"></div>
+    </div>
+
+    <div class="grid-2" style="margin-top:12px;">
+      <div class="fg"><label>Fenótipo clínico predominante</label>
+        <select id="phenotype">
+          <option value="">Selecione</option>
+          <option value="bronchitis">Bronquite crônica (tosse + expectoração ≥3 meses/ano por ≥2 anos)</option>
+          <option value="emphysema">Enfisema pulmonar predominante</option>
+          <option value="mixed">Misto (bronquite + enfisema)</option>
+          <option value="exacerbator">Exacerbador frequente (≥2 mod-graves/ano)</option>
+        </select>
+      </div>
+      <div class="fg"><label>Tabagismo</label>
+        <select id="smoking">
+          <option value="">Selecione</option>
+          <option value="ex">Ex-tabagista (parou &gt;6 meses)</option>
+          <option value="current">Tabagista ativo</option>
+          <option value="never">Nunca fumou (DPOC por outro fator)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="fg" style="margin-top:12px;"><label>Outros fatores de exposição a risco</label>
+      <input id="otherExposure" type="text" placeholder="Ex: fogão/fumaça de lenha, tabagismo passivo, exposição ocupacional a poeiras/gases...">
+    </div>
+
+    <div class="grid-3" style="margin-top:14px;">
+      <div class="fg"><label>DLCO (% previsto)</label><input id="dlco" type="number" placeholder="Ex: 45"></div>
+      <div class="fg span-2"><label>Tomografia de tórax — principais achados</label>
+        <input id="ctFindings" type="text" placeholder="Ex: enfisema centrolobular predominante em lobos superiores, bronquiectasias associadas...">
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-top:14px;">
+      <div class="fg"><label>Suspeita de distúrbio respiratório do sono</label>
+        <select id="sleepDisorder">
+          <option value="">Selecione</option>
+          <option value="no">Sem suspeita clínica</option>
+          <option value="saos">Suspeita de SAOS (overlap syndrome)</option>
+          <option value="hypovent">Suspeita de hipoventilação noturna</option>
+          <option value="known">Distúrbio do sono já diagnosticado / em acompanhamento</option>
+        </select>
+      </div>
+      <div class="fg"><label>Encaminhar à Medicina do Sono?</label>
+        <select id="sleepReferral">
+          <option value="">Selecione</option>
+          <option value="yes">Sim — encaminhar para avaliação</option>
+          <option value="no">Não indicado no momento</option>
+          <option value="followup">Já em acompanhamento</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- BIOMARCADORES -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-ico">🧪</div><div><h2>Biomarcadores de Inflamação Tipo 2</h2><p>Critérios de elegibilidade para imunobiológicos — GOLD 2025</p></div></div>
+
+    <div class="alert a-info">
+      <strong>Corte GOLD 2025:</strong> Eosinófilos séricos <strong>≥300 céls/µL</strong> são necessários para indicação de dupilumabe ou mepolizumabe em DPOC (BOREAS/NOTUS e MATINEE — base das aprovações ANVISA vigentes). Cobertura ANS: verificar rol vigente (nas fontes, dupilumabe RN 651/2025; mepolizumabe ainda fora do rol para DPOC). O corte de ≥150 céls/µL do mepolizumabe (METREX/METREO) refere-se à indicação em asma, não à aprovação atual em DPOC. Medir em período de estabilidade (não durante exacerbação).
+    </div>
+
+    <div class="grid-3" style="margin-top:14px;">
+      <div class="fg">
+        <label>Eosinófilos séricos (céls/µL)</label>
+        <div class="slider-row">
+          <input type="range" id="eos" min="0" max="2000" step="10" value="0" oninput="document.getElementById('eos-v').textContent=this.value; checkEos();">
+          <span class="sv" id="eos-v">0</span>
+        </div>
+      </div>
+      <div class="fg">
+        <label>FeNO (ppb)</label>
+        <div class="slider-row">
+          <input type="range" id="feno" min="0" max="120" step="1" value="0" oninput="document.getElementById('feno-v').textContent=this.value;">
+          <span class="sv" id="feno-v">0</span>
+        </div>
+      </div>
+      <div class="fg">
+        <label>IgE Total (kU/L)</label>
+        <div class="slider-row">
+          <input type="range" id="ige" min="0" max="2000" step="10" value="0" oninput="document.getElementById('ige-v').textContent=this.value;">
+          <span class="sv" id="ige-v">0</span>
+        </div>
+      </div>
+    </div>
+    <div id="eos-alert" class="alert a-warn" style="display:none; margin-top:10px;">
+      ⚠️ Eosinófilos &lt;300 céls/µL: <strong>dupilumabe NÃO indicado</strong> para DPOC conforme bula ANVISA (BOREAS/NOTUS exigiram BEC ≥300). Considerar otimização da terapia inalatória tripla.
+    </div>
+    <div id="eos-ok" class="alert a-ok" style="display:none; margin-top:10px;">
+      ✅ Eosinófilos ≥300 céls/µL: critério biomarcador <strong>satisfeito</strong> para dupilumabe em DPOC (BOREAS, NOTUS).
+    </div>
+  </div>
+
+  <!-- TERAPIA DE BASE -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-ico">💊</div><div><h2>Terapia Inalatória de Base</h2><p>Requisito de elegibilidade: terapia tripla otimizada antes do biológico</p></div></div>
+
+    <div class="alert a-warn">
+      <strong>Requisito obrigatório:</strong> O dupilumabe é indicado para DPOC <strong>como acréscimo à terapia tripla</strong> (LAMA + LABA + CI), a menos que CI seja contraindicado. O paciente deve estar em uso otimizado e demonstrar controle inadequado apesar do tratamento máximo.
+    </div>
+
+    <div class="check-grid" id="therapyGrid" style="margin-top:14px;">
+      <div class="ci" onclick="toggleCheck(this,'tLAMA')"><input type="checkbox" id="tLAMA"><label for="tLAMA">LAMA (antimuscarínico de longa ação) — ex: tiotrópio, umeclidínio</label></div>
+      <div class="ci" onclick="toggleCheck(this,'tLABA')"><input type="checkbox" id="tLABA"><label for="tLABA">LABA (β2-agonista de longa ação) — ex: indacaterol, olodaterol, salmeterol</label></div>
+      <div class="ci" onclick="toggleCheck(this,'tICS')"><input type="checkbox" id="tICS"><label for="tICS">CI (corticosteroide inalatório) — ex: budesonida, fluticasona, beclometasona</label></div>
+      <div class="ci" onclick="toggleCheck(this,'tICS_CI')"><input type="checkbox" id="tICS_CI"><label for="tICS_CI">CI contraindicado (pneumonia recorrente, ou outra contraindicação documentada)</label></div>
+    </div>
+    <div id="triple-alert" class="alert a-err" style="display:none; margin-top:10px;">
+      🚫 Terapia tripla não confirmada. Para solicitar dupilumabe em DPOC, o paciente deve estar em uso otimizado de LAMA+LABA+CI (ou LAMA+LABA se CI contraindicado).
+    </div>
+
+    <div class="grid-2" style="margin-top:14px;">
+      <div class="fg"><label>Duração da terapia tripla</label>
+        <select id="tripleTime">
+          <option value="lt3">Menos de 3 meses</option>
+          <option value="3to6">3–6 meses</option>
+          <option value="gt6">Mais de 6 meses (otimizada)</option>
+          <option value="gt12">Mais de 12 meses</option>
+        </select>
+      </div>
+      <div class="fg"><label>Biológico prévio para DPOC (se houver)</label>
+        <select id="prevBio">
+          <option value="">Nenhum (virgem de biológico)</option>
+          <option value="dupilumab_fail">Dupilumabe — resposta inadequada</option>
+          <option value="mepo_fail">Mepolizumabe — resposta inadequada</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="fg" style="margin-top:14px;"><label style="margin-bottom:8px; display:block;">Tratamento atual complementar</label></div>
+    <div class="check-grid" id="currentTxGrid">
+      <div class="ci" onclick="toggleCheck(this,'tO2')"><input type="checkbox" id="tO2"><label for="tO2">Oxigenoterapia domiciliar prolongada</label></div>
+      <div class="ci" onclick="toggleCheck(this,'tNutri')"><input type="checkbox" id="tNutri"><label for="tNutri">Suporte nutricional (paciente sarcopênico)</label></div>
+      <div class="ci" onclick="toggleCheck(this,'tVacc')"><input type="checkbox" id="tVacc"><label for="tVacc">Vacinas revisadas e atualizadas</label></div>
+      <div class="ci" onclick="toggleCheck(this,'tPR')"><input type="checkbox" id="tPR"><label for="tPR">Reabilitação pulmonar</label></div>
+    </div>
+  </div>
+
+  <!-- COMORBIDADES -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-ico">🩺</div><div><h2>Comorbidades Relevantes</h2><p>Influenciam escolha e peso da decisão terapêutica</p></div></div>
+    <div class="check-grid">
+      <div class="ci" onclick="toggleCheck(this,'cAsma')"><input type="checkbox" id="cAsma"><label for="cAsma">Sobreposição Asma-DPOC (ACO) — documentada</label></div>
+      <div class="ci" onclick="toggleCheck(this,'cRSPN')"><input type="checkbox" id="cRSPN"><label for="cRSPN">Rinossinusite Crônica com Pólipos Nasais (RSCcPN)</label></div>
+      <div class="ci" onclick="toggleCheck(this,'cEE')"><input type="checkbox" id="cEE"><label for="cEE">Esofagite Eosinofílica</label></div>
+      <div class="ci" onclick="toggleCheck(this,'cDA')"><input type="checkbox" id="cDA"><label for="cDA">Dermatite Atópica</label></div>
+      <div class="ci" onclick="toggleCheck(this,'cCV')"><input type="checkbox" id="cCV"><label for="cCV">Doença Cardiovascular significativa</label></div>
+      <div class="ci" onclick="toggleCheck(this,'cDM')"><input type="checkbox" id="cDM"><label for="cDM">Diabetes Mellitus</label></div>
+      <div class="ci" onclick="toggleCheck(this,'cHA')"><input type="checkbox" id="cHA"><label for="cHA">Hipertensão Arterial Sistêmica</label></div>
+      <div class="ci" onclick="toggleCheck(this,'cOsteo')"><input type="checkbox" id="cOsteo"><label for="cOsteo">Osteoporose / uso prolongado de corticoide oral</label></div>
+    </div>
+  </div>
+
+  <!-- HELMINTÍASE -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-ico">🪱</div><div><h2>Rastreio de Helmintíase / Infecção Parasitária</h2><p>Exigência das bulas ANVISA de todos os imunobiológicos desta classe</p></div></div>
+
+    <div class="helm-box">
+      <h4>🔴 Advertências específicas por bula ANVISA</h4>
+      <div class="helm-item">
+        <div class="dn">Dupilumabe (Dupixent®) — Bula ANVISA aprovada 25/11/2024</div>
+        <div class="bt">"Pacientes com infecções parasitárias pré-existentes devem ser <strong>tratados antes de iniciar</strong> a terapia com dupilumabe. Se o paciente se infectar durante o tratamento com DUPIXENT e não responder ao tratamento antiparasitário, o tratamento <strong>deverá ser descontinuado</strong> até que a infecção esteja curada."</div>
+      </div>
+      <div class="helm-item">
+        <div class="dn">Mepolizumabe (Nucala®) — Bula ANVISA</div>
+        <div class="bt">"Eosinófilos podem estar envolvidos na resposta imunológica a algumas infecções helmínticas. Pacientes com infecções por helmintos pré-existentes devem ser <strong>tratados para a infecção antes</strong> da terapia com mepolizumabe. Caso se infectem durante o tratamento e não respondam ao anti-helmíntico, deve-se considerar a <strong>interrupção temporária</strong>."</div>
+      </div>
+    </div>
+
+    <div class="alert a-warn">
+      <strong>⚠️ Contexto Epidemiológico Brasileiro:</strong> Alta prevalência de geohelmintos nas regiões Norte e Nordeste (Ascaris, Trichuris, ancilostomídeos, Strongyloides). Pacientes com DPOC frequentemente têm uso prolongado de corticosteroide oral — fator de risco adicional para estrongiloidíase disseminada em vigência de imunossupressão.
+    </div>
+
+    <div class="grid-2" style="margin-top:14px;">
+      <div class="fg"><label>Histórico de helmintíase / parasitose</label>
+        <select id="helmHistory">
+          <option value="none">Sem história prévia conhecida</option>
+          <option value="past_treated">Histórico passado — tratado e curado</option>
+          <option value="active">Infecção ativa no momento</option>
+          <option value="unknown">Desconhecido / não investigado</option>
+        </select>
+      </div>
+      <div class="fg"><label>Rastreio laboratorial (parasitológico de fezes)</label>
+        <select id="helmTest">
+          <option value="yes_neg">Sim — Resultado negativo</option>
+          <option value="yes_pos_treated">Sim — Positivo, tratado antes do início</option>
+          <option value="yes_pos_active">Sim — Positivo, aguardando tratamento</option>
+          <option value="no">Não realizado</option>
+          <option value="endemic_risk">Região endêmica — rastreio clínico realizado</option>
+        </select>
+      </div>
+      <div class="fg"><label>Tratamento anti-helmíntico prévio ao biológico</label>
+        <select id="helmTreat">
+          <option value="yes_ok">Sim — Concluído com sucesso</option>
+          <option value="yes_prop">Sim — Profilático empírico realizado</option>
+          <option value="not_needed">Não necessário (sem indicação)</option>
+          <option value="pending">Pendente — aguardando exame / tratamento</option>
+        </select>
+      </div>
+      <div class="fg"><label>Medicamento anti-helmíntico (se usado)</label>
+        <select id="helmDrug">
+          <option value="">Não aplicável</option>
+          <option value="alb400">Albendazol 400 mg dose única</option>
+          <option value="alb3">Albendazol 400 mg/dia × 3 dias</option>
+          <option value="mebend">Mebendazol 100 mg 2×/dia × 3 dias</option>
+          <option value="iver">Ivermectina 200 mcg/kg (Strongyloides)</option>
+          <option value="outro">Outro esquema</option>
+        </select>
+      </div>
+    </div>
+    <div class="fg" style="margin-top:10px;"><label>Observações</label><input id="helmObs" type="text" placeholder="Data do exame, resultado, data do tratamento..."></div>
+    <div id="helm-active" class="alert a-err" style="display:none; margin-top:10px;">🚫 Infecção parasitária ativa contraindicada ao início do imunobiológico (bula ANVISA). Tratar e documentar cura antes do início.</div>
+  </div>
+
+  <!-- RESUMO CLÍNICO -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-ico">📝</div><div><h2>Resumo Clínico e Justificativa</h2><p>Informações adicionais para o laudo</p></div></div>
+    <div class="grid-2">
+      <div class="fg"><label>Destino da solicitação</label>
+        <select id="reqDest">
+          <option value="conv">Convênio / Operadora de Saúde</option>
+          <option value="sus">SUS / CEAF (Componente Especializado)</option>
+          <option value="judicial">Via Judicial</option>
+        </select>
+      </div>
+      <div class="fg"><label>Biológico a ser solicitado</label>
+        <select id="selDrugPre">
+          <option value="">— definir após análise —</option>
+          <option value="dupilumabe">Dupilumabe (Dupixent®) — ANVISA ✅</option>
+          <option value="mepolizumabe">Mepolizumabe (Nucala®) — ANVISA ✅ Abr/2026 / fora do rol ANS</option>
+        </select>
+      </div>
+    </div>
+    <div class="fg" style="margin-top:12px;"><label>Resumo clínico / história da doença (opcional)</label>
+      <textarea id="clinResume" placeholder="Descreva o histórico, sintomas, tratamentos anteriores, impacto na qualidade de vida..."></textarea>
+    </div>
+  </div>
+
+  <div class="btn-row"><button class="btn btn-primary btn-full" onclick="goDecision()">Calcular Recomendação →</button></div>
+</div><!-- /step-form -->
+
+
+<!-- ============================================================
+     STEP 2 — DECISÃO TERAPÊUTICA
+     ============================================================ -->
+<div id="step-dec">
+  <div class="section">
+    <div class="sec-head"><div class="sec-ico">🧠</div><div><h2>Análise Clínica e Recomendação</h2><p>GOLD 2025 · BOREAS · NOTUS · MATINEE · ANS RN 651/2025 · ANVISA</p></div></div>
+    <div id="pat-summary" class="alert a-info" style="margin-bottom:14px;"></div>
+    <div id="drug-cards" class="drug-grid"></div>
+    <div style="margin-top:18px;">
+      <button class="btn btn-outline" onclick="toggleTable()">↕ Tabela Comparativa Completa</button>
+    </div>
+    <div id="compare-table" style="display:none;"><div class="tw" id="table-html"></div></div>
+  </div>
+
+  <div class="section">
+    <div class="sec-head"><div class="sec-ico">✅</div><div><h2>Confirmar Medicamento para o Laudo</h2><p>Escolha o imunobiológico a solicitar</p></div></div>
+    <div class="alert a-warn">⚠️ Dupilumabe e mepolizumabe têm aprovação ANVISA para DPOC; contudo, <strong>apenas o dupilumabe</strong> possui cobertura obrigatória pela ANS (RN 651/2025, vigência 02/03/2026). O mepolizumabe foi aprovado pela ANVISA em 22/04/2026 (RE 1.583/2026), mas <strong>ainda não integra o rol da ANS</strong> para DPOC — a cobertura por operadora não é automática. A decisão terapêutica é responsabilidade exclusiva do médico.
+    </div>
+    <div class="grid-2" style="margin-top:14px;">
+      <div class="fg"><label>Medicamento selecionado</label>
+        <select id="selectedDrug">
+          <option value="dupilumabe">Dupilumabe (Dupixent®) — ANVISA ✅ / ANS ✅</option>
+          <option value="mepolizumabe">Mepolizumabe (Nucala®) — ANVISA ✅ Abr/2026 / fora do rol ANS ⚠️</option>
+        </select>
+      </div>
+      <div class="fg"><label>Destino da solicitação</label>
+        <select id="reqDestFinal">
+          <option value="conv">Convênio / Operadora de Saúde</option>
+          <option value="sus">SUS / CEAF</option>
+          <option value="judicial">Via Judicial</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-ghost" onclick="goForm()">← Editar Dados</button>
+    <button class="btn btn-amber" onclick="goReport()">Gerar Laudo Oficial →</button>
+  </div>
+</div><!-- /step-dec -->
+
+
+<!-- ============================================================
+     STEP 3 — LAUDO OFICIAL
+     ============================================================ -->
+<div id="step-rep">
+  <div class="report-sheet" id="reportSheet">
+    <div class="rp-head">
+      <div>
+        <h1>Laudo Médico de Indicação Terapêutica</h1>
+        <div class="sub">IMUNOBIOLÓGICO PARA DPOC COM INFLAMAÇÃO TIPO 2 — SOLICITAÇÃO DE COBERTURA</div>
+      </div>
+      <div class="rp-stamp" id="rep-stamp"></div>
+    </div>
+    <div class="rp-body" id="rep-body"></div>
+    <div class="rp-foot">
+      <div class="sig-block">
+        <div class="sig-line"></div>
+        <div class="sig-lbl" id="rep-doc-sig">Médico Solicitante</div>
+      </div>
+      <div><div class="ref-box" id="rep-refs"></div></div>
+    </div>
+  </div>
+  <div class="btn-row no-print" style="margin-top:18px;">
+    <button class="btn btn-ghost" onclick="goDecision()">← Voltar</button>
+    <button class="btn btn-print" onclick="window.print()">🖨️ Imprimir / PDF</button>
+    <button class="btn btn-primary" onclick="goLME()">🏥 Gerar LME (SUS) →</button>
+    <button class="btn btn-amber" onclick="goReceita()">📋 Receita →</button>
+  </div>
+</div><!-- /step-rep -->
+
+<!-- ============================================================
+     STEP 4 — LME OFICIAL (SUS / CEAF)
+     ============================================================ -->
+<div id="step-lme">
+  <div class="alert a-info no-print" style="margin-bottom:16px;">
+    <strong>🏥 Laudo para Solicitação de Medicamentos do Componente Especializado (CEAF / SUS):</strong> réplica do formulário LME padronizado pelo Ministério da Saúde, preenchido com os dados da Etapa 1. Confira os campos de preenchimento manual (assinaturas, CNS do médico, raça/cor) antes de imprimir.
+  </div>
+  <div id="lmeSheet" style="background:#fff;max-width:210mm;margin:0 auto;">
+    <!-- gerado via JS (renderLME) -->
+  </div>
+  <div class="btn-row no-print" style="margin-top:18px;">
+    <button class="btn btn-ghost" onclick="goReport()">← Voltar ao Laudo</button>
+    <button class="btn btn-print" onclick="printLME()">🖨️ Imprimir LME</button>
+    <button class="btn btn-ghost" onclick="printLMESemData()">🖨️ Imprimir sem data (renovação)</button>
+    <button class="btn btn-primary" onclick="goReceita()">📋 Gerar Receita →</button>
+  </div>
+</div>
+
+<!-- ============================================================
+     STEP 5 — RECEITA (from Agente Clinico DPOC 2026 / file b)
+     ============================================================ -->
+<div id="step-rx" class="step-panel">
+  <div class="alert a-info no-print" style="margin-bottom:16px;">
+    <strong>📋 Receituário de apoio:</strong> gerado a partir do medicamento selecionado na Etapa 2 e dos dados clínicos.
+    Adapte posologia/quantidade à apresentação disponível e à bula. Uso offline — revise antes de imprimir.
+  </div>
+  <div class="section">
+    <div class="sec-head"><div class="sec-ico">💊</div><div><h2>Receituário Médico</h2><p>Imunobiológico + terapia de manutenção + orientações</p></div></div>
+    <div class="grid-2 no-print" style="margin-bottom:14px;">
+      <div class="fg span-2"><label>Posologia (editável)</label><input id="rxDose" type="text" placeholder="Preenchido automaticamente ao abrir esta etapa"></div>
+      <div class="fg"><label>Quantidade / mês</label><input id="rxQty" type="text" value="Conforme posologia"></div>
+      <div class="fg"><label>Duração</label><input id="rxDuration" type="text" value="3 meses (reeavaliar)"></div>
+    </div>
+    <div id="rx-preview" class="report-paper"></div>
+  </div>
+  <div class="btn-row no-print" style="margin-top:18px;">
+    <button class="btn btn-ghost" onclick="goLME()">← Voltar ao LME</button>
+    <button class="btn btn-print" onclick="printReceita()">🖨️ Imprimir Receita</button>
+    <button class="btn btn-ghost" onclick="downloadReceitaTxt()">⬇️ Baixar TXT</button>
+  </div>
+</div>
+<!-- /step-lme -->
+
+</main>
+
+<script>
+/* =============================================
+   DRUG DATABASE — DPOC
+   ============================================= */
+const DRUGS = {
+  dupilumabe: {
+    name: 'Dupilumabe',
+    brand: 'Dupixent®',
+    maker: 'Sanofi/Regeneron',
+    mechanism: 'Anti-IL-4Rα — bloqueia IL-4 e IL-13, reduzindo inflamação Tipo 2 eosinofílica das pequenas vias aéreas',
+    moa_short: 'Anti-IL-4Rα (IL-4 + IL-13)',
+    dose_dpoc: '300 mg SC a cada 2 semanas (manutenção) — sem dose de ataque para DPOC',
+    freq: 'Q2W (a cada 2 semanas)',
+    route: 'Subcutânea (SC)',
+    review: '12–16 semanas (avaliar exacerbações, VEF1, CAT, uso de CI)',
+    biomarker: 'Eosinófilos séricos ≥300 céls/µL (em período de estabilidade)',
+    phenotype: 'DPOC Tipo 2 / Eosinofílica',
+    eos_min: 300,
+    triple_req: true,
+    efficacy: '30–34% redução exacerbações (BOREAS/NOTUS) | +160 mL VEF1 | -34% hospitalizações',
+    studies: 'BOREAS (NEJM 2023), NOTUS (NEJM 2024)',
+    anvisa: { status:'ok', label:'ANVISA ✅ aprovado set/2024 (DPOC)' },
+    ans:    { status:'ok', label:'ANS ✅ RN 651/2025 — cobertura obrigatória (desde mar/2026)' },
+    sus:    { status:'warn', label:'SUS: aguardando CONITEC/PCDT para DPOC' },
+    bulaCriteria: [
+      'Adultos (≥18 anos) com DPOC não controlada',
+      'Inflamação Tipo 2 documentada: eosinófilos séricos ≥300 céls/µL (medidos em estabilidade clínica)',
+      'Em uso de terapia tripla otimizada: LAMA + LABA + CI (ou LAMA + LABA se CI contraindicado)',
+      'DPOC inadequadamente controlada apesar de terapia tripla máxima',
+      'Diagnóstico espirométrico confirmado: VEF1/CVF <0,70 pós-BD',
+      'Excluir asma como diagnóstico principal (DPOC pura ou ACO com predominância DPOC)',
+      '⚠️ BULA: Tratar infecções parasitárias pré-existentes antes de iniciar. Descontinuar se não responder ao antiparasitário (Advertências — Bula Dupixent® ANVISA 25/11/2024)',
+      'Sem hipersensibilidade conhecida ao dupilumabe ou excipientes'
+    ],
+    cost: 182000,
+    conv: 50,
+    eligible_check: d => d.eos >= 300 && (d.tLAMA && d.tLABA && (d.tICS || d.tICS_CI))
+  },
+  mepolizumabe: {
+    name: 'Mepolizumabe',
+    brand: 'Nucala®',
+    maker: 'GSK',
+    mechanism: 'Anti-IL-5 — reduz eosinófilos circulantes e pulmonares, atenuando exacerbações de fenótipo eosinofílico',
+    moa_short: 'Anti-IL-5',
+    dose_dpoc: '100 mg SC a cada 4 semanas (igual à dose asma)',
+    freq: 'Q4W (a cada 4 semanas)',
+    route: 'Subcutânea (SC)',
+    review: '16 semanas (avaliar redução de exacerbações e eosinófilos)',
+    biomarker: 'Eosinófilos ≥300 céls/µL (MATINEE — base da aprovação ANVISA para DPOC)',
+    phenotype: 'DPOC Eosinofílica Tipo 2',
+    eos_min: 300,
+    triple_req: true,
+    efficacy: '21% redução exacerbações (MATINEE, eos ≥300)',
+    studies: 'MATINEE (NEJM 2025 — 804 pac, 104 semanas). METREX/METREO (NEJM 2017/2021, corte ≥150) embasaram a indicação em asma, não a aprovação atual em DPOC.',
+    anvisa: { status:'ok', label:'ANVISA ✅ aprovado abr/2026 (DPOC)' },
+    ans:    { status:'warn', label:'ANS: não incluído para DPOC ainda — coberto para asma' },
+    sus:    { status:'no',   label:'SUS: sem incorporação para DPOC' },
+    bulaCriteria: [
+      'Aprovado pela ANVISA em 22/04/2026 (FDA aprovado em 22/05/2025)',
+      'Adultos com DPOC inadequadamente controlada e fenótipo eosinofílico',
+      'Eosinófilos ≥300 céls/µL, conforme estudo MATINEE (base da aprovação ANVISA para DPOC; verificar rol ANS vigente)',
+      'Em uso de terapia tripla otimizada (LAMA + LABA + CI, ou LAMA + LABA se CI contraindicado)',
+      'Histórico de exacerbações: ≥2 moderadas/graves no último ano, ou ≥1 com hospitalização',
+      '⚠️ BULA: Pacientes com infecções por helmintos pré-existentes devem ser tratados antes. Eosinófilos envolvidos na resposta helmíntica (Nucala® — Bula ANVISA)',
+      'Uso no Brasil para DPOC: aprovado como tratamento complementar de manutenção'
+    ],
+    cost: 173000,
+    conv: 20,
+    eligible_check: d => d.eos >= 300 && d.tLAMA && d.tLABA && (d.tICS || d.tICS_CI)
+  },
+  benralizumabe: {
+    name: 'Benralizumabe',
+    brand: 'Fasenra®',
+    maker: 'AstraZeneca',
+    mechanism: 'Anti-IL-5Rα com ADCC — depleção direta de eosinófilos; em investigação para DPOC (RESOLUTE)',
+    moa_short: 'Anti-IL-5Rα (ADCC)',
+    dose_dpoc: 'Em investigação — 30 mg SC Q4W×3 → Q8W (baseado em asma)',
+    freq: 'Em estudo (RESOLUTE)',
+    route: 'Subcutânea (SC)',
+    review: 'N/A — não aprovado para DPOC',
+    biomarker: 'BEC ≥300 céls/µL (RESOLUTE)',
+    phenotype: 'DPOC eosinofílica (investigacional)',
+    eos_min: 300,
+    triple_req: true,
+    efficacy: 'Fase III RESOLUTE em andamento (estimativa: conclusão 2025) | Fase II ABRA: 45% vs 75% falha tratamento AECOPD',
+    studies: 'GALATHEA/TERRANOVA (sem benefício geral) | ABRA (AECOPD) | RESOLUTE (Fase III — em curso)',
+    anvisa: { status:'no',   label:'ANVISA: SEM aprovação para DPOC' },
+    ans:    { status:'no',   label:'ANS: NÃO coberto para DPOC' },
+    sus:    { status:'no',   label:'SUS: NÃO disponível para DPOC' },
+    bulaCriteria: [
+      'INVESTIGACIONAL para DPOC — sem aprovação regulatória',
+      'Estudos Fase III RESOLUTE ainda em andamento',
+      'GALATHEA/TERRANOVA não demonstraram benefício geral na população não selecionada'
+    ],
+    cost: 123500,
+    conv: 0,
+    eligible_check: d => false
+  },
+  tezepelumabe: {
+    name: 'Tezepelumabe',
+    brand: 'Tezspire®',
+    maker: 'AstraZeneca/Amgen',
+    mechanism: 'Anti-TSLP — bloqueia alarmina upstream; em investigação para DPOC (JOURNEY/EMBARK)',
+    moa_short: 'Anti-TSLP (alarmina)',
+    dose_dpoc: 'Em investigação — 210 mg SC Q4W (baseado em asma)',
+    freq: 'Em estudo (JOURNEY/EMBARK)',
+    route: 'Subcutânea (SC)',
+    review: 'N/A — não aprovado para DPOC',
+    biomarker: 'BEC ≥150 céls/µL (JOURNEY/EMBARK — estudos Fase III ativos)',
+    phenotype: 'DPOC eosinofílica (investigacional)',
+    eos_min: 150,
+    triple_req: true,
+    efficacy: 'COURSE (Fase IIa): tendência não significativa em população geral | subgrupo BEC ≥300: +150mL VEF1, redução de exacerbações | JOURNEY/EMBARK Fase III em andamento',
+    studies: 'COURSE (Lancet Respir Med 2025) | JOURNEY / EMBARK (Fase III — ativos)',
+    anvisa: { status:'no',   label:'ANVISA: SEM aprovação para DPOC' },
+    ans:    { status:'no',   label:'ANS: NÃO coberto para DPOC' },
+    sus:    { status:'no',   label:'SUS: NÃO disponível para DPOC' },
+    bulaCriteria: [
+      'INVESTIGACIONAL para DPOC — sem aprovação regulatória',
+      'Estudos Fase III JOURNEY e EMBARK em andamento (BEC ≥150 céls/µL)',
+      'COURSE (Fase IIa): sem significância estatística no desfecho primário de exacerbações'
+    ],
+    cost: 286000,
+    conv: 0,
+    eligible_check: d => false
+  },
+  itepekimabe: {
+    name: 'Itepekimabe',
+    brand: '(investigacional — sem marca comercial)',
+    maker: 'Sanofi/Regeneron',
+    mechanism: 'Anti-IL-33 — bloqueia alarmina IL-33; AERIFY-1 positivo em ex-fumantes com DPOC',
+    moa_short: 'Anti-IL-33',
+    dose_dpoc: 'Em investigação — 300 mg SC Q2W (baseado em asma/DPOC)',
+    freq: 'Em estudo',
+    route: 'Subcutânea (SC)',
+    review: 'N/A — não aprovado para DPOC',
+    biomarker: 'Ex-fumantes com DPOC (fenótipo independente de eosinófilos em AERIFY-1)',
+    phenotype: 'DPOC em ex-fumantes (investigacional)',
+    eos_min: 0,
+    triple_req: false,
+    efficacy: 'AERIFY-1 (Fase III): 27% redução exacerbações em ex-fumantes (p significativo) | AERIFY-2: negativo (ex + tabagistas ativos)',
+    studies: 'AERIFY-1 (positivo em ex-fumantes) | AERIFY-2 (negativo) | Resultado apresentado ATS 2025',
+    anvisa: { status:'no',   label:'ANVISA: SEM registro para DPOC' },
+    ans:    { status:'no',   label:'ANS: NÃO coberto para DPOC' },
+    sus:    { status:'no',   label:'SUS: NÃO disponível para DPOC' },
+    bulaCriteria: [
+      'INVESTIGACIONAL — sem aprovação regulatória para DPOC',
+      'AERIFY-1: benefício restrito a ex-fumantes independentemente de eosinófilos',
+      'AERIFY-2: não atingiu desfecho primário na população mista (ex + atuais fumantes)',
+      'Potencial futuro especialmente em ex-tabagistas com DPOC de fenótipo não-eosinofílico'
+    ],
+    cost: 0,
+    conv: 0,
+    eligible_check: d => false
+  }
+};
+
+/* =============================================
+   STATE
+   ============================================= */
+let scores = {};
+let pd = {}; // patient data
+let goldStage = 0;
+
+/* =============================================
+   LME OFICIAL (SUS / CEAF) — DPOC
+   Réplica do formulário do Ministério da Saúde,
+   preenchida com os dados já coletados (pd).
+   ============================================= */
+function goLME() {
+  const drug = document.getElementById('selectedDrug').value;
+  if(!drug) { alert('Selecione o medicamento antes de gerar o LME.'); return; }
+  if(typeof pd === 'undefined' || !pd.patName) { pd = collectData(); }
+  renderLME(pd, drug, false);
+  setStep(4);
+}
+
+function renderLME(d, drug, isRenovacao, fuData) {
+  const dr = drug ? DRUGS[drug] : null;
+  const dateStr = d.docDate ? new Date(d.docDate+'T12:00:00').toLocaleDateString('pt-BR') : new Date().toLocaleDateString('pt-BR');
+  const bl = (w) => '<span class="lmeof-blank">'+w+'</span>';
+  const NB = '\u00A0';
+
+  // Campo 8 — quantidade mensal (6 meses) por posologia de bula (DPOC)
+  function schedule(key){
+    switch(key){
+      case 'dupilumabe':   return {q:[2,2,2,2,2,2], unit:'seringa/caneta 300 mg', note:'300 mg SC a cada 2 semanas (Q2W), como terapia adicional à terapia inalatória tripla (LAMA+LABA+CI). Na DPOC não há dose de ataque.'};
+      case 'mepolizumabe': return {q:[1,1,1,1,1,1], unit:'frasco-ampola/caneta 100 mg', note:'100 mg SC a cada 4 semanas (Q4W), como terapia adicional à terapia inalatória tripla.'};
+      case 'benralizumabe':return {q:['','','','','',''], unit:'seringa/caneta 30 mg', note:'Sem indicação aprovada em DPOC (Fase III RESOLUTE em andamento) — uso fora de bula; posologia a definir manualmente.'};
+      case 'tezepelumabe': return {q:['','','','','',''], unit:'seringa/caneta 210 mg', note:'Sem indicação aprovada em DPOC (Fase III JOURNEY/EMBARK em andamento) — uso fora de bula; posologia a definir manualmente.'};
+      case 'itepekimabe':  return {q:['','','','','',''], unit:'(investigacional)', note:'Anti-IL-33 investigacional em DPOC — sem registro; preencher manualmente.'};
+      default:             return {q:['','','','','',''], unit:'—', note:''};
+    }
+  }
+  const sch = schedule(drug);
+  const cid = d.patCID || 'J44.9';
+
+  const goldLabel = {1:'I (leve)',2:'II (moderada)',3:'III (grave)',4:'IV (muito grave)'}[d.goldStage] || '—';
+  const tripleLabel = {lt3:'há menos de 3 meses','3to6':'há 3–6 meses',gt6:'há mais de 6 meses (otimizada)',gt12:'há mais de 12 meses'}[d.tripleTime] || '';
+  const prevBioLabel = {dupilumab_fail:'dupilumabe (resposta inadequada — troca indicada)',mepo_fail:'mepolizumabe (resposta inadequada — troca indicada)'}[d.prevBio] || '';
+
+  const triple = [d.tLAMA?'LAMA':'', d.tLABA?'LABA':'', (d.tICS?'corticoide inalatório (CI)':(d.tICS_CI?'CI contraindicado':''))].filter(Boolean).join(' + ');
+  const relatoPrevio = 'Terapia inalatória tripla otimizada ('+(triple||'LAMA + LABA + CI')+')'+(tripleLabel? ', em uso '+tripleLabel:'')+', com controle inadequado e exacerbações persistentes apesar do tratamento máximo.'+(prevBioLabel? ' Imunobiológico prévio: '+prevBioLabel+'.' : '');
+
+  const anamnese = d.clinResume || ('Paciente com diagnóstico de DPOC (CID-10 '+cid+'), GOLD '+goldLabel+', com inflamação do tipo 2 (fenótipo eosinofílico). Espirometria pós-broncodilatador: relação VEF1/CVF '+(d.ratio||'__')+' (< 0,70, confirmando obstrução fixa ao fluxo aéreo) e VEF1 '+(d.vef1||'__')+'% do previsto. Biomarcadores: eosinófilos séricos '+(d.eos||'__')+' céls/µL'+(d.feno? ', FeNO '+d.feno+' ppb':'')+'. Exacerbações no último ano: '+(d.exac||'__')+(d.hosp? ' ('+d.hosp+' com hospitalização)':'')+'. Sintomas: mMRC '+(d.mmrc!==''&&d.mmrc!=null?d.mmrc:'__')+', CAT '+(d.cat||'__')+'.'+(d.dlco? ' DLCO '+d.dlco+'% do previsto.':'')+(d.ctFindings? ' TC de tórax: '+d.ctFindings+'.':'')+(d.otherExposure? ' Outras exposições de risco: '+d.otherExposure+'.':'')+' Doença não controlada apesar de terapia inalatória tripla máxima otimizada. Critérios de elegibilidade ao imunobiológico preenchidos conforme bula ANVISA e GOLD 2025.');
+
+  const medNome = dr ? (dr.name+' ('+dr.brand+') — '+sch.unit) : '';
+
+  const lmeHtml = `
+  <style>
+    .lmeof{font-family:Arial,Helvetica,sans-serif;color:#000;background:#fff;width:100%;box-sizing:border-box;font-size:11px;line-height:1.25}
+    .lmeof *{box-sizing:border-box}
+    .lmeof-top{display:flex;align-items:center;gap:10px;border:1px solid #000;border-bottom:none;padding:5px 8px}
+    .lmeof-logo{font-weight:bold;color:#0a2c6b;font-size:15px;border:1px solid #0a2c6b;border-radius:5px;padding:3px 7px;white-space:nowrap}
+    .lmeof-gov{font-size:11px;font-weight:bold;line-height:1.35}
+    .lmeof-bk{background:#000;color:#fff;text-align:center;font-weight:bold;font-size:12px;padding:4px;border:1px solid #000;border-bottom:none}
+    .lmeof-gy{background:#d9d9d9;color:#000;text-align:center;font-weight:bold;font-size:12px;padding:4px;border:1px solid #000;border-bottom:none}
+    .lmeof-th{text-align:center;font-weight:bold;font-size:10px;padding:3px;border:1px solid #000;border-bottom:none}
+    .lmeof-sec{background:#f0f0f0;text-align:center;font-weight:bold;font-size:11px;padding:3px;border:1px solid #000;border-bottom:none}
+    .lmeof-row{display:flex;border-left:1px solid #000;border-right:1px solid #000}
+    .lmeof-c{border-bottom:1px solid #000;border-right:1px solid #000;padding:3px 5px;min-height:30px}
+    .lmeof-c:last-child{border-right:none}
+    .lmeof-n{font-weight:bold}
+    .lmeof-lbl{font-size:10px}
+    .lmeof-v{display:block;font-weight:bold;font-size:11.5px;min-height:15px;padding-top:2px;color:#0a2c6b;word-break:break-word}
+    .lmeof-blank{color:#777;font-weight:normal}
+    .lmeof table{border-collapse:collapse;width:100%}
+    .lmeof td,.lmeof th{border:1px solid #000;padding:2px 4px;font-size:10px;text-align:center}
+    .lmeof td.med{text-align:left;font-weight:bold;color:#0a2c6b}
+    .lmeof-box{display:inline-block;width:11px;height:11px;border:1.3px solid #000;text-align:center;line-height:10px;font-size:10px;vertical-align:middle;margin-right:3px}
+    .lmeof-foot{font-size:10px;font-weight:bold;padding:4px 2px}
+    .lmeof-note{font-size:9.5px;color:#555;padding:6px 2px;border-top:1px dashed #bbb;margin-top:4px;line-height:1.4}
+    @media print{.lmeof-note{display:none}}
+  </style>
+  <div class="lmeof">
+    <div class="lmeof-top">
+      <div class="lmeof-logo">SUS ✚</div>
+      <div class="lmeof-gov">Sistema Único de Saúde<br>Ministério da Saúde<br>Secretaria de Estado da Saúde</div>
+    </div>
+    <div class="lmeof-bk">COMPONENTE ESPECIALIZADO DA ASSISTÊNCIA FARMACÊUTICA</div>
+    <div class="lmeof-gy">LAUDO DE SOLICITAÇÃO, AVALIAÇÃO E AUTORIZAÇÃO DE MEDICAMENTO(S)</div>
+    <div class="lmeof-th">CAMPOS DE PREENCHIMENTO EXCLUSIVO PELO MÉDICO SOLICITANTE</div>
+    <div class="lmeof-sec">SOLICITAÇÃO DE MEDICAMENTO(S)</div>
+
+    <div class="lmeof-row">
+      <div class="lmeof-c" style="flex:1"><span class="lmeof-n">1-</span><span class="lmeof-lbl">Número do CNES*</span><span class="lmeof-v">${d.docCNES||bl('____________')}</span></div>
+      <div class="lmeof-c" style="flex:2"><span class="lmeof-n">2-</span><span class="lmeof-lbl">Nome do estabelecimento de saúde solicitante</span><span class="lmeof-v">${d.docInst||bl('________________________________')}</span></div>
+    </div>
+    <div class="lmeof-row">
+      <div class="lmeof-c" style="flex:2.4"><span class="lmeof-n">3-</span><span class="lmeof-lbl">Nome completo do Paciente*</span><span class="lmeof-v">${d.patName||bl('________________________________')}</span></div>
+      <div class="lmeof-c" style="flex:1"><span class="lmeof-n">5-</span><span class="lmeof-lbl">Peso do paciente* (kg)</span><span class="lmeof-v">${d.patWeight||bl('______')}</span></div>
+    </div>
+    <div class="lmeof-row">
+      <div class="lmeof-c" style="flex:2.4"><span class="lmeof-n">4-</span><span class="lmeof-lbl">Nome da Mãe do Paciente*</span><span class="lmeof-v">${d.patMother||bl('________________________________')}</span></div>
+      <div class="lmeof-c" style="flex:1"><span class="lmeof-n">6-</span><span class="lmeof-lbl">Altura do paciente* (cm)</span><span class="lmeof-v">${d.patHeight||bl('______')}</span></div>
+    </div>
+    <div class="lmeof-row"><div class="lmeof-c" style="flex:1;padding:0">
+      <table>
+        <tr><th rowspan="2" style="width:54%"><span class="lmeof-n">7-</span> Medicamento(s)*</th><th colspan="6"><span class="lmeof-n">8-</span> Quantidade solicitada*</th></tr>
+        <tr><th>1º mês</th><th>2º mês</th><th>3º mês</th><th>4º mês</th><th>5º mês</th><th>6º mês</th></tr>
+        <tr><td class="med">1${NB}${NB}${medNome}</td><td>${sch.q[0]}</td><td>${sch.q[1]}</td><td>${sch.q[2]}</td><td>${sch.q[3]}</td><td>${sch.q[4]}</td><td>${sch.q[5]}</td></tr>
+        <tr><td class="med">2</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td class="med">3</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td class="med">4</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td class="med">5</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td class="med">6</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      </table>
+    </div></div>
+    <div class="lmeof-row">
+      <div class="lmeof-c" style="flex:1"><span class="lmeof-n">9-</span><span class="lmeof-lbl">CID-10*</span><span class="lmeof-v">${cid}</span></div>
+      <div class="lmeof-c" style="flex:3"><span class="lmeof-n">10-</span><span class="lmeof-lbl">Diagnóstico</span><span class="lmeof-v">DPOC com inflamação Tipo 2 (fenótipo eosinofílico)</span></div>
+    </div>
+    <div class="lmeof-row"><div class="lmeof-c" style="flex:1;min-height:66px"><span class="lmeof-n">11-</span><span class="lmeof-lbl">Anamnese*</span><span class="lmeof-v" style="font-weight:normal;color:#111;font-size:10.5px;line-height:1.4">${anamnese}</span></div></div>
+    <div class="lmeof-row"><div class="lmeof-c" style="flex:1"><span class="lmeof-n">12-</span><span class="lmeof-lbl">Paciente realizou tratamento prévio ou está em tratamento da doença?*</span><span class="lmeof-v" style="font-weight:normal;color:#111;font-size:10.5px;line-height:1.4"><span class="lmeof-box">${NB}</span> NÃO &nbsp;&nbsp; <span class="lmeof-box">X</span> SIM. Relatar: ${relatoPrevio}</span></div></div>
+    <div class="lmeof-row"><div class="lmeof-c" style="flex:1"><span class="lmeof-n">13-</span><span class="lmeof-lbl">Atestado de capacidade*</span><span class="lmeof-v" style="font-weight:normal;color:#111;font-size:10px;line-height:1.4">A solicitação deverá ser realizada pelo paciente; fica dispensada a presença física do paciente considerado incapaz (arts. 3º e 4º do Código Civil). O paciente é considerado incapaz?<br><span class="lmeof-box">${NB}</span> NÃO &nbsp;&nbsp; <span class="lmeof-box">${NB}</span> SIM — Nome do responsável: ${bl('_______________________________')}</span></div></div>
+    <div class="lmeof-row">
+      <div style="flex:2;display:flex;flex-direction:column">
+        <div class="lmeof-c" style="flex:1"><span class="lmeof-n">14-</span><span class="lmeof-lbl">Nome do médico solicitante*</span><span class="lmeof-v">${d.docName||bl('________________________________')}</span></div>
+        <div style="display:flex">
+          <div class="lmeof-c" style="flex:2"><span class="lmeof-n">15-</span><span class="lmeof-lbl">Nº do Cartão Nacional de Saúde (CNS) do médico solicitante*</span><span class="lmeof-v">${d.docCNS||bl('_______________________')}${d.docCRM? ' <span style="font-size:9px;color:#555">(CRM '+d.docCRM+')</span>':''}</span></div>
+          <div class="lmeof-c" style="flex:1"><span class="lmeof-n">16-</span><span class="lmeof-lbl">Data da solicitação*</span><span class="lmeof-v">${dateStr}</span></div>
+        </div>
+      </div>
+      <div class="lmeof-c" style="flex:1.3;min-height:64px"><span class="lmeof-n">17-</span><span class="lmeof-lbl">Assinatura e carimbo do médico*</span><span class="lmeof-v" style="color:#999;font-weight:normal">&nbsp;</span></div>
+    </div>
+    <div class="lmeof-row"><div class="lmeof-c" style="flex:1"><span class="lmeof-n">18-</span><span class="lmeof-lbl">CAMPOS ABAIXO PREENCHIDOS POR*:</span><span class="lmeof-v" style="font-weight:normal;color:#111;font-size:10px;line-height:1.5"><span class="lmeof-box">${NB}</span> Paciente &nbsp; <span class="lmeof-box">${NB}</span> Mãe do paciente &nbsp; <span class="lmeof-box">${NB}</span> Responsável (item 13) &nbsp; <span class="lmeof-box">X</span> Médico solicitante &nbsp; <span class="lmeof-box">${NB}</span> Outro: ${bl('__________')} &nbsp; e CPF: ${bl('___.___.___-__')}</span></div></div>
+    <div class="lmeof-row">
+      <div class="lmeof-c" style="flex:2"><span class="lmeof-n">19-</span><span class="lmeof-lbl">Raça/Cor/Etnia informado pelo paciente ou responsável*</span><span class="lmeof-v" style="font-weight:normal;color:#111;font-size:10px;line-height:1.6"><span class="lmeof-box">${NB}</span> Branca &nbsp; <span class="lmeof-box">${NB}</span> Preta &nbsp; <span class="lmeof-box">${NB}</span> Parda &nbsp; <span class="lmeof-box">${NB}</span> Amarela &nbsp; <span class="lmeof-box">${NB}</span> Indígena (etnia: ${bl('______')}) &nbsp; <span class="lmeof-box">${NB}</span> Sem informação</span></div>
+      <div class="lmeof-c" style="flex:1.3"><span class="lmeof-n">20-</span><span class="lmeof-lbl">Telefone(s) para contato do paciente</span><span class="lmeof-v">${d.patPhone||bl('(__) _____-____')}</span></div>
+    </div>
+    <div class="lmeof-row">
+      <div class="lmeof-c" style="flex:2"><span class="lmeof-n">21-</span><span class="lmeof-lbl">Nº do documento do paciente</span><span class="lmeof-v" style="font-size:11px"><span class="lmeof-box">${d.patCPF?'X':NB}</span> CPF: ${d.patCPF||bl('___.___.___-__')} &nbsp;&nbsp; <span class="lmeof-box">${((!d.patCPF)&&(d.patCNS||d.patPlan))?'X':NB}</span> CNS: ${d.patCNS||d.patPlan||bl('_______________')}</span></div>
+      <div class="lmeof-c" style="flex:1.3;min-height:46px"><span class="lmeof-n">23-</span><span class="lmeof-lbl">Assinatura do responsável pelo preenchimento</span><span class="lmeof-v">&nbsp;</span></div>
+    </div>
+    <div class="lmeof-row"><div class="lmeof-c" style="flex:1;border-bottom:1px solid #000"><span class="lmeof-n">22-</span><span class="lmeof-lbl">Correio eletrônico do paciente</span><span class="lmeof-v">${d.patEmail||bl('______________________________')}</span></div></div>
+
+    <div class="lmeof-foot">* CAMPOS DE PREENCHIMENTO OBRIGATÓRIO</div>
+    <div class="lmeof-note"><strong>Observações de preenchimento (não impressas):</strong> campos preenchidos automaticamente a partir dos dados do agente.${sch.note? ' <strong>Posologia (campo 8):</strong> '+sch.note : ''} <strong>Conferir/completar manualmente:</strong> CNS do médico (15), atestado de capacidade (13), raça/cor/etnia (19), e-mail (22) e assinaturas (17 e 23). Confirmar o CID-10 (J44.x) e a quantidade conforme a apresentação.</div>
+  </div>`;
+  document.getElementById('lmeSheet').innerHTML = lmeHtml;
+}
+
+function printLME() { window.print(); }
+function printLMESemData() {
+  const sheet = document.getElementById('lmeSheet');
+  const orig = sheet.innerHTML;
+  sheet.innerHTML = orig.replace(/(16-<\/span><span class="lmeof-lbl">Data da solicitação\*<\/span><span class="lmeof-v">)[^<]*/, '$1___/___/_____');
+  window.print();
+  sheet.innerHTML = orig;
+}
+
+/* =============================================
+   UI HELPERS
+   ============================================= */
+function setStep(n) {
+  const panels = ['step-form','step-dec','step-rep','step-lme','step-rx'];
+  const steps  = ['s-form','s-dec','s-rep','s-lme','s-rx'];
+  panels.forEach((id,i) => {
+    const el = document.getElementById(id);
+    if(el) el.classList.toggle('active', i===n-1);
+  });
+  steps.forEach((id,i) => {
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.classList.remove('active','done');
+    const num = el.querySelector('.num');
+    if(i < n-1) {
+      el.classList.add('done');
+      if(num) num.textContent = '✓';
+    } else {
+      if(i===n-1) el.classList.add('active');
+      if(num) num.textContent = String(i+1);
+    }
+  });
+  window.scrollTo(0,0);
+}
+
+function selGold(n) {
+  goldStage = n;
+  [1,2,3,4].forEach(i => document.getElementById('gold-'+i).classList.toggle('sel', i===n));
+  const vef = document.getElementById('vef1').value;
+  if(!vef) {
+    const map = {1:'85',2:'65',3:'40',4:'25'};
+    document.getElementById('vef1').value = map[n];
+  }
+}
+
+function toggleCheck(div, id) {
+  const cb = document.getElementById(id);
+  cb.checked = !cb.checked;
+  div.classList.toggle('checked', cb.checked);
+  checkTriple();
+}
+
+function toggleTable() {
+  const t = document.getElementById('compare-table');
+  t.style.display = t.style.display==='none' ? 'block' : 'none';
+}
+
+function maskCPF(v) {
+  return v.replace(/\D/g,'').replace(/(\d{3})(\d)/,'$1.$2')
+          .replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2');
+}
+
+function checkEos() {
+  const v = parseInt(document.getElementById('eos').value)||0;
+  document.getElementById('eos-alert').style.display = v > 0 && v < 300 ? 'block' : 'none';
+  document.getElementById('eos-ok').style.display    = v >= 300 ? 'block' : 'none';
+}
+
+function checkTriple() {
+  const l = document.getElementById('tLAMA').checked;
+  const b = document.getElementById('tLABA').checked;
+  const i = document.getElementById('tICS').checked;
+  const ic= document.getElementById('tICS_CI').checked;
+  const ok = l && b && (i || ic);
+  document.getElementById('triple-alert').style.display = !ok ? 'block' : 'none';
+}
+
+/* =============================================
+   COLLECT DATA
+   ============================================= */
+function collectData() {
+  return {
+    docName: document.getElementById('docName').value.trim(),
+    docCRM:  document.getElementById('docCRM').value.trim(),
+    docRQE:  document.getElementById('docRQE').value.trim(),
+    docInst: document.getElementById('docInst').value.trim(),
+    docCNES: document.getElementById('docCNES').value.trim(),
+    docCNS:  (document.getElementById('docCNS')||{}).value ? document.getElementById('docCNS').value.trim() : '',
+    docHeader: (document.getElementById('docHeader')||{}).value ? document.getElementById('docHeader').value.trim() : '',
+    docDate: document.getElementById('docDate').value,
+    patName:   document.getElementById('patName').value.trim(),
+    patMother: document.getElementById('patMother').value.trim(),
+    patCPF:    document.getElementById('patCPF').value.trim(),
+    patCNS:    document.getElementById('patCNS').value.trim(),
+    patDOB:    document.getElementById('patDOB').value,
+    patPlan:   document.getElementById('patPlan').value.trim(),
+    patConv:   document.getElementById('patConv').value.trim(),
+    patPhone:  document.getElementById('patPhone').value.trim(),
+    patEmail:  (document.getElementById('patEmail')||{}).value ? document.getElementById('patEmail').value.trim() : '',
+    patAddress:(document.getElementById('patAddress')||{}).value ? document.getElementById('patAddress').value.trim() : '',
+    patMR:     document.getElementById('patMR').value.trim(),
+    patWeight: document.getElementById('patWeight').value !== '' ? parseFloat(document.getElementById('patWeight').value) : null,
+    patHeight: document.getElementById('patHeight').value !== '' ? parseFloat(document.getElementById('patHeight').value) : null,
+    vef1:     parseInt(document.getElementById('vef1').value)||0,
+    ratio:    parseFloat(document.getElementById('ratio').value)||0,
+    mmrc:     document.getElementById('mmrc').value,
+    goldStage,
+    cat:      parseInt(document.getElementById('cat').value)||0,
+    exac:     parseInt(document.getElementById('exac').value)||0,
+    hosp:     parseInt(document.getElementById('hosp').value)||0,
+    phenotype:document.getElementById('phenotype').value,
+    smoking:  document.getElementById('smoking').value,
+    otherExposure: document.getElementById('otherExposure').value.trim(),
+    dlco:     document.getElementById('dlco').value ? parseInt(document.getElementById('dlco').value) : null,
+    ctFindings: document.getElementById('ctFindings').value.trim(),
+    sleepDisorder: document.getElementById('sleepDisorder').value,
+    sleepReferral: document.getElementById('sleepReferral').value,
+    eos:      parseInt(document.getElementById('eos').value)||0,
+    feno:     parseInt(document.getElementById('feno').value)||0,
+    ige:      parseInt(document.getElementById('ige').value)||0,
+    tLAMA:    document.getElementById('tLAMA').checked,
+    tLABA:    document.getElementById('tLABA').checked,
+    tICS:     document.getElementById('tICS').checked,
+    tICS_CI:  document.getElementById('tICS_CI').checked,
+    tripleTime: document.getElementById('tripleTime').value,
+    prevBio:  document.getElementById('prevBio').value,
+    tO2:      document.getElementById('tO2').checked,
+    tNutri:   document.getElementById('tNutri').checked,
+    tVacc:    document.getElementById('tVacc').checked,
+    tPR:      document.getElementById('tPR').checked,
+    cAsma:  document.getElementById('cAsma').checked,
+    cRSPN:  document.getElementById('cRSPN').checked,
+    cEE:    document.getElementById('cEE').checked,
+    cDA:    document.getElementById('cDA').checked,
+    cCV:    document.getElementById('cCV').checked,
+    cDM:    document.getElementById('cDM').checked,
+    cHA:    document.getElementById('cHA').checked,
+    cOsteo: document.getElementById('cOsteo').checked,
+    helmHistory:document.getElementById('helmHistory').value,
+    helmTest:   document.getElementById('helmTest').value,
+    helmTreat:  document.getElementById('helmTreat').value,
+    helmDrug:   document.getElementById('helmDrug').value,
+    helmObs:    document.getElementById('helmObs').value.trim(),
+    reqDest:    document.getElementById('reqDestFinal').value,
+    clinResume: document.getElementById('clinResume').value.trim(),
+    selDrugPre: document.getElementById('selDrugPre').value,
+  };
+}
+
+/* =============================================
+   SCORING — SISTEMA DE PONTUAÇÃO BASEADO EM GUIA
+   Pesos: Redução Exacerbações (40%) + Eficácia VEF1 (20%) + Qualidade de Vida (20%) + Conveniência (20%)
+   ============================================= */
+function calcScores(d) {
+  const s = {};
+  Object.keys(DRUGS).forEach(k => {
+    s[k] = { 
+      reducaoExac: 0,      // 40 pts max
+      eficaciaVEF1: 0,     // 20 pts max
+      qualidadeVida: 0,    // 20 pts max
+      conveniencia: 0,     // 20 pts max
+      bonusComorbidade: 0, // +5 a +15 pts
+      total: 0, 
+      eligible: false,
+      detalhes: ''
+    };
+  });
+
+  // ===== PASSO 1: FILTRO DE ELEGIBILIDADE =====
+  // Dupilumabe: Eosinófilos ≥300 + Tripla terapia (bula ANVISA — sem via marginal)
+  if(d.eos >= 300 && d.tLAMA && d.tLABA && (d.tICS || d.tICS_CI)) {
+    s.dupilumabe.eligible = true;
+  }
+
+  // Mepolizumabe: Eosinófilos ≥300 (MATINEE — base da aprovação ANVISA RE 1.583/2026) + Tripla terapia
+  if(d.eos >= 300 && d.tLAMA && d.tLABA && (d.tICS || d.tICS_CI)) {
+    s.mepolizumabe.eligible = true;
+  }
+
+  // Pipeline drugs — not eligible in Brazil
+  s.benralizumabe.eligible = false;
+  s.tezepelumabe.eligible  = false;
+  s.itepekimabe.eligible   = false;
+
+  // ===== PASSO 2: CÁLCULO DOS 4 PILARES =====
+  // Dados de referência dos estudos clínicos
+  const benchmarks = {
+    dupilumabe: {
+      reducaoExac: 34,      // % (BOREAS/NOTUS)
+      ganhoVEF1: 160,       // mL
+      reducaoSGRQ: 3.4,     // pontos
+      intervaloDose: 2      // semanas (Q2W)
+    },
+    mepolizumabe: {
+      reducaoExac: 21,      // % (MATINEE)
+      ganhoVEF1: 100,       // mL
+      reducaoSGRQ: 2.5,     // pontos
+      intervaloDose: 4      // semanas (Q4W)
+    }
+  };
+
+  // Encontrar máximos para normalização
+  const maxExac = Math.max(benchmarks.dupilumabe.reducaoExac, benchmarks.mepolizumabe.reducaoExac);
+  const maxVEF1 = Math.max(benchmarks.dupilumabe.ganhoVEF1, benchmarks.mepolizumabe.ganhoVEF1);
+  const maxSGRQ = Math.max(benchmarks.dupilumabe.reducaoSGRQ, benchmarks.mepolizumabe.reducaoSGRQ);
+
+  // PILAR 1: Redução de Exacerbações (40 pontos)
+  if(s.dupilumabe.eligible) {
+    s.dupilumabe.reducaoExac = (benchmarks.dupilumabe.reducaoExac / maxExac) * 40;
+  }
+  if(s.mepolizumabe.eligible) {
+    s.mepolizumabe.reducaoExac = (benchmarks.mepolizumabe.reducaoExac / maxExac) * 40;
+  }
+
+  // PILAR 2: Eficácia na Função Pulmonar - VEF1 (20 pontos)
+  if(s.dupilumabe.eligible) {
+    s.dupilumabe.eficaciaVEF1 = (benchmarks.dupilumabe.ganhoVEF1 / maxVEF1) * 20;
+  }
+  if(s.mepolizumabe.eligible) {
+    s.mepolizumabe.eficaciaVEF1 = (benchmarks.mepolizumabe.ganhoVEF1 / maxVEF1) * 20;
+  }
+
+  // PILAR 3: Qualidade de Vida - SGRQ (20 pontos)
+  if(s.dupilumabe.eligible) {
+    s.dupilumabe.qualidadeVida = (benchmarks.dupilumabe.reducaoSGRQ / maxSGRQ) * 20;
+  }
+  if(s.mepolizumabe.eligible) {
+    s.mepolizumabe.qualidadeVida = (benchmarks.mepolizumabe.reducaoSGRQ / maxSGRQ) * 20;
+  }
+
+  // PILAR 4: Conveniência Posológica e Logística (20 pontos)
+  // Intervalo entre doses (15 pts) + Logística (5 pts)
+  if(s.dupilumabe.eligible) {
+    // Dupilumabe: Q2W = 5 pontos de intervalo + 5 pts logística = 10 pts
+    s.dupilumabe.conveniencia = 10;
+  }
+  if(s.mepolizumabe.eligible) {
+    // Mepolizumabe: Q4W = 10 pontos de intervalo + 5 pts logística = 15 pts
+    s.mepolizumabe.conveniencia = 15;
+  }
+
+  // ===== PASSO 3: BÔNUS POR COMORBIDADES =====
+  if(d.cRSPN) { 
+    s.dupilumabe.bonusComorbidade += 15; // Dupilumabe tem indicação formal para RSCcPN
+  }
+  if(d.cEE) { 
+    s.mepolizumabe.bonusComorbidade += 15; // Mepolizumabe indicado para GEPA
+  }
+  if(d.cAsma) { 
+    s.dupilumabe.bonusComorbidade += 10; // Ambos beneficiam-se de asma concomitante
+    s.mepolizumabe.bonusComorbidade += 10;
+  }
+
+  // ===== PASSO 4: CÁLCULO DO TOTAL =====
+  Object.keys(s).forEach(k => {
+    const x = s[k];
+    if(x.eligible) {
+      x.total = x.reducaoExac + x.eficaciaVEF1 + x.qualidadeVida + x.conveniencia + x.bonusComorbidade;
+      x.total = Math.round(x.total * 10) / 10; // Arredondar para 1 casa decimal
+    } else {
+      x.total = 0;
+    }
+  });
+
+  return s;
+}
+
+/* =============================================
+   STEP 2 RENDER
+   ============================================= */
+function goDecision() {
+  pd = collectData();
+  scores = calcScores(pd);
+
+  const helmActive = pd.helmHistory === 'active';
+  const hp = document.getElementById('helm-active');
+  if(hp) hp.style.display = helmActive ? 'block' : 'none';
+
+  const ageYears = pd.patDOB ? (function(){ const a=Math.floor((new Date()-new Date(pd.patDOB))/31557600000); return isNaN(a)?'—':a; })() : '—';
+
+  const anyEligible = Object.values(scores).some(s => s.eligible);
+  const summaryEl = document.getElementById('pat-summary');
+  summaryEl.className = 'alert ' + (anyEligible ? 'a-ok' : 'a-warn');
+  const statusLine = anyEligible
+    ? '✅ <strong>Elegibilidade confirmada</strong> para pelo menos um imunobiológico — ver recomendação abaixo.'
+    : '⚠️ <strong>Nenhum imunobiológico elegível</strong> com os dados atuais — revisar a conduta (biomarcadores e/ou terapia tripla).';
+
+  summaryEl.innerHTML =
+    `<strong>Paciente:</strong> ${pd.patName||'—'} · ${ageYears} anos · Convênio: ${pd.patConv||'—'}<br>
+     <strong>DPOC:</strong> Estágio GOLD ${pd.goldStage||'?'} · VEF1 ${pd.vef1}% · CAT ${pd.cat} · Exacerbações/ano: ${pd.exac} · Hosp: ${pd.hosp}<br>
+     <strong>Biomarcadores:</strong> Eos <strong>${pd.eos} céls/µL</strong> · FeNO ${pd.feno} ppb · IgE ${pd.ige} kU/L · Tabagismo: ${{ex:'Ex-tabagista',current:'Ativo',never:'Nunca fumou'}[pd.smoking]||'—'}<br>
+     ${statusLine}`;
+
+  const sorted = Object.entries(scores).sort((a,b) => b[1].total - a[1].total);
+
+  const container = document.getElementById('drug-cards');
+  container.innerHTML = '';
+  let elRank = 0;
+
+  sorted.forEach(([key, sc]) => {
+    const drug = DRUGS[key];
+    const isEl = sc.eligible;
+    if(isEl) elRank++;
+    const rank = isEl ? elRank : 0;
+    const isPipe = ['benralizumabe','tezepelumabe','itepekimabe'].includes(key);
+    const rankClass = rank===1?'r1':rank===2?'r2':rank===3?'r3':'';
+    const rankLabel = rank===1?'🥇 1ª Escolha':rank===2?'🥈 2ª Opção':isPipe?'🔬 Em Investigação':'⛔ Sem elegibilidade BR';
+    const rkClass   = rank===1?'rk1':rank===2?'rk2':rank===3?'rk3':isPipe?'rk-pipe':'';
+
+    const anv = chip(drug.anvisa);
+    const ans = chip(drug.ans);
+    const sus = chip(drug.sus);
+
+    container.innerHTML += `
+      <div class="drug-card ${rankClass} ${!isEl?'not-el':''} ${isPipe&&!isEl?'pipeline':''}" onclick="${isEl?`selectDrug('${key}')`:''}" style="position:relative;">
+        <div class="dr-rank ${rkClass}">${rankLabel}</div>
+        <h3 style="margin-top:8px;">${drug.name}</h3>
+        <div class="brand">${drug.brand} · ${drug.maker}</div>
+        <div class="score">${isEl ? Math.round(sc.total) : '—'}</div>
+        <div class="dm">
+          <div class="row"><span class="lbl">Mecanismo</span><span class="val">${drug.moa_short}</span></div>
+          <div class="row"><span class="lbl">Dose DPOC</span><span class="val">${drug.freq}</span></div>
+          <div class="row"><span class="lbl">Biomarcador</span><span class="val">${drug.biomarker}</span></div>
+          <div class="row"><span class="lbl">Eficácia</span><span class="val">${drug.efficacy}</span></div>
+        </div>
+        <div class="cover-chips" style="margin-top:8px;">${anv}${ans}${sus}</div>
+        ${isPipe ? '<div class="tag tag-pipe" style="margin-top:6px;">Fase III em andamento</div>':'' }
+      </div>`;
+  });
+
+  document.getElementById('table-html').innerHTML = buildTable(sorted, pd);
+
+  // Auto-select top eligible
+  const top = sorted.find(([k,s]) => s.eligible);
+  if(top) document.getElementById('selectedDrug').value = top[0];
+
+  setStep(2);
+}
+
+function chip(c) {
+  const cls = c.status==='ok'?'chip-ok':c.status==='warn'?'chip-warn':c.status==='pipe'?'chip-pipe':'chip-no';
+  const ico = c.status==='ok'?'✅':c.status==='warn'?'⚠️':c.status==='pipe'?'🔬':'❌';
+  return `<span class="chip ${cls}">${ico} ${c.label}</span>`;
+}
+
+function selectDrug(key) {
+  document.getElementById('selectedDrug').value = key;
+  document.querySelectorAll('.drug-card').forEach(c => c.style.outline='none');
+  event.currentTarget.style.outline = '3px solid var(--amber-l)';
+}
+
+function buildTable(sorted, d) {
+  const cols = sorted.map(([k])=>k);
+  const rows = [
+    ['Mecanismo',        k => DRUGS[k].moa_short],
+    ['Dose DPOC',        k => DRUGS[k].freq],
+    ['Biomarcador req.', k => DRUGS[k].biomarker],
+    ['Eficácia (exac.)', k => DRUGS[k].efficacy.substring(0,60)+'…'],
+    ['Estudos pivotais', k => DRUGS[k].studies],
+    ['ANVISA (DPOC)',    k => DRUGS[k].anvisa.label],
+    ['ANS',             k => DRUGS[k].ans.label],
+    ['SUS',             k => DRUGS[k].sus.label],
+    ['Pontuação BR',    k => scores[k].eligible ? Math.round(scores[k].total) : 'N/A'],
+  ];
+  let h = `<table><thead><tr><th>Critério</th>${cols.map(k=>`<th>${DRUGS[k].brand}</th>`).join('')}</tr></thead><tbody>`;
+  rows.forEach(([lbl,fn]) => {
+    h += `<tr><td><strong>${lbl}</strong></td>`;
+    cols.forEach((k,i) => { h += `<td class="${i===0&&scores[k].eligible?'hl':''}">${fn(k)}</td>`; });
+    h += '</tr>';
+  });
+  h += `<tr class="pipe-row"><td colspan="${cols.length+1}" style="background:#E0E7FF;color:#3730A3;font-style:italic;font-size:11px; text-align:center;">🔬 Benralizumabe (RESOLUTE) · Tezepelumabe (JOURNEY/EMBARK) · Itepekimabe (AERIFY) — Fase III em andamento, sem aprovação regulatória para DPOC no Brasil</td></tr>`;
+  h += '</tbody></table>';
+  return h;
+}
+
+/* =============================================
+   STEP 3 REPORT
+   ============================================= */
+function goReport() {
+  const drug = document.getElementById('selectedDrug').value;
+  const dest = document.getElementById('reqDestFinal').value;
+  if(!drug) { alert('Selecione o medicamento.'); return; }
+
+  const d = pd;
+  const dr = DRUGS[drug];
+  const ageYears = d.patDOB ? (function(){ const a=Math.floor((new Date()-new Date(d.patDOB))/31557600000); return isNaN(a)?'—':a; })() : '—';
+  const dateStr  = d.docDate ? new Date(d.docDate+'T12:00:00').toLocaleDateString('pt-BR') : new Date().toLocaleDateString('pt-BR');
+  const goldLabel = {1:'I (Leve)',2:'II (Moderado)',3:'III (Grave)',4:'IV (Muito Grave)'}[d.goldStage] || '—';
+
+  document.getElementById('rep-stamp').innerHTML =
+    `Nº ${Math.floor(Math.random()*900000+100000)}<br>${dateStr}<br>${d.docInst||''}`;
+
+  const destLabel = dest==='sus'  ? 'Sistema Único de Saúde (SUS) — Componente Especializado da Assistência Farmacêutica (CEAF)' :
+                    dest==='judicial' ? 'Solicitação Via Judicial' :
+                    `Operadora de Saúde: ${d.patConv||'—'}`;
+
+  const anv  = dr.anvisa;
+  const ansCov = dr.ans;
+
+  const coverNote = dest==='sus'
+    ? `<div class="alert ${anv.status==='ok'?'a-ok':anv.status==='warn'?'a-warn':'a-err'}"><strong>Status SUS/ANVISA:</strong> ${anv.label}</div>`
+    : `<div class="alert ${ansCov.status==='ok'?'a-ok':ansCov.status==='warn'?'a-warn':'a-err'}"><strong>Status ANS:</strong> ${ansCov.label}</div>`;
+
+  const criteriaHTML = dr.bulaCriteria.map(c => {
+    const isWarn = c.startsWith('⚠️') || c.startsWith('ATEN');
+    return `<li><span class="${isWarn?'wn':'ck'}">${isWarn?'⚠':'✔'}</span> ${c}</li>`;
+  }).join('');
+
+  // Therapy confirmed
+  const tripleStr = [
+    d.tLAMA?'LAMA':'',
+    d.tLABA?'LABA':'',
+    d.tICS?'CI':d.tICS_CI?'(CI contraindicado — LAMA+LABA)':''
+  ].filter(Boolean).join(' + ') || 'Não informada';
+
+  const comorbLabels = { cAsma:'Sobreposição Asma-DPOC (ACO)',cRSPN:'Rinossinusite Crônica c/ Pólipos Nasais',cEE:'Esofagite Eosinofílica',cDA:'Dermatite Atópica',cCV:'Doença Cardiovascular',cDM:'Diabetes Mellitus',cHA:'Hipertensão Arterial',cOsteo:'Osteoporose / uso prolongado CO' };
+  const comorbList = Object.keys(comorbLabels).filter(k=>d[k]).map(k=>comorbLabels[k]).join(', ') || 'Nenhuma documentada';
+
+  const helmTreatLabels = {yes_ok:'Concluído com sucesso',yes_prop:'Profilático empírico realizado',not_needed:'Não necessário',pending:'PENDENTE'};
+  const helmTestLabels  = {yes_neg:'Parasitológico negativo',yes_pos_treated:'Positivo — tratado',yes_pos_active:'Positivo — aguardando tratamento',no:'Não realizado',endemic_risk:'Rastreio clínico (região endêmica)'};
+
+  const body = `
+    <div class="rp-sec">
+      <h3>Destinatário</h3>
+      <div class="alert a-info"><strong>SOLICITAÇÃO FORMAL AO:</strong> ${destLabel}</div>
+      ${coverNote}
+    </div>
+
+    <div class="rp-sec">
+      <h3>Identificação do Paciente</h3>
+      <div class="rp-grid">
+        <div class="rpf"><div class="lbl">Nome completo</div><div class="val">${d.patName||'—'}</div></div>
+        <div class="rpf"><div class="lbl">CPF</div><div class="val">${d.patCPF||'—'}</div></div>
+        <div class="rpf"><div class="lbl">Data de Nascimento</div><div class="val">${d.patDOB?new Date(d.patDOB+'T12:00').toLocaleDateString('pt-BR'):'—'} (${ageYears} anos)</div></div>
+        <div class="rpf"><div class="lbl">Carteirinha / CNS</div><div class="val">${d.patPlan||'—'}</div></div>
+        <div class="rpf"><div class="lbl">Convênio / Operadora</div><div class="val">${d.patConv||'—'}</div></div>
+        <div class="rpf"><div class="lbl">Prontuário</div><div class="val">${d.patMR||'—'}</div></div>
+        <div class="rpf"><div class="lbl">Peso</div><div class="val">${d.patWeight||'—'} kg</div></div>
+      </div>
+    </div>
+
+    <div class="rp-sec">
+      <h3>Diagnóstico e Estadiamento da DPOC</h3>
+      <div class="rp-grid">
+        <div class="rpf"><div class="lbl">Diagnóstico</div><div class="val">DPOC — Doença Pulmonar Obstrutiva Crônica</div></div>
+        <div class="rpf"><div class="lbl">CID-10</div><div class="val">J44.1 — DPOC com exacerbação aguda; J44.0 — DPOC com infecção respiratória aguda baixa</div></div>
+        <div class="rpf"><div class="lbl">Estágio GOLD</div><div class="val">GOLD ${goldLabel}</div></div>
+        <div class="rpf"><div class="lbl">VEF1 (% predito)</div><div class="val">${d.vef1||'—'}%</div></div>
+        <div class="rpf"><div class="lbl">VEF1/CVF pós-BD</div><div class="val">${d.ratio||'—'} (diagnóstico espirométrico confirmado)</div></div>
+        <div class="rpf"><div class="lbl">Dispneia (mMRC)</div><div class="val">Grau ${d.mmrc||'—'}</div></div>
+        <div class="rpf"><div class="lbl">CAT Score</div><div class="val">${d.cat||'—'} pontos</div></div>
+        <div class="rpf"><div class="lbl">Exacerbações/ano</div><div class="val">${d.exac} moderadas/graves</div></div>
+        <div class="rpf"><div class="lbl">Hospitalizações/ano</div><div class="val">${d.hosp}</div></div>
+        <div class="rpf"><div class="lbl">Fenótipo clínico</div><div class="val">${{bronchitis:'Bronquite crônica',emphysema:'Enfisema predominante',mixed:'Misto',exacerbator:'Exacerbador frequente'}[d.phenotype]||'—'}</div></div>
+        <div class="rpf"><div class="lbl">Tabagismo</div><div class="val">${{ex:'Ex-tabagista',current:'Tabagista ativo',never:'Nunca fumou'}[d.smoking]||'—'}</div></div>
+        <div class="rpf"><div class="lbl">Outras exposições de risco</div><div class="val">${d.otherExposure||'Não referidas'}</div></div>
+        <div class="rpf"><div class="lbl">DLCO</div><div class="val">${d.dlco?d.dlco+'% do previsto':'Não realizada'}</div></div>
+        <div class="rpf"><div class="lbl">Tomografia de tórax</div><div class="val">${d.ctFindings||'Não informado'}</div></div>
+        <div class="rpf"><div class="lbl">Distúrbio respiratório do sono</div><div class="val">${{no:'Sem suspeita clínica',saos:'Suspeita de SAOS (overlap)',hypovent:'Suspeita de hipoventilação noturna',known:'Já diagnosticado / em acompanhamento'}[d.sleepDisorder]||'Não avaliado'}${d.sleepReferral==='yes'?' — encaminhado à Medicina do Sono':''}</div></div>
+        <div class="rpf"><div class="lbl">Comorbidades</div><div class="val">${comorbList}</div></div>
+      </div>
+    </div>
+
+    <div class="rp-sec">
+      <h3>Biomarcadores de Inflamação Tipo 2</h3>
+      <div class="rp-grid">
+        <div class="rpf"><div class="lbl">Eosinófilos séricos</div><div class="val"><strong>${d.eos} céls/µL</strong> — ${d.eos>=300?'✅ Elegível (≥300) — critério BOREAS/NOTUS (dupilumabe) e MATINEE (mepolizumabe)':'❌ <300 — abaixo do corte para os dois imunobiológicos aprovados em DPOC'}</div></div>
+        <div class="rpf"><div class="lbl">FeNO</div><div class="val">${d.feno} ppb</div></div>
+        <div class="rpf"><div class="lbl">IgE Total</div><div class="val">${d.ige} kU/L</div></div>
+        <div class="rpf"><div class="lbl">Medição dos eosinófilos</div><div class="val">Realizada em período de estabilidade clínica (não durante exacerbação)</div></div>
+      </div>
+    </div>
+
+    <div class="rp-sec">
+      <h3>Terapia de Base (Terapia Tripla Inalatória)</h3>
+      <div class="rp-grid">
+        <div class="rpf"><div class="lbl">Medicamentos em uso</div><div class="val">${tripleStr}</div></div>
+        <div class="rpf"><div class="lbl">Duração da terapia</div><div class="val">${{lt3:'Menos de 3 meses',['3to6']:'3–6 meses',gt6:'Mais de 6 meses (otimizada)',gt12:'Mais de 12 meses'}[d.tripleTime]||'—'}</div></div>
+        <div class="rpf"><div class="lbl">Biológico prévio</div><div class="val">${d.prevBio||'Nenhum (virgem de biológico)'}</div></div>
+      </div>
+      <div class="alert a-info" style="margin-top:10px;font-size:12px;">Critério obrigatório (Bula Dupixent® ANVISA 25/11/2024): o dupilumabe para DPOC é indicado "como tratamento de manutenção adicional à terapia de base de tratamento padrão de LAMA + LABA + CI (a menos que CI tenham sido contraindicados)".</div>
+      <div class="rp-grid" style="margin-top:10px;">
+        <div class="rpf"><div class="lbl">Oxigenoterapia domiciliar</div><div class="val">${d.tO2?'Em uso':'Não'}</div></div>
+        <div class="rpf"><div class="lbl">Suporte nutricional</div><div class="val">${d.tNutri?'Em acompanhamento (sarcopenia)':'Não indicado'}</div></div>
+        <div class="rpf"><div class="lbl">Reabilitação pulmonar</div><div class="val">${d.tPR?'Em programa':'Não'}</div></div>
+        <div class="rpf"><div class="lbl">Vacinação</div><div class="val">${d.tVacc?'Vacinas revisadas e atualizadas':'Pendente de revisão'}</div></div>
+      </div>
+    </div>
+
+    <div class="rp-sec">
+      <h3>Rastreio e Tratamento de Helmintíase</h3>
+      <div class="alert ${(d.helmTreat==='yes_ok'||d.helmTreat==='yes_prop'||d.helmTreat==='not_needed')&&d.helmHistory!=='active' ? 'a-ok' : d.helmHistory==='active'||d.helmTreat==='pending' ? 'a-err' : 'a-warn'}">
+        <strong>Status conforme bula ANVISA de ${dr.brand}:</strong>
+        ${d.helmHistory==='active'
+          ? '⛔ INFECÇÃO ATIVA — iniciar biológico somente após cura documentada (bula ANVISA)'
+          : d.helmTreat==='pending'
+          ? '⚠️ PENDÊNCIA — concluir rastreio/tratamento antes de iniciar'
+          : d.helmTest==='no'
+          ? '⚠️ Rastreio não realizado — recomenda-se documentar parasitológico negativo'
+          : '✅ Condição parasitária avaliada e tratada conforme bula'}
+      </div>
+      <div class="rp-grid" style="margin-top:10px;">
+        <div class="rpf"><div class="lbl">Histórico</div><div class="val">${{none:'Sem história prévia',past_treated:'Histórico passado — curado',active:'ATIVO ⛔',unknown:'Não investigado'}[d.helmHistory]||'—'}</div></div>
+        <div class="rpf"><div class="lbl">Rastreio</div><div class="val">${helmTestLabels[d.helmTest]||'—'}</div></div>
+        <div class="rpf"><div class="lbl">Tratamento</div><div class="val">${helmTreatLabels[d.helmTreat]||'—'}</div></div>
+        <div class="rpf"><div class="lbl">Medicamento</div><div class="val">${{alb400:'Albendazol 400 mg dose única',alb3:'Albendazol 400 mg/dia × 3 dias',mebend:'Mebendazol 100 mg 2×/dia × 3 dias',iver:'Ivermectina 200 mcg/kg',outro:'Outro'}[d.helmDrug]||'Não aplicável'}</div></div>
+        ${d.helmObs ? `<div class="rpf" style="grid-column:span 2;"><div class="lbl">Observações</div><div class="val">${d.helmObs}</div></div>` : ''}
+      </div>
+      <div style="font-size:11.5px;color:var(--sub);margin-top:8px;padding:8px;background:var(--mist);border-radius:var(--r);">
+        <strong>Base legal (Bula ${dr.brand} ANVISA):</strong>
+        ${drug==='dupilumabe' ? '"Pacientes com infecções parasitárias pré-existentes devem ser tratados antes de iniciar a terapia com DUPIXENT. Se o paciente se infectar durante o tratamento e não responder ao tratamento antiparasitário, descontinuar até que a infecção esteja curada." (Bula aprovada ANVISA 25/11/2024)' :
+          '"Pacientes com infecções por helmintos pré-existentes devem ser tratados para a infecção antes da terapia com mepolizumabe. Caso os pacientes se infectem durante o tratamento e não respondam ao tratamento anti-helmíntico, deve-se considerar a interrupção temporária." (Bula Nucala® ANVISA)'}
+      </div>
+    </div>
+
+    <div class="rp-sec">
+      <h3>Medicamento Indicado</h3>
+      <div class="ind-box">
+        <h2>${dr.name}</h2>
+        <div class="br">${dr.brand} · ${dr.maker} · ${dr.moa_short}</div>
+        <div class="presc-box">
+          <div class="pl"><span class="pk">Medicamento</span>${dr.brand} (${dr.name})</div>
+          <div class="pl"><span class="pk">Dose / Esquema</span>${dr.dose_dpoc}</div>
+          <div class="pl"><span class="pk">Via</span>${dr.route}</div>
+          <div class="pl"><span class="pk">Frequência</span>${dr.freq}</div>
+          <div class="pl"><span class="pk">Revisão</span>${dr.review}</div>
+          <div class="pl"><span class="pk">Indicação</span>DPOC com inflamação Tipo 2 — ${dr.phenotype}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rp-sec">
+      <h3>Critérios de Indicação Conforme Bula ANVISA</h3>
+      <div class="alert a-info" style="margin-bottom:10px;">Critérios baseados na bula ${dr.brand} aprovada pela ANVISA e nas diretrizes GOLD 2025.</div>
+      <ul class="crit-list">${criteriaHTML}</ul>
+    </div>
+
+    <div class="rp-sec">
+      <h3>Justificativa e Parecer Médico</h3>
+      <p style="font-size:13px;line-height:1.75;">
+        O(a) paciente <strong>${d.patName||'—'}</strong>, ${ageYears} anos, CPF ${d.patCPF||'—'}, portador(a) de 
+        <strong>Doença Pulmonar Obstrutiva Crônica (CID J44)</strong>, estágio <strong>GOLD ${goldLabel}</strong>, 
+        com VEF1 de <strong>${d.vef1}%</strong> do predito e <strong>${d.exac} exacerbação(ões)</strong> moderada(s)/grave(s) no último ano
+        ${d.hosp > 0 ? `, sendo ${d.hosp} com necessidade de hospitalização` : ''}, 
+        apresenta inflamação de Tipo 2 documentada com eosinófilos séricos de <strong>${d.eos} céls/µL</strong>
+        ${d.feno > 0 ? ` e FeNO de ${d.feno} ppb` : ''}.
+        <br><br>
+        O paciente encontra-se em uso de <strong>terapia tripla inalatória otimizada</strong> (${tripleStr}) 
+        por ${{'lt3':'menos de 3 meses','3to6':'3–6 meses','gt6':'mais de 6 meses','gt12':'mais de 12 meses'}[d.tripleTime]||'período documentado'}, 
+        com controle clínico inadequado apesar do tratamento máximo.
+        <br><br>
+        Diante dos critérios clínicos e biomarcadores acima, com fenótipo <strong>${dr.phenotype}</strong> e satisfação dos critérios de indicação da bula ANVISA,
+        prescrevo e solicito autorização para uso de <strong>${dr.name} (${dr.brand})</strong>, 
+        na dose de <strong>${dr.dose_dpoc}</strong>, via ${dr.route}, 
+        com avaliação de resposta em <strong>${dr.review}</strong>.
+        <br><br>
+        Os parâmetros de reavaliação incluirão: taxa de exacerbações moderadas e graves, evolução do VEF1, escore CAT, qualidade de vida e monitoramento de eosinófilos.
+        ${d.clinResume ? `<br><br><em>Informações adicionais: ${d.clinResume}</em>` : ''}
+        <br><br>
+        Este laudo é fundamentado nos estudos pivotais ${dr.studies}, nas diretrizes GOLD 2025 e na bula do produto aprovada pela ANVISA.
+      </p>
+    </div>`;
+
+  document.getElementById('rep-body').innerHTML = body;
+  document.getElementById('rep-doc-sig').innerHTML =
+    `${d.docName||'Médico Responsável'}<br>
+     <span style="font-size:11px;">${d.docCRM||''} · ${d.docRQE||''}</span><br>
+     <span style="font-size:11px;">${d.docInst||''}</span>`;
+
+  document.getElementById('rep-refs').innerHTML = `
+    <strong style="display:block;margin-bottom:5px;color:var(--slate);">📚 Referências Científicas</strong>
+    <ol>
+      <li>Global Initiative for Chronic Obstructive Lung Disease (GOLD). Global Strategy for COPD Management and Prevention, 2025 Report. goldcopd.org</li>
+      <li>Bhatt SP, et al. Dupilumab for COPD with Type 2 Inflammation (BOREAS). <em>N Engl J Med.</em> 2023;389:205-214.</li>
+      <li>Bhatt SP, et al. Dupilumab for COPD (NOTUS). <em>N Engl J Med.</em> 2024. doi:10.1056/NEJMoa2401304</li>
+      <li>Sciurba FC, et al. Mepolizumab to Prevent Exacerbations of COPD (MATINEE). <em>N Engl J Med.</em> 2025;392:1710-1720.</li>
+      <li>Pavord ID, et al. Mepolizumab for Eosinophilic COPD (METREX). <em>N Engl J Med.</em> 2017;377:1613-1629.</li>
+      <li>ANVISA. Dupixent (dupilumabe) — Nova Indicação DPOC. Bula aprovada 25/11/2024. gov.br/anvisa</li>
+      <li>ANVISA. Resolução RE nº 1.583/2026, de 22/04/2026 — nova indicação do Nucala (mepolizumabe) para DPOC.</li>
+      <li>ANS — Resolução Normativa nº 651, de 24/11/2025 (vigência 02/03/2026): cobertura obrigatória do dupilumabe para DPOC grave com inflamação tipo 2 (altera a RN nº 465/2021).</li>
+      <li>Pitre T, et al. Biologic Therapies for COPD: Network Meta-Analysis. <em>COPD.</em> 2025;22:2449889.</li>
+      <li>SBPT / Jornal Brasileiro de Pneumologia. Recomendações para Manejo da DPOC. 2025.</li>
+    </ol>`;
+
+  setStep(3);
+}
+
+/* =============================================
+   NAV
+   ============================================= */
+function goForm()     { setStep(1); }
+
+/* =============================================
+   INIT
+   ============================================= */
+
+/* =============================================
+   RECEITA + PERFIL MÉDICO (merged from file b)
+   ============================================= */
+const PA_PROFILE_KEY = 'pneumoagents_dpoc_imuno_v1_profile';
+
+function escTxt(s){
+  return String(s==null?'':s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+
+function brDateISO(iso){
+  if(!iso) return '__/__/____';
+  const p = String(iso).split('-');
+  if(p.length!==3) return iso;
+  return p[2]+'/'+p[1]+'/'+p[0];
+}
+
+function loadDoctorProfile(){
+  try{
+    const raw = localStorage.getItem(PA_PROFILE_KEY);
+    if(!raw) return;
+    const p = JSON.parse(raw);
+    const map = [
+      ['docName','docName'],['docCRM','docCRM'],['docCNS','docCNS'],
+      ['docInst','docInst'],['docCNES','docCNES'],['docHeader','docHeader'],['docRQE','docRQE']
+    ];
+    map.forEach(([k,id])=>{
+      const el = document.getElementById(id);
+      if(el && p[k] && !el.value) el.value = p[k];
+    });
+  }catch(e){}
+}
+
+function saveDoctorProfile(){
+  try{
+    const p = {
+      docName: (document.getElementById('docName')||{}).value||'',
+      docCRM: (document.getElementById('docCRM')||{}).value||'',
+      docCNS: (document.getElementById('docCNS')||{}).value||'',
+      docInst: (document.getElementById('docInst')||{}).value||'',
+      docCNES: (document.getElementById('docCNES')||{}).value||'',
+      docHeader: (document.getElementById('docHeader')||{}).value||'',
+      docRQE: (document.getElementById('docRQE')||{}).value||''
+    };
+    localStorage.setItem(PA_PROFILE_KEY, JSON.stringify(p));
+  }catch(e){}
+}
+
+function defaultRxDose(drugKey){
+  const dr = DRUGS[drugKey];
+  if(!dr) return '';
+  return dr.dose_dpoc || '';
+}
+
+function goReceita(){
+  const drug = document.getElementById('selectedDrug').value;
+  if(!drug){ alert('Selecione o medicamento na etapa de decisão antes de gerar a receita.'); return; }
+  if(typeof pd === 'undefined' || !pd){ pd = collectData(); }
+  const doseEl = document.getElementById('rxDose');
+  if(doseEl && !doseEl.value) doseEl.value = defaultRxDose(drug);
+  renderReceita();
+  setStep(5);
+}
+
+function renderReceita(){
+  const drug = document.getElementById('selectedDrug').value;
+  const d = (typeof pd !== 'undefined' && pd) ? pd : collectData();
+  const dr = DRUGS[drug] || { name: drug||'—', brand:'', dose_dpoc:'' };
+  const dose = (document.getElementById('rxDose')||{}).value || dr.dose_dpoc || '';
+  const qty = (document.getElementById('rxQty')||{}).value || 'Conforme posologia';
+  const dur = (document.getElementById('rxDuration')||{}).value || '3 meses';
+  const dateStr = d.docDate ? brDateISO(d.docDate) : new Date().toLocaleDateString('pt-BR');
+  const goldLabel = {1:'I',2:'II',3:'III',4:'IV'}[d.goldStage] || '—';
+  const header = d.docHeader || d.docInst || '';
+  const ageYears = d.patDOB ? Math.floor((new Date()-new Date(d.patDOB))/31557600000) : null;
+  const ageStr = (ageYears!=null && !isNaN(ageYears)) ? (ageYears+' anos') : '—';
+
+  const maint = [
+    d.tLAMA?'LAMA':'', d.tLABA?'LABA':'', d.tICS?'ICS/CI':(d.tICS_CI?'(ICS contraindicado)':'')
+  ].filter(Boolean).join(' + ') || 'Manter terapia inalatória otimizada conforme prescrição prévia';
+
+  const htmlRx = `
+  <div class="rx-sheet">
+    <div style="text-align:center;margin-bottom:12px;">
+      <div style="font-weight:800;font-size:16px;">Receituário Médico — DPOC</div>
+      <div style="font-size:12px;color:#555;">PneumoAgents · DPOC Imunobiológicos · apoio à prescrição</div>
+      ${header?`<div style="margin-top:6px;font-weight:700;">${escTxt(header)}</div>`:''}
+    </div>
+    <p><b>Paciente:</b> ${escTxt(d.patName||'—')}${d.patDOB?' — DN '+brDateISO(d.patDOB)+' ('+ageStr+')':''}
+      ${d.patCPF?' — CPF '+escTxt(d.patCPF):''}${d.patCNS?' — CNS '+escTxt(d.patCNS):''}</p>
+    <p><b>Diagnóstico:</b> DPOC (CID-10 J44.x) — GOLD ${goldLabel}
+      ${d.eos?` · Eos ${d.eos} céls/µL`:''}
+      ${d.exac!=null?` · Exacerbações/ano: ${d.exac}`:''}</p>
+    <table style="width:100%;border-collapse:collapse;margin:12px 0;font-size:13px;">
+      <tr style="background:#f0f4f8;">
+        <th style="border:1px solid #333;padding:6px;text-align:left;">Medicamento</th>
+        <th style="border:1px solid #333;padding:6px;text-align:left;">Posologia</th>
+        <th style="border:1px solid #333;padding:6px;text-align:left;">Quantidade / duração</th>
+      </tr>
+      <tr>
+        <td style="border:1px solid #333;padding:6px;"><b>${escTxt(dr.name)}</b> ${dr.brand?('('+escTxt(dr.brand)+')'):''}</td>
+        <td style="border:1px solid #333;padding:6px;">${escTxt(dose)}</td>
+        <td style="border:1px solid #333;padding:6px;">${escTxt(qty)} · ${escTxt(dur)}</td>
+      </tr>
+      <tr>
+        <td style="border:1px solid #333;padding:6px;">Terapia inalatória de manutenção</td>
+        <td style="border:1px solid #333;padding:6px;" colspan="2">${escTxt(maint)} — uso contínuo; revisar técnica inalatória</td>
+      </tr>
+      <tr>
+        <td style="border:1px solid #333;padding:6px;">Broncodilatador de resgate</td>
+        <td style="border:1px solid #333;padding:6px;" colspan="2">Conforme plano de ação e orientação médica em dispneia/sibilância</td>
+      </tr>
+    </table>
+    <p style="font-size:12px;"><b>Orientações:</b> vacinas atualizadas; cessação tabágica quando aplicável; reabilitação pulmonar; plano de ação para exacerbação;
+      rastreio/tratamento de helmintíase antes do imunobiológico (conforme bula). Reavaliar resposta em ${escTxt(dr.review||'12–16 semanas')}.</p>
+    <p style="font-size:11px;color:#555;margin-top:10px;"><b>Aviso:</b> documento gerado por ferramenta educacional de apoio à decisão. Não substitui julgamento clínico, bula, GOLD, DUT/PCDT nem responsabilidade do médico assistente.</p>
+    <p style="margin-top:36px;font-size:13px;">_________________________________________<br>
+      ${escTxt(d.docName||'Médico(a)')}${d.docCRM?' — CRM '+escTxt(d.docCRM):''}${d.docRQE?' — '+escTxt(d.docRQE):''}<br>
+      ${dateStr}</p>
+  </div>`;
+  const box = document.getElementById('rx-preview');
+  if(box) box.innerHTML = htmlRx;
+}
+
+function printReceita(){
+  renderReceita();
+  // temporarily mark only rx for print via class on body
+  document.body.classList.add('print-rx');
+  window.print();
+  setTimeout(()=>document.body.classList.remove('print-rx'), 400);
+}
+
+function downloadReceitaTxt(){
+  renderReceita();
+  const box = document.getElementById('rx-preview');
+  const text = box ? box.innerText : '';
+  const blob = new Blob([text], {type:'text/plain;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'receita_dpoc_imunobiologico.txt';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadDoctorProfile();
+  ['docName','docCRM','docCNS','docInst','docCNES','docHeader','docRQE'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.addEventListener('change', saveDoctorProfile);
+  });
+  ['rxDose','rxQty','rxDuration'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.addEventListener('input', ()=>{ const _rx=document.getElementById('step-rx'); if(_rx && _rx.classList.contains('active')) renderReceita(); });
+  });
+
+  document.getElementById('docDate').valueAsDate = new Date();
+  document.getElementById('patCPF').addEventListener('input', function(){
+    this.value = this.value.replace(/\D/g,'').replace(/(\d{3})(\d)/,'$1.$2')
+      .replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2');
+  });
+  ['helmHistory'].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.addEventListener('change', () => {
+      const ha = document.getElementById('helm-active');
+      if(ha) ha.style.display = el.value==='active' ? 'block':'none';
+    });
+  });
+});
+</script>
+
+<footer class="no-print" style="max-width:1100px;margin:24px auto 40px;padding:0 18px;font-size:12px;color:var(--sub);line-height:1.5;">
+  <strong>PneumoAgents · DPOC Imunobiológicos v1.0 · unificado 09/2026</strong> —
+  conteúdo clínico preferencialmente de <em>Imunobiológicos na DPOC (a/c)</em>; LME/receita/perfil de
+  <em>Agente Clínico DPOC 2026 (b)</em>. Fontes: GOLD 2025, BOREAS/NOTUS, MATINEE, bulas ANVISA.
+  Status ANS/SUS/CONITEC: conforme declarado nas fontes — <strong>não afirma incorporação SUS sem evidência</strong>.
+  Pipeline (benralizumabe, tezepelumabe, itepekimabe): apenas informativo / em investigação.
+</footer>
+
+</body>
+</html>
