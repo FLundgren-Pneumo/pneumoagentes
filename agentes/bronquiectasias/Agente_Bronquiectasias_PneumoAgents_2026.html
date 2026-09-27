@@ -903,5 +903,6 @@ document.querySelectorAll('#nav button').forEach(btn=>btn.addEventListener('clic
 ids.forEach(id=>{const el=$(id);if(el)el.addEventListener('input',()=>{calculateAll();writeDraft()})})
 document.addEventListener('DOMContentLoaded',()=>{setVal('docDate',todayISO());loadDoctorProfile();renderCaseList();if(!loadDraft())newCase();else calculateAll();showStartupModal()})
 </script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "41331af379ba4c71af70c5689396f1b8"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
