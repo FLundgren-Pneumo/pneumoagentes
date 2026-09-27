@@ -1,0 +1,47 @@
+NODULO PULMONAR - REFERENCIAS
+Atualizacao: 27 de setembro de 2026
+
+Material educativo para pacientes. Nao substitui a consulta nem a orientacao
+da equipe de saude.
+
+1. MacMahon H, Naidich DP, Goo JM, et al.
+   Guidelines for Management of Incidental Pulmonary Nodules Detected on
+   CT Images: From the Fleischner Society 2017.
+   Radiology. 2017;284(1):228-243.
+   DOI: 10.1148/radiol.2017161659 | PMID: 28240562
+   (Nodulo solido < 6 mm em pessoa de baixo risco: sem acompanhamento de
+   rotina; intervalos dados em faixas e individualizados; nodulos
+   subsolidos/vidro fosco persistentes acompanhados por ate 5 anos;
+   nao se aplica a menores de 35 anos, imunossuprimidos, pessoas com cancer
+   ou programas de rastreamento.)
+
+2. Gould MK, Donington J, Lynch WR, et al.
+   Evaluation of individuals with pulmonary nodules: when is it lung cancer?
+   Diagnosis and management of lung cancer, 3rd ed: American College of
+   Chest Physicians evidence-based clinical practice guidelines.
+   Chest. 2013;143(5 Suppl):e93S-e120S.
+   DOI: 10.1378/chest.12-2351 | PMID: 23649456
+   (Definicao: opacidade arredondada de ate 3 cm; acima de 3 cm = massa;
+   revisar exames de imagem anteriores (grau 1C); nodulo solido estavel por
+   pelo menos 2 anos dispensa investigacao adicional (grau 2C); risco de
+   malignidade < 1% em nodulos < 5 mm em estudos de rastreamento.)
+
+3. Slatore CG, Wiener RS, Laing AD, et al.
+   What is a Lung Nodule? ATS Patient Education Series.
+   Am J Respir Crit Care Med. 2016;193(7):P11-P12.
+   DOI: 10.1164/rccm.1937P11 | PMID: 27035787
+   (Nodulos em ate metade dos adultos que fazem raio-X ou TC; causas usuais:
+   cicatriz, infeccao antiga curada, irritantes do ar; as vezes cancer
+   inicial; "menos de 5% de todos os nodulos se revelam cancer"; a maioria
+   nao precisa de biopsia; esperar alguns meses pelo controle e seguro.)
+
+NOTA EDITORIAL
+- O material original citava "90% a 95% benignos" sem fonte. Foi trocado
+  pela formulacao verificavel da ATS (menos de 5 em cada 100 nodulos sao
+  cancer) e pelo dado de < 1% nos nodulos < 5 mm (ACCP 2013).
+- "Fontes de referencia para o tom" foi substituido por referencias reais.
+- Tuberculose e granuloma sao citados como exemplos de cicatriz de infeccao
+  antiga, frequentes no Brasil.
+- Sinais para nao esperar o retorno (sangue no catarro, piora de falta de
+  ar ou dor no peito, perda de peso) sao orientacao geral de seguranca,
+  acrescentada pela revisao PneumoAgents.

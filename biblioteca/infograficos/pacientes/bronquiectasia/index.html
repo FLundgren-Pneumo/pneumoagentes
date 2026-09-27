@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="O que é a bronquiectasia, sintomas, exames, acompanhamento, cuidados diários e sinais de alerta.">
+  <title>Bronquiectasia | Material para pacientes</title>
+  <style>
+    :root {
+      --navy: #15344a;
+      --blue: #24789a;
+      --cyan: #dff2f4;
+      --orange: #dc6b3d;
+      --orange-light: #fff0e7;
+      --green: #21755b;
+      --green-light: #e5f3ec;
+      --yellow: #f5cf72;
+      --red: #b93636;
+      --ink: #18323b;
+      --muted: #526a71;
+      --line: #cbdde0;
+      --paper: #f2f7f7;
+      --white: #fff;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+    }
+    .toolbar {
+      position: sticky;
+      z-index: 10;
+      top: 0;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,.96);
+    }
+    .button {
+      padding: 10px 15px;
+      border: 2px solid var(--navy);
+      border-radius: 9px;
+      color: white;
+      background: var(--navy);
+      font: inherit;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .button.secondary { color: var(--navy); background: white; }
+    .sheet {
+      width: 1080px;
+      min-height: 1528px;
+      margin: 24px auto;
+      overflow: hidden;
+      background: white;
+      box-shadow: 0 12px 35px rgba(21,52,74,.14);
+    }
+    header {
+      display: grid;
+      grid-template-columns: 1.35fr .65fr;
+      min-height: 250px;
+      padding: 44px 58px 36px;
+      color: white;
+      background: linear-gradient(135deg, var(--navy), #205b71);
+    }
+    .kicker {
+      display: inline-block;
+      margin-bottom: 17px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      color: var(--navy);
+      background: #bde5e8;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    h1 { margin: 0; font-size: 59px; line-height: 1; letter-spacing: -2px; }
+    header p { max-width: 680px; margin: 18px 0 0; color: #deeff3; font-size: 23px; line-height: 1.28; }
+    .clock {
+      align-self: center;
+      justify-self: center;
+      width: 152px;
+      height: 152px;
+      border: 12px solid #bde5e8;
+      border-radius: 50%;
+      position: relative;
+    }
+    .clock::before, .clock::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 6px;
+      border-radius: 5px;
+      background: white;
+      transform-origin: 50% 0;
+    }
+    .clock::before { height: 47px; transform: rotate(180deg); }
+    .clock::after { height: 35px; transform: rotate(118deg); }
+    main { padding: 28px 58px 42px; }
+    .timeline {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+    .time {
+      padding: 15px;
+      border-radius: 13px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 800;
+    }
+    .time small { display: block; margin-top: 4px; font-size: 15px; font-weight: 600; }
+    .acute { color: #813617; background: var(--orange-light); }
+    .subacute { color: #735912; background: #fff6d9; }
+    .chronic { color: #175a45; background: var(--green-light); }
+    .alert {
+      padding: 17px 21px;
+      border-radius: 15px;
+      color: #5c1717;
+      background: #fae4e4;
+      border-left: 7px solid var(--red);
+    }
+    .alert h2 { margin: 0 0 6px; font-size: 23px; }
+    .alert p { margin: 0; font-size: 17px; line-height: 1.34; }
+    .columns { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 22px; }
+    .panel {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: white;
+    }
+    .panel-title { padding: 19px 23px; color: white; }
+    .panel-title h2 { margin: 0; font-size: 29px; }
+    .panel-title p { margin: 5px 0 0; font-size: 16px; opacity: .9; }
+    .acute-head { background: var(--orange); }
+    .chronic-head { background: var(--green); }
+    .panel-body { padding: 19px 23px 21px; }
+    h3 { margin: 0 0 8px; color: var(--navy); font-size: 20px; }
+    ul { margin: 0 0 17px; padding-left: 21px; }
+    li { margin: 5px 0; font-size: 16px; line-height: 1.3; }
+    .step {
+      display: grid;
+      grid-template-columns: 37px 1fr;
+      gap: 10px;
+      align-items: start;
+      margin: 10px 0;
+    }
+    .number {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      color: white;
+      background: var(--navy);
+      font-weight: 900;
+    }
+    .step p { margin: 4px 0 0; font-size: 16px; line-height: 1.3; }
+    .pearl {
+      margin-top: 13px;
+      padding: 13px 15px;
+      border-radius: 12px;
+      background: var(--cyan);
+      font-size: 15px;
+      line-height: 1.34;
+    }
+    .bottom {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .card {
+      padding: 18px 21px;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      background: #f8fbfb;
+    }
+    .card h2 { margin: 0 0 9px; color: var(--navy); font-size: 22px; }
+    .card p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.36; }
+    .references {
+      margin-top: 20px;
+      padding-top: 13px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.3;
+    }
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 16px 58px;
+      color: #dcecf0;
+      background: var(--navy);
+      font-size: 13px;
+    }
+    @media (max-width: 1100px) {
+      .sheet { width: 100%; min-height: auto; margin: 0; box-shadow: none; }
+    }
+    @media (max-width: 760px) {
+      header { grid-template-columns: 1fr; padding: 34px 24px; }
+      h1 { font-size: 44px; }
+      .clock { display: none; }
+      main { padding: 22px 20px 32px; }
+      .timeline, .columns, .bottom { grid-template-columns: 1fr; }
+      footer { padding: 16px 20px; }
+    }
+    @page { size: 210mm 297mm; margin: 0; }
+    @media print {
+      body { background: white; }
+      .toolbar { display: none; }
+      .sheet {
+        width: 210mm;
+        height: 297mm;
+        min-height: 297mm;
+        margin: 0;
+        box-shadow: none;
+        transform-origin: top left;
+      }
+    }
+  
+    .strip { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:20px; }
+    .strip.three { grid-template-columns:repeat(3,1fr); }
+    .chip { padding:13px 14px; border-radius:13px; background:var(--cyan); font-size:14.5px; line-height:1.3; }
+    .chip b { display:block; color:var(--navy); font-size:17px; margin-bottom:3px; }
+    table.t { width:100%; border-collapse:collapse; margin:4px 0 12px; font-size:14.5px; }
+    table.t th { background:var(--navy); color:#fff; text-align:left; padding:7px 9px; font-size:14px; }
+    table.t td { border-bottom:1px solid var(--line); padding:6px 9px; vertical-align:top; line-height:1.28; }
+    table.t tr:nth-child(even) td { background:#f6fafb; }
+    .mono { font-family: Consolas, "Courier New", monospace; font-size:14px; }
+    .blue-head { background: var(--blue); }
+    .navy-head { background: var(--navy); }
+    .red-head { background: var(--red); }
+    .note { margin-top:8px; font-size:13px; color:var(--muted); line-height:1.3; }
+    .pearl.warn { background: var(--orange-light); }
+    .icon { align-self:center; justify-self:center; font-size:92px; font-weight:900; color:#bde5e8; letter-spacing:-3px; }
+    li { font-size:15px; }
+    .step p { font-size:15px; }
+
+    :root { --navy:#0f4f4a; --blue:#0f766e; --cyan:#dcf5ef; --line:#c7e2dc; --paper:#f1f8f6; }
+    header { background: linear-gradient(135deg, #0f4f4a, #16806f) !important; }
+    .kicker { background:#c6f1e6; color:#0f4f4a; }
+    header p { color:#e3f7f1; }
+    .icon { color:#bdeee2; font-size:84px; }
+    li { font-size:17px; line-height:1.34; }
+    .step p { font-size:17px; line-height:1.34; }
+    .chip { font-size:15.5px; line-height:1.35; }
+    .card p { font-size:16px; color:#35504c; }
+    .pearl { font-size:16px; }
+    table.t { font-size:15.5px; }
+    .orange-head { background: var(--orange); }
+    .green-head { background: var(--green); }
+    @media (max-width: 760px) { .toolbar { flex-wrap: wrap; } .strip, .strip.three, .bottom { grid-template-columns: 1fr !important; } h1 { font-size: 40px; } }
+  </style>
+</head>
+<body>
+  <nav class="toolbar" aria-label="Exportação">
+    <button class="button" type="button" onclick="window.print()">Imprimir / exportar PDF</button>
+    <a class="button secondary" href="infografico.pdf" download>Baixar PDF pronto</a>
+    <a class="button secondary" href="referencias.txt">Referências</a>
+    <a class="button secondary" href="../index.html">Infográficos</a>
+    <a class="button secondary" href="../../../../index.html">Voltar ao PneumoAgents</a>
+  </nav>
+  <article class="sheet">
+    <header>
+      <div>
+        <span class="kicker">Orientação ao paciente</span>
+        <h1>Bronquiec&shy;tasia</h1>
+        <p>Entenda a doença e cuide melhor dos seus pulmões.</p>
+      </div>
+      <div class="icon" aria-hidden="true"><svg width="150" height="150" viewBox="0 0 120 120" fill="none" stroke="#bdeee2" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" style="display:block"><path d="M60 10v34"/><path d="M60 44c-6 6-12 10-20 12"/><path d="M60 44c6 6 12 10 20 12"/><path d="M40 56c-4 8-6 16-6 26"/><path d="M40 56c-8 4-14 10-17 18"/><path d="M80 56c4 8 6 16 6 26"/><path d="M80 56c8 4 14 10 17 18"/><path d="M50 30c-18 0-36 20-36 52 0 16 8 26 20 26 12 0 16-8 16-20V36"/><path d="M70 30c18 0 36 20 36 52 0 16-8 26-20 26-12 0-16-8-16-20V36"/><circle cx="34" cy="86" r="5"/><circle cx="86" cy="86" r="5"/></svg></div>
+    </header>
+    <main>
+
+      <section class="columns" style="margin-top:0">
+        <article class="panel">
+          <div class="panel-title blue-head"><h2>O que é?</h2><p>Brônquios alargados, que acumulam muco</p></div>
+          <div class="panel-body">
+            <p style="margin:0 0 12px;font-size:17px;line-height:1.38">É a <b>dilatação anormal e permanente dos brônquios</b>, os tubos que levam o ar dentro dos pulmões. O muco fica mais difícil de eliminar e se acumula, o que favorece inflamação e infecções. Cada infecção pode piorar o problema: o tratamento serve para quebrar esse ciclo.</p>
+            <h3>Por que acontece</h3>
+            <ul>
+              <li>Infecções pulmonares no passado.</li>
+              <li>Problemas de imunidade (defesa contra infecções).</li>
+              <li>Doenças genéticas, como a discinesia ciliar primária.</li>
+              <li>Engasgos frequentes, com alimento ou líquido indo para o pulmão.</li>
+            </ul>
+            <div class="pearl">Em cerca de <b>4 em cada 10 pessoas</b>, a causa não é encontrada. A doença não volta atrás, <b>mas tem tratamento</b>: dá para diminuir sintomas e crises e proteger os pulmões.</div>
+          </div>
+        </article>
+        <article class="panel">
+          <div class="panel-title navy-head"><h2>Sintomas mais comuns</h2><p>Costumam surgir aos poucos, ao longo de anos</p></div>
+          <div class="panel-body">
+            <ul>
+              <li><b>Tosse persistente</b>, em geral com catarro.</li>
+              <li>Catarro em excesso ou mudança de cor.</li>
+              <li>Infecções respiratórias de repetição.</li>
+              <li>Falta de ar ou chiado.</li>
+              <li>Cansaço e dor ou aperto no peito.</li>
+              <li>Sangue no catarro pode ocorrer.</li>
+            </ul>
+            <h3>O que a tomografia mostra</h3>
+            <p style="margin:0;font-size:17px;line-height:1.38">A <b>tomografia de tórax de alta resolução</b> mostra os brônquios dilatados e de paredes grossas. É o principal exame para confirmar o diagnóstico e ver a extensão da doença.</p>
+          </div>
+        </article>
+      </section>
+
+      <h3 style="margin:22px 0 10px;font-size:22px">Exames que podem ser pedidos</h3>
+      <section class="strip three">
+        <div class="chip"><b>Tomografia de tórax</b>Confirma o diagnóstico e mostra onde estão os brônquios alargados.</div>
+        <div class="chip"><b>Espirometria</b>Mede a função dos pulmões e ajuda a acompanhar a evolução.</div>
+        <div class="chip"><b>Cultura do escarro</b>Mostra quais germes estão no catarro e orienta o antibiótico.</div>
+        <div class="chip"><b>Exames de sangue</b>Ajudam a procurar a causa, como problemas de imunidade.</div>
+        <div class="chip"><b>Oximetria</b>Mede o oxigênio no sangue pelo dedo, sem agulha.</div>
+        <div class="chip"><b>Broncoscopia</b>Exame por dentro dos brônquios, só em casos selecionados.</div>
+      </section>
+
+      <section class="columns" style="margin-top:0">
+        <article class="panel">
+          <div class="panel-title green-head"><h2>Por que acompanhar?</h2><p>Mesmo quando você está bem</p></div>
+          <div class="panel-body">
+            <p style="margin:0 0 10px;font-size:17px;line-height:1.38">O acompanhamento regular com pneumologista ajuda a:</p>
+            <ul>
+              <li>investigar a causa, porque algumas têm tratamento específico;</li>
+              <li>acompanhar a função pulmonar e os germes do catarro;</li>
+              <li>prevenir crises (exacerbações);</li>
+              <li>revisar as vacinas;</li>
+              <li>ajustar o tratamento e a fisioterapia respiratória.</li>
+            </ul>
+          </div>
+        </article>
+        <article class="panel">
+          <div class="panel-title blue-head"><h2>No dia a dia</h2><p>O que você pode fazer pelos seus pulmões</p></div>
+          <div class="panel-body"><div class="step"><span class="number">1</span><p>Faça a <b>limpeza dos brônquios</b> (fisioterapia respiratória) todos os dias, com as técnicas que o fisioterapeuta ensinar.</p></div>
+<div class="step"><span class="number">2</span><p>Use os remédios como combinado, <b>mesmo nos dias bons</b>.</p></div>
+<div class="step"><span class="number">3</span><p>Mantenha as <b>vacinas em dia</b>. Pergunte à equipe quais são indicadas para você.</p></div>
+<div class="step"><span class="number">4</span><p>Mexa-se: caminhada, bicicleta ou outra atividade regular ajudam a soltar o catarro. Quando indicado, faça reabilitação pulmonar.</p></div>
+<div class="step"><span class="number">5</span><p>Se você fuma ou usa cigarro eletrônico, pare. Evite fumaça e poluição.</p></div></div>
+        </article>
+      </section>
+
+      <section class="pearl warn" style="margin-top:20px;border-left:7px solid var(--orange)">
+        <h3 style="margin-bottom:6px;color:#813617">Atenção à piora</h3>
+        Mais tosse ou catarro, <b>mudança na cor do catarro</b>, febre, cansaço ou <b>aumento da falta de ar</b>: avise sua equipe de saúde sem demora. Se a equipe orientar, colha o catarro para cultura antes de começar o antibiótico.
+      </section>
+
+      <section class="alert" style="margin-top:16px">
+        <h2>Procure urgência se houver</h2>
+        <p><b>Falta de ar intensa</b>, lábios arroxeados, dor forte no peito ou <b>grande quantidade de sangue no catarro</b>.</p>
+      </section>
+
+      <div class="references">Fontes: Pereira MC et al. Consenso brasileiro sobre bronquiectasias não fibrocísticas. J Bras Pneumol. 2019;45(4):e20190122 (PMID 31411280); Thomson R et al. Management of Adult Bronchiectasis: an American College of Chest Physicians Clinical Practice Guideline. CHEST. 2026 (online 21/07/2026). doi:10.1016/j.chest.2026.06.057 (PMID 42480819); Chalmers JD et al. European Respiratory Society clinical practice guideline for the management of adult bronchiectasis. Eur Respir J. 2025;66(6):2501126 (PMID 41016738); American Thoracic Society, Patient Education Series: What is Bronchiectasis? Am J Respir Crit Care Med. 2017;195(8):P15-P16 (PMID 28409684) e Treating Bronchiectasis. 2017;196(10):P19-P20 (PMID 29140121). Lista completa em referencias.txt.</div>
+    </main>
+    <footer>
+      <span>PneumoAgents · Material educativo. Não substitui a consulta nem a orientação da sua equipe de saúde.</span>
+      <span>Versão 1.0.0 - 27/09/2026</span>
+    </footer>
+  </article>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "41331af379ba4c71af70c5689396f1b8"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
