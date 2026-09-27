@@ -3,341 +3,70 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PneumoAgents — agentes de apoio à decisão em pneumologia</title>
+  <title>PneumoAgents — pneumologia para pacientes e profissionais de saúde</title>
+  <meta name="description" content="PneumoAgents: materiais educativos em linguagem simples para pacientes e ferramentas de apoio à decisão em pneumologia para profissionais de saúde.">
   <style>
     :root{
       --bg:#0b1220; --card:#152238; --line:#243552; --ink:#e5eef8; --muted:#9fb3c8; --accent:#7dd3fc; --btn:#38bdf8; --btnink:#082f49;
+      --pac:#5eead4; --pacink:#042f2e;
     }
     *{box-sizing:border-box}
-    body{margin:0;font-family:system-ui,Segoe UI,sans-serif;background:var(--bg);color:var(--ink)}
-    .wrap{max-width:1100px;margin:0 auto;padding:28px 18px 48px}
-    .tag{color:var(--accent);font-size:11px;text-transform:uppercase;letter-spacing:.07em;font-weight:650}
-    h1{font-size:1.85rem;margin:.35rem 0 .75rem}
-    .lead{color:var(--muted);line-height:1.5;max-width:46rem;margin:0 0 1.25rem}
-    .group{margin-top:28px}
-    .group-title{display:flex;align-items:baseline;gap:10px;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid var(--line)}
-    .group-title h2{margin:0;font-size:1.05rem;font-weight:650}
-    .group-title .tag{margin:0}
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:14px;
-    }
-    @media (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
-    @media (max-width:620px){.grid{grid-template-columns:1fr}}
-    .card{
-      background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 16px 14px;
-      display:flex;flex-direction:column;min-height:100%;
-    }
-    .card.featured{border-color:#38bdf8;box-shadow:0 0 0 1px rgba(56,189,248,.25)}
-    .card h3{margin:6px 0 8px;font-size:1.05rem;line-height:1.25}
-    .card p{color:var(--muted);font-size:.88rem;line-height:1.45;margin:0 0 10px;flex:1}
-    .card ul{color:var(--muted);font-size:.8rem;line-height:1.45;margin:0 0 12px;padding-left:1.1rem}
-    .card a.btn{
-      display:inline-block;align-self:flex-start;margin-top:auto;
-      background:var(--btn);color:var(--btnink);font-weight:700;text-decoration:none;
-      padding:8px 12px;border-radius:9px;font-size:.86rem
-    }
-    .card a.btn:hover{filter:brightness(1.06)}
-    footer{margin-top:36px;color:#7a8fa6;font-size:.78rem}
-    code{font-size:.78em;color:#c7d7ea}
-    .acesso{margin:6px 0 8px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--btn);border-radius:14px;padding:16px 16px 14px}
-    .acesso h2{margin:.25rem 0 .8rem;font-size:1.1rem;font-weight:650}
-    .acesso-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-    @media (max-width:900px){.acesso-grid{grid-template-columns:repeat(2,1fr)}}
-    @media (max-width:620px){.acesso-grid{grid-template-columns:1fr}}
-    .acesso-item{background:var(--bg);border:1px solid var(--line);border-radius:11px;padding:12px}
-    .acesso-item b{display:block;color:var(--ink);font-size:.93rem;margin-bottom:5px}
-    .acesso-item p{color:var(--muted);font-size:.84rem;line-height:1.45;margin:0}
-    .acesso-item.preco{border-color:#38bdf8}
-    .acesso-item .valor{color:var(--accent);font-weight:700;white-space:nowrap}
-    .acesso-nota{color:#7a8fa6;font-size:.78rem;line-height:1.45;margin:.8rem 0 0}
+    body{margin:0;font-family:system-ui,Segoe UI,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
+    .wrap{max-width:1000px;margin:0 auto;padding:40px 18px 40px;min-height:100vh;display:flex;flex-direction:column}
+    .tag{color:var(--accent);font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:650}
+    h1{font-size:2.3rem;margin:.35rem 0 .6rem;letter-spacing:-.02em}
+    .lead{color:var(--muted);line-height:1.55;max-width:44rem;margin:0 0 1.8rem;font-size:1.05rem}
+    .portas{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    @media (max-width:720px){.portas{grid-template-columns:1fr} h1{font-size:1.9rem} .wrap{padding-top:28px}}
+    .porta{position:relative;display:flex;flex-direction:column;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:26px 24px 24px;text-decoration:none;color:var(--ink);transition:transform .12s ease,border-color .12s ease,box-shadow .12s ease;min-height:280px}
+    .porta:hover,.porta:focus-visible{transform:translateY(-2px)}
+    .porta:focus-visible{outline:3px solid #fde68a;outline-offset:3px}
+    .porta.pac{border-top:6px solid var(--pac)}
+    .porta.pac:hover{border-color:var(--pac);box-shadow:0 0 0 1px rgba(94,234,212,.3)}
+    .porta.prof{border-top:6px solid var(--btn)}
+    .porta.prof:hover{border-color:var(--btn);box-shadow:0 0 0 1px rgba(56,189,248,.3)}
+    .icone{width:56px;height:56px;border-radius:16px;display:grid;place-items:center}
+    .pac .icone{background:rgba(94,234,212,.14)}
+    .prof .icone{background:rgba(56,189,248,.14)}
+    .porta h2{margin:4px 0 0;font-size:1.6rem;letter-spacing:-.01em}
+    .porta p{margin:0;color:var(--muted);line-height:1.5;font-size:.98rem;flex:1}
+    .porta .para{font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+    .pac .para{color:var(--pac)}
+    .prof .para{color:var(--accent)}
+    .entrar{align-self:flex-start;margin-top:6px;padding:11px 16px;border-radius:11px;font-weight:800;font-size:.98rem}
+    .pac .entrar{background:var(--pac);color:var(--pacink)}
+    .prof .entrar{background:var(--btn);color:var(--btnink)}
+    .nota{margin:22px 0 0;color:#8aa0b8;font-size:.86rem;line-height:1.5;max-width:46rem}
+    footer{margin-top:auto;padding-top:34px;color:#7a8fa6;font-size:.78rem;line-height:1.5}
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="tag">PneumoAgents</div>
-    <h1>Agentes de apoio à decisão em pneumologia</h1>
-    <p class="lead">Ferramentas em HTML para apoio à decisão clínica em pneumologia, baseadas em diretrizes e com referências em cada agente. Uso educativo, voltado a médicos: não substituem o julgamento clínico nem a avaliação individual do paciente. Agentes marcados com <b>teste 7 dias</b> pedem cadastro (nome, e-mail, CRM/UF) no primeiro acesso.</p>
-    <p class="lead" style="margin-top:-.6rem"><a href="#biblioteca" style="color:var(--accent)">Ir para a Biblioteca (escalas e infográficos)</a></p>
+    <h1>Pneumologia com informação confiável</h1>
+    <p class="lead">Materiais em linguagem simples para pacientes e ferramentas de apoio à decisão para profissionais de saúde. Escolha a área certa para você.</p>
 
-    <section class="acesso" id="acesso" aria-labelledby="acesso-titulo">
-      <div class="tag">Acesso e atualizações</div>
-      <h2 id="acesso-titulo">Como funciona o acesso ao PneumoAgents</h2>
-      <div class="acesso-grid">
-        <div class="acesso-item">
-          <b>Acesso livre</b>
-          <p>O acesso ao portal é livre. Agentes, escalas e infográficos podem ser usados sem custo; a exceção é o uso continuado dos agentes com período de teste.</p>
-        </div>
-        <div class="acesso-item">
-          <b>Atualização a cada 4 meses</b>
-          <p>Os agentes apresentados são atualizados a cada 4 meses.</p>
-        </div>
-        <div class="acesso-item">
-          <b>Bibliografia sempre ampliada</b>
-          <p>A bibliografia e as referências dos agentes e da Biblioteca são acrescentadas continuamente.</p>
-        </div>
-        <div class="acesso-item preco">
-          <b>Teste gratuito e taxa de uso</b>
-          <p>Alguns agentes podem ser usados gratuitamente por um período de teste (hoje, 7 dias: EspiroLab2, Pré-operatório e SIA·PRO). O uso continuado tem taxa de <span class="valor">R$ 100,00 por semestre</span> de uso.</p>
-        </div>
-      </div>
-      <p class="acesso-nota">Conteúdo educativo de apoio à decisão para médicos; não substitui o julgamento clínico nem a avaliação individual do paciente.</p>
-    </section>
+    <nav class="portas" aria-label="Escolha a sua área">
+      <a class="porta pac" href="pacientes/index.html">
+        <span class="icone" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#5eead4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></span>
+        <span class="para">Para pacientes e familiares</span>
+        <h2>Sou paciente</h2>
+        <p>Orientações simples sobre inaladores, espaçador, CPAP, lavagem nasal, vacinas, nódulo pulmonar e bronquiectasia. Para ler, imprimir e levar à consulta.</p>
+        <span class="entrar">Entrar na área do paciente →</span>
+      </a>
+      <a class="porta prof" href="profissional/index.html">
+        <span class="icone" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#7dd3fc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v6a4 4 0 0 0 8 0V3"/><path d="M10 13v2a5 5 0 0 0 10 0v-2"/><circle cx="20" cy="11" r="2"/></svg></span>
+        <span class="para">Para médicos e equipe de saúde</span>
+        <h2>Sou profissional de saúde</h2>
+        <p>Agentes de apoio à decisão, escalas e calculadoras, infográficos técnicos, acesso e preços. Contém doses e condutas.</p>
+        <span class="entrar">Entrar na área profissional →</span>
+      </a>
+    </nav>
 
-    <!-- Linha 1: função pulmonar + vias aéreas / asma -->
-    <section class="group">
-      <div class="group-title">
-        <span class="tag">Grupo</span>
-        <h2>Função pulmonar e vias aéreas (asma / rinite)</h2>
-      </div>
-      <div class="grid">
-        <article class="card featured">
-          <div class="tag">Hospedado · teste 7 dias</div>
-          <h3>EspiroLab2 / EspiroLaudo</h3>
-          <p>Laudos de espirometria com IA: OCR, equações BR, SBPT 2024, histórico e exportação.</p>
-          <ul>
-            <li>Após o teste: R$ 100,00 por semestre de uso</li>
-          </ul>
-          <a class="btn" href="agentes/espirolab2/espirolab2.html">Abrir EspiroLab2</a>
-        </article>
-        <article class="card">
-          <div class="tag">APS · SUS</div>
-          <h3>Asma na APS</h3>
-          <p>Diagnóstico, etapas GINA/PCDT 2026 (AIR/MART), medicamentos SUS, LME Fácil e encaminhamento.</p>
-          <ul>
-            <li>GINA 2026 · PCDT Portaria 43/2026</li>
-          </ul>
-          <a class="btn" href="agentes/asma-aps/asma-aps-sus.html">Abrir Asma APS</a>
-        </article>
-        <article class="card">
-          <div class="tag">Via aérea única</div>
-          <h3>Rinite</h3>
-          <p>AR↔BHR, comorbidades (asma, DPOC, SAOS, metabólica), lavagem nasal, imunobiológicos.</p>
-          <ul>
-            <li>Uso offline educacional</li>
-          </ul>
-          <a class="btn" href="agentes/rinite/rinite.html">Abrir Rinite</a>
-        </article>
-      </div>
-    </section>
-
-    <!-- Linha 2: DPOC / tabaco / SAOS-metabólico -->
-    <section class="group">
-      <div class="group-title">
-        <span class="tag">Grupo</span>
-        <h2>DPOC, tabagismo e SAOS / obesidade</h2>
-      </div>
-      <div class="grid">
-        <article class="card">
-          <div class="tag">DPOC · Tipo 2</div>
-          <h3>DPOC Imunobiológicos</h3>
-          <p>GOLD, biomarcadores T2, escolha de biológico, laudo, LME-SUS e receita — offline.</p>
-          <ul>
-            <li>v1.0 · unificado 09/2026</li>
-          </ul>
-          <a class="btn" href="agentes/dpoc-imunobiologicos/dpoc-imunobiologicos.html">Abrir DPOC</a>
-        </article>
-        <article class="card">
-          <div class="tag">APS · PNCT</div>
-          <h3>Tabagismo APS</h3>
-          <p>Protocolos PNCT/PCDT, Fagerström, carga tabágica, farmacoterapia do SUS (TRN, bupropiona) e situação de vareniclina/citisina.</p>
-          <ul>
-            <li>v2.2 · set/2026 · PCDT/INCA/RDC 855</li>
-          </ul>
-          <a class="btn" href="agentes/tabagismo-aps/tabagismo-aps.html">Abrir Tabagismo</a>
-        </article>
-        <article class="card">
-          <div class="tag">SAOS · ANVISA</div>
-          <h3>Tirzepatida · SAOS</h3>
-          <p>Relatório/carta on-label SAOS + obesidade; SURMOUNT-OSA; custos 1º ano; sem overclaim CPAP.</p>
-          <ul>
-            <li>ANVISA ≠ Rol ANS</li>
-          </ul>
-          <a class="btn" href="agentes/tirzepatida-saos/tirzepatida-saos.html">Abrir Tirzepatida</a>
-        </article>
-      </div>
-    </section>
-
-    <!-- Linha 3: infecção respiratória (TB + PAC guia + PAC decisão) -->
-    <section class="group">
-      <div class="group-title">
-        <span class="tag">Grupo</span>
-        <h2>Infecção respiratória (TB · PAC)</h2>
-      </div>
-      <div class="grid">
-        <article class="card">
-          <div class="tag">Infectologia</div>
-          <h3>Tuberculose pulmonar</h3>
-          <p>RHZE · RH 300/150 · ILTB/3HP · TB-DR com BPaL (NI 1/2025) e contexto OMS BPaLM — MS/SBPT.</p>
-          <ul>
-            <li>v set/2026 · BPaL deepen</li>
-          </ul>
-          <a class="btn" href="agentes/tuberculose/tuberculose-pulmonar.html">Abrir TB</a>
-        </article>
-        <article class="card">
-          <div class="tag">PAC · SIREVA</div>
-          <h3>Pneumonia (PAC) — guia</h3>
-          <p>SBPT 2018 · ATS/IDSA · ERS 2023 · ATS 2025/26 · vigilância SIREVA II/IAL.</p>
-          <ul>
-            <li>Auditoria set/2026 + SIREVA</li>
-          </ul>
-          <a class="btn" href="agentes/guia-pac/guia-pac.html">Abrir guia PAC</a>
-        </article>
-        <article class="card featured">
-          <div class="tag">PAC · decisão</div>
-          <h3>PAC — apoio à decisão</h3>
-          <p>CRB/CURB-65, critérios ATS, exames e empirismo por cenário · resumo A4.</p>
-          <ul>
-            <li>v1.0 · set/2026 · interativo</li>
-          </ul>
-          <a class="btn" href="agentes/pac-apoio-decisao/pac-apoio-decisao.html">Abrir apoio PAC</a>
-        </article>
-      </div>
-    </section>
-
-    <!-- Linha 4: vias / estrutura -->
-    <section class="group">
-      <div class="group-title">
-        <span class="tag">Grupo</span>
-        <h2>Vias / estrutura e imagem (bronquiectasias · CAT · TC)</h2>
-      </div>
-      <div class="grid">
-        <article class="card featured">
-          <div class="tag">CHEST 2026 · revisado</div>
-          <h3>Bronquiectasias</h3>
-          <p>TCAR, escores, microbiologia, clearance, exacerbações e terapias de longo prazo (macrolídeo, inalatório, brensocatibe).</p>
-          <ul>
-            <li>v2026.3 · set/2026 · CHEST/ACCP + SBPT + ERS</li>
-          </ul>
-          <a class="btn" href="agentes/bronquiectasias/bronquiectasias-2026.html">Abrir Bronquiectasias</a>
-        </article>
-        <article class="card featured">
-          <div class="tag">DPOC · liberado</div>
-          <h3>CAT PneumoAgents</h3>
-          <p>COPD Assessment Test (0–40): carga sintomática, corte ≥10 no contexto GOLD. </p>
-          <ul>
-            <li>Jones et al. · apoio educacional</li>
-          </ul>
-          <a class="btn" href="agentes/cat/cat.html">Abrir CAT</a>
-        </article>
-        <article class="card" style="opacity:.72;border-style:dashed">
-          <div class="tag">Em construção · não usar</div>
-          <h3>TAC Vision</h3>
-          <p>Viewer de TC / tampões mucosos ainda em construção. <strong>Não usar</strong> até liberação.</p>
-          <ul>
-            <li>Fora do fluxo clínico atual</li>
-          </ul>
-          <span class="btn" style="background:#334155;color:#94a3b8;cursor:not-allowed">Indisponível</span>
-        </article>
-        <article class="card">
-          <div class="tag">Imagem · DPI · novo</div>
-          <h3>TC de Tórax — Assistente</h3>
-          <p>Laudo + checklist de lesões elementares → padrão tomográfico (UIP 2022, PH 2020, PINE, PO, CPFE, ILA…), diferenciais, Fleischner 2017 e relatório A4.</p>
-          <ul>
-            <li>v1.0 · set/2026 · offline + IA opcional</li>
-          </ul>
-          <a class="btn" href="agentes/tc-torax/tc-torax-assistente.html">Abrir TC Tórax</a>
-        </article>
-      </div>
-    </section>
-
-    <!-- Linha 5: interstício (PH) + pré-operatório -->
-    <section class="group">
-      <div class="group-title">
-        <span class="tag">Grupo</span>
-        <h2>Interstício / DPI e pré-operatório</h2>
-      </div>
-      <div class="grid">
-        <article class="card">
-          <div class="tag">DPI · HP/PH</div>
-          <h3>Pneumonite de hipersensibilidade</h3>
-          <p>Fenótipos, DMD, ATS/CHEST/TSANZ, posologia rotulada — revisão PubMed. </p>
-          <ul>
-            <li>v1.4 · educacional</li>
-          </ul>
-          <a class="btn" href="agentes/pneumonite-hipersensibilidade/pneumonite-hipersensibilidade.html">Abrir PH</a>
-        </article>
-        <article class="card featured">
-          <div class="tag">Pré-op · teste 7 dias</div>
-          <h3>Pré-operatório / risco</h3>
-          <p>ARISCAT Canet 2010, STOP-BANG completo, laudo A4 em 1 página.</p>
-          <ul>
-            <li>v5.0 · 09/2026</li>
-            <li>Após o teste: R$ 100,00 por semestre de uso</li>
-          </ul>
-          <a class="btn" href="agentes/preoperatorio/preoperatorio.html">Abrir Pré-operatório</a>
-        </article>
-      </div>
-    </section>
-
-    <!-- Asma grave / imunobiológicos -->
-    <section class="group">
-      <div class="group-title">
-        <span class="tag">Grupo</span>
-        <h2>Asma grave e imunobiológicos</h2>
-      </div>
-      <div class="grid">
-        <article class="card">
-          <div class="tag">Asma grave · biológicos</div>
-          <h3>Decisor de biológicos na asma</h3>
-          <p>Critérios de indicação, escolha, posologia e monitoramento de biológicos na asma grave.</p>
-          <ul>
-            <li>Apoio educacional</li>
-          </ul>
-          <a class="btn" href="agentes/biologicos-asma/biologicos-asma.html">Abrir Biológicos Asma</a>
-        </article>
-        <article class="card">
-          <div class="tag">SIA·PRO · teste 7 dias</div>
-          <h3>SIA·PRO Imunobiológicos</h3>
-          <p>Imunobiológicos em asma grave: indicação, documentação e acompanhamento.</p>
-          <ul>
-            <li>v4.1</li>
-            <li>Após o teste: R$ 100,00 por semestre de uso</li>
-          </ul>
-          <a class="btn" href="agentes/sia-pro/sia-pro.html">Abrir SIA·PRO</a>
-        </article>
-      </div>
-    </section>
-
-    <section class="group" id="biblioteca">
-      <div class="group-title">
-        <span class="tag">Biblioteca</span>
-        <h2>Escalas, calculadoras e infográficos</h2>
-      </div>
-      <div class="grid">
-        <article class="card">
-          <div class="tag">Escalas</div>
-          <h3>Escalas e calculadoras</h3>
-          <p>42 escalas: DPOC, asma, bronquiectasias, fibrose, pneumonia, TEP, HP, SAOS, câncer de pulmão e mais.</p>
-          <ul>
-            <li>biblioteca/escalas</li>
-          </ul>
-          <a class="btn" href="biblioteca/escalas/00_INDICE.html.html">Abrir escalas</a>
-        </article>
-        <article class="card">
-          <div class="tag">Médicos</div>
-          <h3>Infográficos para médicos</h3>
-          <p>Resumos visuais com referências (tosse, inaladores e efeito estufa).</p>
-          <ul>
-            <li>biblioteca/infograficos/medicos</li>
-          </ul>
-          <a class="btn" href="biblioteca/infograficos/medicos/index.html">Abrir infográficos</a>
-        </article>
-        <article class="card">
-          <div class="tag">Pacientes</div>
-          <h3>Infográficos para pacientes</h3>
-          <p>Materiais educativos para pacientes.</p>
-          <ul>
-            <li>biblioteca/infograficos/pacientes</li>
-          </ul>
-          <a class="btn" href="biblioteca/infograficos/pacientes/index.html">Abrir para pacientes</a>
-        </article>
-      </div>
-    </section>
+    <p class="nota">Todo o conteúdo do PneumoAgents é educativo e não substitui a consulta, o julgamento clínico nem a avaliação individual.</p>
 
     <footer>
-      PneumoAgents · Dr. Fernando Lundgren · © 2026 · Conteúdo educativo de apoio à decisão para médicos; não substitui o julgamento clínico. O teste gratuito é controlado neste navegador.
+      PneumoAgents · Dr. Fernando Lundgren · © 2026
     </footer>
   </div>
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "41331af379ba4c71af70c5689396f1b8"}'></script><!-- End Cloudflare Web Analytics -->
