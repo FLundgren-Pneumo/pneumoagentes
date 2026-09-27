@@ -41,6 +41,17 @@
     .card a.btn:hover{filter:brightness(1.06)}
     footer{margin-top:36px;color:#7a8fa6;font-size:.78rem}
     code{font-size:.78em;color:#c7d7ea}
+    .acesso{margin:6px 0 8px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--btn);border-radius:14px;padding:16px 16px 14px}
+    .acesso h2{margin:.25rem 0 .8rem;font-size:1.1rem;font-weight:650}
+    .acesso-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    @media (max-width:900px){.acesso-grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:620px){.acesso-grid{grid-template-columns:1fr}}
+    .acesso-item{background:var(--bg);border:1px solid var(--line);border-radius:11px;padding:12px}
+    .acesso-item b{display:block;color:var(--ink);font-size:.93rem;margin-bottom:5px}
+    .acesso-item p{color:var(--muted);font-size:.84rem;line-height:1.45;margin:0}
+    .acesso-item.preco{border-color:#38bdf8}
+    .acesso-item .valor{color:var(--accent);font-weight:700;white-space:nowrap}
+    .acesso-nota{color:#7a8fa6;font-size:.78rem;line-height:1.45;margin:.8rem 0 0}
   </style>
 </head>
 <body>
@@ -49,6 +60,30 @@
     <h1>Agentes de apoio à decisão em pneumologia</h1>
     <p class="lead">Ferramentas em HTML para apoio à decisão clínica em pneumologia, baseadas em diretrizes e com referências em cada agente. Uso educativo, voltado a médicos: não substituem o julgamento clínico nem a avaliação individual do paciente. Agentes marcados com <b>teste 7 dias</b> pedem cadastro (nome, e-mail, CRM/UF) no primeiro acesso.</p>
     <p class="lead" style="margin-top:-.6rem"><a href="#biblioteca" style="color:var(--accent)">Ir para a Biblioteca (escalas e infográficos)</a></p>
+
+    <section class="acesso" id="acesso" aria-labelledby="acesso-titulo">
+      <div class="tag">Acesso e atualizações</div>
+      <h2 id="acesso-titulo">Como funciona o acesso ao PneumoAgents</h2>
+      <div class="acesso-grid">
+        <div class="acesso-item">
+          <b>Acesso livre</b>
+          <p>O acesso ao portal é livre. Agentes, escalas e infográficos podem ser usados sem custo; a exceção é o uso continuado dos agentes com período de teste.</p>
+        </div>
+        <div class="acesso-item">
+          <b>Atualização a cada 4 meses</b>
+          <p>Os agentes apresentados são atualizados a cada 4 meses.</p>
+        </div>
+        <div class="acesso-item">
+          <b>Bibliografia sempre ampliada</b>
+          <p>A bibliografia e as referências dos agentes e da Biblioteca são acrescentadas continuamente.</p>
+        </div>
+        <div class="acesso-item preco">
+          <b>Teste gratuito e taxa de uso</b>
+          <p>Alguns agentes podem ser usados gratuitamente por um período de teste (hoje, 7 dias: EspiroLab2, Pré-operatório e SIA·PRO). O uso continuado tem taxa de <span class="valor">R$ 100,00 por semestre</span> de uso.</p>
+        </div>
+      </div>
+      <p class="acesso-nota">Conteúdo educativo de apoio à decisão para médicos; não substitui o julgamento clínico nem a avaliação individual do paciente.</p>
+    </section>
 
     <!-- Linha 1: função pulmonar + vias aéreas / asma -->
     <section class="group">
@@ -62,6 +97,7 @@
           <h3>EspiroLab2 / EspiroLaudo</h3>
           <p>Laudos de espirometria com IA: OCR, equações BR, SBPT 2024, histórico e exportação.</p>
           <ul>
+            <li>Após o teste: R$ 100,00 por semestre de uso</li>
           </ul>
           <a class="btn" href="agentes/espirolab2/espirolab2.html">Abrir EspiroLab2</a>
         </article>
@@ -228,6 +264,7 @@
           <p>ARISCAT Canet 2010, STOP-BANG completo, laudo A4 em 1 página.</p>
           <ul>
             <li>v5.0 · 09/2026</li>
+            <li>Após o teste: R$ 100,00 por semestre de uso</li>
           </ul>
           <a class="btn" href="agentes/preoperatorio/preoperatorio.html">Abrir Pré-operatório</a>
         </article>
@@ -256,6 +293,7 @@
           <p>Imunobiológicos em asma grave: indicação, documentação e acompanhamento.</p>
           <ul>
             <li>v4.1</li>
+            <li>Após o teste: R$ 100,00 por semestre de uso</li>
           </ul>
           <a class="btn" href="agentes/sia-pro/sia-pro.html">Abrir SIA·PRO</a>
         </article>
