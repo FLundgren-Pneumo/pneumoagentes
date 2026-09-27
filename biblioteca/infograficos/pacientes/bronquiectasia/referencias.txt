@@ -1,0 +1,46 @@
+BRONQUIECTASIA - REFERENCIAS
+Atualizacao: 27 de setembro de 2026
+
+Material educativo para pacientes. Nao substitui a consulta nem a orientacao
+da equipe de saude.
+
+1. Pereira MC, Athanazio RA, Dalcin PTR, et al.
+   Consenso brasileiro sobre bronquiectasias nao fibrocisticas.
+   J Bras Pneumol. 2019;45(4):e20190122.
+   DOI: 10.1590/1806-3713/e20190122 | PMID: 31411280 | PMCID: PMC6733718
+
+2. Thomson R, Thornton C, Aksamit T, et al.
+   Management of Adult Bronchiectasis: An American College of Chest
+   Physicians Clinical Practice Guideline.
+   CHEST. 2026 (publicado online em 21/07/2026).
+   DOI: 10.1016/j.chest.2026.06.057 | PMID: 42480819
+   (Mesma referencia usada no Agente Bronquiectasias 2026 do PneumoAgents.)
+
+3. Chalmers JD, Haworth CS, Flume PA, et al.
+   European Respiratory Society clinical practice guideline for the
+   management of adult bronchiectasis.
+   Eur Respir J. 2025;66(6):2501126.
+   DOI: 10.1183/13993003.01126-2025 | PMID: 41016738
+
+4. Swenson C, Schraufnagel D, Sadikot R, et al.
+   What is Bronchiectasis? ATS Patient Education Series.
+   Am J Respir Crit Care Med. 2017;195(8):P15-P16.
+   DOI: 10.1164/rccm.1958P15 | PMID: 28409684
+   (Definicao; causas: infeccoes previas, imunidade, doencas geneticas,
+   aspiracao; cerca de 40% sem causa identificada; nao reversivel, mas
+   tratavel; sintomas e exacerbacao.)
+
+5. Swenson C, Schraufnagel D, Sadikot R, et al.
+   Treating Bronchiectasis. ATS Patient Education Series.
+   Am J Respir Crit Care Med. 2017;196(10):P19-P20.
+   DOI: 10.1164/rccm.19610P19 | PMID: 29140121
+   (Limpeza das vias aereas diaria, exercicio regular, parar de fumar e
+   evitar fumaca, vacinacao, reabilitacao pulmonar.)
+
+NOTA EDITORIAL
+- A imagem de tomografia do material original era ilustrativa/gerada e nao
+  foi usada.
+- Correcoes nas referencias do material original: ERS 2025 e volume 66(6),
+  e nao 65(6); o titulo correto da diretriz CHEST 2026 e "An American
+  College of Chest Physicians Clinical Practice Guideline"; o material da
+  ATS confirmado e de 2017 (nao foi localizada versao "atualizada em 2024").
