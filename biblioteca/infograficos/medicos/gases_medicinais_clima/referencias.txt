@@ -1,0 +1,166 @@
+GASES MEDICINAIS E ALTERACOES CLIMATICAS - REFERENCIAS
+Atualizacao: 27 de setembro de 2026
+
+Este material destina-se ao apoio educacional e nao substitui o julgamento
+clinico individualizado.
+
+Valores de GWP-100 e tempo de vida atmosferico: IPCC AR6 (ref. 10), salvo
+indicacao em contrario. Valores do IPCC AR5 (ref. 11) sao citados apenas para
+comparacao, porque ainda aparecem em boa parte da literatura clinica.
+
+REFERENCIAS NUMERADAS
+
+1. Fidler L, Green S, Wintemute K.
+   Pressurized metered-dose inhalers and their impact on climate change.
+   CMAJ. 2022;194(12):E460. DOI: 10.1503/cmaj.211747. PMID: 35347049.
+   (1 pMDI de 200 doses ~ 290 km de automovel; pMDI ~100 g CO2e por
+   acionamento vs. DPI/SMI <20 g; HFC de pMDI ~0,03% das emissoes globais;
+   ~3% da pegada do NHS; 1/3 dos rotulados como asmaticos sem asma.)
+
+2. Mikolasch TA, Stadler CI.
+   Our prescription for climate change: reduce and recycle inhalers!
+   Br J Gen Pract. 2020;70(690):30. DOI: 10.3399/bjgp20X707717.
+   PMID: 31879303.
+   (170 milhas [~274 km] por inalador, segundo o NICE; 42 inaladores de
+   salbutamol ~ um carro a mais na rua [media britanica de 7.134 milhas,
+   ~11.500 km, em 2017]; ~0,5% dos inaladores reciclados no Reino Unido;
+   recuperacao do propelente.)
+
+3. Braithwaite J, Smith CL, Leask E, et al.
+   Strategies and tactics to reduce the impact of healthcare on climate
+   change: systematic review. BMJ. 2024;387:e081284.
+   DOI: 10.1136/bmj-2024-081284. PMID: 39379104.
+   (Pegada do setor saude > 4,4% das emissoes globais.)
+
+4. Balakrishnan B, Callahan SJ, Cherian SV, et al.
+   Climate change for the pulmonologist: a focused review.
+   Chest. 2023;164(4):963-974. DOI: 10.1016/j.chest.2023.04.009.
+   PMID: 37054776. (Consultado o resumo; texto integral nao disponivel em
+   acesso aberto.)
+
+5. Pritchard JN.
+   The climate is changing for metered-dose inhalers and action is needed.
+   Drug Des Devel Ther. 2020;14:3043-3055. DOI: 10.2147/DDDT.S262141.
+   PMID: 32801643.
+   (pMDI desde 1956; Kigali em vigor em 2019; proporcao de doses por pMDI
+   em 15 mercados, Figura 5: Brasil ~88%, EUA 88%, Japao 34% - IQVIA, 12
+   meses ate jun/2019; Tabela 2: trocar todo pMDI por DPI mudaria o custo
+   total de medicamentos respiratorios no Brasil em +1%, e nao havia SABA
+   em DPI registrado no Brasil; pMDI segue necessario para muito jovens,
+   muito idosos e exacerbacoes; troca de dispositivo deve ser acordada com
+   o paciente.)
+
+6. Panigone S, Sandri F, Ferri R, Volpato A, Nudo E, Nicolini G.
+   Environmental impact of inhalers for respiratory diseases: decreasing
+   the carbon footprint while preserving patient-tailored treatment.
+   BMJ Open Respir Res. 2020;7(1):e000571.
+   DOI: 10.1136/bmjresp-2020-000571. PMID: 32238349.
+   (pMDI 82-119 g CO2e/acionamento vs. DPI ~8 g, produtos de um fabricante,
+   autores vinculados ao fabricante; HFA-152a reduziria ~85-90%.)
+
+7. Manisalidis I, Stavropoulou E, Stavropoulos A, Bezirtzoglou E.
+   Environmental and health impacts of air pollution: a review.
+   Front Public Health. 2020;8:14. DOI: 10.3389/fpubh.2020.00014.
+   PMID: 32154200.
+
+8. Sarabu C, Deonarine A, Leitner S, Fayanju O, Fisun M, Nadeau K.
+   Climate change and health informatics: pilot survey of perspectives
+   across the field. J Am Med Inform Assoc. 2022;29(12):2117-2123.
+   DOI: 10.1093/jamia/ocac199. PMID: 36264269.
+   (Identificado como o arquivo "health informatics.pdf" pela lista de
+   referencias: Lancet Countdown 2021, Dzau NEJM 2021, relatorio da OMS
+   para a COP26, Roizen 2011 e Fidler CMAJ 2022.)
+
+9. Wang J, DasSarma S.
+   Contributions of medical greenhouse gases to climate change and their
+   possible alternatives. Int J Environ Res Public Health.
+   2024;21(12):1548. DOI: 10.3390/ijerph21121548. PMID: 39767390.
+   (Saude 4-6% das emissoes globais; ~95% do anestesico volatil ventilado;
+   perdas de N2O canalizado; TIVA; ar em vez de SF6; C2F6 ~10.000 anos.
+   Atencao: a Tabela 1 deste artigo mistura valores de relatorios
+   diferentes e traz vida de 150 anos para o N2O, nao sustentada pelo
+   IPCC - nao utilizada.)
+
+10. Smith C, Nicholls ZRJ, Armour K, et al. The Earth's Energy Budget,
+    Climate Feedbacks, and Climate Sensitivity Supplementary Material. In:
+    Climate Change 2021: The Physical Science Basis. Contribution of
+    Working Group I to the Sixth Assessment Report of the IPCC (AR6).
+    Tabela 7.SM.7. https://www.ipcc.ch/report/ar6/wg1/downloads/report/IPCC_AR6_WGI_Chapter07_SM.pdf
+
+11. Myhre G, Shindell D, Breon F-M, et al. Anthropogenic and Natural
+    Radiative Forcing. In: Climate Change 2013: The Physical Science Basis.
+    Contribution of Working Group I to the Fifth Assessment Report of the
+    IPCC (AR5). Tabela 8.A.1.
+    https://www.ipcc.ch/site/assets/uploads/2018/02/WG1AR5_Chapter08_FINAL.pdf
+
+12. Janson C, Henderson R, Lofdahl M, Hedberg M, Sharma R, Wilkinson AJK.
+    Carbon footprint impact of the choice of inhalers for asthma and COPD.
+    Thorax. 2020;75(1):82-84. DOI: 10.1136/thoraxjnl-2019-213744.
+    PMID: 31699805. (17 vs. 439 kg CO2e por paciente/ano.)
+
+13. Wilkinson AJK, Braggins R, Steinbach I, Smith J.
+    Costs of switching to low global warming potential inhalers. An economic
+    and carbon footprint analysis of NHS prescription data in England.
+    BMJ Open. 2019;9(10):e028763. DOI: 10.1136/bmjopen-2018-028763.
+    PMID: 31662306.
+
+14. Bernat M, Boyer A, Roche M, et al.
+    Reducing the carbon footprint of general anaesthesia: a comparison of
+    total intravenous anaesthesia vs. a mixed anaesthetic strategy in 47,157
+    adult patients. Anaesthesia. 2024;79(3):309-317.
+    DOI: 10.1111/anae.16221. PMID: 38205529.
+
+15. Moussa G, Andreatta W, Ch'ng SW, et al.
+    Environmental effect of air versus gas tamponade in the management of
+    rhegmatogenous retinal detachment VR surgery: a multicentre study of
+    3,239 patients. PLoS One. 2022;17(1):e0263009.
+    DOI: 10.1371/journal.pone.0263009. PMID: 35081126.
+
+16. Brasil. Decreto no 11.666, de 24 de agosto de 2023. Promulga a Emenda
+    de Kigali ao Protocolo de Montreal. DOU 25/08/2023.
+    https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2023/decreto/d11666.htm
+    (Ratificacao depositada em 19/10/2022; cronograma de consumo de HFCs
+    para Partes do Artigo 5, grupo 1: 100% em 2024-2028, 90% em 2029-2034,
+    70% em 2035-2039, 50% em 2040-2044, 20% a partir de 2045.)
+
+17. Brasil. Decreto no 10.388, de 5 de junho de 2020. Institui o sistema de
+    logistica reversa de medicamentos domiciliares vencidos ou em desuso.
+    https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2020/decreto/d10388.htm
+
+18. Medicines and Healthcare products Regulatory Agency (MHRA). MHRA
+    approves world's first low-carbon version of COPD inhaler Trixeo
+    Aerosphere. 12 maio 2025 (autorizacao em 9 maio 2025).
+    https://www.gov.uk/government/news/mhra-approves-worlds-first-low-carbon-version-of-copd-inhaler-trixeo-aerosphere
+
+19. European Medicines Agency (EMA). First reformulation of an inhaled
+    medicine with environmentally friendly gas propellant. Jul 2025.
+    https://www.ema.europa.eu/en/news/first-reformulation-inhaled-medicine-environmentally-friendly-gas-propellant
+
+BIBLIOGRAFIA ENVIADA, CONSULTADA E NAO CITADA NO INFOGRAFICO
+- Chen R, Zhong N, Wang HY, et al. Efficacy and safety of
+  glycopyrrolate/formoterol fumarate metered dose inhaler (GFF MDI)
+  formulated using co-suspension delivery technology in Chinese patients
+  with COPD. Int J Chron Obstruct Pulmon Dis. 2020;15:43-56.
+  DOI: 10.2147/COPD.S223638. PMID: 32021143. (Ensaio de eficacia clinica;
+  nao traz dados ambientais.)
+- "Carbon footimprint.pdf": arquivo nao localizado no computador e nao
+  identificado com seguranca; nenhum dado atribuido a ele.
+
+LEITURA COMPLEMENTAR
+- Halpin DMG, Balmes J, Han MK, et al.; GOLD Science Committee. Climate
+  change and chronic obstructive pulmonary disease: a GOLD Science
+  Committee review. Am J Respir Crit Care Med. 2025;211(5):700-708.
+  DOI: 10.1164/rccm.202410-2058PP. PMID: 40072246.
+- Material relacionado no PneumoAgents: Inaladores e efeito estufa
+  (../inaladores_efeito_estufa/infografico-inaladores-efeito-estufa.html).
+
+NOTAS EDITORIAIS
+- Comparacoes com quilometros rodados dependem do produto e do veiculo de
+  referencia; sao ordens de grandeza, nao valores universais.
+- A reducao de 20 vezes com TIVA (ref. 14) refere-se apenas a pegada dos
+  hipnoticos, em estudo observacional de dois hospitais, e nao a pegada
+  total da cirurgia.
+- O Decreto 11.666/2023 trata do consumo total de HFCs no pais; nao impoe
+  prazo especifico para inaladores.
+- Disponibilidade de pMDIs com propelentes de baixo GWP no Brasil depende
+  de registro na Anvisa.
