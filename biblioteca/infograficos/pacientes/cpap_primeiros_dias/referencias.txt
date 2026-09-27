@@ -1,0 +1,28 @@
+CPAP NOS PRIMEIROS DIAS - REFERENCIAS
+Atualizacao: 27 de setembro de 2026
+
+Material educativo para pacientes. Nao substitui a consulta nem a orientacao
+da equipe de saude.
+
+1. Patil SP, Ayappa IA, Caples SM, et al.
+   Treatment of Adult Obstructive Sleep Apnea with Positive Airway Pressure:
+   An American Academy of Sleep Medicine Clinical Practice Guideline.
+   J Clin Sleep Med. 2019;15(2):335-343.
+   DOI: 10.5664/jcsm.7640
+   (PAP melhora sonolencia e qualidade de vida e reduz a pressao arterial em
+   hipertensos; recomenda intervencoes educacionais e de suporte no inicio.)
+
+2. Weaver TE, Grunstein RR.
+   Adherence to continuous positive airway pressure therapy: the challenge
+   to effective treatment. Proc Am Thorac Soc. 2008;5(2):173-8.
+   DOI: 10.1513/pats.200708-119MG
+   (Definicao usual de adesao: >=4 h/noite em >=70% das noites; relacao
+   dose-resposta entre horas de uso e beneficio.)
+
+3. Manuais de uso dos fabricantes de CPAP, umidificadores e mascaras
+   (limpeza, tipo de agua, troca de filtros e pecas, viagens/voltagem).
+
+NOTA EDITORIAL
+- As orientacoes da tabela "Incomodos comuns" sao condutas praticas de
+  suporte inicial; ajustes de pressao e troca de interface devem ser feitos
+  pela equipe assistente.

@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Adaptação ao CPAP: vazamento, ressecamento nasal, máscara e adesão inicial.">
+  <title>CPAP nos primeiros dias | Material para pacientes</title>
+  <style>
+    :root {
+      --navy: #15344a;
+      --blue: #24789a;
+      --cyan: #dff2f4;
+      --orange: #dc6b3d;
+      --orange-light: #fff0e7;
+      --green: #21755b;
+      --green-light: #e5f3ec;
+      --yellow: #f5cf72;
+      --red: #b93636;
+      --ink: #18323b;
+      --muted: #526a71;
+      --line: #cbdde0;
+      --paper: #f2f7f7;
+      --white: #fff;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+    }
+    .toolbar {
+      position: sticky;
+      z-index: 10;
+      top: 0;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,.96);
+    }
+    .button {
+      padding: 10px 15px;
+      border: 2px solid var(--navy);
+      border-radius: 9px;
+      color: white;
+      background: var(--navy);
+      font: inherit;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .button.secondary { color: var(--navy); background: white; }
+    .sheet {
+      width: 1080px;
+      min-height: 1528px;
+      margin: 24px auto;
+      overflow: hidden;
+      background: white;
+      box-shadow: 0 12px 35px rgba(21,52,74,.14);
+    }
+    header {
+      display: grid;
+      grid-template-columns: 1.35fr .65fr;
+      min-height: 250px;
+      padding: 44px 58px 36px;
+      color: white;
+      background: linear-gradient(135deg, var(--navy), #205b71);
+    }
+    .kicker {
+      display: inline-block;
+      margin-bottom: 17px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      color: var(--navy);
+      background: #bde5e8;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    h1 { margin: 0; font-size: 59px; line-height: 1; letter-spacing: -2px; }
+    header p { max-width: 680px; margin: 18px 0 0; color: #deeff3; font-size: 23px; line-height: 1.28; }
+    .clock {
+      align-self: center;
+      justify-self: center;
+      width: 152px;
+      height: 152px;
+      border: 12px solid #bde5e8;
+      border-radius: 50%;
+      position: relative;
+    }
+    .clock::before, .clock::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 6px;
+      border-radius: 5px;
+      background: white;
+      transform-origin: 50% 0;
+    }
+    .clock::before { height: 47px; transform: rotate(180deg); }
+    .clock::after { height: 35px; transform: rotate(118deg); }
+    main { padding: 28px 58px 42px; }
+    .timeline {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+    .time {
+      padding: 15px;
+      border-radius: 13px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 800;
+    }
+    .time small { display: block; margin-top: 4px; font-size: 15px; font-weight: 600; }
+    .acute { color: #813617; background: var(--orange-light); }
+    .subacute { color: #735912; background: #fff6d9; }
+    .chronic { color: #175a45; background: var(--green-light); }
+    .alert {
+      padding: 17px 21px;
+      border-radius: 15px;
+      color: #5c1717;
+      background: #fae4e4;
+      border-left: 7px solid var(--red);
+    }
+    .alert h2 { margin: 0 0 6px; font-size: 23px; }
+    .alert p { margin: 0; font-size: 17px; line-height: 1.34; }
+    .columns { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 22px; }
+    .panel {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: white;
+    }
+    .panel-title { padding: 19px 23px; color: white; }
+    .panel-title h2 { margin: 0; font-size: 29px; }
+    .panel-title p { margin: 5px 0 0; font-size: 16px; opacity: .9; }
+    .acute-head { background: var(--orange); }
+    .chronic-head { background: var(--green); }
+    .panel-body { padding: 19px 23px 21px; }
+    h3 { margin: 0 0 8px; color: var(--navy); font-size: 20px; }
+    ul { margin: 0 0 17px; padding-left: 21px; }
+    li { margin: 5px 0; font-size: 16px; line-height: 1.3; }
+    .step {
+      display: grid;
+      grid-template-columns: 37px 1fr;
+      gap: 10px;
+      align-items: start;
+      margin: 10px 0;
+    }
+    .number {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      color: white;
+      background: var(--navy);
+      font-weight: 900;
+    }
+    .step p { margin: 4px 0 0; font-size: 16px; line-height: 1.3; }
+    .pearl {
+      margin-top: 13px;
+      padding: 13px 15px;
+      border-radius: 12px;
+      background: var(--cyan);
+      font-size: 15px;
+      line-height: 1.34;
+    }
+    .bottom {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .card {
+      padding: 18px 21px;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      background: #f8fbfb;
+    }
+    .card h2 { margin: 0 0 9px; color: var(--navy); font-size: 22px; }
+    .card p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.36; }
+    .references {
+      margin-top: 20px;
+      padding-top: 13px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.3;
+    }
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 16px 58px;
+      color: #dcecf0;
+      background: var(--navy);
+      font-size: 13px;
+    }
+    @media (max-width: 1100px) {
+      .sheet { width: 100%; min-height: auto; margin: 0; box-shadow: none; }
+    }
+    @media (max-width: 760px) {
+      header { grid-template-columns: 1fr; padding: 34px 24px; }
+      h1 { font-size: 44px; }
+      .clock { display: none; }
+      main { padding: 22px 20px 32px; }
+      .timeline, .columns, .bottom { grid-template-columns: 1fr; }
+      footer { padding: 16px 20px; }
+    }
+    @page { size: 210mm 297mm; margin: 0; }
+    @media print {
+      body { background: white; }
+      .toolbar { display: none; }
+      .sheet {
+        width: 210mm;
+        height: 297mm;
+        min-height: 297mm;
+        margin: 0;
+        box-shadow: none;
+        transform-origin: top left;
+      }
+    }
+  
+    .strip { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:20px; }
+    .strip.three { grid-template-columns:repeat(3,1fr); }
+    .chip { padding:13px 14px; border-radius:13px; background:var(--cyan); font-size:14.5px; line-height:1.3; }
+    .chip b { display:block; color:var(--navy); font-size:17px; margin-bottom:3px; }
+    table.t { width:100%; border-collapse:collapse; margin:4px 0 12px; font-size:14.5px; }
+    table.t th { background:var(--navy); color:#fff; text-align:left; padding:7px 9px; font-size:14px; }
+    table.t td { border-bottom:1px solid var(--line); padding:6px 9px; vertical-align:top; line-height:1.28; }
+    table.t tr:nth-child(even) td { background:#f6fafb; }
+    .mono { font-family: Consolas, "Courier New", monospace; font-size:14px; }
+    .blue-head { background: var(--blue); }
+    .navy-head { background: var(--navy); }
+    .red-head { background: var(--red); }
+    .note { margin-top:8px; font-size:13px; color:var(--muted); line-height:1.3; }
+    .pearl.warn { background: var(--orange-light); }
+    .icon { align-self:center; justify-self:center; font-size:92px; font-weight:900; color:#bde5e8; letter-spacing:-3px; }
+    li { font-size:15px; }
+    .step p { font-size:15px; }
+
+    :root { --navy:#0f4f4a; --blue:#0f766e; --cyan:#dcf5ef; --line:#c7e2dc; --paper:#f1f8f6; }
+    header { background: linear-gradient(135deg, #0f4f4a, #16806f) !important; }
+    .kicker { background:#c6f1e6; color:#0f4f4a; }
+    header p { color:#e3f7f1; }
+    .icon { color:#bdeee2; font-size:84px; }
+    li { font-size:17px; line-height:1.34; }
+    .step p { font-size:17px; line-height:1.34; }
+    .chip { font-size:15.5px; line-height:1.35; }
+    .card p { font-size:16px; color:#35504c; }
+    .pearl { font-size:16px; }
+    table.t { font-size:15.5px; }
+    .orange-head { background: var(--orange); }
+    .green-head { background: var(--green); }
+  </style>
+</head>
+<body>
+  <nav class="toolbar" aria-label="Exportação">
+    <button class="button" type="button" onclick="window.print()">Imprimir / exportar PDF</button>
+    <a class="button secondary" href="infografico.pdf" download>Baixar PDF pronto</a>
+    <a class="button secondary" href="referencias.txt">Referências</a>
+    <a class="button secondary" href="../index.html">Infográficos</a>
+    <a class="button secondary" href="../../../../index.html">Voltar ao PneumoAgents</a>
+  </nav>
+  <article class="sheet">
+    <header>
+      <div>
+        <span class="kicker">Orientação ao paciente</span>
+        <h1>CPAP nos<br>primeiros dias</h1>
+        <p>As primeiras semanas são de adaptação. Pequenos ajustes resolvem a maioria dos incômodos.</p>
+      </div>
+      <div class="icon" aria-hidden="true">CPAP</div>
+    </header>
+    <main>
+
+      <section class="columns" style="margin-top:0">
+        <article class="panel">
+          <div class="panel-title blue-head"><h2>Nas primeiras semanas</h2><p>Acostumar leva tempo. Persistir faz diferença.</p></div>
+          <div class="panel-body">
+            <ul>
+              <li><b>Use todas as noites, a noite inteira</b>, e também nos cochilos.</li>
+              <li><b>Treine acordado:</b> use a máscara por alguns minutos lendo ou vendo TV, antes de dormir.</li>
+              <li>Se o aparelho tiver <b>rampa</b> (a pressão sobe aos poucos), use-a para pegar no sono.</li>
+              <li>Acordou sem a máscara? Coloque de volta e continue.</li>
+              <li><b>Quanto mais horas por noite, maior o benefício.</b> Nos estudos, considera-se uso adequado pelo menos 4 horas por noite em 70% das noites.</li>
+              <li>Leve o cartão ou o relatório do aparelho às consultas. Ele mostra horas de uso e vazamento.</li>
+            </ul>
+            <div class="pearl">O CPAP sopra ar sob pressão e mantém a garganta aberta durante o sono. Usado com regularidade, melhora a sonolência e a qualidade de vida e ajuda a baixar a pressão arterial de quem tem hipertensão.</div>
+          </div>
+        </article>
+        <article class="panel">
+          <div class="panel-title navy-head"><h2>Incômodos comuns</h2><p>O que costuma resolver</p></div>
+          <div class="panel-body">
+            <table class="t">
+              <tr><th style="width:34%">Problema</th><th>O que fazer</th></tr>
+              <tr><td><b>Vazamento de ar</b></td><td>Ajuste deitado, na posição de dormir e com o aparelho ligado. Apertar demais piora o vazamento. Máscara gasta ou de tamanho errado também vaza.</td></tr>
+              <tr><td><b>Boca seca, ar saindo pela boca</b></td><td>Pergunte à equipe sobre queixeira ou máscara de nariz e boca.</td></tr>
+              <tr><td><b>Nariz seco, entupido ou sangrando</b></td><td>Use o umidificador aquecido, se o aparelho tiver, e soro fisiológico no nariz. Se continuar, avise a equipe.</td></tr>
+              <tr><td><b>Marcas ou feridas no nariz</b></td><td>Afrouxe as tiras e reveja o modelo ou o tamanho da máscara. Ferida aberta precisa ser avaliada.</td></tr>
+              <tr><td><b>Sensação de sufocar</b></td><td>Treine acordado, respire devagar pelo nariz e use a rampa. Máscaras menores (almofadas nasais) podem ajudar.</td></tr>
+              <tr><td><b>Barriga estufada ou arrotos</b></td><td>Avise a equipe. <b>Não mude a pressão por conta própria.</b></td></tr>
+            </table>
+          </div>
+        </article>
+      </section>
+
+      <section class="strip three" style="margin-top:20px">
+        <div class="chip"><b>Máscara</b>Lave a almofada todos os dias com água morna e sabão neutro. Retire a oleosidade do rosto antes de colocar.</div>
+        <div class="chip"><b>Tubo e umidificador</b>Lave toda semana e deixe secar à sombra. Troque a água do umidificador todo dia, usando a água indicada no manual.</div>
+        <div class="chip"><b>Filtro e peças</b>Troque o filtro e a máscara no prazo do manual do fabricante. Não use álcool nem produtos perfumados.</div>
+      </section>
+
+      <section class="alert">
+        <h2>Procure a equipe se</h2>
+        <p>Você continuar com muito sono durante o dia, tiver feridas ou sangramento no nariz com frequência, dor de ouvido, ou não conseguir usar o aparelho por vários dias seguidos. <b>Não dirija com sono.</b></p>
+      </section>
+
+      <section class="bottom">
+        <div class="card"><h2>Não desista cedo</h2><p>A maioria das dificuldades aparece nas primeiras semanas e tem solução: ajuste da máscara, troca de modelo, umidificação ou revisão da pressão pela equipe. Conte o que está incomodando em vez de parar de usar.</p></div>
+        <div class="card"><h2>Viagens</h2><p>Leve o aparelho na bagagem de mão, com a receita ou o relatório médico. Confira no manual se o seu aparelho é bivolt e leve um adaptador de tomada.</p></div>
+      </section>
+
+      <div class="references">Fontes: Patil SP et al. AASM Clinical Practice Guideline, J Clin Sleep Med. 2019;15(2):335-343; Weaver TE, Grunstein RR. Proc Am Thorac Soc. 2008;5(2):173-8; manuais de uso dos fabricantes de CPAP e máscaras. Orientações práticas de limpeza e troca seguem o manual de cada aparelho. Lista completa em referencias.txt.</div>
+    </main>
+    <footer>
+      <span>PneumoAgents · Material educativo. Não substitui a consulta nem a orientação da sua equipe de saúde.</span>
+      <span>Versão 1.0.0 - 27/09/2026</span>
+    </footer>
+  </article>
+</body>
+</html>

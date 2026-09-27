@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Escore Z na espirometria: cálculo, interpretação e limites para graduação de gravidade.">
+  <title>Z-score em espirometria | Material para médicos</title>
+  <style>
+    :root {
+      --navy: #15344a;
+      --blue: #24789a;
+      --cyan: #dff2f4;
+      --orange: #dc6b3d;
+      --orange-light: #fff0e7;
+      --green: #21755b;
+      --green-light: #e5f3ec;
+      --yellow: #f5cf72;
+      --red: #b93636;
+      --ink: #18323b;
+      --muted: #526a71;
+      --line: #cbdde0;
+      --paper: #f2f7f7;
+      --white: #fff;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+    }
+    .toolbar {
+      position: sticky;
+      z-index: 10;
+      top: 0;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,.96);
+    }
+    .button {
+      padding: 10px 15px;
+      border: 2px solid var(--navy);
+      border-radius: 9px;
+      color: white;
+      background: var(--navy);
+      font: inherit;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .button.secondary { color: var(--navy); background: white; }
+    .sheet {
+      width: 1080px;
+      min-height: 1528px;
+      margin: 24px auto;
+      overflow: hidden;
+      background: white;
+      box-shadow: 0 12px 35px rgba(21,52,74,.14);
+    }
+    header {
+      display: grid;
+      grid-template-columns: 1.35fr .65fr;
+      min-height: 250px;
+      padding: 44px 58px 36px;
+      color: white;
+      background: linear-gradient(135deg, var(--navy), #205b71);
+    }
+    .kicker {
+      display: inline-block;
+      margin-bottom: 17px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      color: var(--navy);
+      background: #bde5e8;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    h1 { margin: 0; font-size: 59px; line-height: 1; letter-spacing: -2px; }
+    header p { max-width: 680px; margin: 18px 0 0; color: #deeff3; font-size: 23px; line-height: 1.28; }
+    .clock {
+      align-self: center;
+      justify-self: center;
+      width: 152px;
+      height: 152px;
+      border: 12px solid #bde5e8;
+      border-radius: 50%;
+      position: relative;
+    }
+    .clock::before, .clock::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 6px;
+      border-radius: 5px;
+      background: white;
+      transform-origin: 50% 0;
+    }
+    .clock::before { height: 47px; transform: rotate(180deg); }
+    .clock::after { height: 35px; transform: rotate(118deg); }
+    main { padding: 28px 58px 42px; }
+    .timeline {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+    .time {
+      padding: 15px;
+      border-radius: 13px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 800;
+    }
+    .time small { display: block; margin-top: 4px; font-size: 15px; font-weight: 600; }
+    .acute { color: #813617; background: var(--orange-light); }
+    .subacute { color: #735912; background: #fff6d9; }
+    .chronic { color: #175a45; background: var(--green-light); }
+    .alert {
+      padding: 17px 21px;
+      border-radius: 15px;
+      color: #5c1717;
+      background: #fae4e4;
+      border-left: 7px solid var(--red);
+    }
+    .alert h2 { margin: 0 0 6px; font-size: 23px; }
+    .alert p { margin: 0; font-size: 17px; line-height: 1.34; }
+    .columns { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 22px; }
+    .panel {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: white;
+    }
+    .panel-title { padding: 19px 23px; color: white; }
+    .panel-title h2 { margin: 0; font-size: 29px; }
+    .panel-title p { margin: 5px 0 0; font-size: 16px; opacity: .9; }
+    .acute-head { background: var(--orange); }
+    .chronic-head { background: var(--green); }
+    .panel-body { padding: 19px 23px 21px; }
+    h3 { margin: 0 0 8px; color: var(--navy); font-size: 20px; }
+    ul { margin: 0 0 17px; padding-left: 21px; }
+    li { margin: 5px 0; font-size: 16px; line-height: 1.3; }
+    .step {
+      display: grid;
+      grid-template-columns: 37px 1fr;
+      gap: 10px;
+      align-items: start;
+      margin: 10px 0;
+    }
+    .number {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      color: white;
+      background: var(--navy);
+      font-weight: 900;
+    }
+    .step p { margin: 4px 0 0; font-size: 16px; line-height: 1.3; }
+    .pearl {
+      margin-top: 13px;
+      padding: 13px 15px;
+      border-radius: 12px;
+      background: var(--cyan);
+      font-size: 15px;
+      line-height: 1.34;
+    }
+    .bottom {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .card {
+      padding: 18px 21px;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      background: #f8fbfb;
+    }
+    .card h2 { margin: 0 0 9px; color: var(--navy); font-size: 22px; }
+    .card p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.36; }
+    .references {
+      margin-top: 20px;
+      padding-top: 13px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.3;
+    }
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 16px 58px;
+      color: #dcecf0;
+      background: var(--navy);
+      font-size: 13px;
+    }
+    @media (max-width: 1100px) {
+      .sheet { width: 100%; min-height: auto; margin: 0; box-shadow: none; }
+    }
+    @media (max-width: 760px) {
+      header { grid-template-columns: 1fr; padding: 34px 24px; }
+      h1 { font-size: 44px; }
+      .clock { display: none; }
+      main { padding: 22px 20px 32px; }
+      .timeline, .columns, .bottom { grid-template-columns: 1fr; }
+      footer { padding: 16px 20px; }
+    }
+    @page { size: 210mm 297mm; margin: 0; }
+    @media print {
+      body { background: white; }
+      .toolbar { display: none; }
+      .sheet {
+        width: 210mm;
+        height: 297mm;
+        min-height: 297mm;
+        margin: 0;
+        box-shadow: none;
+        transform-origin: top left;
+      }
+    }
+  
+    .strip { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:20px; }
+    .strip.three { grid-template-columns:repeat(3,1fr); }
+    .chip { padding:13px 14px; border-radius:13px; background:var(--cyan); font-size:14.5px; line-height:1.3; }
+    .chip b { display:block; color:var(--navy); font-size:17px; margin-bottom:3px; }
+    table.t { width:100%; border-collapse:collapse; margin:4px 0 12px; font-size:14.5px; }
+    table.t th { background:var(--navy); color:#fff; text-align:left; padding:7px 9px; font-size:14px; }
+    table.t td { border-bottom:1px solid var(--line); padding:6px 9px; vertical-align:top; line-height:1.28; }
+    table.t tr:nth-child(even) td { background:#f6fafb; }
+    .mono { font-family: Consolas, "Courier New", monospace; font-size:14px; }
+    .blue-head { background: var(--blue); }
+    .navy-head { background: var(--navy); }
+    .red-head { background: var(--red); }
+    .note { margin-top:8px; font-size:13px; color:var(--muted); line-height:1.3; }
+    .pearl.warn { background: var(--orange-light); }
+    .icon { align-self:center; justify-self:center; font-size:92px; font-weight:900; color:#bde5e8; letter-spacing:-3px; }
+    li { font-size:15px; }
+    .step p { font-size:15px; }
+  </style>
+</head>
+<body>
+  <nav class="toolbar" aria-label="Exportação">
+    <button class="button" type="button" onclick="window.print()">Imprimir / exportar PDF</button>
+    <a class="button secondary" href="infografico.pdf" download>Baixar PDF pronto</a>
+    <a class="button secondary" href="referencias.txt">Referências</a>
+    <a class="button secondary" href="../index.html">Infográficos</a>
+    <a class="button secondary" href="../../../../index.html">Voltar ao PneumoAgents</a>
+  </nav>
+  <article class="sheet">
+    <header>
+      <div>
+        <span class="kicker">Interpretação estatística</span>
+        <h1>Escore Z na<br>espirometria</h1>
+        <p>Como calcular, como ler o limite inferior da normalidade e por que o Z não deve ser usado sozinho para graduar gravidade.</p>
+      </div>
+      <div class="icon" aria-hidden="true">Z</div>
+    </header>
+    <main>
+
+      <section class="columns" style="margin-top:0">
+        <article class="panel">
+          <div class="panel-title navy-head">
+            <h2>O que é e como calcular</h2>
+            <p>Distância do valor medido até o previsto, em desvios-padrão</p>
+          </div>
+          <div class="panel-body">
+            <p style="margin:0 0 8px;font-size:18px;text-align:center" class="mono"><b>Z = (observado − previsto) / DP</b></p>
+            <svg viewBox="0 0 460 170" width="100%" role="img" aria-label="Curva normal com o LIN no escore Z −1,645">
+  <defs><clipPath id="low"><rect x="0" y="0" width="143" height="170"/></clipPath></defs>
+  <path d="M10,140 C90,140 120,138 150,120 C185,95 200,22 230,22 C260,22 275,95 310,120 C340,138 370,140 450,140 Z" fill="#dff2f4" stroke="#24789a" stroke-width="2"/>
+  <path d="M10,140 C90,140 120,138 150,120 C185,95 200,22 230,22 C260,22 275,95 310,120 C340,138 370,140 450,140 Z" fill="#f4c7c7" clip-path="url(#low)"/>
+  <line x1="143" y1="30" x2="143" y2="146" stroke="#b93636" stroke-width="2.5" stroke-dasharray="5 4"/>
+  <line x1="230" y1="22" x2="230" y2="146" stroke="#15344a" stroke-width="1.5"/>
+  <line x1="10" y1="140" x2="450" y2="140" stroke="#526a71"/>
+  <text x="150" y="162" text-anchor="end" font-size="13" fill="#b93636" font-weight="700">Z = −1,645 (LIN)</text>
+  <text x="238" y="36" font-size="13" fill="#15344a" font-weight="700">Z = 0 (previsto)</text>
+  <text x="317" y="162" text-anchor="middle" font-size="13" fill="#526a71">Z = +1,645 (LSN)</text>
+  <text x="70" y="118" text-anchor="middle" font-size="13" fill="#7a1f1f" font-weight="700">5% dos saudáveis</text>
+  <text x="318" y="92" font-size="13" fill="#15344a">95% dos saudáveis</text>
+  <text x="318" y="108" font-size="13" fill="#15344a">acima do LIN</text>
+</svg>
+            <ul style="margin-top:8px">
+              <li><b>Equações GLI:</b> o software usa o modelo LMS, <span class="mono">Z = ((obs/M)^L − 1) / (L·S)</span>, porque a dispersão varia com idade e estatura.</li>
+              <li><b>Pereira 2007:</b> o artigo publica o LIN (5º percentil dos resíduos), não o DP. Se os resíduos forem normais, DP ≈ (previsto − LIN) / 1,645 (aproximação didática).</li>
+            </ul>
+            <div class="pearl"><b>Exemplo ilustrativo.</b> Homem, 175 cm, 50 anos, VEF1 medido 2,80 L. Previsto 3,87 L e LIN 3,11 L (Pereira). DP ≈ 0,76 / 1,645 = 0,46 L. Z ≈ (2,80 − 3,87) / 0,46 ≈ −2,3, ou seja, 72% do previsto.</div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-title blue-head">
+            <h2>Como interpretar</h2>
+            <p>O Z define normalidade; a gravidade tem regra própria</p>
+          </div>
+          <div class="panel-body">
+            <table class="t">
+              <tr><th>Escore Z</th><th>Significado</th></tr>
+              <tr><td>≥ −1,645</td><td>Dentro da faixa de 95% dos saudáveis (acima do LIN)</td></tr>
+              <tr><td>&lt; −1,645</td><td>Abaixo do LIN (5º percentil): anormal, a interpretar com a probabilidade pré-teste</td></tr>
+              <tr><td>&gt; +1,645</td><td>Acima do limite superior (útil, por exemplo, para VEF1/CVF aumentada)</td></tr>
+            </table>
+            <h3>Gravidade: duas escolas</h3>
+            <table class="t">
+              <tr><th>ERS/ATS 2022 (Z)</th><th>SBPT 2024 (% previsto)</th></tr>
+              <tr><td>Leve −1,65 a −2,5</td><td rowspan="3">Mantém os cortes de 2002. Obstrutivo pelo VEF1: leve ≥60%, moderado 41–59%, acentuado ≤40%. Restritivo pela CVF: leve &gt;65% até o LIN, moderado 51–65%, acentuado ≤50%.</td></tr>
+              <tr><td>Moderado −2,51 a −4</td></tr>
+              <tr><td>Grave &lt; −4,1</td></tr>
+            </table>
+            <p class="note">A SBPT 2024 não adotou as faixas de Z porque alguns estudos apontaram desempenho inferior ao do VEF1 em % do previsto.</p>
+          </div>
+        </article>
+      </section>
+
+      <section class="alert" style="margin-top:20px">
+        <h2>Evite o uso inadequado do escore Z</h2>
+        <p>O Z diz quão incomum é o valor em uma população saudável; não mede, sozinho, a gravidade da doença nem o prognóstico.</p>
+      </section>
+
+      <section class="strip three" style="margin-top:14px">
+        <div class="chip"><b>Não misture equações</b>O Z calculado pela GLI e pela equação brasileira diverge. O LIN da VEF1/CVF da GLI é menor e deixa de detectar obstrução.</div>
+        <div class="chip"><b>Não gradue pela relação</b>A gravidade do obstrutivo usa o VEF1. A CVF reduzida por aprisionamento eleva paradoxalmente a VEF1/CVF.</div>
+        <div class="chip"><b>Limítrofe não é doente</b>Por definição, 5% dos saudáveis ficam abaixo do LIN. Perto do limiar, decidem a clínica e a probabilidade pré-teste.</div>
+      </section>
+
+      <section class="bottom">
+        <div class="card">
+          <h2>Por que abandonar o 80% fixo</h2>
+          <p>A dispersão dos valores normais não é proporcional ao previsto. Por isso a SBPT 2024 chama o corte fixo de 80% de "simplificação ultrapassada": ele erra de formas opostas em jovens e idosos, assim como a VEF1/CVF fixa de 0,70.</p>
+        </div>
+        <div class="card">
+          <h2>No laudo</h2>
+          <p>Informe o valor medido, o previsto, o LIN (ou o Z) e a equação utilizada. Para acompanhar o paciente, compare com os exames anteriores dele.</p>
+        </div>
+      </section>
+
+      <div class="references">Fontes: SBPT 2024, J Bras Pneumol. 2024;50(6):e20240169; Stanojevic S et al. ERS/ATS 2022, Eur Respir J. 2022;60:2101499; Quanjer PH et al. GLI 2012, Eur Respir J. 2012;40:1324-43; Pereira CA et al. J Bras Pneumol. 2007;33:397-406. Exemplo calculado a partir das equações publicadas. Lista completa em referencias.txt.</div>
+    </main>
+    <footer>
+      <span>PneumoAgents · Este material destina-se ao apoio educacional e não substitui o julgamento clínico individualizado.</span>
+      <span>Versão 1.0.0 - 27/09/2026</span>
+    </footer>
+  </article>
+</body>
+</html>

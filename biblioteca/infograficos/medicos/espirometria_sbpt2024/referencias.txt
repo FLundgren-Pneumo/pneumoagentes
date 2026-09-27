@@ -1,0 +1,47 @@
+ESPIROMETRIA SBPT 2024 - REFERENCIAS
+Atualizacao: 27 de setembro de 2026
+
+Este material destina-se ao apoio educacional e nao substitui o julgamento
+clinico individualizado.
+
+1. Albuquerque ALP, Berton DC, Ferreira EVM, et al.; Pereira CAC.
+   Novas recomendacoes de espirometria da Sociedade Brasileira de
+   Pneumologia e Tisiologia - atualizacao 2024.
+   J Bras Pneumol. 2024;50(6):e20240169.
+   DOI: 10.36416/1806-3756/e20240169
+   https://doi.org/10.36416/1806-3756/e20240169
+   Texto integral em portugues consultado em 27 set. 2026
+   (Quadros 6, 7 e 8; Figura 4).
+
+2. Stanojevic S, Kaminsky DA, Miller MR, et al.
+   ERS/ATS technical standard on interpretive strategies for routine lung
+   function tests. Eur Respir J. 2022;60(1):2101499.
+   DOI: 10.1183/13993003.01499-2021
+   https://publications.ersnet.org/content/erj/60/1/2101499
+
+3. Pereira CA, Sato T, Rodrigues SC.
+   New reference values for forced spirometry in white adults in Brazil.
+   J Bras Pneumol. 2007;33(4):397-406.
+   DOI: 10.1590/S1806-37132007000400008
+
+4. Prata TA, Mancuzo E, Pereira CAC, et al.
+   Spirometry reference values for Black adults in Brazil.
+   J Bras Pneumol. 2018;44(6):449-55.
+   DOI: 10.1590/s1806-37562018000000082
+
+5. Jones MH, Vidal PCV, Lanza FC, et al.
+   Reference values for spirometry in Brazilian children.
+   J Bras Pneumol. 2020;46(3):e20190138.
+   DOI: 10.36416/1806-3756/e20190138
+
+6. Pereira CA, Duarte AA, Gimenez A, Soares MR.
+   Comparison between reference values for FVC, FEV1, and FEV1/FVC ratio in
+   White adults in Brazil and those suggested by the Global Lung Function
+   Initiative 2012. J Bras Pneumol. 2014;40(4):397-402.
+
+NOTAS EDITORIAIS
+- A SBPT 2024 nao utiliza o termo PRISm. A definicao citada vem da
+  ERS/ATS 2022 (ref. 2), que o descreve como rotulo do padrao inespecifico
+  em fumantes/ex-fumantes quando a CPT nao esta disponivel.
+- As faixas de gravidade por escore Z (ERS/ATS 2022) nao foram adotadas pela
+  SBPT 2024, que manteve os cortes em % do previsto da diretriz de 2002.

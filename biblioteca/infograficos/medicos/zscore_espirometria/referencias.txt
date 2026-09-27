@@ -1,0 +1,41 @@
+ESCORE Z EM ESPIROMETRIA - REFERENCIAS
+Atualizacao: 27 de setembro de 2026
+
+Este material destina-se ao apoio educacional e nao substitui o julgamento
+clinico individualizado.
+
+1. Albuquerque ALP, Berton DC, Ferreira EVM, et al.; Pereira CAC.
+   Novas recomendacoes de espirometria da SBPT - atualizacao 2024.
+   J Bras Pneumol. 2024;50(6):e20240169.
+   DOI: 10.36416/1806-3756/e20240169
+   (Limites inferiores, Figura 3; Classificacao da gravidade, Quadro 7.)
+
+2. Stanojevic S, Kaminsky DA, Miller MR, et al.
+   ERS/ATS technical standard on interpretive strategies for routine lung
+   function tests. Eur Respir J. 2022;60(1):2101499.
+   DOI: 10.1183/13993003.01499-2021
+   (LIN = 5o percentil = Z -1,645; gravidade por Z: leve -1,65 a -2,5;
+   moderada -2,51 a -4; grave < -4,1.)
+
+3. Quanjer PH, Stanojevic S, Cole TJ, et al.
+   Multi-ethnic reference values for spirometry for the 3-95-yr age range:
+   the global lung function 2012 equations. Eur Respir J. 2012;40(6):1324-43.
+   DOI: 10.1183/09031936.00080312
+
+4. Pereira CA, Sato T, Rodrigues SC.
+   New reference values for forced spirometry in white adults in Brazil.
+   J Bras Pneumol. 2007;33(4):397-406.
+   DOI: 10.1590/S1806-37132007000400008
+
+5. Pereira CA, Duarte AA, Gimenez A, Soares MR.
+   Comparison between reference values for FVC, FEV1, and FEV1/FVC ratio in
+   White adults in Brazil and those suggested by the Global Lung Function
+   Initiative 2012. J Bras Pneumol. 2014;40(4):397-402.
+
+NOTAS EDITORIAIS
+- A estimativa DP = (previsto - LIN)/1,645 para as equacoes de Pereira 2007
+  e uma aproximacao didatica, valida apenas se os residuos tiverem
+  distribuicao normal (a SBPT 2024 observa que, nessa situacao, 5o percentil
+  e escore Z sao muito semelhantes). Nao substitui o Z calculado pelo
+  software do equipamento.
+- O exemplo numerico foi calculado pelo PneumoAgents e e apenas ilustrativo.

@@ -1,0 +1,43 @@
+PNEUMONIA ADQUIRIDA NA COMUNIDADE EM ADULTOS - REFERENCIAS
+Atualizacao: 27 de setembro de 2026
+
+Este material destina-se ao apoio educacional e nao substitui o julgamento
+clinico individualizado. Doses para adultos com funcao renal e hepatica
+preservadas; ajustar a alergias, interacoes, gestacao e antibiograma local.
+
+1. Correa RA, Costa AN, Lundgren F, et al.
+   Recomendacoes para o manejo da pneumonia adquirida na comunidade 2018.
+   J Bras Pneumol. 2018;44(5):405-423.
+   DOI: 10.1590/S1806-37562018000000130
+
+2. Metlay JP, Waterer GW, Long AC, et al.
+   Diagnosis and Treatment of Adults with Community-acquired Pneumonia.
+   An Official Clinical Practice Guideline of the ATS and IDSA.
+   Am J Respir Crit Care Med. 2019;200(7):e45-e67.
+   DOI: 10.1164/rccm.201908-1581ST
+
+3. Martin-Loeches I, Torres A, Nagavci B, et al.
+   ERS/ESICM/ESCMID/ALAT guidelines for the management of severe
+   community-acquired pneumonia. Eur Respir J. 2023;61(4):2200735.
+   DOI: 10.1183/13993003.00735-2022
+
+4. American Thoracic Society.
+   Diagnosis and Management of Community-acquired Pneumonia: An Official
+   ATS Clinical Practice Guideline (atualizacao focal).
+   Am J Respir Crit Care Med. 2026;212:24-44.
+   DOI: 10.1164/rccm.202507-1692ST
+
+5. Instituto Adolfo Lutz - Nucleo de Meningites, Pneumonias e Infeccoes
+   Pneumococicas (NMPI). Vigilancia SIREVA II de Streptococcus pneumoniae
+   invasivo, isolados 2018-2023. Rev Inst Adolfo Lutz, 2024 (resumo).
+   Nota: isolados invasivos; nao representa toda a PAC ambulatorial.
+
+6. Ministerio da Saude. Guia de manejo de SRAG/influenza para
+   profissionais de saude, 2025 (oseltamivir 75 mg 12/12 h por 5 dias
+   no adulto com funcao renal preservada).
+
+NOTAS EDITORIAIS
+- Conteudo alinhado aos agentes PneumoAgents 17 (Guia PAC) e 18 (PAC -
+  Apoio a Decisao), que trazem a revisao completa e a calculadora.
+- Esquemas e doses conforme tabelas da ATS/IDSA 2019 (ref. 2).
+- A categoria HCAP nao e utilizada.

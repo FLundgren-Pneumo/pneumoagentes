@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Equações de referência de Pereira 2007 para espirometria em adultos brasileiros: aplicações, limitações e comparação.">
+  <title>Equações brasileiras de espirometria | Material para médicos</title>
+  <style>
+    :root {
+      --navy: #15344a;
+      --blue: #24789a;
+      --cyan: #dff2f4;
+      --orange: #dc6b3d;
+      --orange-light: #fff0e7;
+      --green: #21755b;
+      --green-light: #e5f3ec;
+      --yellow: #f5cf72;
+      --red: #b93636;
+      --ink: #18323b;
+      --muted: #526a71;
+      --line: #cbdde0;
+      --paper: #f2f7f7;
+      --white: #fff;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+    }
+    .toolbar {
+      position: sticky;
+      z-index: 10;
+      top: 0;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,.96);
+    }
+    .button {
+      padding: 10px 15px;
+      border: 2px solid var(--navy);
+      border-radius: 9px;
+      color: white;
+      background: var(--navy);
+      font: inherit;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .button.secondary { color: var(--navy); background: white; }
+    .sheet {
+      width: 1080px;
+      min-height: 1528px;
+      margin: 24px auto;
+      overflow: hidden;
+      background: white;
+      box-shadow: 0 12px 35px rgba(21,52,74,.14);
+    }
+    header {
+      display: grid;
+      grid-template-columns: 1.35fr .65fr;
+      min-height: 250px;
+      padding: 44px 58px 36px;
+      color: white;
+      background: linear-gradient(135deg, var(--navy), #205b71);
+    }
+    .kicker {
+      display: inline-block;
+      margin-bottom: 17px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      color: var(--navy);
+      background: #bde5e8;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    h1 { margin: 0; font-size: 59px; line-height: 1; letter-spacing: -2px; }
+    header p { max-width: 680px; margin: 18px 0 0; color: #deeff3; font-size: 23px; line-height: 1.28; }
+    .clock {
+      align-self: center;
+      justify-self: center;
+      width: 152px;
+      height: 152px;
+      border: 12px solid #bde5e8;
+      border-radius: 50%;
+      position: relative;
+    }
+    .clock::before, .clock::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 6px;
+      border-radius: 5px;
+      background: white;
+      transform-origin: 50% 0;
+    }
+    .clock::before { height: 47px; transform: rotate(180deg); }
+    .clock::after { height: 35px; transform: rotate(118deg); }
+    main { padding: 28px 58px 42px; }
+    .timeline {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+    .time {
+      padding: 15px;
+      border-radius: 13px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 800;
+    }
+    .time small { display: block; margin-top: 4px; font-size: 15px; font-weight: 600; }
+    .acute { color: #813617; background: var(--orange-light); }
+    .subacute { color: #735912; background: #fff6d9; }
+    .chronic { color: #175a45; background: var(--green-light); }
+    .alert {
+      padding: 17px 21px;
+      border-radius: 15px;
+      color: #5c1717;
+      background: #fae4e4;
+      border-left: 7px solid var(--red);
+    }
+    .alert h2 { margin: 0 0 6px; font-size: 23px; }
+    .alert p { margin: 0; font-size: 17px; line-height: 1.34; }
+    .columns { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 22px; }
+    .panel {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: white;
+    }
+    .panel-title { padding: 19px 23px; color: white; }
+    .panel-title h2 { margin: 0; font-size: 29px; }
+    .panel-title p { margin: 5px 0 0; font-size: 16px; opacity: .9; }
+    .acute-head { background: var(--orange); }
+    .chronic-head { background: var(--green); }
+    .panel-body { padding: 19px 23px 21px; }
+    h3 { margin: 0 0 8px; color: var(--navy); font-size: 20px; }
+    ul { margin: 0 0 17px; padding-left: 21px; }
+    li { margin: 5px 0; font-size: 16px; line-height: 1.3; }
+    .step {
+      display: grid;
+      grid-template-columns: 37px 1fr;
+      gap: 10px;
+      align-items: start;
+      margin: 10px 0;
+    }
+    .number {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      color: white;
+      background: var(--navy);
+      font-weight: 900;
+    }
+    .step p { margin: 4px 0 0; font-size: 16px; line-height: 1.3; }
+    .pearl {
+      margin-top: 13px;
+      padding: 13px 15px;
+      border-radius: 12px;
+      background: var(--cyan);
+      font-size: 15px;
+      line-height: 1.34;
+    }
+    .bottom {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .card {
+      padding: 18px 21px;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      background: #f8fbfb;
+    }
+    .card h2 { margin: 0 0 9px; color: var(--navy); font-size: 22px; }
+    .card p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.36; }
+    .references {
+      margin-top: 20px;
+      padding-top: 13px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.3;
+    }
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 16px 58px;
+      color: #dcecf0;
+      background: var(--navy);
+      font-size: 13px;
+    }
+    @media (max-width: 1100px) {
+      .sheet { width: 100%; min-height: auto; margin: 0; box-shadow: none; }
+    }
+    @media (max-width: 760px) {
+      header { grid-template-columns: 1fr; padding: 34px 24px; }
+      h1 { font-size: 44px; }
+      .clock { display: none; }
+      main { padding: 22px 20px 32px; }
+      .timeline, .columns, .bottom { grid-template-columns: 1fr; }
+      footer { padding: 16px 20px; }
+    }
+    @page { size: 210mm 297mm; margin: 0; }
+    @media print {
+      body { background: white; }
+      .toolbar { display: none; }
+      .sheet {
+        width: 210mm;
+        height: 297mm;
+        min-height: 297mm;
+        margin: 0;
+        box-shadow: none;
+        transform-origin: top left;
+      }
+    }
+  
+    .strip { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:20px; }
+    .strip.three { grid-template-columns:repeat(3,1fr); }
+    .chip { padding:13px 14px; border-radius:13px; background:var(--cyan); font-size:14.5px; line-height:1.3; }
+    .chip b { display:block; color:var(--navy); font-size:17px; margin-bottom:3px; }
+    table.t { width:100%; border-collapse:collapse; margin:4px 0 12px; font-size:14.5px; }
+    table.t th { background:var(--navy); color:#fff; text-align:left; padding:7px 9px; font-size:14px; }
+    table.t td { border-bottom:1px solid var(--line); padding:6px 9px; vertical-align:top; line-height:1.28; }
+    table.t tr:nth-child(even) td { background:#f6fafb; }
+    .mono { font-family: Consolas, "Courier New", monospace; font-size:14px; }
+    .blue-head { background: var(--blue); }
+    .navy-head { background: var(--navy); }
+    .red-head { background: var(--red); }
+    .note { margin-top:8px; font-size:13px; color:var(--muted); line-height:1.3; }
+    .pearl.warn { background: var(--orange-light); }
+    .icon { align-self:center; justify-self:center; font-size:92px; font-weight:900; color:#bde5e8; letter-spacing:-3px; }
+    li { font-size:15px; }
+    .step p { font-size:15px; }
+  </style>
+</head>
+<body>
+  <nav class="toolbar" aria-label="Exportação">
+    <button class="button" type="button" onclick="window.print()">Imprimir / exportar PDF</button>
+    <a class="button secondary" href="infografico.pdf" download>Baixar PDF pronto</a>
+    <a class="button secondary" href="referencias.txt">Referências</a>
+    <a class="button secondary" href="../index.html">Infográficos</a>
+    <a class="button secondary" href="../../../../index.html">Voltar ao PneumoAgents</a>
+  </nav>
+  <article class="sheet">
+    <header>
+      <div>
+        <span class="kicker">Valores de referência em adultos</span>
+        <h1>Equações<br>brasileiras</h1>
+        <p>Pereira et al. 2007: as fórmulas, o limite inferior, quando usar e o que muda em relação à GLI e às equações de 1992.</p>
+      </div>
+      <div class="icon" aria-hidden="true">BR</div>
+    </header>
+    <main>
+
+      <section class="strip" aria-label="Amostra de derivação">
+        <div class="chip"><b>643 adultos</b>270 homens e 373 mulheres, brancos, saudáveis, que nunca fumaram.</div>
+        <div class="chip"><b>8 cidades</b>Exames pelas normas SBPT; 89% das curvas com qualidade A.</div>
+        <div class="chip"><b>Faixas</b>Mulheres 20–85 anos, 137–182 cm. Homens 26–86 anos, 152–192 cm.</div>
+        <div class="chip"><b>LIN</b>5º percentil dos resíduos: previsto menos um valor fixo (volumes e relação).</div>
+      </section>
+
+      <section class="columns">
+        <article class="panel" style="grid-column: span 2">
+          <div class="panel-title navy-head">
+            <h2>Equações de Pereira et al. 2007 (Tabelas 3 e 4)</h2>
+            <p>E = estatura em cm; I = idade em anos; P = previsto. Volumes em litros, relação em %.</p>
+          </div>
+          <div class="panel-body">
+            <table class="t mono">
+              <tr><th>Variável</th><th>Homens (26–86 anos)</th><th>LIN</th><th>Mulheres (20–85 anos)</th><th>LIN</th></tr>
+              <tr><td>CVF</td><td>0,0517·E − 0,0207·I − 3,18</td><td>P − 0,90</td><td>0,0441·E − 0,0189·I − 2,848</td><td>P − 0,64</td></tr>
+              <tr><td>VEF1</td><td>0,0338·E − 0,0252·I − 0,789</td><td>P − 0,76</td><td>0,0314·E − 0,0203·I − 1,353</td><td>P − 0,61</td></tr>
+              <tr><td>VEF1/CVF</td><td>120,3 − 0,175·E − 0,197·I</td><td>P − 7,6</td><td>111,5 − 0,140·E − 0,158·I</td><td>P − 8,5</td></tr>
+            </table>
+            <p class="note">Fluxos (FEF25–75%, FEF50%, FEF75%, PFE) usam equações logarítmicas com LIN proporcional (P × fator) e estão nas mesmas tabelas do artigo original.</p>
+            <div class="pearl"><b>Exemplo calculado a partir das equações</b> (ilustrativo). Homem, 175 cm, 50 anos: CVF prevista 4,83 L (LIN 3,93); VEF1 3,87 L (LIN 3,11); VEF1/CVF 79,8% (LIN 72,2%). Mulher, 160 cm, 50 anos: CVF 3,26 L (LIN 2,62); VEF1 2,66 L (LIN 2,05); VEF1/CVF 81,2% (LIN 72,7%).</div>
+          </div>
+        </article>
+      </section>
+
+      <section class="columns">
+        <article class="panel">
+          <div class="panel-title blue-head">
+            <h2>Aplicações</h2>
+            <p>Referência nacional recomendada pela SBPT 2024</p>
+          </div>
+          <div class="panel-body">
+            <ul>
+              <li>Adultos: mulheres a partir de 20 anos e homens a partir de 25 anos.</li>
+              <li>Definir normalidade pelo LIN, inclusive da VEF1/CVF para obstrução.</li>
+              <li>Calcular o % do previsto usado na gravidade (VEF1 no obstrutivo, CVF no restritivo) e na resposta ao broncodilatador.</li>
+              <li>Nos muito idosos, a SBPT considera correto extrapolar os valores previstos.</li>
+            </ul>
+            <h3>Outros referenciais brasileiros</h3>
+            <ul>
+              <li>Crianças de 3–12 anos: Jones et al. 2020.</li>
+              <li>Adolescentes: Mallozi (13–19 anos F; 13–24 anos M).</li>
+              <li>Adultos negros: Prata et al. 2018, como opção nos exames limítrofes.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-title chronic-head">
+            <h2>Limitações e comparação</h2>
+            <p>O que considerar ao escolher o referencial</p>
+          </div>
+          <div class="panel-body">
+            <ul>
+              <li><b>Amostra só de brancos</b>, sem obesos mórbidos (IMC ≥ 40) nem IMC &lt; 18; peso quase não altera o previsto, mas deve constar no laudo.</li>
+              <li><b>Poucos adultos jovens</b>: a SBPT pede novos estudos abaixo de 20 (F) e 25 anos (M).</li>
+              <li><b>Pereira 1992:</b> os valores de 2007 são sistematicamente maiores (homens: CVF +0,26 L e VEF1 +0,21 L em média).</li>
+              <li><b>GLI 2012:</b> subestima os valores de homens brancos brasileiros, e seu LIN da VEF1/CVF é significativamente menor nos dois sexos. Resultado: menor sensibilidade para detectar obstrução.</li>
+              <li><b>GLI Global 2023</b> (neutra quanto à raça): a SBPT 2024 registra o interesse, mas considera que faltam dados para adotá-la no Brasil.</li>
+            </ul>
+            <div class="pearl warn"><b>Informe no laudo a equação usada.</b> Trocar de referencial muda o previsto, o LIN e o escore Z, e pode mudar o diagnóstico.</div>
+          </div>
+        </article>
+      </section>
+
+      <div class="references">Fontes: Pereira CA, Sato T, Rodrigues SC. J Bras Pneumol. 2007;33(4):397-406; Pereira CA et al. J Bras Pneumol. 2014;40(4):397-402; SBPT 2024, J Bras Pneumol. 2024;50(6):e20240169. Exemplos calculados pelas equações publicadas. Lista completa em referencias.txt.</div>
+    </main>
+    <footer>
+      <span>PneumoAgents · Este material destina-se ao apoio educacional e não substitui o julgamento clínico individualizado.</span>
+      <span>Versão 1.0.0 - 27/09/2026</span>
+    </footer>
+  </article>
+</body>
+</html>

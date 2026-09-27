@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Soro fisiológico, volume, técnica, frequência e cuidados com a água.">
+  <title>Lavagem nasal | Material para pacientes</title>
+  <style>
+    :root {
+      --navy: #15344a;
+      --blue: #24789a;
+      --cyan: #dff2f4;
+      --orange: #dc6b3d;
+      --orange-light: #fff0e7;
+      --green: #21755b;
+      --green-light: #e5f3ec;
+      --yellow: #f5cf72;
+      --red: #b93636;
+      --ink: #18323b;
+      --muted: #526a71;
+      --line: #cbdde0;
+      --paper: #f2f7f7;
+      --white: #fff;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+    }
+    .toolbar {
+      position: sticky;
+      z-index: 10;
+      top: 0;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,.96);
+    }
+    .button {
+      padding: 10px 15px;
+      border: 2px solid var(--navy);
+      border-radius: 9px;
+      color: white;
+      background: var(--navy);
+      font: inherit;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .button.secondary { color: var(--navy); background: white; }
+    .sheet {
+      width: 1080px;
+      min-height: 1528px;
+      margin: 24px auto;
+      overflow: hidden;
+      background: white;
+      box-shadow: 0 12px 35px rgba(21,52,74,.14);
+    }
+    header {
+      display: grid;
+      grid-template-columns: 1.35fr .65fr;
+      min-height: 250px;
+      padding: 44px 58px 36px;
+      color: white;
+      background: linear-gradient(135deg, var(--navy), #205b71);
+    }
+    .kicker {
+      display: inline-block;
+      margin-bottom: 17px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      color: var(--navy);
+      background: #bde5e8;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    h1 { margin: 0; font-size: 59px; line-height: 1; letter-spacing: -2px; }
+    header p { max-width: 680px; margin: 18px 0 0; color: #deeff3; font-size: 23px; line-height: 1.28; }
+    .clock {
+      align-self: center;
+      justify-self: center;
+      width: 152px;
+      height: 152px;
+      border: 12px solid #bde5e8;
+      border-radius: 50%;
+      position: relative;
+    }
+    .clock::before, .clock::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 6px;
+      border-radius: 5px;
+      background: white;
+      transform-origin: 50% 0;
+    }
+    .clock::before { height: 47px; transform: rotate(180deg); }
+    .clock::after { height: 35px; transform: rotate(118deg); }
+    main { padding: 28px 58px 42px; }
+    .timeline {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+    .time {
+      padding: 15px;
+      border-radius: 13px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 800;
+    }
+    .time small { display: block; margin-top: 4px; font-size: 15px; font-weight: 600; }
+    .acute { color: #813617; background: var(--orange-light); }
+    .subacute { color: #735912; background: #fff6d9; }
+    .chronic { color: #175a45; background: var(--green-light); }
+    .alert {
+      padding: 17px 21px;
+      border-radius: 15px;
+      color: #5c1717;
+      background: #fae4e4;
+      border-left: 7px solid var(--red);
+    }
+    .alert h2 { margin: 0 0 6px; font-size: 23px; }
+    .alert p { margin: 0; font-size: 17px; line-height: 1.34; }
+    .columns { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 22px; }
+    .panel {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: white;
+    }
+    .panel-title { padding: 19px 23px; color: white; }
+    .panel-title h2 { margin: 0; font-size: 29px; }
+    .panel-title p { margin: 5px 0 0; font-size: 16px; opacity: .9; }
+    .acute-head { background: var(--orange); }
+    .chronic-head { background: var(--green); }
+    .panel-body { padding: 19px 23px 21px; }
+    h3 { margin: 0 0 8px; color: var(--navy); font-size: 20px; }
+    ul { margin: 0 0 17px; padding-left: 21px; }
+    li { margin: 5px 0; font-size: 16px; line-height: 1.3; }
+    .step {
+      display: grid;
+      grid-template-columns: 37px 1fr;
+      gap: 10px;
+      align-items: start;
+      margin: 10px 0;
+    }
+    .number {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      color: white;
+      background: var(--navy);
+      font-weight: 900;
+    }
+    .step p { margin: 4px 0 0; font-size: 16px; line-height: 1.3; }
+    .pearl {
+      margin-top: 13px;
+      padding: 13px 15px;
+      border-radius: 12px;
+      background: var(--cyan);
+      font-size: 15px;
+      line-height: 1.34;
+    }
+    .bottom {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .card {
+      padding: 18px 21px;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      background: #f8fbfb;
+    }
+    .card h2 { margin: 0 0 9px; color: var(--navy); font-size: 22px; }
+    .card p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.36; }
+    .references {
+      margin-top: 20px;
+      padding-top: 13px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.3;
+    }
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 16px 58px;
+      color: #dcecf0;
+      background: var(--navy);
+      font-size: 13px;
+    }
+    @media (max-width: 1100px) {
+      .sheet { width: 100%; min-height: auto; margin: 0; box-shadow: none; }
+    }
+    @media (max-width: 760px) {
+      header { grid-template-columns: 1fr; padding: 34px 24px; }
+      h1 { font-size: 44px; }
+      .clock { display: none; }
+      main { padding: 22px 20px 32px; }
+      .timeline, .columns, .bottom { grid-template-columns: 1fr; }
+      footer { padding: 16px 20px; }
+    }
+    @page { size: 210mm 297mm; margin: 0; }
+    @media print {
+      body { background: white; }
+      .toolbar { display: none; }
+      .sheet {
+        width: 210mm;
+        height: 297mm;
+        min-height: 297mm;
+        margin: 0;
+        box-shadow: none;
+        transform-origin: top left;
+      }
+    }
+  
+    .strip { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:20px; }
+    .strip.three { grid-template-columns:repeat(3,1fr); }
+    .chip { padding:13px 14px; border-radius:13px; background:var(--cyan); font-size:14.5px; line-height:1.3; }
+    .chip b { display:block; color:var(--navy); font-size:17px; margin-bottom:3px; }
+    table.t { width:100%; border-collapse:collapse; margin:4px 0 12px; font-size:14.5px; }
+    table.t th { background:var(--navy); color:#fff; text-align:left; padding:7px 9px; font-size:14px; }
+    table.t td { border-bottom:1px solid var(--line); padding:6px 9px; vertical-align:top; line-height:1.28; }
+    table.t tr:nth-child(even) td { background:#f6fafb; }
+    .mono { font-family: Consolas, "Courier New", monospace; font-size:14px; }
+    .blue-head { background: var(--blue); }
+    .navy-head { background: var(--navy); }
+    .red-head { background: var(--red); }
+    .note { margin-top:8px; font-size:13px; color:var(--muted); line-height:1.3; }
+    .pearl.warn { background: var(--orange-light); }
+    .icon { align-self:center; justify-self:center; font-size:92px; font-weight:900; color:#bde5e8; letter-spacing:-3px; }
+    li { font-size:15px; }
+    .step p { font-size:15px; }
+
+    :root { --navy:#0f4f4a; --blue:#0f766e; --cyan:#dcf5ef; --line:#c7e2dc; --paper:#f1f8f6; }
+    header { background: linear-gradient(135deg, #0f4f4a, #16806f) !important; }
+    .kicker { background:#c6f1e6; color:#0f4f4a; }
+    header p { color:#e3f7f1; }
+    .icon { color:#bdeee2; font-size:84px; }
+    li { font-size:17px; line-height:1.34; }
+    .step p { font-size:17px; line-height:1.34; }
+    .chip { font-size:15.5px; line-height:1.35; }
+    .card p { font-size:16px; color:#35504c; }
+    .pearl { font-size:16px; }
+    table.t { font-size:15.5px; }
+    .orange-head { background: var(--orange); }
+    .green-head { background: var(--green); }
+  </style>
+</head>
+<body>
+  <nav class="toolbar" aria-label="Exportação">
+    <button class="button" type="button" onclick="window.print()">Imprimir / exportar PDF</button>
+    <a class="button secondary" href="infografico.pdf" download>Baixar PDF pronto</a>
+    <a class="button secondary" href="referencias.txt">Referências</a>
+    <a class="button secondary" href="../index.html">Infográficos</a>
+    <a class="button secondary" href="../../../../index.html">Voltar ao PneumoAgents</a>
+  </nav>
+  <article class="sheet">
+    <header>
+      <div>
+        <span class="kicker">Orientação ao paciente</span>
+        <h1>Lavagem<br>nasal</h1>
+        <p>A lavagem limpa o nariz e ajuda o remédio nasal a funcionar melhor. Veja como fazer com segurança.</p>
+      </div>
+      <div class="icon" aria-hidden="true">0,9%</div>
+    </header>
+    <main>
+
+      <section class="columns" style="margin-top:0">
+        <article class="panel">
+          <div class="panel-title blue-head"><h2>Para que serve</h2><p>Remove secreção, crostas, poeira e alérgenos do nariz</p></div>
+          <div class="panel-body">
+            <ul>
+              <li>Na <b>rinite alérgica</b>, a lavagem é fortemente recomendada pelo consenso brasileiro. Junto com o spray de corticoide, alivia mais do que o spray sozinho.</li>
+              <li>Também ajuda na sinusite crônica e em resfriados.</li>
+              <li>É segura na <b>gravidez</b>, em crianças e em idosos.</li>
+            </ul>
+            <h3>Qual solução usar</h3>
+            <table class="t">
+              <tr><th style="width:32%">Solução</th><th>Quando</th></tr>
+              <tr><td><b>Soro fisiológico 0,9%</b></td><td>É a mais usada e a mais confortável. Serve para o uso diário.</td></tr>
+              <tr><td><b>Solução mais concentrada (2 a 3%)</b></td><td>Só com orientação, por poucos dias ou semanas, quando há muito inchaço ou crostas. Pode arder e ressecar.</td></tr>
+            </table>
+            <div class="pearl">Grande volume (seringa, frasco de apertar ou lota, cerca de 100 mL por narina no adulto) limpa mais. Spray ou gotas também ajudam. <b>A melhor lavagem é a que você consegue fazer sempre.</b></div>
+          </div>
+        </article>
+        <article class="panel">
+          <div class="panel-title navy-head"><h2>Como fazer</h2><p>Com seringa, frasco de apertar ou lota</p></div>
+          <div class="panel-body"><div class="step"><span class="number">1</span><p>Lave as mãos e o frasco ou seringa. Use <b>soro fisiológico pronto</b> ou uma solução preparada com água segura.</p></div>
+<div class="step"><span class="number">2</span><p>Incline o corpo para frente sobre a pia, com a cabeça levemente de lado e a <b>boca aberta</b>, respirando pela boca.</p></div>
+<div class="step"><span class="number">3</span><p>Encoste o bico na entrada de uma narina e <b>direcione o jato para trás</b>, em direção à nuca, e não para cima.</p></div>
+<div class="step"><span class="number">4</span><p>Aplique a solução com pressão suave. Ela sai pela outra narina ou pela boca. Não engula.</p></div>
+<div class="step"><span class="number">5</span><p>Repita do outro lado. Depois assoe o nariz <b>devagar</b>, uma narina de cada vez.</p></div>
+<div class="step"><span class="number">6</span><p>Se você usa spray nasal com corticoide, aplique-o <b>depois</b> da lavagem, com o nariz limpo.</p></div></div>
+        </article>
+      </section>
+
+      <section class="alert" style="margin-top:20px">
+        <h2>Água da torneira não vai direto no nariz</h2>
+        <p>Use soro pronto ou água <b>destilada, estéril ou fervida por pelo menos 1 minuto</b> e já fria. A água da torneira, mesmo boa para beber, pode ter microrganismos que causam infecções graves quando entram no nariz.</p>
+      </section>
+
+      <section class="strip three">
+        <div class="chip"><b>Quantas vezes</b>Siga o que a equipe combinou. Na rinite, é comum fazer 1 a 2 vezes ao dia.</div>
+        <div class="chip"><b>Cuidado com o frasco</b>Cada pessoa tem o seu. Lave após o uso, deixe secar e troque conforme o fabricante.</div>
+        <div class="chip"><b>Receita caseira</b>Prefira soro pronto. Só prepare solução em casa se a equipe ensinar a receita e a água for segura.</div>
+      </section>
+
+      <section class="bottom">
+        <div class="card"><h2>É normal</h2><p>Um leve ardor nos primeiros dias, sensação de água no nariz por alguns minutos e um pouco de solução saindo pela boca.</p></div>
+        <div class="card"><h2>Procure a equipe se</h2><p>Houver dor de ouvido, sangramento pelo nariz, febre, dor forte no rosto ou secreção com mau cheiro.</p></div>
+      </section>
+
+      <div class="references">Fontes: V Consenso Brasileiro sobre Rinites 2024 (Solé D et al. Braz J Otorhinolaryngol. 2025;91(1):101500); Hermelingmeier KE et al. Am J Rhinol Allergy. 2012;26(5):e119-25; Chong LY et al. Cochrane Database Syst Rev. 2016;CD011995; CDC e FDA, orientações sobre água segura para lavagem nasal. Lista completa em referencias.txt.</div>
+    </main>
+    <footer>
+      <span>PneumoAgents · Material educativo. Não substitui a consulta nem a orientação da sua equipe de saúde.</span>
+      <span>Versão 1.0.0 - 27/09/2026</span>
+    </footer>
+  </article>
+</body>
+</html>
