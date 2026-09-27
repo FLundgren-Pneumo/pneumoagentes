@@ -1,0 +1,44 @@
+EQUACOES BRASILEIRAS DE ESPIROMETRIA - REFERENCIAS
+Atualizacao: 27 de setembro de 2026
+
+Este material destina-se ao apoio educacional e nao substitui o julgamento
+clinico individualizado.
+
+1. Pereira CA, Sato T, Rodrigues SC.
+   Novos valores de referencia para espirometria forcada em brasileiros
+   adultos de raca branca / New reference values for forced spirometry in
+   white adults in Brazil. J Bras Pneumol. 2007;33(4):397-406.
+   DOI: 10.1590/S1806-37132007000400008
+   Texto integral consultado em 27 set. 2026 (Tabelas 1, 3 e 4; Figura 1).
+
+2. Pereira CA, Duarte AA, Gimenez A, Soares MR.
+   Comparison between reference values for FVC, FEV1, and FEV1/FVC ratio in
+   White adults in Brazil and those suggested by the Global Lung Function
+   Initiative 2012. J Bras Pneumol. 2014;40(4):397-402.
+
+3. Albuquerque ALP, Berton DC, Ferreira EVM, et al.; Pereira CAC.
+   Novas recomendacoes de espirometria da SBPT - atualizacao 2024.
+   J Bras Pneumol. 2024;50(6):e20240169.
+   DOI: 10.36416/1806-3756/e20240169
+
+4. Quanjer PH, Stanojevic S, Cole TJ, et al.
+   Multi-ethnic reference values for spirometry for the 3-95-yr age range:
+   the global lung function 2012 equations. Eur Respir J. 2012;40(6):1324-43.
+   DOI: 10.1183/09031936.00080312
+
+5. Bowerman C, Bhakta NR, Brazzale D, et al.
+   A Race-neutral Approach to the Interpretation of Lung Function
+   Measurements. Am J Respir Crit Care Med. 2023;207(6):768-774.
+
+6. Prata TA, Mancuzo E, Pereira CAC, et al.
+   Spirometry reference values for Black adults in Brazil.
+   J Bras Pneumol. 2018;44(6):449-55.
+
+7. Jones MH, Vidal PCV, Lanza FC, et al.
+   Reference values for spirometry in Brazilian children.
+   J Bras Pneumol. 2020;46(3):e20190138.
+
+NOTAS EDITORIAIS
+- Os exemplos numericos foram calculados pelo PneumoAgents a partir das
+  equacoes publicadas (ref. 1) e sao apenas ilustrativos.
+- Coeficientes conferidos diretamente nas Tabelas 3 e 4 do artigo original.

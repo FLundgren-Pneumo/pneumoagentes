@@ -1,0 +1,12 @@
+material: vacinacao-respiratoria
+publico: pacientes
+populacao: adultos e cuidadores
+caminho: /biblioteca/infograficos/pacientes/vacinacao_respiratoria/
+versao: 1.0.0
+data: 2026-09-27
+idioma: pt-BR
+status: publicado
+aviso: Material educativo. Nao substitui a consulta nem a orientacao da equipe de saude.
+arquivos: index.html, infografico.pdf, referencias.txt, versao.txt
+exportacao: botao de impressao/PDF no index.html e PDF pronto para download
+elementos_obrigatorios: aviso educacional e botao Voltar ao PneumoAgents

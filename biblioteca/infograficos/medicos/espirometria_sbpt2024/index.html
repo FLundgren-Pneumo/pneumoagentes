@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Interpretação prática da espirometria segundo a atualização SBPT 2024.">
+  <title>Espirometria SBPT 2024 | Material para médicos</title>
+  <style>
+    :root {
+      --navy: #15344a;
+      --blue: #24789a;
+      --cyan: #dff2f4;
+      --orange: #dc6b3d;
+      --orange-light: #fff0e7;
+      --green: #21755b;
+      --green-light: #e5f3ec;
+      --yellow: #f5cf72;
+      --red: #b93636;
+      --ink: #18323b;
+      --muted: #526a71;
+      --line: #cbdde0;
+      --paper: #f2f7f7;
+      --white: #fff;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+    }
+    .toolbar {
+      position: sticky;
+      z-index: 10;
+      top: 0;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,.96);
+    }
+    .button {
+      padding: 10px 15px;
+      border: 2px solid var(--navy);
+      border-radius: 9px;
+      color: white;
+      background: var(--navy);
+      font: inherit;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .button.secondary { color: var(--navy); background: white; }
+    .sheet {
+      width: 1080px;
+      min-height: 1528px;
+      margin: 24px auto;
+      overflow: hidden;
+      background: white;
+      box-shadow: 0 12px 35px rgba(21,52,74,.14);
+    }
+    header {
+      display: grid;
+      grid-template-columns: 1.35fr .65fr;
+      min-height: 250px;
+      padding: 44px 58px 36px;
+      color: white;
+      background: linear-gradient(135deg, var(--navy), #205b71);
+    }
+    .kicker {
+      display: inline-block;
+      margin-bottom: 17px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      color: var(--navy);
+      background: #bde5e8;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    h1 { margin: 0; font-size: 59px; line-height: 1; letter-spacing: -2px; }
+    header p { max-width: 680px; margin: 18px 0 0; color: #deeff3; font-size: 23px; line-height: 1.28; }
+    .clock {
+      align-self: center;
+      justify-self: center;
+      width: 152px;
+      height: 152px;
+      border: 12px solid #bde5e8;
+      border-radius: 50%;
+      position: relative;
+    }
+    .clock::before, .clock::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 6px;
+      border-radius: 5px;
+      background: white;
+      transform-origin: 50% 0;
+    }
+    .clock::before { height: 47px; transform: rotate(180deg); }
+    .clock::after { height: 35px; transform: rotate(118deg); }
+    main { padding: 28px 58px 42px; }
+    .timeline {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+    .time {
+      padding: 15px;
+      border-radius: 13px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 800;
+    }
+    .time small { display: block; margin-top: 4px; font-size: 15px; font-weight: 600; }
+    .acute { color: #813617; background: var(--orange-light); }
+    .subacute { color: #735912; background: #fff6d9; }
+    .chronic { color: #175a45; background: var(--green-light); }
+    .alert {
+      padding: 17px 21px;
+      border-radius: 15px;
+      color: #5c1717;
+      background: #fae4e4;
+      border-left: 7px solid var(--red);
+    }
+    .alert h2 { margin: 0 0 6px; font-size: 23px; }
+    .alert p { margin: 0; font-size: 17px; line-height: 1.34; }
+    .columns { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 22px; }
+    .panel {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: white;
+    }
+    .panel-title { padding: 19px 23px; color: white; }
+    .panel-title h2 { margin: 0; font-size: 29px; }
+    .panel-title p { margin: 5px 0 0; font-size: 16px; opacity: .9; }
+    .acute-head { background: var(--orange); }
+    .chronic-head { background: var(--green); }
+    .panel-body { padding: 19px 23px 21px; }
+    h3 { margin: 0 0 8px; color: var(--navy); font-size: 20px; }
+    ul { margin: 0 0 17px; padding-left: 21px; }
+    li { margin: 5px 0; font-size: 16px; line-height: 1.3; }
+    .step {
+      display: grid;
+      grid-template-columns: 37px 1fr;
+      gap: 10px;
+      align-items: start;
+      margin: 10px 0;
+    }
+    .number {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      color: white;
+      background: var(--navy);
+      font-weight: 900;
+    }
+    .step p { margin: 4px 0 0; font-size: 16px; line-height: 1.3; }
+    .pearl {
+      margin-top: 13px;
+      padding: 13px 15px;
+      border-radius: 12px;
+      background: var(--cyan);
+      font-size: 15px;
+      line-height: 1.34;
+    }
+    .bottom {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .card {
+      padding: 18px 21px;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      background: #f8fbfb;
+    }
+    .card h2 { margin: 0 0 9px; color: var(--navy); font-size: 22px; }
+    .card p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.36; }
+    .references {
+      margin-top: 20px;
+      padding-top: 13px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.3;
+    }
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 16px 58px;
+      color: #dcecf0;
+      background: var(--navy);
+      font-size: 13px;
+    }
+    @media (max-width: 1100px) {
+      .sheet { width: 100%; min-height: auto; margin: 0; box-shadow: none; }
+    }
+    @media (max-width: 760px) {
+      header { grid-template-columns: 1fr; padding: 34px 24px; }
+      h1 { font-size: 44px; }
+      .clock { display: none; }
+      main { padding: 22px 20px 32px; }
+      .timeline, .columns, .bottom { grid-template-columns: 1fr; }
+      footer { padding: 16px 20px; }
+    }
+    @page { size: 210mm 297mm; margin: 0; }
+    @media print {
+      body { background: white; }
+      .toolbar { display: none; }
+      .sheet {
+        width: 210mm;
+        height: 297mm;
+        min-height: 297mm;
+        margin: 0;
+        box-shadow: none;
+        transform-origin: top left;
+      }
+    }
+  
+    .strip { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:20px; }
+    .strip.three { grid-template-columns:repeat(3,1fr); }
+    .chip { padding:13px 14px; border-radius:13px; background:var(--cyan); font-size:14.5px; line-height:1.3; }
+    .chip b { display:block; color:var(--navy); font-size:17px; margin-bottom:3px; }
+    table.t { width:100%; border-collapse:collapse; margin:4px 0 12px; font-size:14.5px; }
+    table.t th { background:var(--navy); color:#fff; text-align:left; padding:7px 9px; font-size:14px; }
+    table.t td { border-bottom:1px solid var(--line); padding:6px 9px; vertical-align:top; line-height:1.28; }
+    table.t tr:nth-child(even) td { background:#f6fafb; }
+    .mono { font-family: Consolas, "Courier New", monospace; font-size:14px; }
+    .blue-head { background: var(--blue); }
+    .navy-head { background: var(--navy); }
+    .red-head { background: var(--red); }
+    .note { margin-top:8px; font-size:13px; color:var(--muted); line-height:1.3; }
+    .pearl.warn { background: var(--orange-light); }
+    .icon { align-self:center; justify-self:center; font-size:92px; font-weight:900; color:#bde5e8; letter-spacing:-3px; }
+    li { font-size:15px; }
+    .step p { font-size:15px; }
+  </style>
+</head>
+<body>
+  <nav class="toolbar" aria-label="Exportação">
+    <button class="button" type="button" onclick="window.print()">Imprimir / exportar PDF</button>
+    <a class="button secondary" href="infografico.pdf" download>Baixar PDF pronto</a>
+    <a class="button secondary" href="referencias.txt">Referências</a>
+    <a class="button secondary" href="../index.html">Infográficos</a>
+    <a class="button secondary" href="../../../../index.html">Voltar ao PneumoAgents</a>
+  </nav>
+  <article class="sheet">
+    <header>
+      <div>
+        <span class="kicker">Interpretação prática em adultos</span>
+        <h1>Espirometria<br>SBPT 2024</h1>
+        <p>LIN no lugar de cortes fixos, equações brasileiras, gravidade em % do previsto e novo critério de resposta ao broncodilatador.</p>
+      </div>
+      <div class="icon" aria-hidden="true">FEV<sub style='font-size:40px'>1</sub></div>
+    </header>
+    <main>
+
+      <section class="strip" aria-label="O que muda na SBPT 2024">
+        <div class="chip"><b>Equações nacionais</b>Preferir os previstos brasileiros à GLI 2012, que tem LIN da VEF1/CVF menor e subdiagnostica obstrução.</div>
+        <div class="chip"><b>Normalidade pelo LIN</b>Limite inferior = 5º percentil (escore Z −1,645). 80% do previsto fixo é simplificação ultrapassada.</div>
+        <div class="chip"><b>Gravidade em % do previsto</b>Mantidos os pontos de corte da SBPT 2002: VEF1 no obstrutivo, CVF no restritivo.</div>
+        <div class="chip"><b>Resposta ao BD</b>Ganho de VEF1 ou CVF em % do <u>previsto</u>: ≥7% se exame alterado, ≥10% se normal.</div>
+      </section>
+
+      <section class="alert">
+        <h2>Antes de interpretar: qualidade do teste</h2>
+        <p>Pelo menos três curvas aceitáveis, com repetibilidade. Volume retroextrapolado até 100 mL (ou 5% da CVF, o que for maior). Testes de baixa qualidade devem ser laudados com a incerteza explícita; valores próximos ao LIN pedem correlação com a probabilidade pré-teste (questionário respiratório).</p>
+      </section>
+
+      <section class="columns">
+        <article class="panel">
+          <div class="panel-title navy-head">
+            <h2>Algoritmo de interpretação</h2>
+            <p>Figura 4 da diretriz, resumida</p>
+          </div>
+          <div class="panel-body">
+            <div class="step"><div class="number">1</div><p><b>VEF1/CVF pré-BD &lt; LIN</b> define distúrbio ventilatório obstrutivo (DVO). Não usar 0,70 fixo: subdiagnostica em jovens e sobrediagnostica em idosos.</p></div>
+            <div class="step"><div class="number">2</div><p><b>DVO com CVF reduzida:</b> se CVF% − VEF1% ≥ 25, sugere DVO com aprisionamento aéreo. Se &lt; 25, medir CPT para separar obstrutivo isolado de distúrbio combinado.</p></div>
+            <div class="step"><div class="number">3</div><p><b>VEF1/CVF normal com CVF reduzida:</b> "sugestivo de DVR" ou distúrbio ventilatório inespecífico (CVF baixa com CPT normal). A certeza exige CPT; sem ela, o laudo é descritivo.</p></div>
+            <div class="step"><div class="number">4</div><p><b>Tudo normal:</b> fluxos terminais e VEF1/CV lenta podem sugerir DVO incipiente em contexto clínico compatível. Fluxos só contam como reduzidos com CVF normal.</p></div>
+            <div class="pearl"><b>PRISm:</b> termo da ERS/ATS 2022 e do GOLD para VEF1 e/ou CVF reduzidos com relação preservada, usado sobretudo em fumantes sem CPT. A SBPT 2024 não adota o termo; o equivalente é o passo 3, e a conduta é medir CPT quando clinicamente indicado.</div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-title blue-head">
+            <h2>Gravidade e broncodilatador</h2>
+            <p>Quadros 7 e 8 da diretriz</p>
+          </div>
+          <div class="panel-body">
+            <table class="t">
+              <tr><th>Gravidade</th><th>Obstrutivo<br>VEF1 % prev</th><th>Restritivo*<br>CVF % prev</th></tr>
+              <tr><td>Leve</td><td>≥ 60</td><td>&gt; 65 até o LIN</td></tr>
+              <tr><td>Moderado</td><td>41–59</td><td>51–65</td></tr>
+              <tr><td>Acentuado</td><td>≤ 40</td><td>≤ 50</td></tr>
+            </table>
+            <p class="note" style="margin:-4px 0 12px">*O diagnóstico de DVR se baseia na CPT reduzida. Se a espirometria não define o distúrbio, não se classifica a gravidade. A diretriz não adotou as faixas de escore Z da ERS/ATS 2022 para gravidade.</p>
+            <h3>Prova broncodilatadora</h3>
+            <ul>
+              <li>Salbutamol <b>400 µg</b>, nova espirometria após <b>15 min</b>.</li>
+              <li>Ganho = (pós − pré) × 100 / valor previsto.</li>
+              <li>Significativo: <b>≥7% do previsto</b> em exames alterados e <b>≥10%</b> em exames normais no pré-BD. Não é mais exigido ganho absoluto em mL.</li>
+              <li>FEF25–75% e demais fluxos não entram na avaliação de reversibilidade.</li>
+            </ul>
+            <div class="pearl warn"><b>Resposta ao BD não separa asma de DPOC</b> isoladamente, e a normalização da VEF1/CVF pós-BD não exclui DPOC. Ausência de resposta não contraindica o uso clínico do broncodilatador.</div>
+          </div>
+        </article>
+      </section>
+
+      <section class="bottom">
+        <div class="card">
+          <h2>Qual equação usar (Quadro 6)</h2>
+          <p><b>3–12 anos:</b> Jones et al. <b>Adolescentes:</b> Mallozi (13–19 anos no sexo feminino; 13–24 anos no masculino). <b>Adultos:</b> Pereira et al. 2007 (≥20 anos no feminino; ≥25 anos no masculino). A equação para adultos negros (Prata et al. 2018) fica como opção nos exames limítrofes, sempre com contexto clínico. Nos muito idosos, é correto extrapolar os valores previstos.</p>
+        </div>
+        <div class="card">
+          <h2>No laudo</h2>
+          <p>Registrar peso ou IMC, equação utilizada e LIN. Comparar com exames anteriores do mesmo paciente sempre que possível. Diante de valores limítrofes, escrever "correlacionar com contexto clínico ou probabilidade pré-teste".</p>
+        </div>
+      </section>
+
+      <div class="references">Fonte principal: Albuquerque ALP, Berton DC, Pereira CAC et al. Novas recomendações de espirometria da SBPT – atualização 2024. J Bras Pneumol. 2024;50(6):e20240169. Complementar: Stanojevic S et al. ERS/ATS technical standard on interpretive strategies. Eur Respir J. 2022;60:2101499. Lista completa em referencias.txt.</div>
+    </main>
+    <footer>
+      <span>PneumoAgents · Este material destina-se ao apoio educacional e não substitui o julgamento clínico individualizado.</span>
+      <span>Versão 1.0.0 - 27/09/2026</span>
+    </footer>
+  </article>
+</body>
+</html>

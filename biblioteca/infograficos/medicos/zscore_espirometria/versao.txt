@@ -1,0 +1,12 @@
+material: zscore-espirometria
+publico: medicos
+populacao: adultos
+caminho: /biblioteca/infograficos/medicos/zscore_espirometria/
+versao: 1.0.0
+data: 2026-09-27
+idioma: pt-BR
+status: publicado
+aviso: Este material destina-se ao apoio educacional e nao substitui o julgamento clinico individualizado.
+arquivos: index.html, infografico.pdf, referencias.txt, versao.txt
+exportacao: botao de impressao/PDF no index.html e PDF pronto para download
+elementos_obrigatorios: aviso educacional e botao Voltar ao PneumoAgents
