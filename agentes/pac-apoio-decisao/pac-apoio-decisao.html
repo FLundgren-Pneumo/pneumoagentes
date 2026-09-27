@@ -108,7 +108,7 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-g
     <h2>1. Identificação</h2>
     <div class="form-grid">
       <div class="form-group"><label for="dataAvaliacao">Data *</label><input type="date" id="dataAvaliacao"></div>
-      <div class="form-group"><label for="medicoNome">Médico *</label><input type="text" id="medicoNome" value="Fernando Lundgren"></div>
+      <div class="form-group"><label for="medicoNome">Médico *</label><input type="text" id="medicoNome" value="" placeholder="A preencher"></div>
       <div class="form-group"><label for="crm">CRM</label><input type="text" id="crm" placeholder="CRM-XX 00000"></div>
       <div class="form-group"><label for="localAtend">Local do atendimento</label>
         <select id="localAtend">
@@ -722,8 +722,7 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-g
     if (!confirm('Limpar todo o formulário?')) return;
     document.querySelectorAll('input[type=checkbox]').forEach(el=>el.checked=false);
     document.querySelectorAll('input:not([type=checkbox]),select,textarea').forEach(el=>{
-      if (el.id==='medicoNome') el.value='Fernando Lundgren';
-      else el.value='';
+      el.value='';
     });
     setDateToday();
     $('secaoRelatorio').classList.add('hidden');

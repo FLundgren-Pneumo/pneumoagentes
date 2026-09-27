@@ -165,21 +165,21 @@ footer{max-width:980px;margin:0 auto;padding:24px;font-size:.78rem;color:var(--i
       <div class="grid-2">
         <div>
           <label for="docName">Nome</label>
-          <input type="text" id="docName" value="Dr. Fernando Lundgren">
+          <input type="text" id="docName" value="" placeholder="A preencher">
         </div>
         <div>
           <label for="docSpecialty">Especialidade</label>
-          <input type="text" id="docSpecialty" value="Pneumologista">
+          <input type="text" id="docSpecialty" value="" placeholder="A preencher">
         </div>
       </div>
       <div class="grid-2" style="margin-top:12px;">
         <div>
           <label for="docCrm">CRM / RQE</label>
-          <input type="text" id="docCrm" value="CRM 26120 | RQE 14933">
+          <input type="text" id="docCrm" value="" placeholder="A preencher">
         </div>
         <div>
           <label for="docAddress">Endereço / cidade (opcional — timbre)</label>
-          <input type="text" id="docAddress" value="Fortaleza, CE" placeholder="Endereço completo para timbre">
+          <input type="text" id="docAddress" value="" placeholder="Endereço completo para timbre">
         </div>
       </div>
       <p class="hint">Timbre completo (logo, telefone, e-mail) pode ser inserido depois no PDF/Word exportado.</p>
@@ -572,7 +572,7 @@ footer{max-width:980px;margin:0 auto;padding:24px;font-size:.78rem;color:var(--i
     const prices = getPrices();
     const costs = computeCosts(maint, prices);
     return {
-      docName: document.getElementById('docName').value.trim() || 'Médico solicitante',
+      docName: document.getElementById('docName').value.trim() || '______________________________',
       docSpecialty: document.getElementById('docSpecialty').value.trim(),
       docCrm: document.getElementById('docCrm').value.trim(),
       docAddress: document.getElementById('docAddress').value.trim(),

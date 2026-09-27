@@ -100,7 +100,7 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-g
     <h2>1. Identificação</h2>
     <div class="form-grid">
       <div class="form-group"><label for="dataRelatorio">Data do relatório *</label><input type="date" id="dataRelatorio"></div>
-      <div class="form-group"><label for="medicoNome">Médico avaliador *</label><input type="text" id="medicoNome" placeholder="Nome completo" value="Fernando Lundgren"></div>
+      <div class="form-group"><label for="medicoNome">Médico avaliador *</label><input type="text" id="medicoNome" placeholder="A preencher" value=""></div>
       <div class="form-group"><label for="crm">CRM *</label><input type="text" id="crm" placeholder="Ex: CRM-CE 00000"></div>
       <div class="form-group"><label for="rqe">RQE (Pneumologia)</label><input type="text" id="rqe" placeholder="Ex: RQE 0000"></div>
       <div class="form-group"><label for="hospital">Hospital / instituição</label><input type="text" id="hospital" placeholder="Livre"></div>
@@ -625,7 +625,6 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-g
     if (!confirm('Limpar todo o formulário?')) return;
     document.querySelectorAll('input, select, textarea').forEach(el=>{
       if (el.type === 'checkbox' || el.type === 'radio') el.checked = false;
-      else if (el.id === 'medicoNome') el.value = 'Fernando Lundgren';
       else if (el.id === 'consultorio') {/*nop*/}
       else el.value = '';
     });
