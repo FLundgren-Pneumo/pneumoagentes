@@ -42,3 +42,11 @@ Conferido em setembro de 2026.
 NOTA EDITORIAL
 - Calendarios e grupos elegiveis mudam por campanha e regiao; o infografico
   orienta confirmar na UBS/CRIE.
+
+VERSAO 2.0.0 (28/09/2026)
+- Infografico em preto e branco fornecido pelo Dr. Fernando Lundgren.
+- Correcao aplicada: marca trocada para PneumoAgents; o erro "Achar que todo
+  adulto toma a pneumococica logo aos 60 anos" foi trocado por "Achar que so
+  idosos precisam da vacina pneumococica", porque a SBIm recomenda VPC20 para
+  todos a partir de 60 anos e para adultos com doenca cronica (ref. 6 e 7), e o
+  SUS/CRIE oferece a vacina em condicoes especiais (ref. 3).

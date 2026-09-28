@@ -33,3 +33,8 @@ NOTA EDITORIAL
 - "1 a 2 vezes ao dia" e apresentado como pratica comum; a frequencia deve
   seguir a orientacao da equipe assistente.
 - Nao foi incluida receita caseira de solucao salina.
+
+VERSAO 2.0.0 (28/09/2026)
+- Infografico em preto e branco fornecido pelo Dr. Fernando Lundgren. As fontes
+  gerais citadas no rodape da imagem sao as indicadas pelo autor; o conteudo
+  foi conferido com as referencias acima.
