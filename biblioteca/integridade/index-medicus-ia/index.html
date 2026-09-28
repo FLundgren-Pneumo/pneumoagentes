@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Do Index Medicus à IA responsável: linha do tempo da recuperação da informação médica (1980–2026), a Portaria CNPq nº 2.664/2026 e como a IA é usada no PneumoAgents.">
+<title>Do Index Medicus à IA responsável | PneumoAgents</title>
+<style>
+  :root{--navy:#15344a;--blue:#24789a;--cyan:#dff2f4;--green:#21755b;--green-l:#e5f3ec;--orange:#dc6b3d;--orange-l:#fff0e7;--ink:#18323b;--muted:#526a71;--line:#cbdde0;--paper:#f2f7f7;--white:#fff}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:var(--paper);line-height:1.55}
+  .toolbar{position:sticky;top:0;z-index:10;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;padding:10px;background:var(--navy)}
+  .toolbar a,.toolbar button{font:600 .85rem Arial,sans-serif;color:#fff;background:transparent;border:1px solid rgba(255,255,255,.45);border-radius:999px;padding:6px 14px;text-decoration:none;cursor:pointer}
+  .toolbar a:hover,.toolbar button:hover{background:rgba(255,255,255,.12)}
+  .wrap{max-width:1000px;margin:0 auto;padding:24px 18px 48px}
+  .brand{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);font-weight:700}
+  /* infográfico */
+  .info{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:26px 22px}
+  .info header{text-align:center;margin-bottom:18px}
+  .info h1{margin:6px 0 8px;font-size:1.7rem;line-height:1.2;color:var(--navy)}
+  .info header p{margin:0 auto;max-width:42rem;color:var(--muted);font-size:.98rem}
+  .tese{margin:16px auto 22px;max-width:48rem;background:var(--green-l);border-left:5px solid var(--green);padding:12px 16px;border-radius:0 10px 10px 0;font-size:.95rem}
+  .tese strong{color:var(--green)}
+  .timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+  .era{background:var(--paper);border:1px solid var(--line);border-top:5px solid var(--c);border-radius:12px;padding:12px 11px}
+  .era .ano{font-size:.74rem;text-transform:uppercase;letter-spacing:.08em;font-weight:700;color:var(--c)}
+  .era h2{font-size:.98rem;margin:4px 0 8px;line-height:1.25;color:var(--navy)}
+  .era ul{margin:0;padding-left:1rem;color:var(--muted);font-size:.82rem;line-height:1.4}
+  .seta{text-align:center;color:var(--muted);font-size:.85rem;margin:12px 0 16px}
+  .rules{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+  .rule{background:var(--cyan);border-radius:12px;padding:12px;text-align:center}
+  .rule b{display:block;color:var(--navy);font-size:.92rem;margin-bottom:4px}
+  .rule span{color:var(--ink);font-size:.82rem;line-height:1.35}
+  .formula{text-align:center;background:var(--navy);color:#fff;border-radius:12px;padding:13px;font-weight:700}
+  .fonte{text-align:center;color:var(--muted);font-size:.76rem;margin:12px 0 0}
+  /* ensaio */
+  .ensaio,.declaracao{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:28px 30px;margin-top:22px}
+  .ensaio{font-family:Georgia,"Iowan Old Style",serif}
+  .ensaio h2,.declaracao h2{font-family:Arial,Helvetica,sans-serif;color:var(--blue);font-size:1.15rem;margin:1.5rem 0 .5rem}
+  .ensaio h2.titulo{font-size:1.35rem;color:var(--navy);margin-top:0}
+  .sub{color:var(--muted);font-size:.9rem;margin:-.2rem 0 1rem;font-family:Arial,sans-serif}
+  .ensaio p,.ensaio li{font-size:1rem}
+  .nota{font-size:.88rem;color:var(--muted);font-style:italic}
+  table{width:100%;border-collapse:collapse;font:0.9rem Arial,sans-serif;margin:12px 0 16px}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:var(--cyan);color:var(--navy)}
+  .declaracao{border-left:6px solid var(--orange)}
+  .declaracao h2{color:var(--orange);margin-top:0}
+  .declaracao ul{padding-left:1.2rem}
+  ol.refs{font-size:.88rem;color:var(--muted);padding-left:1.3rem;font-family:Arial,sans-serif}
+  ol.refs li{margin-bottom:6px;word-break:break-word}
+  .aviso{margin-top:22px;background:var(--orange-l);border:1px solid #f1c6ae;border-radius:12px;padding:12px 16px;font-size:.85rem;color:#6b3a22}
+  footer{text-align:center;color:var(--muted);font-size:.78rem;margin-top:18px}
+  @media (max-width:900px){.timeline,.rules{grid-template-columns:1fr 1fr}}
+  @media (max-width:560px){.timeline,.rules{grid-template-columns:1fr}.ensaio,.declaracao{padding:20px 18px}}
+  @media print{
+    .toolbar{display:none}
+    body{background:#fff}
+    .wrap{max-width:100%;padding:0}
+    .info,.ensaio,.declaracao{border:none;padding:6mm 4mm}
+    .info{page-break-after:always}
+    .era,.rule,.formula,.tese,th{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+<nav class="toolbar">
+  <a href="../../../profissional/index.html">← Área profissional</a>
+  <a href="#infografico">Infográfico</a>
+  <a href="#ensaio">Ensaio completo</a>
+  <a href="#ia-pneumoagents">IA no PneumoAgents</a>
+  <button onclick="window.print()">Imprimir</button>
+</nav>
+<div class="wrap">
+
+<section class="info" id="infografico">
+  <header>
+    <div class="brand">PneumoAgents · Pesquisa e integridade científica</div>
+    <h1>Do Index Medicus à IA responsável</h1>
+    <p>Linha do tempo da recuperação da informação médica (1980–2026): os instrumentos mudam; a responsabilidade humana permanece.</p>
+  </header>
+  <div class="tese"><strong>Mensagem.</strong> O receio de “conhecimento sem base” não se resolve proibindo ferramentas, e sim usando bem a ferramenta: verificar fontes, declarar o uso e assumir a autoria.</div>
+  <div class="timeline">
+    <div class="era" style="--c:#24789a"><div class="ano">Anos 1980</div><h2>Impresso e mediação</h2><ul><li>Index Medicus / MEDLARS</li><li>MeSH e operadores booleanos</li><li>BIREME · LILACS</li><li>Acesso institucional</li></ul></div>
+    <div class="era" style="--c:#1d8fa3"><div class="ano">Anos 1990</div><h2>Web e acesso aberto</h2><ul><li>PubMed (1996–97)</li><li>SciELO (1997)</li><li>PDF em circulação</li><li>Portal CAPES (2000)</li></ul></div>
+    <div class="era" style="--c:#21755b"><div class="ano">2000–2010</div><h2>Síntese e gestão</h2><ul><li>Medicina baseada em evidências</li><li>Zotero / Mendeley</li><li>Cochrane · RevMan</li><li>PRISMA · triagem assistida</li></ul></div>
+    <div class="era" style="--c:#b7791f"><div class="ano">2020–2025</div><h2>Busca semântica</h2><ul><li>IA generativa em linguagem natural</li><li>Síntese acelerada</li><li>Risco: alucinação e citação falsa</li><li>Exige validação humana</li></ul></div>
+    <div class="era" style="--c:#dc6b3d"><div class="ano">2026</div><h2>Integridade CNPq</h2><ul><li>Portaria nº 2.664/2026</li><li>Declarar o uso de IAG</li><li>Sem falsa autoria</li><li>Responsabilidade do autor</li></ul></div>
+  </div>
+  <div class="seta">Instrumentos mais potentes pedem exigência ética proporcional</div>
+  <div class="rules">
+    <div class="rule"><b>Declarar</b><span>Ferramenta e finalidade, em qualquer fase da pesquisa</span></div>
+    <div class="rule"><b>Não atribuir autoria à IA</b><span>Conteúdo gerado por IAG não pode ser apresentado como autoria humana</span></div>
+    <div class="rule"><b>Responder</b><span>Plágios e imprecisões geradas pela IAG são responsabilidade dos autores</span></div>
+    <div class="rule"><b>Proteger o parecer</b><span>Não inserir projetos de terceiros em IAG para elaborar pareceres</span></div>
+  </div>
+  <div class="formula">Instrumento avançado + uso competente + integridade = conhecimento com base</div>
+  <p class="fonte">Fonte normativa: Portaria CNPq nº 2.664, de 6 de março de 2026 (DOU).</p>
+</section>
+
+<article class="ensaio" id="ensaio">
+  <h2 class="titulo">Da recuperação da informação à inteligência artificial: instrumento, responsabilidade e integridade científica (1980–2026)</h2>
+  <p class="sub">Ensaio histórico-normativo para uso educacional · Fernando Lundgren · revisão 20/09/2026</p>
+
+  <div class="tese"><strong>Tese central.</strong> Os instrumentos de pesquisa progridem, do Index Medicus impresso à busca semântica com IA. O risco não está na ferramenta em si, e sim no uso sem validação humana. Quando o pesquisador domina o instrumento, declara seu uso e responde pelo conteúdo, a IA deixa de ser ameaça de “conhecimento sem fundamento” e passa a ser acelerador legítimo de produção científica responsável.</div>
+
+  <h2>1. Introdução</h2>
+  <p>A historiografia da ciência médica mostra que o avanço do conhecimento é inseparável da evolução dos métodos de recuperação e organização da informação. Nas últimas décadas, saímos de “bibliotecas com paredes”, acervos físicos mediados por especialistas, para “bibliotecas sem paredes”, em que bases abertas e, mais recentemente, sistemas de inteligência artificial generativa (IAG) ampliam o alcance da busca e da síntese.</p>
+  <p>Esse percurso não elimina a necessidade de rigor: apenas desloca o ponto crítico. Antes, o gargalo era <em>encontrar</em> a literatura; hoje, é <em>avaliar, citar e responsabilizar-se</em> pelo que se produz com auxílio de máquinas. O marco normativo brasileiro de 2026 (Portaria CNPq nº 2.664) expressa exatamente essa transição: não proíbe a inovação; exige transparência e autoria humana.</p>
+
+  <h2>2. Anos 1980: impresso, mediação e acesso restrito</h2>
+  <p>Na década de 1980, a pesquisa biomédica ainda dependia fortemente de índices impressos, com destaque para o <em>Index Medicus</em> da National Library of Medicine (NLM). No Brasil, a BIREME (criada em 1967) teve papel estruturante na distribuição regional de informação, inclusive em formatos eletrônicos pioneiros (disquetes e CD-ROMs), e no lançamento do LILACS, ampliando a visibilidade da produção latino-americana.</p>
+  <p>Sistemas como o MEDLARS (NLM, a partir dos anos 1960) já permitiam recuperação automatizada, mas o uso cotidiano exigia mediação técnica: terminologia controlada (MeSH), operadores booleanos e infraestrutura institucional. O bibliotecário não era obstáculo, e sim mediador especializado, porta de entrada em um ecossistema caro e complexo.</p>
+  <p class="nota">Limitações típicas: presença física, custo de assinaturas e dependência de infraestrutura especializada.</p>
+
+  <h2>3. Anos 1990: digitalização e democratização do acesso</h2>
+  <p>Os anos 1990 encerram a hegemonia do papel na busca bibliográfica de rotina. O PubMed (acesso público à MEDLINE via internet, consolidado em 1996–1997) tornou-se divisor de águas ao oferecer interface gratuita em escala global. No Brasil e na América Latina, o SciELO (1997, BIREME/FAPESP) reforçou o acesso aberto a periódicos regionais; o PDF acelerou a circulação do texto completo; e o Portal de Periódicos da CAPES (2000) centralizou o acesso institucional a coleções internacionais.</p>
+  <p>Aqui já se vê o padrão histórico que se repetirá com a IA: cada novo instrumento amplia o acesso e, ao mesmo tempo, exige novas competências do usuário (estratégia de busca, avaliação crítica, gestão de acervo digital).</p>
+
+  <h2>4. Anos 2000–2010: do “encontrar” ao “sintetizar”</h2>
+  <p>Com a explosão do volume informacional, o desafio deixa de ser apenas localizar artigos e passa a ser gerir e sintetizar evidências. A medicina baseada em evidências consolida-se como gramática do rigor clínico-científico.</p>
+  <ul>
+    <li>Gestores bibliográficos: EndNote (trajetória desde fins dos anos 1980), Zotero (2006), Mendeley (2008).</li>
+    <li>Síntese: Cochrane Library, RevMan; protocolos PRISMA (2009, com atualizações posteriores); triagem assistida (Rayyan, Covidence).</li>
+  </ul>
+  <p>Esses softwares já eram “inteligência auxiliar” antes da IAG: não substituíam o julgamento, mas organizavam o trabalho cognitivo.</p>
+
+  <h2>5. 2020–2026: busca semântica e IA generativa</h2>
+  <p>A IAG (chatbots de linguagem, Elicit, Scite, Consensus e correlatos) permite interagir com a literatura em linguagem natural e acelerar mapeamentos, resumos e exploração de hipóteses. A mudança qualitativa é clara: da lógica predominantemente booleana/MeSH para uma lógica semântica, útil porém falível.</p>
+  <p>Os riscos reais, e legítimos, do receio público são conhecidos: alucinações factuais, citações fabricadas, plágio automatizado e falsa sensação de “pronto para publicar”. A resposta madura não é o medo da ferramenta, e sim o método: verificar fontes primárias, rastrear referências, declarar o uso e assumir a autoria.</p>
+
+  <h2>6. Marco normativo: Portaria CNPq nº 2.664/2026</h2>
+  <p>Em 6 de março de 2026, o CNPq instituiu a Política de Integridade na Atividade Científica (Portaria nº 2.664). A norma articula educação, prevenção, apuração e sanção; no que toca à IAG, o espírito é claro: <strong>permitir com transparência, vedar a falsa autoria humana, responsabilizar o pesquisador</strong>.</p>
+  <table>
+    <thead><tr><th>Diretriz</th><th>Conteúdo (síntese)</th></tr></thead>
+    <tbody>
+      <tr><td>Declaração de uso</td><td>Declarar IAG em qualquer fase (concepção, redação, análise de dados, submissão), com ferramenta e finalidade.</td></tr>
+      <tr><td>Vedação de falsa autoria</td><td>É vedado submeter conteúdo gerado por IAG como se fosse de autoria humana.</td></tr>
+      <tr><td>Responsabilidade integral</td><td>Os autores respondem pelo conteúdo final, inclusive por plágios ou imprecisões geradas pela IAG.</td></tr>
+      <tr><td>Pareceres de terceiros</td><td>É vedada a inserção de projetos de pesquisa de terceiros em IAG para elaborar pareceres científicos.</td></tr>
+    </tbody>
+  </table>
+  <p class="nota">A política não criminaliza o instrumento: disciplina o uso. Isso é coerente com a história das bibliotecas digitais, dos gestores bibliográficos e das revisões sistemáticas.</p>
+
+  <h2>7. Conclusão: o instrumento a serviço do conhecimento com base</h2>
+  <p>Do manuseio do <em>Index Medicus</em> à conversa semântica com modelos generativos, a constante histórica é a mesma: o ser humano inventa mediações para conhecer mais e melhor. A IA é o capítulo atual dessa série, mais potente e, por isso, mais exigente.</p>
+  <p>Reduzir o receio de uma “produção sem base” implica formar pesquisadores capazes de usar bem o instrumento: cruzar com fontes, documentar o processo, declarar a ajuda tecnológica e manter a responsabilidade ética. Tecnologia sem julgamento é ruído; julgamento com bons instrumentos é ciência.</p>
+</article>
+
+<section class="declaracao" id="ia-pneumoagents">
+  <h2>Como a IA é usada no PneumoAgents</h2>
+  <p>Em coerência com a Portaria CNPq nº 2.664/2026, declaramos o uso de inteligência artificial generativa na construção deste site.</p>
+  <ul>
+    <li><strong>Ferramenta:</strong> assistente de IA generativa Grok Bot (modelo de linguagem).</li>
+    <li><strong>Finalidade:</strong> programação das páginas e calculadoras, apoio à busca e à conferência da literatura, rascunho e revisão de textos e infográficos.</li>
+    <li><strong>Validação humana:</strong> todo conteúdo clínico é revisado pelo autor, médico pneumologista, antes da publicação.</li>
+    <li><strong>Fontes:</strong> diretrizes e publicações verificáveis (sociedades médicas, Ministério da Saúde, artigos indexados), citadas em cada material.</li>
+    <li><strong>Responsabilidade:</strong> a autoria e a responsabilidade pelo conteúdo final são humanas. A IA não é autora.</li>
+  </ul>
+  <p class="nota">Erros ou sugestões de correção podem ser enviados ao autor pelos canais indicados na capa.</p>
+</section>
+
+<section class="ensaio">
+  <h2>Referências</h2>
+  <ol class="refs">
+    <li>National Library of Medicine. MEDLINE/PubMed history. Bethesda: NLM. https://www.nlm.nih.gov/medline/medline_history.html</li>
+    <li>da Silva MR, Ferla L, Gallian DM. Uma “biblioteca sem paredes”: história da criação da Bireme. Hist Cienc Saude Manguinhos. 2006;13(1):91-112. PMID: 17580431.</li>
+    <li>BIREME/OPAS. LILACS: trajetória e inovação. Documentação institucional BIREME.</li>
+    <li>Portal de Periódicos CAPES. Histórico. https://www.periodicos.capes.gov.br/</li>
+    <li>SciELO. Sobre o SciELO / histórico do programa. https://www.scielo.br/</li>
+    <li>CNPq. Portaria CNPq nº 2.664, de 6 de março de 2026. Institui a Política de Integridade na Atividade Científica do CNPq. Diário Oficial da União. https://www.in.gov.br/web/dou/-/portaria-cnpq-n-2.664-de-6-de-marco-de-2026-691779232</li>
+    <li>Zotero. Documentação do projeto. https://www.zotero.org/</li>
+  </ol>
+</section>
+
+<div class="aviso"><strong>Aviso educacional.</strong> Material de caráter educacional e informativo. Não substitui a leitura integral da norma citada nem orientação institucional sobre integridade científica.</div>
+<footer>PneumoAgents · Ensaio e infográfico: Fernando Lundgren · revisão 20/09/2026 · página v1.0 (28/09/2026)</footer>
+</div>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "41331af379ba4c71af70c5689396f1b8"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
