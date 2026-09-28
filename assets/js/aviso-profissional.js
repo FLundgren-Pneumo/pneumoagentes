@@ -11,10 +11,7 @@
 
   // Caminho da area do paciente, calculado a partir do endereco deste script (assets/js/ -> raiz)
   var script = document.currentScript;
-  var areaPaciente = 'pacientes/index.html';
-  try {
-    areaPaciente = new URL('../../pacientes/index.html', script && script.src ? script.src : location.href).href;
-  } catch (e) {}
+  var areaPaciente = 'https://flundgren-pneumo.github.io/pneumoagentes-pacientes/';
 
   function ler() {
     try { return JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { return memoria; }
@@ -75,10 +72,10 @@
       '<li>É de uso exclusivo de profissionais de saúde habilitados.</li>' +
       '<li>É material de apoio e não substitui a avaliação clínica individual.</li>' +
       '</ul>' +
-      '<p>Se você é paciente ou familiar, vá para a área do paciente, com materiais em linguagem simples.</p>' +
+      '<p>Se você é paciente ou familiar, vá para o site do paciente, com materiais em linguagem simples.</p>' +
       '<div class="pa-botoes">' +
       '<button type="button" class="pa-prof">Sou profissional de saúde — continuar</button>' +
-      '<a class="pa-btn pa-pac" href="' + areaPaciente + '">Sou paciente — ir para a área do paciente</a>' +
+      '<a class="pa-btn pa-pac" href="' + areaPaciente + '">Sou paciente — ir para o site do paciente</a>' +
       '</div>' +
       '<p class="pa-nota">A confirmação fica salva só neste navegador por 30 dias.</p>' +
       '</div>';
