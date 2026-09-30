@@ -246,7 +246,7 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-g
     </div>
     <div class="result-box" id="boxTx">
       <h3>Orientação empírica (classes / padrões de diretriz)</h3>
-      <p class="hint" style="margin-bottom:6px">Não inventa protocolo novo. Sem doses — ajustar à função renal, alergia e antibiograma local. Macrolídeo monoterapia desencorajado no BR (SIREVA invasivo eritromicina ~46%).</p>
+      <p class="hint" style="margin-bottom:6px">Não inventa protocolo novo. Sem doses — ajustar à função renal, alergia e antibiograma local. A resistência deve ser interpretada por agente, antimicrobiano e sítio clínico. O IAL/SIREVA 2025 informa o diagnóstico de origem dos casos pneumocócicos invasivos (pneumonia, meningite, sepsis/bacteremia e outros), mas as tabelas de suscetibilidade publicadas não isolam pneumonia de sepsis/bacteremia: para penicilina e ceftriaxona, agrupam os quadros excluindo meningite/endocardite.</p>
       <div id="txContent"></div>
     </div>
   </div>
@@ -263,7 +263,7 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-g
   <div class="disclaimer no-print">
     <strong>Aviso educacional (PneumoAgents):</strong> ferramenta de apoio à decisão para profissionais. Não é protocolo institucional, não substitui exame clínico, antibiograma local, bula nem julgamento médico. O clínico sempre pode (e deve) sobrescrever a sugestão. Sem categoria HCAP.
     <div class="cite">
-      Fontes: SBPT/JBP 2018 (Corrêa et al.); ATS/IDSA 2019 (Metlay et al.); ERS/ESICM/ESCMID/ALAT 2023 (PAC grave); ATS CPG 2025/26 (atualização focal); SIREVA II/IAL NMPI 2018–2023 (eritromicina ~46% invasivo — caveat). Revisão completa: <code>17_Pneumonia_PAC_Adultos.html</code>.
+      Fontes: SBPT/JBP 2018 (Corrêa et al.); ATS/IDSA 2019 (Metlay et al.); ERS/ESICM/ESCMID/ALAT 2023 (PAC grave); ATS CPG 2025/26 (atualização focal); Instituto Adolfo Lutz / NMPI — Informação da vigilância das pneumonias e meningites bacterianas 2025 (BrCAST 2025). Revisão completa: <code>17_Pneumonia_PAC_Adultos.html</code>.
     </div>
   </div>
 
@@ -504,10 +504,10 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-g
     } else {
       setting = 'Ambulatório sem comorbidades';
       regimen = 'Amoxicilina (padrão ATS/IDSA / alinhado SBPT)';
-      alt = 'Alternativa ATS: doxiciclina. Macrolídeo isolado só se resistência pneumocócica local &lt;25% — no Brasil, tendência SIREVA invasiva (~46% eritromicina) desencoraja monoterapia empírica de rotina.';
+      alt = 'Alternativa ATS: doxiciclina. Macrolídeo isolado somente quando a resistência pneumocócica local for &lt;25%; no IAL/SIREVA 2025, resistência à eritromicina em S. pneumoniae invasivo foi 49,0% no total e 45,7% em ≥60 anos; o boletim não estratifica esse resultado especificamente para pneumonia.';
     }
 
-    notes.push('Evitar macrolídeo em monoterapia empírica quando resistência local desconhecida (SIREVA/IAL invasivo 2018–23).');
+    notes.push('Evitar macrolídeo em monoterapia empírica quando resistência pneumocócica local for desconhecida ou ≥25%. IAL/SIREVA 2025: eritromicina R 49,0% no total; 45,7% em ≥60 anos (isolados invasivos; sem estratificação específica por pneumonia).');
     notes.push('Duração: SBPT tipicamente 5–7 dias na baixa gravidade se estável; ATS 2025/26 permite cursos ≥3 dias em PAC não grave selecionada e estável; grave ≥5 dias.');
     notes.push('Descalonar com culturas e evolução em 48–72 h. Preferir antibiograma do serviço.');
 
@@ -565,6 +565,14 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-g
     html += '<tr><td>PAC grave</td><td>Betalactâmico + macrolídeo (preferência ERS vs BL+FQ)</td></tr>';
     html += '</tbody></table>';
     html += '<ul>' + tx.notes.map(n => '<li>'+n+'</li>').join('') + '</ul>';
+    html += '<div style="margin-top:12px"><strong>Resistência antimicrobiana — principais bactérias da PAC</strong></div>';
+    html += '<table class="tx-table"><thead><tr><th>Agente</th><th>Dados IAL/SIREVA 2025</th><th>Leitura para PAC</th></tr></thead><tbody>';
+    html += '<tr><td><em>Streptococcus pneumoniae</em></td><td>Contexto da vigilância: 2.356 casos pneumocócicos invasivos — pneumonia 330 (14,0%), meningite 896 (38,0%), sepsis/bacteremia 1.123 (47,7%) e outros 7 (0,3%). Nas tabelas de suscetibilidade, os quadros excluindo meningite/endocardite apresentaram penicilina R 22,7% (≥60 a: 17,6%) e ceftriaxona R 0,4% (≥60 a: 0,2%). Eritromicina R 49,0% (≥60 a: 45,7%), sem separação por diagnóstico.</td><td>Reforça não usar macrolídeo isolado empiricamente sem dado local favorável. Para betalactâmicos, interpretar pelos pontos de corte BrCAST e pelo sítio clínico.</td></tr>';
+    html += '<tr><td><em>Haemophilus influenzae</em></td><td>Ampicilina R 19,4% no total e 20,5% em ≥60 a; 12,5% dos isolados produziram beta-lactamase; ceftriaxona R 0% (n=232).</td><td>Amoxicilina-clavulanato amplia cobertura quando H. influenzae produtor de beta-lactamase é preocupação; não extrapolar isolados invasivos para prevalência de PAC ambulatorial.</td></tr>';
+    html += '<tr><td><em>Mycoplasma pneumoniae</em>, <em>Chlamydia pneumoniae</em>, <em>Legionella</em> spp.</td><td>O boletim IAL/NMPI 2025 não fornece vigilância de resistência para esses agentes.</td><td>Não atribuir percentuais nacionais a partir deste boletim; cobertura de atípicos depende do cenário clínico e das diretrizes.</td></tr>';
+    html += '<tr><td><em>Staphylococcus aureus</em> / MRSA e <em>Pseudomonas aeruginosa</em></td><td>Não contemplados pelo boletim IAL/NMPI 2025.</td><td>Não são cobertura empírica rotineira de toda PAC; pesquisar/cobrir quando houver fatores de risco específicos, especialmente PAC grave.</td></tr>';
+    html += '</tbody></table>';
+    html += '<p class="mini"><strong>Como interpretar:</strong> o boletim identifica a origem clínica dos casos pneumocócicos invasivos, porém não publica a suscetibilidade separadamente para pneumonia versus sepsis/bacteremia. Assim, os percentuais não meníngeos são o melhor dado nacional disponível no boletim para contextualizar PAC invasiva, mas não constituem um antibiograma específico de PAC. Priorizar antibiograma local quando disponível.</p>';
     $('txContent').innerHTML = html;
 
     return {crb, curb, ats, site, tx, ex};
