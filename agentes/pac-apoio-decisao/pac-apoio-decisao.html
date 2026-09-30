@@ -104,13 +104,17 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-g
     </div>
   </div>
 
-  <!-- 1 Identificação -->
+  <!-- 1 Dados do paciente -->
   <div class="section no-print">
-    <h2>1. Identificação</h2>
+    <h2>1. Dados do paciente</h2>
     <div class="form-grid">
+      <div class="form-group"><label for="nomePaciente">Paciente *</label><input type="text" id="nomePaciente" placeholder="Nome"></div>
+      <div class="form-group"><label for="idade">Idade (anos) *</label><input type="number" id="idade" min="18" max="120" placeholder="≥18"></div>
+      <div class="form-group"><label for="sexo">Sexo</label>
+        <select id="sexo"><option value="">—</option><option value="M">Masculino</option><option value="F">Feminino</option></select>
+      </div>
+      <div class="form-group"><label for="peso">Peso (kg)</label><input type="number" id="peso" min="20" max="300" step="0.1"></div>
       <div class="form-group"><label for="dataAvaliacao">Data *</label><input type="date" id="dataAvaliacao"></div>
-      <div class="form-group"><label for="medicoNome">Médico *</label><input type="text" id="medicoNome" value="" placeholder="A preencher"></div>
-      <div class="form-group"><label for="crm">CRM</label><input type="text" id="crm" placeholder="CRM-XX 00000"></div>
       <div class="form-group"><label for="localAtend">Local do atendimento</label>
         <select id="localAtend">
           <option value="ambulatorio">Ambulatório / APS</option>
@@ -119,12 +123,6 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-g
           <option value="uti">UTI</option>
         </select>
       </div>
-      <div class="form-group"><label for="nomePaciente">Paciente *</label><input type="text" id="nomePaciente" placeholder="Nome"></div>
-      <div class="form-group"><label for="idade">Idade (anos) *</label><input type="number" id="idade" min="18" max="120" placeholder="≥18"></div>
-      <div class="form-group"><label for="sexo">Sexo</label>
-        <select id="sexo"><option value="">—</option><option value="M">Masculino</option><option value="F">Feminino</option></select>
-      </div>
-      <div class="form-group"><label for="peso">Peso (kg)</label><input type="number" id="peso" min="20" max="300" step="0.1"></div>
     </div>
   </div>
 
@@ -265,13 +263,7 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-g
   <div class="disclaimer no-print">
     <strong>Aviso educacional (PneumoAgents):</strong> ferramenta de apoio à decisão para profissionais. Não é protocolo institucional, não substitui exame clínico, antibiograma local, bula nem julgamento médico. O clínico sempre pode (e deve) sobrescrever a sugestão. Sem categoria HCAP.
     <div class="cite">
-      <strong>Referências:</strong>
-      Corrêa RA, Costa AN, Lundgren F, et al. Recomendações para o manejo da pneumonia adquirida na comunidade 2018. <em>J Bras Pneumol</em>. 2018;44(5):405-423. doi:10.1590/S1806-37562018000000130.
-      Metlay JP, Waterer GW, Long AC, et al. Diagnosis and treatment of adults with community-acquired pneumonia: an official ATS/IDSA clinical practice guideline. <em>Am J Respir Crit Care Med</em>. 2019;200(7):e45-e67.
-      Martin-Loeches I, Torres A, Nagavci B, et al. ERS/ESICM/ESCMID/ALAT guidelines for the management of severe community-acquired pneumonia. <em>Eur Respir J</em>. 2023;61:2200735.
-      American Thoracic Society. Atualização focal da diretriz de PAC em adultos (2025). <em>Am J Respir Crit Care Med</em>. 2026;212:24-44.
-      SIREVA II / Instituto Adolfo Lutz: vigilância de <em>S. pneumoniae</em> invasivo no Brasil 2018–2023 (resistência à eritromicina ~46% em isolados invasivos; dado de doença invasiva, não de PAC ambulatorial).
-      Revisão completa: <code>17_Pneumonia_PAC_Adultos.html</code>.
+      Fontes: SBPT/JBP 2018 (Corrêa et al.); ATS/IDSA 2019 (Metlay et al.); ERS/ESICM/ESCMID/ALAT 2023 (PAC grave); ATS CPG 2025/26 (atualização focal); SIREVA II/IAL NMPI 2018–2023 (eritromicina ~46% invasivo — caveat). Revisão completa: <code>17_Pneumonia_PAC_Adultos.html</code>.
     </div>
   </div>
 
@@ -605,13 +597,12 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-g
         <p>PneumoAgents v1.0 · set/2026 · SBPT 2018 · ATS/IDSA 2019 · ERS 2023 · ATS 2025/26</p>
       </div>
       <div class="relatorio-section">
-        <h3>Identificação</h3>
+        <h3>Dados do paciente</h3>
         <div class="info-grid">
           <div><strong>Paciente:</strong> ${esc(valor('nomePaciente'))}</div>
           <div><strong>Idade/Sexo:</strong> ${esc(valor('idade'))} a / ${esc(sexoTxt)}</div>
           <div><strong>Data:</strong> ${esc(dataTxt)}</div>
           <div><strong>Local:</strong> ${esc(valor('localAtend'))}</div>
-          <div><strong>Médico:</strong> ${esc(valor('medicoNome'))}${valor('crm')?' · '+esc(valor('crm')):''}</div>
           <div><strong>Peso:</strong> ${esc(valor('peso')||'-')} kg</div>
         </div>
       </div>
@@ -666,8 +657,6 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-g
       </div>
       ${valor('obsClinica')?`<div class="relatorio-section"><h3>Observações</h3><div class="score-box">${esc(valor('obsClinica'))}</div></div>`:''}
       <div class="assinatura">
-        <div class="nome"><strong>${esc(valor('medicoNome'))}</strong></div>
-        <div>${esc(valor('crm')||'')}</div>
         <div class="mini">PneumoAgents · 18_PAC_Apoio_Decisao.html · revisão: 17_Pneumonia_PAC_Adultos.html · educacional</div>
       </div>
     `;
