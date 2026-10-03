@@ -4,7 +4,7 @@
 <script src="../../assets/js/aviso-profissional.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PneumoAgents · DPOC Imunobiológicos | v1.0 unificado 09/2026</title>
+<title>PneumoAgents · DPOC imunobiológicos · caso didático</title>
 <style>
 /* ===== FONTES EMBUTIDAS (offline — sem dependência externa) ===== */
 
@@ -455,9 +455,9 @@ tr:nth-child(even) td { background: var(--mist); }
   <div class="mast-icon">🫁</div>
   <div>
     <div class="mast-title">PneumoAgents · DPOC Imunobiológicos</div>
-    <div class="mast-sub">DPOC EOSINOFÍLICA / TIPO 2 · IMUNOBIOLÓGICOS · LME / LAUDO · v1.0 · unificado 09/2026</div>
+    <div class="mast-sub">DPOC EOSINOFÍLICA / TIPO 2 · IMUNOBIOLÓGICOS · VERSÃO EDUCACIONAL · sem identificação</div>
   </div>
-  <div class="mast-badge">GOLD 2025 · clínico geral + pneumologista</div>
+  <div class="mast-badge">GOLD 2025 · caso didático</div>
 </header>
 
 <!-- STATUS BAR -->
@@ -471,10 +471,9 @@ tr:nth-child(even) td { background: var(--mist); }
 
 <!-- DISCLAIMER EDUCACIONAL -->
 <div class="alert a-warn no-print" style="margin:12px 18px 0; max-width:1100px; margin-left:auto; margin-right:auto;">
-  <strong>⚠️ Ferramenta educacional de apoio à decisão (PneumoAgents · v1.0 · 09/2026).</strong>
-  Não substitui julgamento clínico, bula ANVISA, relatório GOLD, DUT/PCDT, normas da ANS/CONITEC/MS nem protocolos locais.
-  Confira sempre a bula e o status regulatório vigente antes de solicitar ou iniciar imunobiológico.
-  Público: clínico geral e pneumologista — dicas curtas quando a conduta diverge.
+  <strong>Versão educacional para conhecimento médico.</strong>
+  Caso didático anonimizado: não digite nome, CPF, CNS, telefone, prontuário ou qualquer dado que identifique paciente ou médico.
+  Não substitui julgamento clínico, bula ANVISA, GOLD, DUT/PCDT, normas da ANS/CONITEC/MS nem protocolos locais.
 </div>
 
 <!-- STEPPER -->
@@ -497,40 +496,24 @@ tr:nth-child(even) td { background: var(--mist); }
     <strong>⚕️ GOLD 2025 (clínico geral + pneumo):</strong> O dupilumabe é o <strong>único imunobiológico com cobertura obrigatória pela ANS</strong> (RN 651/2025, vigência 02/03/2026) para DPOC eosinofílica, indicado na inflamação Tipo 2 (eosinófilos ≥300 céls/µL) sob terapia tripla inalatória (LAMA+LABA+CI) com exacerbações frequentes. O <strong>mepolizumabe</strong> foi aprovado pela ANVISA para DPOC em 22/04/2026 (RE 1.583/2026), porém <strong>ainda fora do rol da ANS</strong> para essa indicação.
   </div>
 
-  <!-- MÉDICO -->
+  <!-- CASO DIDÁTICO -->
   <div class="section">
-    <div class="sec-head"><div class="sec-ico">👨‍⚕️</div><div><h2>Dados do Médico Solicitante</h2><p>Informações para o laudo oficial</p></div></div>
+    <div class="sec-head"><div class="sec-ico">🧑‍🎓</div><div><h2>Caso didático</h2><p>Só variáveis clínicas. Sem identificação de paciente ou médico.</p></div></div>
     <div class="grid-2">
-      <div class="fg span-2"><label>Nome completo do médico</label><input id="docName" type="text" placeholder="Dr. / Dra."></div>
-      <div class="fg"><label>CRM</label><input id="docCRM" type="text" placeholder="Ex: 12345-CE"></div>
-      <div class="fg"><label>RQE (Especialidade)</label><input id="docRQE" type="text" placeholder="Ex: RQE 67890 – Pneumologia"></div>
-      <div class="fg"><label>Instituição / Consultório</label><input id="docInst" type="text" placeholder="Hospital / Clínica"></div>
-      <div class="fg"><label>CNES (unidade de saúde)</label><input id="docCNES" type="text" placeholder="Nº CNES (obrigatório p/ LME-SUS)"></div>
-      <div class="fg"><label>CNS do médico (LME campo 15)</label><input id="docCNS" type="text" placeholder="CNS do médico solicitante"></div>
-      <div class="fg"><label>Data do Laudo</label><input id="docDate" type="date"></div>
-      <div class="fg span-2"><label>Cabeçalho institucional (receita)</label><input id="docHeader" type="text" placeholder="Ex.: Ambulatório de Pneumologia — Município/UF"></div>
-    </div>
-    <p class="tip no-print" style="margin-top:10px;font-size:12px;color:var(--sub);">💡 <strong>Pneumologista:</strong> RQE facilita laudos a convênios. <strong>Clínico geral:</strong> CNS + CNES são os campos críticos do LME-SUS.</p>
-  </div>
-
-  <!-- PACIENTE -->
-  <div class="section">
-    <div class="sec-head"><div class="sec-ico">🧑‍💼</div><div><h2>Dados do Paciente</h2><p>Identificação completa para a solicitação ao convênio / SUS</p></div></div>
-    <div class="grid-2">
-      <div class="fg span-2"><label>Nome completo</label><input id="patName" type="text" placeholder="Nome completo do paciente"></div>
-      <div class="fg span-2"><label>Nome da mãe (LME-SUS)</label><input id="patMother" type="text" placeholder="Nome completo da mãe"></div>
-      <div class="fg"><label>CPF</label><input id="patCPF" type="text" placeholder="000.000.000-00" maxlength="14"></div>
-      <div class="fg"><label>Data de Nascimento</label><input id="patDOB" type="date"></div>
-      <div class="fg"><label>CNS — Cartão Nacional de Saúde</label><input id="patCNS" type="text" placeholder="000 0000 0000 0000 (LME-SUS)"></div>
-      <div class="fg"><label>Carteirinha / Beneficiário</label><input id="patPlan" type="text" placeholder="Nº beneficiário (convênio)"></div>
-      <div class="fg"><label>Convênio / Operadora</label><input id="patConv" type="text" placeholder="Ex: Unimed, Bradesco, SUS"></div>
-      <div class="fg"><label>Telefone para contato</label><input id="patPhone" type="text" placeholder="(00) 00000-0000"></div>
-      <div class="fg"><label>E-mail do paciente (LME campo 22)</label><input id="patEmail" type="email" placeholder="email@exemplo.com"></div>
-      <div class="fg"><label>Prontuário</label><input id="patMR" type="text" placeholder="Nº do prontuário"></div>
+      <div class="fg span-2"><label>Rótulo do caso (opcional, sem nome real)</label><input id="caseLabel" type="text" placeholder="Ex.: exacerbador eosinofílico, GOLD III, tripla otimizada"></div>
+      <div class="fg"><label>Idade (anos)</label><input id="patAge" type="number" min="0" max="110" placeholder="Ex.: 67"></div>
       <div class="fg"><label>Peso (kg)</label><input id="patWeight" type="number" placeholder="Ex: 72" step="0.1"></div>
       <div class="fg"><label>Altura (cm)</label><input id="patHeight" type="number" placeholder="Ex: 168"></div>
-      <div class="fg span-2"><label>Endereço</label><input id="patAddress" type="text" placeholder="Endereço completo (receita / LME)"></div>
+      <div class="fg"><label>Cenário de cobertura para discussão</label>
+        <select id="patConv">
+          <option value="">Não definido</option>
+          <option value="Operadora / rol ANS">Operadora / rol ANS</option>
+          <option value="SUS / CEAF">SUS / CEAF</option>
+          <option value="Discussão judicial">Discussão judicial</option>
+        </select>
+      </div>
     </div>
+    <p class="tip no-print" style="margin-top:10px;font-size:12px;color:var(--sub);">O cenário de cobertura serve só para contrastar ANVISA, rol ANS e SUS. Não é solicitação nem receita.</p>
   </div>
 
   <!-- DIAGNÓSTICO DPOC -->
@@ -870,61 +853,16 @@ tr:nth-child(even) td { background: var(--mist); }
     <div class="rp-foot">
       <div class="sig-block">
         <div class="sig-line"></div>
-        <div class="sig-lbl" id="rep-doc-sig">Médico Solicitante</div>
+        <div class="sig-lbl" id="rep-doc-sig">Síntese educacional</div>
       </div>
       <div><div class="ref-box" id="rep-refs"></div></div>
     </div>
   </div>
   <div class="btn-row no-print" style="margin-top:18px;">
     <button class="btn btn-ghost" onclick="goDecision()">← Voltar</button>
-    <button class="btn btn-print" onclick="window.print()">🖨️ Imprimir / PDF</button>
-    <button class="btn btn-primary" onclick="goLME()">🏥 Gerar LME (SUS) →</button>
-    <button class="btn btn-amber" onclick="goReceita()">📋 Receita →</button>
+    <button class="btn btn-print" onclick="window.print()">🖨️ Imprimir síntese</button>
   </div>
 </div><!-- /step-rep -->
-
-<!-- ============================================================
-     STEP 4 — LME OFICIAL (SUS / CEAF)
-     ============================================================ -->
-<div id="step-lme">
-  <div class="alert a-info no-print" style="margin-bottom:16px;">
-    <strong>🏥 Laudo para Solicitação de Medicamentos do Componente Especializado (CEAF / SUS):</strong> réplica do formulário LME padronizado pelo Ministério da Saúde, preenchido com os dados da Etapa 1. Confira os campos de preenchimento manual (assinaturas, CNS do médico, raça/cor) antes de imprimir.
-  </div>
-  <div id="lmeSheet" style="background:#fff;max-width:210mm;margin:0 auto;">
-    <!-- gerado via JS (renderLME) -->
-  </div>
-  <div class="btn-row no-print" style="margin-top:18px;">
-    <button class="btn btn-ghost" onclick="goReport()">← Voltar ao Laudo</button>
-    <button class="btn btn-print" onclick="printLME()">🖨️ Imprimir LME</button>
-    <button class="btn btn-ghost" onclick="printLMESemData()">🖨️ Imprimir sem data (renovação)</button>
-    <button class="btn btn-primary" onclick="goReceita()">📋 Gerar Receita →</button>
-  </div>
-</div>
-
-<!-- ============================================================
-     STEP 5 — RECEITA (from Agente Clinico DPOC 2026 / file b)
-     ============================================================ -->
-<div id="step-rx" class="step-panel">
-  <div class="alert a-info no-print" style="margin-bottom:16px;">
-    <strong>📋 Receituário de apoio:</strong> gerado a partir do medicamento selecionado na Etapa 2 e dos dados clínicos.
-    Adapte posologia/quantidade à apresentação disponível e à bula. Uso offline — revise antes de imprimir.
-  </div>
-  <div class="section">
-    <div class="sec-head"><div class="sec-ico">💊</div><div><h2>Receituário Médico</h2><p>Imunobiológico + terapia de manutenção + orientações</p></div></div>
-    <div class="grid-2 no-print" style="margin-bottom:14px;">
-      <div class="fg span-2"><label>Posologia (editável)</label><input id="rxDose" type="text" placeholder="Preenchido automaticamente ao abrir esta etapa"></div>
-      <div class="fg"><label>Quantidade / mês</label><input id="rxQty" type="text" value="Conforme posologia"></div>
-      <div class="fg"><label>Duração</label><input id="rxDuration" type="text" value="3 meses (reeavaliar)"></div>
-    </div>
-    <div id="rx-preview" class="report-paper"></div>
-  </div>
-  <div class="btn-row no-print" style="margin-top:18px;">
-    <button class="btn btn-ghost" onclick="goLME()">← Voltar ao LME</button>
-    <button class="btn btn-print" onclick="printReceita()">🖨️ Imprimir Receita</button>
-    <button class="btn btn-ghost" onclick="downloadReceitaTxt()">⬇️ Baixar TXT</button>
-  </div>
-</div>
-<!-- /step-lme -->
 
 </main>
 
@@ -1243,8 +1181,8 @@ function printLMESemData() {
    UI HELPERS
    ============================================= */
 function setStep(n) {
-  const panels = ['step-form','step-dec','step-rep','step-lme','step-rx'];
-  const steps  = ['s-form','s-dec','s-rep','s-lme','s-rx'];
+  const panels = ['step-form','step-dec','step-rep'];
+  const steps  = ['s-form','s-dec','s-rep'];
   panels.forEach((id,i) => {
     const el = document.getElementById(id);
     if(el) el.classList.toggle('active', i===n-1);
@@ -1310,27 +1248,15 @@ function checkTriple() {
 /* =============================================
    COLLECT DATA
    ============================================= */
+function fieldVal(id){const el=document.getElementById(id);return el&&el.value?String(el.value).trim():'';}
+function ageFrom(d){if(d&&d.patAge!=null&&d.patAge!==''&&!isNaN(d.patAge))return d.patAge;if(d&&d.patDOB){const a=Math.floor((new Date()-new Date(d.patDOB))/31557600000);return isNaN(a)?'—':a;}return '—';}
 function collectData() {
   return {
-    docName: document.getElementById('docName').value.trim(),
-    docCRM:  document.getElementById('docCRM').value.trim(),
-    docRQE:  document.getElementById('docRQE').value.trim(),
-    docInst: document.getElementById('docInst').value.trim(),
-    docCNES: document.getElementById('docCNES').value.trim(),
-    docCNS:  (document.getElementById('docCNS')||{}).value ? document.getElementById('docCNS').value.trim() : '',
-    docHeader: (document.getElementById('docHeader')||{}).value ? document.getElementById('docHeader').value.trim() : '',
-    docDate: document.getElementById('docDate').value,
-    patName:   document.getElementById('patName').value.trim(),
-    patMother: document.getElementById('patMother').value.trim(),
-    patCPF:    document.getElementById('patCPF').value.trim(),
-    patCNS:    document.getElementById('patCNS').value.trim(),
-    patDOB:    document.getElementById('patDOB').value,
-    patPlan:   document.getElementById('patPlan').value.trim(),
-    patConv:   document.getElementById('patConv').value.trim(),
-    patPhone:  document.getElementById('patPhone').value.trim(),
-    patEmail:  (document.getElementById('patEmail')||{}).value ? document.getElementById('patEmail').value.trim() : '',
-    patAddress:(document.getElementById('patAddress')||{}).value ? document.getElementById('patAddress').value.trim() : '',
-    patMR:     document.getElementById('patMR').value.trim(),
+    caseLabel: fieldVal('caseLabel'),
+    patAge: document.getElementById('patAge') && document.getElementById('patAge').value !== '' ? parseInt(document.getElementById('patAge').value,10) : null,
+    patConv: fieldVal('patConv'),
+    docName:'', docCRM:'', docRQE:'', docInst:'', docCNES:'', docCNS:'', docHeader:'', docDate:'',
+    patName:'', patMother:'', patCPF:'', patCNS:'', patDOB:'', patPlan:'', patPhone:'', patEmail:'', patAddress:'', patMR:'',
     patWeight: document.getElementById('patWeight').value !== '' ? parseFloat(document.getElementById('patWeight').value) : null,
     patHeight: document.getElementById('patHeight').value !== '' ? parseFloat(document.getElementById('patHeight').value) : null,
     vef1:     parseInt(document.getElementById('vef1').value)||0,
@@ -1508,7 +1434,7 @@ function goDecision() {
   const hp = document.getElementById('helm-active');
   if(hp) hp.style.display = helmActive ? 'block' : 'none';
 
-  const ageYears = pd.patDOB ? (function(){ const a=Math.floor((new Date()-new Date(pd.patDOB))/31557600000); return isNaN(a)?'—':a; })() : '—';
+  const ageYears = ageFrom(pd);
 
   const anyEligible = Object.values(scores).some(s => s.eligible);
   const summaryEl = document.getElementById('pat-summary');
@@ -1518,7 +1444,7 @@ function goDecision() {
     : '⚠️ <strong>Nenhum imunobiológico elegível</strong> com os dados atuais — revisar a conduta (biomarcadores e/ou terapia tripla).';
 
   summaryEl.innerHTML =
-    `<strong>Paciente:</strong> ${pd.patName||'—'} · ${ageYears} anos · Convênio: ${pd.patConv||'—'}<br>
+    `<strong>Caso didático:</strong> ${pd.caseLabel||'anônimo'} · ${ageYears} anos · Cenário: ${pd.patConv||'—'}<br>
      <strong>DPOC:</strong> Estágio GOLD ${pd.goldStage||'?'} · VEF1 ${pd.vef1}% · CAT ${pd.cat} · Exacerbações/ano: ${pd.exac} · Hosp: ${pd.hosp}<br>
      <strong>Biomarcadores:</strong> Eos <strong>${pd.eos} céls/µL</strong> · FeNO ${pd.feno} ppb · IgE ${pd.ige} kU/L · Tabagismo: ${{ex:'Ex-tabagista',current:'Ativo',never:'Nunca fumou'}[pd.smoking]||'—'}<br>
      ${statusLine}`;
@@ -1615,12 +1541,11 @@ function goReport() {
 
   const d = pd;
   const dr = DRUGS[drug];
-  const ageYears = d.patDOB ? (function(){ const a=Math.floor((new Date()-new Date(d.patDOB))/31557600000); return isNaN(a)?'—':a; })() : '—';
-  const dateStr  = d.docDate ? new Date(d.docDate+'T12:00:00').toLocaleDateString('pt-BR') : new Date().toLocaleDateString('pt-BR');
+  const ageYears = ageFrom(d);
+  const dateStr  = new Date().toLocaleDateString('pt-BR');
   const goldLabel = {1:'I (Leve)',2:'II (Moderado)',3:'III (Grave)',4:'IV (Muito Grave)'}[d.goldStage] || '—';
 
-  document.getElementById('rep-stamp').innerHTML =
-    `Nº ${Math.floor(Math.random()*900000+100000)}<br>${dateStr}<br>${d.docInst||''}`;
+  document.getElementById('rep-stamp').innerHTML = `Caso didático<br>${dateStr}<br>Sem identificação`;
 
   const destLabel = dest==='sus'  ? 'Sistema Único de Saúde (SUS) — Componente Especializado da Assistência Farmacêutica (CEAF)' :
                     dest==='judicial' ? 'Solicitação Via Judicial' :
@@ -1659,15 +1584,12 @@ function goReport() {
     </div>
 
     <div class="rp-sec">
-      <h3>Identificação do Paciente</h3>
+      <h3>Caso didático</h3>
       <div class="rp-grid">
-        <div class="rpf"><div class="lbl">Nome completo</div><div class="val">${d.patName||'—'}</div></div>
-        <div class="rpf"><div class="lbl">CPF</div><div class="val">${d.patCPF||'—'}</div></div>
-        <div class="rpf"><div class="lbl">Data de Nascimento</div><div class="val">${d.patDOB?new Date(d.patDOB+'T12:00').toLocaleDateString('pt-BR'):'—'} (${ageYears} anos)</div></div>
-        <div class="rpf"><div class="lbl">Carteirinha / CNS</div><div class="val">${d.patPlan||'—'}</div></div>
-        <div class="rpf"><div class="lbl">Convênio / Operadora</div><div class="val">${d.patConv||'—'}</div></div>
-        <div class="rpf"><div class="lbl">Prontuário</div><div class="val">${d.patMR||'—'}</div></div>
-        <div class="rpf"><div class="lbl">Peso</div><div class="val">${d.patWeight||'—'} kg</div></div>
+        <div class="rpf"><div class="lbl">Rótulo</div><div class="val">${d.caseLabel||'Caso anônimo'}</div></div>
+        <div class="rpf"><div class="lbl">Idade</div><div class="val">${ageYears} anos</div></div>
+        <div class="rpf"><div class="lbl">Cenário de cobertura</div><div class="val">${d.patConv||'—'}</div></div>
+        <div class="rpf"><div class="lbl">Peso / altura</div><div class="val">${d.patWeight||'—'} kg · ${d.patHeight||'—'} cm</div></div>
       </div>
     </div>
 
@@ -1770,19 +1692,19 @@ function goReport() {
     <div class="rp-sec">
       <h3>Justificativa e Parecer Médico</h3>
       <p style="font-size:13px;line-height:1.75;">
-        O(a) paciente <strong>${d.patName||'—'}</strong>, ${ageYears} anos, CPF ${d.patCPF||'—'}, portador(a) de 
+        Caso didático <strong>${d.caseLabel||'anônimo'}</strong>, ${ageYears} anos, com 
         <strong>Doença Pulmonar Obstrutiva Crônica (CID J44)</strong>, estágio <strong>GOLD ${goldLabel}</strong>, 
         com VEF1 de <strong>${d.vef1}%</strong> do predito e <strong>${d.exac} exacerbação(ões)</strong> moderada(s)/grave(s) no último ano
         ${d.hosp > 0 ? `, sendo ${d.hosp} com necessidade de hospitalização` : ''}, 
         apresenta inflamação de Tipo 2 documentada com eosinófilos séricos de <strong>${d.eos} céls/µL</strong>
         ${d.feno > 0 ? ` e FeNO de ${d.feno} ppb` : ''}.
         <br><br>
-        O paciente encontra-se em uso de <strong>terapia tripla inalatória otimizada</strong> (${tripleStr}) 
+        O caso está em uso de <strong>terapia tripla inalatória otimizada</strong> (${tripleStr}) 
         por ${{'lt3':'menos de 3 meses','3to6':'3–6 meses','gt6':'mais de 6 meses','gt12':'mais de 12 meses'}[d.tripleTime]||'período documentado'}, 
         com controle clínico inadequado apesar do tratamento máximo.
         <br><br>
         Diante dos critérios clínicos e biomarcadores acima, com fenótipo <strong>${dr.phenotype}</strong> e satisfação dos critérios de indicação da bula ANVISA,
-        prescrevo e solicito autorização para uso de <strong>${dr.name} (${dr.brand})</strong>, 
+        a discussão didática favorece <strong>${dr.name} (${dr.brand})</strong>, 
         na dose de <strong>${dr.dose_dpoc}</strong>, via ${dr.route}, 
         com avaliação de resposta em <strong>${dr.review}</strong>.
         <br><br>
@@ -1795,9 +1717,7 @@ function goReport() {
 
   document.getElementById('rep-body').innerHTML = body;
   document.getElementById('rep-doc-sig').innerHTML =
-    `${d.docName||'Médico Responsável'}<br>
-     <span style="font-size:11px;">${d.docCRM||''} · ${d.docRQE||''}</span><br>
-     <span style="font-size:11px;">${d.docInst||''}</span>`;
+    `Síntese educacional<br><span style="font-size:11px;">Sem identificação e sem valor de solicitação, LME ou receita.</span>`;
 
   document.getElementById('rep-refs').innerHTML = `
     <strong style="display:block;margin-bottom:5px;color:var(--slate);">📚 Referências Científicas</strong>
@@ -1973,19 +1893,6 @@ function downloadReceitaTxt(){
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  loadDoctorProfile();
-  ['docName','docCRM','docCNS','docInst','docCNES','docHeader','docRQE'].forEach(id=>{
-    const el=document.getElementById(id); if(el) el.addEventListener('change', saveDoctorProfile);
-  });
-  ['rxDose','rxQty','rxDuration'].forEach(id=>{
-    const el=document.getElementById(id); if(el) el.addEventListener('input', ()=>{ const _rx=document.getElementById('step-rx'); if(_rx && _rx.classList.contains('active')) renderReceita(); });
-  });
-
-  document.getElementById('docDate').valueAsDate = new Date();
-  document.getElementById('patCPF').addEventListener('input', function(){
-    this.value = this.value.replace(/\D/g,'').replace(/(\d{3})(\d)/,'$1.$2')
-      .replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2');
-  });
   ['helmHistory'].forEach(id => {
     const el = document.getElementById(id);
     if(el) el.addEventListener('change', () => {
@@ -1998,8 +1905,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <footer class="no-print" style="max-width:1100px;margin:24px auto 40px;padding:0 18px;font-size:12px;color:var(--sub);line-height:1.5;">
   <strong>PneumoAgents · DPOC Imunobiológicos v1.0 · unificado 09/2026</strong> —
-  conteúdo clínico preferencialmente de <em>Imunobiológicos na DPOC (a/c)</em>; LME/receita/perfil de
-  <em>Agente Clínico DPOC 2026 (b)</em>. Fontes: GOLD 2025, BOREAS/NOTUS, MATINEE, bulas ANVISA.
+  versão educacional · sem identificação, sem LME e sem receita. Fontes: GOLD 2025, BOREAS/NOTUS, MATINEE, bulas ANVISA.
   Status ANS/SUS/CONITEC: conforme declarado nas fontes — <strong>não afirma incorporação SUS sem evidência</strong>.
   Pipeline (benralizumabe, tezepelumabe, itepekimabe): apenas informativo / em investigação.
 </footer>

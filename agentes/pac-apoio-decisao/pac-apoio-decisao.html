@@ -4,7 +4,7 @@
 <script src="../../assets/js/aviso-profissional.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PneumoAgents · PAC — Apoio à Decisão Clínica v1.0</title>
+<title>PneumoAgents · PAC — caso didático</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(135deg,#e0f2f1 0%,#c8e6e9 100%);padding:20px;line-height:1.45;color:#222}
@@ -89,10 +89,9 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-g
 <div class="container">
   <div class="header no-print">
     <div class="brand">PneumoAgents</div>
-    <h1>PAC — Apoio à Decisão Clínica</h1>
-    <p class="sub">Adultos com suspeita de pneumonia adquirida na comunidade · Dr. Fernando Lundgren</p>
-    <p class="ver">v1.0 · set/2026 · SBPT 2018 · ATS/IDSA 2019 · ERS grave 2023 · ATS 2025/26</p>
-    <p><a class="link17" href="../guia-pac/guia-pac.html">Ver revisão completa (agente 17)</a></p>
+    <h1>PAC — apoio à decisão</h1>
+    <p class="sub">Caso didático · adultos com suspeita de pneumonia adquirida na comunidade</p>
+    <p class="ver">v1.0 educacional · SBPT 2018 · ATS/IDSA 2019 · ERS 2023 · ATS 2025/26</p>
   </div>
 
   <div class="sticky-scores no-print" id="liveBar">
@@ -104,18 +103,22 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-g
     </div>
   </div>
 
-  <!-- 1 Dados do paciente -->
+
+  <div class="disclaimer no-print" style="margin-bottom:14px">
+    <strong>Versão educacional.</strong> Caso anônimo: não digite nome, documento, telefone ou prontuário.
+    O agente classifica gravidade (CRB-65, CURB-65 e critérios ATS), sugere local de cuidado e organiza o esquema empírico por classes. Não é prescrição, ordem de internação nem protocolo institucional.
+  </div>
+  <!-- 1 Caso didático -->
   <div class="section no-print">
-    <h2>1. Dados do paciente</h2>
+    <h2>1. Caso didático</h2>
     <div class="form-grid">
-      <div class="form-group"><label for="nomePaciente">Paciente *</label><input type="text" id="nomePaciente" placeholder="Nome"></div>
-      <div class="form-group"><label for="idade">Idade (anos) *</label><input type="number" id="idade" min="18" max="120" placeholder="≥18"></div>
+      <div class="form-group"><label for="rotulo">Rótulo do caso</label><input type="text" id="rotulo" placeholder="Ex.: idoso, FR 32, multilobar"></div>
+      <div class="form-group"><label for="idade">Idade (anos)</label><input type="number" id="idade" min="18" max="120" placeholder="≥18"></div>
       <div class="form-group"><label for="sexo">Sexo</label>
         <select id="sexo"><option value="">—</option><option value="M">Masculino</option><option value="F">Feminino</option></select>
       </div>
       <div class="form-group"><label for="peso">Peso (kg)</label><input type="number" id="peso" min="20" max="300" step="0.1"></div>
-      <div class="form-group"><label for="dataAvaliacao">Data *</label><input type="date" id="dataAvaliacao"></div>
-      <div class="form-group"><label for="localAtend">Local do atendimento</label>
+      <div class="form-group"><label for="localAtend">Cenário de atendimento</label>
         <select id="localAtend">
           <option value="ambulatorio">Ambulatório / APS</option>
           <option value="ps">Pronto-socorro</option>
@@ -227,10 +230,6 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-g
       <label for="obsClinica">Quadro, imagem, alergias, evolução</label>
       <textarea id="obsClinica" rows="3" placeholder="Ex.: tosse produtiva 4 dias, RX com condensação LIE, alergia a penicilina…"></textarea>
     </div>
-    <label class="checkbox-group" style="margin-top:8px">
-      <input type="checkbox" id="lgpdOk">
-      <span>Paciente informado sobre coleta de dados (LGPD) — necessário para gerar resumo</span>
-    </label>
   </div>
 
   <!-- Resultados ao vivo -->
@@ -253,17 +252,15 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-g
 
   <div class="button-group no-print">
     <button type="button" class="btn btn-primary" onclick="calcularTudo()">Calcular</button>
-    <button type="button" class="btn btn-success" onclick="gerarResumo()">Gerar resumo</button>
-    <button type="button" class="btn btn-outline" onclick="imprimirA4()">Imprimir A4</button>
-    <button type="button" class="btn btn-outline" onclick="salvarLocal()">Salvar</button>
-    <button type="button" class="btn btn-outline" onclick="carregarLocal()">Carregar</button>
-    <button type="button" class="btn btn-danger" onclick="limparForm()">Limpar</button>
+    <button type="button" class="btn btn-success" onclick="gerarResumo()">Gerar síntese didática</button>
+    <button type="button" class="btn btn-outline" onclick="imprimirA4()">Imprimir</button>
+    <button type="button" class="btn btn-danger" onclick="limparForm()">Limpar caso</button>
   </div>
 
   <div class="disclaimer no-print">
     <strong>Aviso educacional (PneumoAgents):</strong> ferramenta de apoio à decisão para profissionais. Não é protocolo institucional, não substitui exame clínico, antibiograma local, bula nem julgamento médico. O clínico sempre pode (e deve) sobrescrever a sugestão. Sem categoria HCAP.
     <div class="cite">
-      Fontes: SBPT/JBP 2018 (Corrêa et al.); ATS/IDSA 2019 (Metlay et al.); ERS/ESICM/ESCMID/ALAT 2023 (PAC grave); ATS CPG 2025/26 (atualização focal); Instituto Adolfo Lutz / NMPI — Informação da vigilância das pneumonias e meningites bacterianas 2025 (BrCAST 2025). Revisão completa: <code>17_Pneumonia_PAC_Adultos.html</code>.
+      Fontes: SBPT/JBP 2018 (Corrêa et al.); ATS/IDSA 2019 (Metlay et al.); ERS/ESICM/ESCMID/ALAT 2023 (PAC grave); ATS CPG 2025/26 (atualização focal); Instituto Adolfo Lutz / NMPI — Informação da vigilância das pneumonias e meningites bacterianas 2025 (BrCAST 2025). Revisão completa: <a href="../guia-pac/guia-pac.html">guia PAC</a>.
     </div>
   </div>
 
@@ -281,7 +278,7 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-g
   const chk = id => !!($(id)||{}).checked;
   const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-  function setDateToday(){
+  function setDateToday(){ if(!$('dataAvaliacao')) return;
     if (!$('dataAvaliacao').value) {
       const d = new Date();
       const off = d.getTimezoneOffset();
@@ -579,8 +576,7 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-g
   }
 
   function gerarResumo(){
-    if (!chk('lgpdOk')) { alert('Confirme o consentimento LGPD.'); return false; }
-    if (!valor('nomePaciente') || num('idade')===null) { alert('Preencha pelo menos paciente e idade.'); return false; }
+    if (num('idade')===null) { alert('Informe a idade do caso didático.'); return false; }
     const r = calcularTudo();
     const dataTxt = valor('dataAvaliacao')
       ? new Date(valor('dataAvaliacao')+'T12:00:00').toLocaleDateString('pt-BR')
@@ -601,16 +597,15 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-g
 
     const html = `
       <div class="relatorio-header">
-        <h2>PAC — RESUMO CLÍNICO (APOIO À DECISÃO)</h2>
-        <p>PneumoAgents v1.0 · set/2026 · SBPT 2018 · ATS/IDSA 2019 · ERS 2023 · ATS 2025/26</p>
+        <h2>PAC — SÍNTESE DIDÁTICA</h2>
+        <p>PneumoAgents · caso anônimo · SBPT 2018 · ATS/IDSA 2019 · ERS 2023 · ATS 2025/26</p>
       </div>
       <div class="relatorio-section">
-        <h3>Dados do paciente</h3>
+        <h3>Caso didático</h3>
         <div class="info-grid">
-          <div><strong>Paciente:</strong> ${esc(valor('nomePaciente'))}</div>
+          <div><strong>Caso:</strong> ${esc(valor('rotulo')||'anônimo')}</div>
           <div><strong>Idade/Sexo:</strong> ${esc(valor('idade'))} a / ${esc(sexoTxt)}</div>
-          <div><strong>Data:</strong> ${esc(dataTxt)}</div>
-          <div><strong>Local:</strong> ${esc(valor('localAtend'))}</div>
+          <div><strong>Cenário:</strong> ${esc(valor('localAtend'))}</div>
           <div><strong>Peso:</strong> ${esc(valor('peso')||'-')} kg</div>
         </div>
       </div>
@@ -665,7 +660,7 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-g
       </div>
       ${valor('obsClinica')?`<div class="relatorio-section"><h3>Observações</h3><div class="score-box">${esc(valor('obsClinica'))}</div></div>`:''}
       <div class="assinatura">
-        <div class="mini">PneumoAgents · 18_PAC_Apoio_Decisao.html · revisão: 17_Pneumonia_PAC_Adultos.html · educacional</div>
+        <div class="mini">PneumoAgents · apoio à decisão · revisão: <a href="../guia-pac/guia-pac.html">guia PAC</a> · educacional</div>
       </div>
     `;
     $('relatorioConteudo').innerHTML = html;
