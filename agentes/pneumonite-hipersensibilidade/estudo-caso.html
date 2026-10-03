@@ -4,10 +4,7 @@
 <script src="../../assets/js/aviso-profissional.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="PneumoAgents — versão educacional de pneumonite de hipersensibilidade: caso didático, algoritmo, exposição, TCAR, LBA e fontes. Sem identificação de paciente.">
-<meta name="author" content="Fernando Lundgren">
-<meta name="robots" content="index,follow">
-<title>PneumoAgents · Pneumonite de hipersensibilidade · caso didático</title>
+<title>PneumoAgents · PH · estudo de caso didático</title>
 <style>
 :root{
   --bg:#F5F8F6; --surface:#FFFFFF; --ink:#1C2624; --ink-soft:#4B5D58; --ink-faint:#7C8B86;
@@ -80,19 +77,18 @@ footer{max-width:980px;margin:0 auto;padding:24px;font-size:.78rem;color:var(--i
 
 <header class="top">
   <div class="wrap">
-    <div class="eyebrow">PneumoAgents · versão educacional · caso didático</div>
+    <div class="eyebrow">PneumoAgents · estudo de caso educacional · anônimo</div>
     <h1>Pneumonite de hipersensibilidade (HP / PH)</h1>
-    <p class="lead">Caso didático para pneumonite de hipersensibilidade. Integra exposição, TCAR, LBA, IgG, histologia e discussão multidisciplinar; diferencia forma não fibrótica e fibrótica; rastreia FPP/PPF. Sem identificação de paciente. Conteúdo revisado até setembro de 2026.</p>
-    <p class="lead"><a href="estudo-caso.html">Estudo de caso de pneumonite de hipersensibilidade</a></p>
+    <p class="lead">Estudo de caso para treinar o raciocínio diagnóstico. Não recebe nome, documento nem prontuário. A primeira página explica o que o caso produz e o que já foi conferido nas fontes.</p>
+    <p class="lead"><a href="pneumonite-hipersensibilidade.html">Agente de pneumonite de hipersensibilidade</a></p>
     <div class="source-tags">
       <span>ATS/JRS/ALAT 2020</span>
       <span>TSANZ 2024</span>
       <span>CHEST 2021</span>
       <span>INBUILD / FPP</span>
       <span>Brasil · J Bras Pneumol</span>
-      <span>Atualização 2026</span>
-      <span>Revisão bibliográfica set/2026</span>
-      <span>Posologia auditada</span>
+      <span>Revisão PubMed set/2026</span>
+      <span>Posologia v1.3 auditada</span>
       <span>Educacional</span>
     </div>
   </div>
@@ -100,10 +96,10 @@ footer{max-width:980px;margin:0 auto;padding:24px;font-size:.78rem;color:var(--i
 
 <nav class="subnav">
   <div class="wrap">
+    <a href="#como-estudar">Estudo de caso</a>
     <a href="#avaliacao">Avaliação</a>
     <a href="#auxilio">Auxílio à decisão</a>
     <a href="#revisao-pubmed">Revisão</a>
-    <a href="#atualizacao-2026">Atualização 2026</a>
     <a href="#definicao">Definição</a>
     <a href="#epidemiologia">Epidemiologia</a>
     <a href="#exposicao">Exposição</a>
@@ -119,10 +115,31 @@ footer{max-width:980px;margin:0 auto;padding:24px;font-size:.78rem;color:var(--i
 </nav>
 
 <main>
+
+<section id="como-estudar">
+  <div class="section-head"><span class="section-num">00</span><h2>Como este estudo de caso funciona</h2></div>
+  <div class="card">
+    <div class="callout ok"><strong>O que produz:</strong> uma síntese didática do caso anônimo. Não é laudo, prescrição nem diagnóstico fechado. O objetivo é percorrer os mesmos domínios da discussão multidisciplinar.</div>
+    <div class="grid-3">
+      <div class="stat"><div class="num">1</div><div class="label">Monte o caso: rótulo, exposição, TCAR, LBA, IgG e fenótipo. Sem identificador.</div></div>
+      <div class="stat"><div class="num">2</div><div class="label">Percorra o algoritmo. Ele não soma pontos: explica o que cada achado muda.</div></div>
+      <div class="stat"><div class="num">3</div><div class="label">Leia a síntese e compare com as fontes. A confiança continua sendo da DMD.</div></div>
+    </div>
+    <p>Abra <button type="button" onclick="abrirCausasPH()">Principais causas</button> antes de marcar a exposição. Aves, mofo, feno, água quente, usinagem, isocianato e instrumento de sopro são os grupos que o questionário precisa cobrir. Antígeno não identificado não exclui PH.</p>
+    <h3 style="font-size:1.05rem;margin-top:14px">O que foi conferido nesta versão</h3>
+    <ul class="clean">
+      <li>INBUILD: 173/663 (26%) tinham PH crônica. No subgrupo, a diferença de CVF foi 73,1 mL/ano, IC 95% −8,6 a 154,8. O ensaio não teve poder para provar benefício específico em PH (PMID 31566307 e 32145830).</li>
+      <li>IgG na síntese ATS 2020: sensibilidade cerca de 83% e especificidade cerca de 68% para separar PH de outras DPIs. Marca sensibilização, não causalidade. Contra expostos saudáveis o desempenho é maior (PMID 32706311).</li>
+      <li>LBA ≥30% aumenta a confiança quando o restante é coerente; abaixo disso não exclui, sobretudo na forma fibrótica (ATS 2020).</li>
+      <li>FPP: pelo menos 2 de 3 domínios no último ano, sem outra explicação (ATS/ERS/JRS/ALAT 2022, PMID 35486072).</li>
+      <li>A faixa de 30–60% de comportamento progressivo na PH fibrótica está atribuída a registros citados pela TSANZ, não a um ensaio único. A estimativa de aves em cativeiro no Brasil permanece não verificada.</li>
+    </ul>
+  </div>
+</section>
 <section id="avaliacao">
   <div class="section-head"><span class="section-num">00</span><h2>Avaliação clínica interativa</h2></div>
   <div class="card">
-    <div class="callout ok"><strong>Uso educacional:</strong> caso anônimo. Não digite nome, documento ou prontuário. O módulo não fecha diagnóstico: organiza os domínios que alimentam a discussão multidisciplinar.</div>
+    <div class="callout ok"><strong>Caso anônimo.</strong> Use um rótulo didático. Não digite nome, documento, telefone ou prontuário. Nada é gravado neste navegador.</div>
     <div class="grid-2">
       <label>Rótulo do caso<input id="ptNome" type="text" placeholder="Ex.: fibrótico, ave, LBA 40%" style="width:100%;padding:9px;margin-top:4px"></label>
       <input id="ptData" type="hidden" value="">
@@ -141,7 +158,7 @@ footer{max-width:980px;margin:0 auto;padding:24px;font-size:.78rem;color:var(--i
     <p class="mini">Marque critérios ocorridos no último ano, sem explicação alternativa. FPP requer pelo menos 2 de 3 domínios: sintomas, fisiologia e imagem.</p>
     <div class="check-grid" id="ppfGrid"><label><input type="checkbox" value="sintomas"> Piora de sintomas respiratórios</label><label><input type="checkbox" value="fisiologia"> Progressão fisiológica documentada</label><label><input type="checkbox" value="imagem"> Progressão radiológica de fibrose</label></div>
     <label style="display:block;margin-top:14px">Notas / DMD<textarea id="notas" rows="4" style="width:100%;padding:9px;margin-top:4px" placeholder="Exposição, evolução, PFP, DLCO, hipóteses diferenciais, decisão multidisciplinar..."></textarea></label>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px"><button type="button" onclick="abrirCausasPH()">Principais causas</button><button onclick="avaliarPH()">Gerar síntese</button><button onclick="window.print()">Imprimir</button><button onclick="limparPH()">Limpar caso</button></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px"><button type="button" onclick="abrirCausasPH()">Principais causas</button><button onclick="avaliarPH()">Gerar síntese do caso</button><button onclick="window.print()">Imprimir</button><button onclick="limparPH()">Limpar caso</button></div>
     <div id="resultadoPH" class="callout" style="margin-top:14px;display:none"></div>
   </div>
 </section>
@@ -244,25 +261,8 @@ footer{max-width:980px;margin:0 auto;padding:24px;font-size:.78rem;color:var(--i
     Morisset MMF/AZA <strong>PMID 27816444</strong>;
     Adegunsoye IS <strong>PMID 28845429</strong>;
     Alberti/Selman revisão <strong>PMID 34631740</strong>;
-    Spagnolo revisão <strong>PMID 26310038</strong>;
-    revisão brasileira 2026 sobre conceitos atuais em diagnóstico e tratamento <a href="https://pubmed.ncbi.nlm.nih.gov/42781417/" target="_blank" rel="noopener"><strong>PMID 42781417</strong></a>;
-    revisão sistemática/meta-análise 2026 de terapias além dos corticosteroides <a href="https://pubmed.ncbi.nlm.nih.gov/41554302/" target="_blank" rel="noopener"><strong>PMID 41554302</strong></a>;
-    revisão sistemática 2025 de biomarcadores prognósticos para FPP em PH <a href="https://pubmed.ncbi.nlm.nih.gov/40500130/" target="_blank" rel="noopener"><strong>PMID 40500130</strong></a>.
-    Ver <a href="#fontes">§10 Fontes</a>.
-  </div>
-</section>
-
-<section id="atualizacao-2026">
-  <div class="section-head"><span class="section-num">00c</span><h2>Atualização de evidências 2025–2026</h2></div>
-  <div class="card">
-    <div class="callout ok"><strong>O que mudou na atualização:</strong> as diretrizes diagnósticas estruturantes permanecem ATS/JRS/ALAT 2020 e CHEST 2021, complementadas por TSANZ 2024 e Korean 2025. Publicações de 2025–2026 reforçam a estratificação por fenótipo, a vigilância de progressão na PH fibrótica e a necessidade de separar atividade inflamatória de fibrose progressiva.</div>
-    <ul class="clean">
-      <li><strong>Revisão brasileira 2026:</strong> mantém evitar o antígeno como pedra angular; imunomodulação é considerada quando há atividade inflamatória; nintedanibe permanece a opção com evidência para formas fibrosantes progressivas, enquanto novas estratégias, incluindo inibição PDE4B, são ainda emergentes e não devem ser tratadas como padrão estabelecido específico para PH.</li>
-      <li><strong>Meta-análise 2026:</strong> a literatura terapêutica além dos corticosteroides continua heterogênea, com evidência HP-específica limitada para vários agentes; isso reforça a rotulagem explícita de nível de evidência neste agente.</li>
-      <li><strong>Biomarcadores/FPP 2025:</strong> fatores prognósticos podem ajudar na vigilância, mas não substituem os critérios clínicos, fisiológicos e radiológicos de progressão nem a DMD.</li>
-      <li><strong>Imagem 2025:</strong> revisões recentes mantêm TCAR e sinais de doença de pequenas vias aéreas como componentes centrais do raciocínio, sobretudo na distinção entre PH fibrótica e outros padrões fibrosantes.</li>
-    </ul>
-    <p class="hint">Atualização editorial: setembro de 2026. Novidades terapêuticas emergentes são apresentadas como contexto científico e não como recomendação automática.</p>
+    Spagnolo revisão <strong>PMID 26310038</strong>.
+    Ver <a href="#fontes">§10 Fontes</a> e auditoria <code>ph_audit_pubmed.md</code>.
   </div>
 </section>
 
@@ -561,7 +561,6 @@ footer{max-width:980px;margin:0 auto;padding:24px;font-size:.78rem;color:var(--i
       <li><strong>Nintedanibe — INBUILD (Flaherty et al., NEJM 2019, PMID 31566307):</strong> DPI fibrosante progressiva não-FPI; redução do declínio da CVF vs placebo em 52 semanas. Dose do protocolo: <strong>150 mg 2×/dia</strong> (redução a 100 mg 2×/dia por EA) — ver <a href="#posologia">§ posologia</a>. HP crônica = ~26% da coorte. <strong>Subgrupo HP (Wells et al., Lancet Respir Med 2020, PMID 32145830):</strong> redução ~73 mL/ano (IC 95% −8,6 a 154,8) — <em>não significativa</em>; estudo <strong>sem poder</strong> para subgrupos. Interpretação: efeito consistente no conjunto FPP; não extrair “prova de benefício específico em HP” isoladamente.</li>
       <li><strong>Pirfenidona:</strong> RELIEF (Behr et al., PMID 33798455) — FPP (≈21% HP), terminado precocemente; menor declínio de CVF; titulação a <strong>801 mg 3×/dia</strong> (protocolo). RCT pequeno em HP fibrótica (n=40; Fernández Pérez et al., 2023, PMID 37028940), interrompido precocemente pela pandemia: o desfecho primário de CVF% em 52 semanas não diferiu significativamente; houve menor declínio ajustado de CVF% em 26 semanas e melhor sobrevida livre de progressão. Estudo subdimensionado. Contexto off-label/RELIEF fora de FPI conforme país — ver posologia.</li>
       <li><strong>Honestidade:</strong> antifibrótico <em>não</em> substitui evitar antígeno; evidência HP-específica é sobretudo extrapolação de FPP + subgrupos. Checar ANVISA/bula/pagador no Brasil antes de afirmar on-label.</li>
-      <li><strong>Terapias emergentes 2026:</strong> revisões recentes discutem inibidores de PDE4B e outras estratégias para doença fibrosante progressiva. Neste agente, permanecem classificadas como <em>emergentes</em>; não são apresentadas como tratamento padrão específico da PH.</li>
     </ul>
 
     <h3 style="font-size:1.05rem;margin-top:16px;">5. Não farmacológico</h3>
@@ -748,9 +747,29 @@ footer{max-width:980px;margin:0 auto;padding:24px;font-size:.78rem;color:var(--i
   </div>
 </section>
 
+<!-- 09 INCERTEZAS -->
+<section id="incertezas">
+  <div class="section-head"><span class="section-num">09</span><h2>O que este estudo de caso não fecha</h2></div>
+  <div class="card">
+    <div class="callout warn">
+      Pontos que o caso não resolve. Conferir bula, protocolo local e fonte primária antes de protocolar:
+    </div>
+    <ul class="clean">
+      <li>Dose em <strong>mg</strong> de pulsos IV de metilprednisolona na PH — TSANZ só “pulsed-dose”; <strong>não inventada</strong> (ver § posologia).</li>
+      <li>Dose-alvo <em>única</em> MMF/AZA em diretriz ATS/TSANZ/CHEST — só faixas de séries (Morisset/Adegunsoye); protocolo local decide.</li>
+      <li>Profilaxia PJP e calendário CBC/LFT HP-específicos — ausentes nas diretrizes consultadas.</li>
+      <li>Incidência populacional brasileira anual de PH (só frequência relativa entre DPIs — PMID 38536981).</li>
+      <li>Status ANVISA / Rol ANS / CEAF para nintedanibe ou pirfenidona em FPP/HP (HTML não consulta regulatório vivo).</li>
+      <li>Painel de precipitinas/IgG do laboratório local e valores de corte; performance real no BR.</li>
+      <li>Qual diretriz o serviço adota formalmente (ATS 2020 vs CHEST 2021 vs Korean 2025) para limiares e LBA/biópsia.</li>
+      <li>Estimativa “dezenas de milhões de aves em cativeiro no BR” — materiais secundários; <strong>não verificada</strong>.</li>
+    </ul>
+  </div>
+</section>
+
 <!-- 10 FONTES -->
 <section id="fontes">
-  <div class="section-head"><span class="section-num">09</span><h2>Fontes e disclaimer</h2></div>
+  <div class="section-head"><span class="section-num">10</span><h2>Fontes e disclaimer</h2></div>
   <div class="card">
     <h3 style="font-size:1.05rem;">Diretrizes e artigos-chave (PubMed / DOI)</h3>
     <ul class="clean">
@@ -770,11 +789,6 @@ footer{max-width:980px;margin:0 auto;padding:24px;font-size:.78rem;color:var(--i
       <li>Alberti ML, et al. HP: diagnostic and therapeutic challenges. <em>Front Med.</em> 2021;8:718299. <strong>PMID 34631740</strong>.</li>
       <li>Spagnolo P, et al. HP: a comprehensive review. <em>J Investig Allergol Clin Immunol.</em> 2015;25:237–250. <strong>PMID 26310038</strong>.</li>
       <li>Cotin V, et al. Safety/tolerability of nintedanib in INBUILD. <em>Respir Res.</em> 2022. <strong>PMID 35392908</strong> (redução a 100 mg BID).</li>
-      <li><strong>Current concepts in the diagnosis and treatment of hypersensitivity pneumonitis: a narrative review.</strong> 2026. <a href="https://pubmed.ncbi.nlm.nih.gov/42781417/" target="_blank" rel="noopener"><strong>PMID 42781417</strong></a>. Revisão contemporânea publicada pela Sociedade Brasileira de Pneumologia e Tisiologia, com atualização de diagnóstico, fenotipagem, progressão e tratamento.</li>
-      <li>Nabeh OA, et al. <strong>Beyond corticosteroids: a systematic review and meta-analysis of novel therapies for hypersensitivity pneumonitis.</strong> <em>Respir Med.</em> 2026;252:108661. <a href="https://pubmed.ncbi.nlm.nih.gov/41554302/" target="_blank" rel="noopener"><strong>PMID 41554302</strong></a> · DOI 10.1016/j.rmed.2026.108661.</li>
-      <li>Simons IA, et al. <strong>Prognostic biomarkers for the development of progressive pulmonary fibrosis in hypersensitivity pneumonitis: a systematic review.</strong> <em>Eur Respir Rev.</em> 2025;34:240282. <a href="https://pubmed.ncbi.nlm.nih.gov/40500130/" target="_blank" rel="noopener"><strong>PMID 40500130</strong></a> · DOI 10.1183/16000617.0282-2024.</li>
-      <li><strong>Hypersensitivity Pneumonitis: Imaging Findings and Patterns.</strong> 2025. <a href="https://pubmed.ncbi.nlm.nih.gov/41513513/" target="_blank" rel="noopener"><strong>PMID 41513513</strong></a>. Revisão dos achados e padrões de TC segundo as classificações contemporâneas.</li>
-      <li>Pilia MF, et al. <strong>Long-Term Prognosis and Transition Period until Progression in Fibrotic Hypersensitivity Pneumonitis.</strong> 2026. <a href="https://pubmed.ncbi.nlm.nih.gov/41785213/" target="_blank" rel="noopener"><strong>PMID 41785213</strong></a> · DOI 10.1159/000551084.</li>
     </ul>
     <h3 style="font-size:1.05rem;margin-top:14px;">PDFs de trabalho (contexto; preferir primários acima)</h3>
     <ol class="clean">
@@ -783,7 +797,7 @@ footer{max-width:980px;margin:0 auto;padding:24px;font-size:.78rem;color:var(--i
       <li>TL;DR clínico EN — usado só como mapa; números revalidados em PubMed.</li>
     </ol>
     <div class="callout warn" style="margin-top:14px;">
-      <strong>Disclaimer educacional:</strong> caso didático para profissionais de saúde. Não substitui julgamento clínico, bula, diretrizes, discussão multidisciplinar nem regulatório brasileiro. Não iniciar imunossupressão ou antifibrótico só com este arquivo. Não inserir dados identificáveis.
+      <strong>Disclaimer educacional:</strong> este HTML é um estudo de caso educacional anônimo para profissionais de saúde. Não substitui julgamento clínico, bula, diretrizes atualizadas, DMD nem regulatório brasileiro. Não iniciar/ajustar imunossupressão ou antifibrótico com base apenas neste arquivo.
     </div>
   </div>
 </section>
@@ -792,42 +806,37 @@ footer{max-width:980px;margin:0 auto;padding:24px;font-size:.78rem;color:var(--i
 <div id="janelaCausas" class="modal-back" style="display:none" onclick="if(event.target===this)fecharCausasPH()">
   <div class="modal" role="dialog" aria-labelledby="tituloCausas">
     <div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start">
-      <h2 id="tituloCausas">Principais causas de pneumonite de hipersensibilidade</h2>
+      <h2 id="tituloCausas">Principais causas</h2>
       <button type="button" onclick="fecharCausasPH()" style="background:#fff;color:var(--ink);border:1px solid var(--line)">Fechar</button>
     </div>
-    <p class="mini">A causa é a exposição a um antígeno inalado, em pessoa sensibilizada. O nome clássico descreve o cenário, não um germe único. Antígeno não identificado é frequente e não exclui PH.</p>
+    <p class="mini">Antígeno inalado em pessoa sensibilizada. O nome descreve o cenário. Lista de anamnese, não catálogo completo.</p>
     <table>
-      <thead><tr><th>Grupo</th><th>Onde aparece</th><th>Antígenos citados</th></tr></thead>
+      <thead><tr><th>Grupo</th><th>Onde aparece</th><th>Antígeno citado</th></tr></thead>
       <tbody>
-        <tr><td>Aves</td><td>Casa, criação, vizinho, trabalho. A causa identificada mais comum em várias séries.</td><td>Proteínas de penas, fezes e soro de pombo, periquito, calopsita, galinha.</td></tr>
-        <tr><td>Penas de cama</td><td>Travesseiro e edredom de pena (“feather duvet lung”).</td><td>Proteínas aviárias residuais no enchimento.</td></tr>
-        <tr><td>Mofo e umidade</td><td>Infiltração, porão, banheiro, ar-condicionado, umidificador, CPAP sujo.</td><td>Fungos ambientais; o painel de IgG quase nunca cobre todos.</td></tr>
-        <tr><td>Feno e agricultura</td><td>Pulmão do fazendeiro: feno mofado, silagem, estábulo.</td><td>Actinomicetos termofílicos, como <em>Saccharopolyspora rectivirgula</em>.</td></tr>
-        <tr><td>Cogumelo e composto</td><td>Estufa, compostagem, jardinagem com matéria orgânica.</td><td>Esporos de fungos do cultivo e do composto.</td></tr>
-        <tr><td>Água quente</td><td>Banheira, spa e umidificador (“hot tub lung”).</td><td><em>Mycobacterium avium</em> complex, em aerossol. Pode se sobrepor a infecção.</td></tr>
-        <tr><td>Fluidos de usinagem</td><td>Metalúrgica, névoa de óleo de corte.</td><td>Micobactérias e outros microrganismos do fluido contaminado.</td></tr>
-        <tr><td>Químicos</td><td>Tinta, espuma, plástico, resina.</td><td>Isocianatos e anidridos ácidos. IgG pode não estar disponível.</td></tr>
-        <tr><td>Instrumento de sopro</td><td>Saxofone, trombone, gaita.</td><td>Biofilme de fungos e bactérias no bocal.</td></tr>
-        <tr><td>Não identificada</td><td>Até cerca de metade das séries, conforme o questionário.</td><td>Antígeno oculto. Reavaliar casa, trabalho e lazer; negativo não exclui.</td></tr>
+        <tr><td>Aves</td><td>Casa, criação, vizinho, trabalho</td><td>Proteínas de penas, fezes e soro</td></tr>
+        <tr><td>Penas de cama</td><td>Travesseiro e edredom</td><td>Proteínas aviárias do enchimento</td></tr>
+        <tr><td>Mofo e umidade</td><td>Infiltração, climatização, CPAP sujo</td><td>Fungos ambientais</td></tr>
+        <tr><td>Feno</td><td>Pulmão do fazendeiro</td><td>Actinomicetos termofílicos</td></tr>
+        <tr><td>Cogumelo</td><td>Estufa e compostagem</td><td>Esporos do cultivo</td></tr>
+        <tr><td>Água quente</td><td>Banheira e spa</td><td>Mycobacterium avium complex</td></tr>
+        <tr><td>Usinagem</td><td>Névoa de óleo de corte</td><td>Microrganismos do fluido</td></tr>
+        <tr><td>Químicos</td><td>Tinta, espuma, resina</td><td>Isocianatos e anidridos</td></tr>
+        <tr><td>Sopro</td><td>Saxofone, trombone, gaita</td><td>Biofilme do bocal</td></tr>
+        <tr><td>Não identificada</td><td>Frequente</td><td>Não exclui PH</td></tr>
       </tbody>
     </table>
-    <p class="hint" style="margin-top:10px">ATS/JRS/ALAT 2020 (PMID 32706311) · CHEST 2021 (PMID 33861992) · TSANZ 2024 (PMID 39467777). A lista ensina o roteiro de anamnese; não esgota os antígenos.</p>
+    <p class="hint">ATS/JRS/ALAT 2020 · CHEST 2021 · TSANZ 2024.</p>
   </div>
 </div>
 
 </main>
 
 <footer>
-  PneumoAgents · pneumonite de hipersensibilidade · versão educacional · sem identificação de paciente · revisão bibliográfica 30/09/2026
+  PneumoAgents · estudo de caso educacional de PH · anônimo · revisão de diretrizes 19/09/2026 · offline
 </footer>
 
 
 <script>
-
-function abrirCausasPH(){document.getElementById('janelaCausas').style.display='flex';}
-function fecharCausasPH(){document.getElementById('janelaCausas').style.display='none';}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')fecharCausasPH();});
-
 
 function executarAlgoritmoPH(){
   const dpi=document.getElementById('algDpi').value, expo=document.getElementById('algExpo').value, tc=document.getElementById('algTcar').value, lba=document.getElementById('algLba').value, igg=document.getElementById('algIgg').value, bio=document.getElementById('algBio').value;
@@ -861,6 +870,9 @@ const PH_IDS=['ptNome','ptData','fenotipo','tcar','lba','igg','notas'];
 function dadosPH(){const d={};PH_IDS.forEach(id=>d[id]=document.getElementById(id).value);d.exposicoes=[...document.querySelectorAll('#expoClinica input:checked')].map(x=>x.value);d.ppf=[...document.querySelectorAll('#ppfGrid input:checked')].map(x=>x.value);return d;}
 function avaliarPH(){const d=dadosPH();let a=[];a.push('Caso: '+(d.ptNome||'anônimo')+'.');a.push('Fenótipo: '+(d.fenotipo||'não definido')+'. TCAR: '+(d.tcar||'não classificada')+'.');a.push('Exposição: '+(d.exposicoes.length?d.exposicoes.join(', '):'não registrada')+'.');if(d.lba!=='')a.push('LBA: '+d.lba+'% de linfócitos'+(+d.lba>=30?' (≥30% aumenta a confiança quando coerente com os demais domínios; não é diagnóstico isolado).':' (abaixo de 30% não exclui PH, sobretudo fibrótica).'));if(d.igg)a.push('IgG específica: '+d.igg+'; interpretar como evidência de sensibilização/exposição, não como prova causal.');a.push(d.ppf.length>=2?'Triagem de FPP: critérios em ≥2 dos 3 domínios foram marcados; confirmar janela de 1 ano, critérios fisiológicos/radiológicos formais e ausência de explicação alternativa.':'Triagem de FPP: menos de 2 dos 3 domínios marcados; não preenche a regra sindrômica apenas com estes dados.');a.push('Conclusão operacional: integrar exposição + TCAR + LBA/IgG ± histologia em DMD; o agente não atribui diagnóstico definitivo automaticamente.');let el=document.getElementById('resultadoPH');el.innerHTML='<strong>Síntese:</strong><br>'+a.join('<br>');el.style.display='block';return a.join('\n');}
 function limparPH(){if(!confirm('Limpar o caso didático?'))return;PH_IDS.forEach(id=>{const el=document.getElementById(id); if(el) el.value='';});document.querySelectorAll('#avaliacao input[type=checkbox]').forEach(x=>x.checked=false);document.getElementById('resultadoPH').style.display='none';}
+function abrirCausasPH(){document.getElementById('janelaCausas').style.display='flex';}
+function fecharCausasPH(){document.getElementById('janelaCausas').style.display='none';}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')fecharCausasPH();});
 </script>
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "41331af379ba4c71af70c5689396f1b8"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
