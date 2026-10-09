@@ -3,165 +3,579 @@
 <head>
 <script src="../../assets/js/aviso-profissional.js"></script>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Asma grave — imunobiológicos · caso didático</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Asma grave — imunobiológicos | PneumoAgents</title>
 <style>
-:root{--bg:#f5f7fb;--card:#fff;--ink:#142033;--muted:#64748b;--line:#dbe3ef;--blue:#174ea6;--green:#137333;--amber:#b06000;--red:#b3261e;--soft:#eef4ff}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:DejaVu Sans,Arial,sans-serif;font-size:14px}.wrap{max-width:1180px;margin:0 auto;padding:20px}.edu{background:#f5fbff;border:1px solid #b8d9ef;border-left:6px solid #174ea6;border-radius:12px;padding:12px 14px;margin-bottom:14px;color:#173c5b}.hero{background:linear-gradient(135deg,#123b7a,#2563eb);color:white;border-radius:18px;padding:22px 26px;margin-bottom:16px;box-shadow:0 12px 30px #173b7a26}.hero h1{margin:0;font-size:28px}.hero p{margin:8px 0 0;opacity:.9}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 8px 20px #0f172a0b}.card h2{font-size:18px;margin:0 0 12px;color:#0f2e5c}.card h3{font-size:15px;margin:14px 0 8px}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}label{font-weight:700;font-size:12px;color:#334155;display:block;margin-bottom:4px}input,select,textarea{width:100%;border:1px solid #cbd5e1;border-radius:10px;padding:9px;background:white;font-family:inherit}textarea{min-height:80px}.checks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.check{display:flex;align-items:center;gap:8px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:8px}.check input{width:auto}.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}button{border:0;border-radius:12px;padding:10px 14px;font-weight:800;cursor:pointer}.primary{background:var(--blue);color:white}.ghost{background:#e8eef8;color:#173b7a}.danger{background:#fee2e2;color:var(--red)}.ok{background:#dcfce7;color:var(--green)}.full{grid-column:1/-1}.result{border-left:5px solid var(--blue);background:#f8fbff;border-radius:12px;padding:12px;margin:10px 0}.warn{border-left-color:var(--amber);background:#fff7ed}.bad{border-left-color:var(--red);background:#fff1f2}.good{border-left-color:var(--green);background:#f0fdf4}.rank{display:grid;gap:10px}.drug{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff}.drugTop{display:flex;justify-content:space-between;gap:12px;align-items:center}.score{font-size:22px;font-weight:900;color:var(--blue)}.bar{height:10px;background:#e2e8f0;border-radius:99px;overflow:hidden;margin-top:8px}.bar span{display:block;height:100%;background:#2563eb}.pill{display:inline-block;background:#eaf2ff;color:#174ea6;border:1px solid #c7dcff;border-radius:99px;padding:3px 8px;margin:2px;font-size:12px;font-weight:700}.muted{color:var(--muted)}table{width:100%;border-collapse:collapse;font-size:12px}td,th{border:1px solid #dbe3ef;padding:7px;text-align:left}th{background:#eef4ff}.report{white-space:pre-wrap;background:white;border:1px solid var(--line);border-radius:12px;padding:14px;line-height:1.45}@media(max-width:850px){.grid,.row,.row3{grid-template-columns:1fr}.checks{grid-template-columns:1fr}}@media print{body{background:white}.hero,.btns,.noPrint{display:none}.wrap{padding:0}.card{box-shadow:none;border:0}.grid{display:block}.report{border:0}.full{page-break-inside:avoid}}
+:root{--ink:#152238;--muted:#5c6b7a;--line:#d8e0e8;--paper:#fff;--bg:#eef4f7;--blue:#1463a5;--green:#287b54;--amber:#a46105;--red:#b53838;--slate:#2e4157;--soft:#f7fafc;--shadow:0 10px 28px rgba(20,38,56,.10)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,"Segoe UI",Arial,sans-serif;line-height:1.5}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.edu-banner{max-width:1280px;margin:12px auto 0;padding:10px 16px;border:1px solid #b8d9ef;border-left:6px solid var(--blue);border-radius:8px;background:#f5fbff;color:#173c5b;font-size:13px}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.97);border-bottom:1px solid var(--line);box-shadow:0 4px 14px rgba(20,38,56,.05)}
+.top-inner{max-width:1280px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:14px;justify-content:space-between;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-mark{width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,#1463a5,#287b54);display:grid;place-items:center;color:#fff;font-weight:900}
+.brand h1{font-size:17px;margin:0;line-height:1.15}
+.brand p{margin:2px 0 0;color:var(--muted);font-size:12px}
+.chips-scores{display:flex;gap:8px;flex-wrap:wrap}
+.sc{border:1px solid var(--line);border-radius:8px;padding:5px 10px;background:var(--soft);font-size:12px;min-width:118px}
+.sc b{display:block;font-size:16px}
+.sc.leve{border-color:#add9c0;background:#edf8f2}.sc.leve b{color:#185637}
+.sc.moderado{border-color:#efc16d;background:#fff7e8}.sc.moderado b{color:#7a4b04}
+.sc.grave{border-color:#efb4b4;background:#fff0f0}.sc.grave b{color:#7a2424}
+.top-actions{display:flex;flex-wrap:wrap;gap:8px}
+.btn{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:7px;padding:8px 11px;font-weight:700}
+.btn:hover{border-color:#9fb3c4}
+.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn.small{padding:5px 8px;font-size:12px}
+.shell{max-width:1280px;margin:0 auto;padding:16px 18px;display:grid;grid-template-columns:230px 1fr;gap:16px}
+.side{position:sticky;top:84px;align-self:start;background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);padding:8px}
+.side a{display:flex;gap:8px;align-items:center;padding:9px 10px;border-radius:7px;color:var(--slate);font-weight:700;text-decoration:none;font-size:14px}
+.side a:hover{background:#edf5fb;color:#0c4f86}
+.side .num{width:22px;height:22px;border-radius:50%;background:#e6eff7;color:#0c4f86;display:grid;place-items:center;font-size:12px;flex-shrink:0}
+.side .note{padding:10px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);margin-top:6px}
+.main{display:grid;gap:16px;min-width:0}
+.panel{background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);overflow:hidden;scroll-margin-top:90px}
+.panel-head{padding:14px 18px;border-bottom:1px solid var(--line);background:#fbfdfe}
+.panel-head h2{margin:0;font-size:19px;display:flex;align-items:center;gap:10px}
+.panel-head h2 .num{width:28px;height:28px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-size:14px}
+.panel-head p{margin:4px 0 0 38px;color:var(--muted);font-size:13px}
+.panel-body{padding:16px 18px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.span-2{grid-column:span 2}.span-4{grid-column:span 4}
+label{display:block;font-size:12px;color:#34495e;font-weight:800;margin-bottom:4px}
+.hint{font-size:12px;color:var(--muted);margin:3px 0 0;font-weight:500}
+input,select,textarea{width:100%;border:1px solid var(--line);border-radius:7px;padding:9px;background:#fff;color:var(--ink)}
+textarea{min-height:70px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid #b9daf1;border-color:#6fa9d3}
+.subhead{grid-column:span 4;margin:6px 0 -2px;font-size:13px;font-weight:900;color:#0c4f86;text-transform:uppercase;letter-spacing:.03em;border-bottom:1px solid var(--line);padding-bottom:4px}
+.check-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.check{border:1px solid var(--line);border-radius:7px;padding:8px 9px;background:#fbfdfe;display:flex;gap:8px;align-items:flex-start}
+.check input{width:auto;margin-top:3px}
+.check label{margin:0;font-weight:600;color:var(--ink);font-size:13px}
+.result{margin-top:16px;border:1px solid #b8d9ef;border-left:6px solid var(--blue);border-radius:8px;background:#f5fbff;padding:12px 14px;color:#173c5b}
+.result h3{margin:0 0 8px;font-size:15px}
+.result h4{margin:12px 0 4px;font-size:13px;color:#0c4f86}
+.result ul{margin:4px 0;padding-left:20px}
+.result li{margin:4px 0;font-size:14px}
+.result p{font-size:14px;margin:6px 0}
+#templatePick{width:190px;padding:8px}
+.result.warn{border-left-color:var(--amber);background:#fffaf0;border-color:#efc16d}
+table.t{width:100%;border-collapse:collapse;background:#fff;margin:6px 0}
+table.t th,table.t td{border:1px solid var(--line);padding:7px 8px;text-align:left;font-size:13px;vertical-align:top}
+table.t th{background:#f2f7fb}
+.pill{display:inline-block;border-radius:999px;padding:1px 7px;font-size:11px;font-weight:800;margin-left:4px;vertical-align:1px;white-space:nowrap}
+.src{background:#e8eef5;color:#33506d}
+.ok{background:#edf8f2;color:#185637}
+.no{background:#fff0f0;color:#7a2424}
+.pend{background:#fff7e8;color:#7a4b04}
+.diverge{margin-top:6px;font-size:13px;background:#fff;border:1px dashed #9fb3c4;border-radius:7px;padding:7px 9px}
+.status-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:6px}
+.status{border:1px solid var(--line);border-radius:7px;padding:6px 8px;background:#fff;font-size:13px}
+.status.done{background:#edf8f2;border-color:#add9c0;color:#185637}
+.status.missing{background:#fff7e8;border-color:#efc16d;color:#5c3a04}
+.tests{margin-top:10px;font-size:13px;background:#fff;border:1px solid var(--line);border-radius:7px;padding:8px 10px;display:none}
+.tests .okt{color:#185637;font-weight:800}.tests .bad{color:#7a2424;font-weight:800}
+.doc-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}
+.doc-tab{border:1px solid var(--line);background:#fff;color:#27415a;border-radius:7px;padding:7px 10px;font-weight:800}
+.doc-tab.active{background:var(--blue);border-color:var(--blue);color:#fff}
+.doc{display:none;background:#fff;border:1px solid #cfd8e2;border-radius:8px;padding:20px;color:#111;max-width:920px;margin:0 auto;overflow:auto}
+.doc.active{display:block}
+.doc h2{margin:0 0 6px;font-size:20px}.doc h3{margin:14px 0 6px;font-size:15px}
+.doc table{width:100%;border-collapse:collapse;margin:6px 0}
+.doc td,.doc th{border:1px solid #444;padding:5px;font-size:12px;vertical-align:top;text-align:left}
+.doc .muted{color:#555;font-size:12px}
+.refs{font-size:13px;color:var(--slate);padding-left:20px}
+.refs li{margin:6px 0}
+footer{max-width:1280px;margin:8px auto 26px;padding:0 18px;color:#7a8fa6;font-size:12px}
+@media(max-width:1180px){.top-inner{gap:8px}.chips-scores{order:3;width:100%}.sc{flex:1}}
+@media(max-width:980px){.topbar{position:static}.shell{grid-template-columns:1fr}.side{position:static;display:flex;flex-wrap:wrap}.side .note{display:none}.grid{grid-template-columns:repeat(2,1fr)}.subhead,.span-4{grid-column:span 2}.check-grid{grid-template-columns:1fr}.status-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.grid{grid-template-columns:1fr}.span-2,.span-4,.subhead{grid-column:auto}.panel-head p{margin-left:0}}
+@media print{@page{size:A4;margin:10mm}body{background:#fff}.topbar,.side,.input-panel,.no-print,.edu-banner,footer{display:none!important}.shell{display:block;padding:0;max-width:none}.panel{box-shadow:none;border:0}.panel-head{display:none}.panel-body{padding:0}.doc{display:none;border:0;padding:0;max-width:none}.doc.print-target{display:block}}
+.drug{border:1px solid var(--line);border-radius:8px;background:#fff;padding:12px 14px;margin:10px 0}
+.drug.ind{border-left:6px solid var(--green)}.drug.pos{border-left:6px solid var(--amber)}.drug.nao{border-left:6px solid #b8c2cc;opacity:.85}
+.drug h4{margin:0;font-size:16px;color:var(--ink)}.drug .cls{font-size:12px;color:var(--muted);font-weight:700}
+.drug .st{float:right;font-size:12px;font-weight:900;border-radius:999px;padding:3px 9px}
+.st.ind{background:#edf8f2;color:#185637}.st.pos{background:#fff7e8;color:#7a4b04}.st.nao{background:#eef1f4;color:#4a5866}
+.drug ul{margin:6px 0 0;padding-left:18px}.drug li{font-size:13px;margin:3px 0}
+.drug .dose{font-size:13px;margin-top:6px;color:#2e4157}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="hero">
-    <h1>Asma grave — imunobiológicos</h1>
-    <p>Caso didático. O colega preenche os dados do caso (sem identificação) e o agente comenta a fenotipagem T2, a elegibilidade e o ranking do imunobiológico. Não é prescrição.</p>
-    <p style="font-size:12px;opacity:.85">Revisão clínica: 05/10/2026 · inclui depemoquimabe (registro ANVISA em maio/2026).</p>
-  </div>
-
-  <div class="edu"><b>Versão educacional.</b> Use apenas dados clínicos fictícios ou agregados. Não digite nome, CPF, registro, telefone ou qualquer dado que identifique paciente.</div>
-  <div class="grid">
-    <section class="card">
-      <h2>1. Caso didático</h2>
-      <div class="row">
-        <div class="full"><label>Rótulo do caso (opcional, sem nome real)</label><input id="rotulo" placeholder="Ex.: eosinofílica com polipose, alérgica IgE alta, T2 baixo"></div>
-        <div><label>Idade</label><input id="idade" type="number" min="0"></div>
-        <div><label>Peso (kg)</label><input id="peso" type="number" step="0.1"></div>
-        <div><label>Altura (cm)</label><input id="altura" type="number" step="0.1"></div>
-        <div><label>Sexo</label><select id="sexo"><option></option><option>Feminino</option><option>Masculino</option></select></div>
-      </div>
-      <h3>Pré-requisitos de asma grave</h3>
-      <div class="checks">
-        <label class="check"><input type="checkbox" id="dxConfirmado"> Diagnóstico de asma confirmado</label>
-        <label class="check"><input type="checkbox" id="altaDose"> CI/LABA em alta dose otimizado</label>
-        <label class="check"><input type="checkbox" id="aderencia"> Aderência/técnica inalatória revisadas</label>
-        <label class="check"><input type="checkbox" id="gatilhos"> Comorbidades/gatilhos revisados</label>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>2. Controle e risco</h2>
-      <div class="row3">
-        <div><label>ACT</label><input id="act" type="number" min="5" max="25"></div>
-        <div><label>Exacerbações com corticoide/ano</label><input id="exac" type="number" min="0"></div>
-        <div><label>Internação/PS no ano</label><input id="hosp" type="number" min="0"></div>
-        <div><label>VEF1 % previsto</label><input id="vef1" type="number" step="0.1"></div>
-        <div><label>Corticoide oral manutenção</label><select id="ocs"><option value="nao">Não</option><option value="sim">Sim</option></select></div>
-        <div><label>Tabagismo atual</label><select id="tabaco"><option value="nao">Não</option><option value="sim">Sim</option></select></div>
-      </div>
-      <h3>Biomarcadores</h3>
-      <div class="row3">
-        <div><label>Eosinófilos sangue (céls/µL)</label><input id="eos" type="number" min="0"></div>
-        <div><label>FeNO (ppb)</label><input id="feno" type="number" min="0"></div>
-        <div><label>IgE total (UI/mL)</label><input id="ige" type="number" min="0"></div>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>3. Fenótipo e comorbidades</h2>
-      <div class="checks">
-        <label class="check"><input type="checkbox" id="sensibilizacao"> Sensibilização alérgica comprovada</label>
-        <label class="check"><input type="checkbox" id="rinite"> Rinite alérgica</label>
-        <label class="check"><input type="checkbox" id="polipose"> Rinossinusite crônica com pólipos</label>
-        <label class="check"><input type="checkbox" id="dermatite"> Dermatite atópica</label>
-        <label class="check"><input type="checkbox" id="eoe"> Esofagite eosinofílica</label>
-        <label class="check"><input type="checkbox" id="urticaria"> Urticária crônica espontânea</label>
-        <label class="check"><input type="checkbox" id="egpa"> Suspeita/diagnóstico de EGPA</label>
-        <label class="check"><input type="checkbox" id="helminto"> Risco/infecção helmíntica não tratada</label>
-        <label class="check"><input type="checkbox" id="espacada"> Aplicação espaçada desejável (aderência, distância, logística)</label>
-      </div>
-      <h3>Biológico prévio</h3>
-      <div class="row">
-        <div><label>Uso prévio</label><select id="prevBio"><option>Nenhum</option><option>Omalizumabe</option><option>Mepolizumabe</option><option>Benralizumabe</option><option>Dupilumabe</option><option>Tezepelumabe</option><option>Depemoquimabe</option></select></div>
-        <div><label>Resposta prévia</label><select id="respPrev"><option>Não se aplica</option><option>Boa</option><option>Parcial</option><option>Falha</option><option>Evento adverso</option></select></div>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>4. Entrada rápida por texto</h2>
-      <p class="muted">Cole texto de hemograma, FeNO, espirometria ou relatório. O agente tenta capturar valores simples.</p>
-      <textarea id="textoImportado" placeholder="Ex.: eosinófilos 650 células/uL; FeNO 42 ppb; IgE 380; VEF1 62%; ACT 14..."></textarea>
-      <div class="btns"><button class="ghost" onclick="extrairTexto()">Extrair dados do texto</button><button class="ghost" onclick="limpar()">Limpar</button></div>
-    </section>
-
-    <section class="card full">
-      <h2>5. Análise do agente</h2>
-      <div class="btns noPrint">
-        <button class="primary" onclick="analisar()">Calcular elegibilidade e ranking</button>
-        <button class="ghost" onclick="gerarLaudo()">Gerar síntese didática</button>
-        <button class="ghost" onclick="window.print()">Imprimir / PDF</button>
-      </div>
-      <div id="resumo"></div>
-      <div id="ranking" class="rank"></div>
-    </section>
-
-    <section class="card full">
-      <h2>6. Síntese didática</h2>
-      <div id="laudo" class="report">Clique em “Gerar síntese didática”.</div>
-    </section>
-
-    <section class="card full">
-      <h2>7. Seguimento</h2>
-      <div class="row3">
-        <div><label>ACT atual</label><input id="fuAct" type="number" min="5" max="25"></div>
-        <div><label>Exacerbações após início</label><input id="fuExac" type="number" min="0"></div>
-        <div><label>VEF1 atual %</label><input id="fuVef1" type="number" step="0.1"></div>
-      </div>
-      <div class="btns"><button class="ok" onclick="avaliarResposta()">Avaliar resposta</button></div>
-      <div id="followup"></div>
-    </section>
-
-    <section class="card full">
-      <h2>8. Novidades no Brasil em 2026</h2>
-      <table>
-        <tr><th>Medicamento</th><th>O que mudou</th><th>Data / ato ANVISA</th></tr>
-        <tr><td><b>Depemoquimabe</b> (Densurko®)</td><td>Novo anti-IL-5 de ultralonga ação. Asma com inflamação T2 de fenótipo eosinofílico, a partir de 12 anos, não controlada com CI em dose média a alta + outro controlador. 100 mg SC a cada 6 meses. Também RSCcPN grave em adultos.</td><td>Resolução-RE nº 1.896, de 07/05/2026 (DOU 11/05/2026)</td></tr>
-        <tr><td><b>Tezepelumabe</b> (Tezspire®)</td><td>Nova indicação: RSCcPN grave em adultos sem controle com corticoide sistêmico e/ou cirurgia. Asma grave a partir de 12 anos, sem exigência de fenótipo, já era aprovada.</td><td>Aprovação divulgada em 02/02/2026</td></tr>
-      </table>
-      <p class="muted" style="margin-top:8px">Mepolizumabe recebeu nova indicação para DPOC eosinofílica em 2026 (RE 1.583/2026). Isso não muda a asma; o tema fica no agente de DPOC. Cobertura: até 05/10/2026 não localizamos incorporação do depemoquimabe ao SUS nem ao Rol da ANS. Confira o PCDT e a operadora antes de indicar.</p>
-      <p class="muted">Fontes: <a href="https://www.gov.br/anvisa/pt-br/assuntos/noticias-anvisa/2026/anvisa-autoriza-novo-medicamento-biologico-para-doencas-respiratorias" target="_blank" rel="noopener">ANVISA, depemoquimabe</a> · <a href="https://www.gov.br/anvisa/pt-br/assuntos/noticias-anvisa/2026/anvisa-aprova-novas-indicacoes-para-semaglutida-e-tezepelumabe" target="_blank" rel="noopener">ANVISA, tezepelumabe</a> · <a href="https://www.gov.br/anvisa/pt-br/assuntos/noticias-anvisa/anvisa-aprova-indicacao-de-medicamento-para-doenca-pulmonar-obstrutiva-cronica" target="_blank" rel="noopener">ANVISA, mepolizumabe DPOC</a> · bula profissional Densurko®.</p>
-    </section>
-  </div>
+<div class="edu-banner no-print">
+  <b>Versão educacional.</b> Caso didático anônimo: não digite nome, documento, telefone ou prontuário. Apoio ao raciocínio sobre imunobiológicos na asma grave, com base no guia GINA 2026 de asma grave, nas Recomendações SBPT 2021 e nas bulas brasileiras vigentes. Não há ensaios comparativos diretos entre os biológicos; a escolha considera fenótipo, comorbidades, posologia e acesso. Não substitui bula, critérios do SUS/ANS nem julgamento clínico.
 </div>
-<script>
-const drugs={
- omalizumabe:{nome:'Omalizumabe',classe:'Anti-IgE',dose:'Dose e intervalo pela tabela de IgE total e peso; aplicar conforme bula/local.',idade:6},
- mepolizumabe:{nome:'Mepolizumabe',classe:'Anti-IL-5',dose:'100 mg SC a cada 4 semanas em adultos/adolescentes.',idade:6},
- benralizumabe:{nome:'Benralizumabe',classe:'Anti-IL-5Rα',dose:'30 mg SC a cada 4 semanas nas 3 primeiras doses; depois a cada 8 semanas.',idade:12},
- dupilumabe:{nome:'Dupilumabe',classe:'Anti-IL-4Rα / IL-13',dose:'Dose de ataque 400–600 mg SC, seguida de 200–300 mg SC a cada 2 semanas conforme indicação clínica/bula.',idade:6},
- tezepelumabe:{nome:'Tezepelumabe',classe:'Anti-TSLP',dose:'210 mg SC a cada 4 semanas.',idade:12},
- depemoquimabe:{nome:'Depemoquimabe',classe:'Anti-IL-5 de ultralonga ação',dose:'100 mg SC a cada 6 meses (caneta ou seringa preenchida), em adição ao tratamento de manutenção.',idade:12}
-};
-function v(id){const e=document.getElementById(id);return e.type==='checkbox'?e.checked:e.value}
-function n(id){const x=parseFloat(v(id));return isNaN(x)?null:x}
-function set(id,val){document.getElementById(id).value=val}
-function dados(){return {rotulo:v('rotulo'),idade:n('idade'),peso:n('peso'),altura:n('altura'),sexo:v('sexo'),dx:v('dxConfirmado'),altaDose:v('altaDose'),aderencia:v('aderencia'),gatilhos:v('gatilhos'),act:n('act'),exac:n('exac'),hosp:n('hosp'),vef1:n('vef1'),ocs:v('ocs'),tabaco:v('tabaco'),eos:n('eos'),feno:n('feno'),ige:n('ige'),sens:v('sensibilizacao'),rinite:v('rinite'),polipose:v('polipose'),dermatite:v('dermatite'),eoe:v('eoe'),urticaria:v('urticaria'),egpa:v('egpa'),helminto:v('helminto'),espacada:v('espacada'),prevBio:v('prevBio'),respPrev:v('respPrev')}};
-function calc(d){
- const uncontrolled=(d.act&&d.act<20)||(d.exac>=2)||(d.hosp>=1)||(d.ocs==='sim')||(d.vef1&&d.vef1<80);
- const prereq=d.dx&&d.altaDose&&d.aderencia&&d.gatilhos;
- const t2=(d.eos>=150)||(d.feno>=25)||d.sens||d.polipose||d.dermatite||d.eoe;
- let alerts=[]; if(!prereq) alerts.push('Antes de biológico, confirmar diagnóstico, alta dose otimizada, aderência/técnica e comorbidades.'); if(!uncontrolled) alerts.push('Controle atual não caracteriza asma grave não controlada pelos dados preenchidos.'); if(d.helminto) alerts.push('Risco helmíntico: investigar/tratar antes de anti-T2 quando aplicável.'); if(d.eos>=1500) alerts.push('Eosinofilia ≥1500: excluir EGPA, parasitose, neoplasia/hematológica e outras causas antes de atribuir apenas à asma.');
- let r={}; for(const k in drugs) r[k]={...drugs[k],score:0,ok:true,motivos:[],cautelas:[]};
- function add(k,p,m){r[k].score+=p;r[k].motivos.push(m)} function caut(k,m){r[k].cautelas.push(m)} function block(k,m){r[k].ok=false;r[k].cautelas.push(m)}
- for(const k in r){ if(d.idade!==null && d.idade<r[k].idade) block(k,'Idade abaixo da aprovação usual para este fármaco.'); if(!prereq||!uncontrolled) caut(k,'Elegibilidade clínica depende da confirmação de asma grave não controlada após otimização.'); }
- if(d.sens && d.ige>=30 && d.ige<=1500 && d.peso>=20 && d.peso<=150){add('omalizumabe',35,'Fenótipo alérgico com IgE e peso em faixa de tabela.')} else {caut('omalizumabe','Exige sensibilização alérgica e IgE/peso dentro da tabela posológica.');}
- if(d.rinite) add('omalizumabe',6,'Rinite alérgica associada.'); if(d.urticaria) add('omalizumabe',8,'Urticária crônica favorece anti-IgE.'); if(d.polipose) add('omalizumabe',5,'Polipose pode coexistir com fenótipo T2.'); if(d.eos>=260) add('omalizumabe',4,'Eosinofilia aumenta chance de resposta em asma alérgica.');
- if(d.eos>=150) add('mepolizumabe',20,'Eosinófilos ≥150 céls/µL.'); if(d.eos>=300) add('mepolizumabe',12,'Eosinofilia ≥300 reforça fenótipo eosinofílico.'); if(d.exac>=2) add('mepolizumabe',10,'Exacerbações frequentes.'); if(d.ocs==='sim') add('mepolizumabe',8,'Uso de corticoide oral de manutenção.'); if(d.egpa) add('mepolizumabe',12,'EGPA favorece anti-IL-5.'); if(d.polipose) add('mepolizumabe',6,'Polipose nasal favorece via IL-5/T2.');
- if(d.eos>=150) add('benralizumabe',20,'Eosinófilos ≥150 céls/µL.'); if(d.eos>=300) add('benralizumabe',14,'Eosinofilia alta favorece depleção eosinofílica.'); if(d.eos>=500) add('benralizumabe',8,'Eosinofilia muito elevada.'); if(d.exac>=2) add('benralizumabe',10,'Exacerbações frequentes.'); if(d.ocs==='sim') add('benralizumabe',10,'Potencial poupador de corticoide oral.');
- if(d.eos>=150) add('dupilumabe',16,'Eosinófilos ≥150 céls/µL.'); if(d.feno>=25) add('dupilumabe',18,'FeNO ≥25 ppb sugere inflamação T2/IL-13.'); if(d.feno>=50) add('dupilumabe',10,'FeNO elevado reforça benefício esperado.'); if(d.ocs==='sim') add('dupilumabe',10,'Dependência de corticoide oral.'); if(d.polipose) add('dupilumabe',14,'Polipose nasal favorece dupilumabe.'); if(d.dermatite) add('dupilumabe',10,'Dermatite atópica associada.'); if(d.eoe) add('dupilumabe',8,'Esofagite eosinofílica associada.'); if(d.eos>=1500) caut('dupilumabe','Cautela com eosinofilia muito elevada; excluir diagnósticos alternativos.');
- add('tezepelumabe',15,'Opção para asma grave não controlada, inclusive quando fenótipo T2 é pouco definido.'); if(!t2) add('tezepelumabe',22,'Biomarcadores T2 baixos/ausentes favorecem anti-TSLP.'); if(d.exac>=2) add('tezepelumabe',10,'Exacerbações frequentes.'); if(d.feno>=25) add('tezepelumabe',4,'FeNO elevado também pode responder.'); if(d.eos>=150) add('tezepelumabe',4,'Eosinofilia presente, embora não seja obrigatória.');
- if(d.polipose) add('tezepelumabe',6,'RSCcPN grave em adultos: nova indicação ANVISA (fev/2026).');
- if(d.eos>=150) add('depemoquimabe',18,'Eosinófilos ≥150 céls/µL (fenótipo eosinofílico exigido em bula).'); else caut('depemoquimabe','Bula exige asma com inflamação T2 de fenótipo eosinofílico.'); if(d.eos>=300) add('depemoquimabe',12,'Eosinofilia ≥300 reforça fenótipo eosinofílico.'); if(d.exac>=2) add('depemoquimabe',10,'Exacerbações frequentes (desfecho principal dos estudos SWIFT-1/2).'); if(d.polipose) add('depemoquimabe',6,'RSCcPN grave em adultos também aprovada.'); if(d.espacada) add('depemoquimabe',10,'Duas aplicações por ano podem favorecer aderência e logística.'); if(d.ocs==='sim') caut('depemoquimabe','Corticoide oral de manutenção: evidência de efeito poupador menos estabelecida que a de mepolizumabe/benralizumabe.'); if(d.egpa) caut('depemoquimabe','EGPA não consta na bula brasileira; preferir anti-IL-5 aprovado para EGPA.'); caut('depemoquimabe','Aprovado em 2026: experiência de vida real ainda limitada; verificar cobertura (SUS/operadora).');
- if(d.prevBio!=='Nenhum' && d.respPrev==='Falha'){for(const k in r){if(r[k].nome===d.prevBio){r[k].score-=25;caut(k,'Falha prévia reduz prioridade de reutilização.')}}}
- let arr=Object.keys(r).map(k=>({key:k,...r[k]})).sort((a,b)=>b.score-a.score);
- return {uncontrolled,prereq,t2,alerts,ranking:arr};
-}
-function analisar(){const d=dados(), c=calc(d); let status=c.prereq&&c.uncontrolled?'Candidato clínico possível':'Pré-elegibilidade incompleta'; let cls=c.prereq&&c.uncontrolled?'good':'warn'; document.getElementById('resumo').innerHTML=`<div class="result ${cls}"><b>${status}</b><br>Asma não controlada: <b>${c.uncontrolled?'sim':'não/indefinido'}</b>. Inflamação T2: <b>${c.t2?'provável':'não evidente'}</b>. ${c.alerts.map(x=>'<br>⚠️ '+x).join('')}</div>`; document.getElementById('ranking').innerHTML=c.ranking.map((x,i)=>`<div class="drug"><div class="drugTop"><div><b>${i+1}. ${x.nome}</b> <span class="pill">${x.classe}</span><br><span class="muted">${x.dose}</span></div><div class="score">${Math.max(0,x.score)}</div></div><div class="bar"><span style="width:${Math.min(100,Math.max(0,x.score))}%"></span></div><p><b>Por que:</b> ${x.motivos.length?x.motivos.join('; '):'sem critério forte preenchido.'}</p>${x.cautelas.length?`<p><b>Cautelas:</b> ${x.cautelas.join('; ')}</p>`:''}</div>`).join(''); return c;}
-function gerarLaudo(){const d=dados(), c=analisar(), top=c.ranking[0]; const imc=d.peso&&d.altura?(d.peso/((d.altura/100)**2)).toFixed(1):'não informado'; const texto=`ASMA GRAVE — SÍNTESE DIDÁTICA DE IMUNOBIOLÓGICOS\nData: ${new Date().toLocaleDateString('pt-BR')}\n\nCaso: ${d.rotulo||'caso didático anônimo'} | Idade: ${d.idade??'—'} anos | Sexo: ${d.sexo||'—'} | IMC: ${imc}\n\n1. Pré-requisitos\n- Diagnóstico confirmado: ${d.dx?'sim':'não informado'}\n- CI/LABA alta dose otimizado: ${d.altaDose?'sim':'não informado'}\n- Aderência/técnica revisadas: ${d.aderencia?'sim':'não informado'}\n- Comorbidades/gatilhos revisados: ${d.gatilhos?'sim':'não informado'}\n\n2. Controle e risco\nACT: ${d.act??'—'} | Exacerbações/ano: ${d.exac??'—'} | Internação/PS: ${d.hosp??'—'} | VEF1: ${d.vef1??'—'}% | Corticoide oral manutenção: ${d.ocs}\n\n3. Biomarcadores/fenótipo\nEosinófilos: ${d.eos??'—'} céls/µL | FeNO: ${d.feno??'—'} ppb | IgE: ${d.ige??'—'} UI/mL | Sensibilização alérgica: ${d.sens?'sim':'não'}\nComorbidades T2: ${['rinite','polipose','dermatite','eoe','urticaria','egpa'].filter(k=>d[k]).join(', ')||'não informadas'}\n\n4. Conclusão do agente\n${c.prereq&&c.uncontrolled?'Caso com pré-elegibilidade clínica para discussão de imunobiológico, desde que confirmados os dados e critérios locais de cobertura.':'Pré-elegibilidade incompleta. Corrigir lacunas antes de discutir imunobiológico.'}\n\nRanking sugerido:\n${c.ranking.map((x,i)=>`${i+1}. ${x.nome} — escore ${Math.max(0,x.score)}. Motivos: ${x.motivos.join('; ')||'sem critério forte'}.`).join('\n')}\n\nMelhor opção pelo algoritmo: ${top.nome}.\nDose/resumo: ${top.dose}\n\nAlertas:\n${c.alerts.length?c.alerts.map(x=>'- '+x).join('\n'):'- Sem alertas críticos preenchidos.'}\n\nObservação: caso didático de apoio ao ensino. Não substitui julgamento médico, bula vigente, critérios ANVISA/operadora/SUS, nem discussão com o paciente. Não inserir dados identificáveis.`; document.getElementById('laudo').textContent=texto;}
-function extrairTexto(){const t=v('textoImportado').toLowerCase(); const pick=(re)=>{const m=t.match(re);return m?m[1].replace(',','.'):null}; let eos=pick(/eosin[oó]fil\w*[^0-9]{0,12}(\d{2,5})/), feno=pick(/feno[^0-9]{0,12}(\d{1,3})/), ige=pick(/ige[^0-9]{0,12}(\d{1,5})/), vef1=pick(/vef1|fev1/)?pick(/(?:vef1|fev1)[^0-9]{0,12}(\d{1,3}(?:[\.,]\d)?)/):null, act=pick(/act[^0-9]{0,12}(\d{1,2})/); if(eos)set('eos',eos); if(feno)set('feno',feno); if(ige)set('ige',ige); if(vef1)set('vef1',vef1); if(act)set('act',act); analisar();}
-function avaliarResposta(){const d=dados(), a=n('fuAct'), e=n('fuExac'), v1=n('fuVef1'); let pontos=0, msg=[]; if(a!==null&&d.act!==null){const delta=a-d.act; if(delta>=3){pontos+=2;msg.push('melhora clinicamente relevante do ACT');} else if(delta>0){pontos+=1;msg.push('melhora discreta do ACT');} else msg.push('sem melhora do ACT');} if(e!==null&&d.exac!==null){if(e<=Math.max(0,d.exac/2)){pontos+=2;msg.push('redução importante de exacerbações');} else if(e<d.exac){pontos+=1;msg.push('redução parcial de exacerbações');}} if(v1!==null&&d.vef1!==null){if(v1-d.vef1>=10){pontos+=1;msg.push('ganho de VEF1 ≥10 pontos percentuais');}} let resp=pontos>=4?'Excelente/boa resposta':pontos>=2?'Resposta parcial':'Resposta inadequada ou dados insuficientes'; document.getElementById('followup').innerHTML=`<div class="result ${pontos>=4?'good':pontos>=2?'warn':'bad'}"><b>${resp}</b><br>${msg.join('; ')||'Preencha dados basais e atuais.'}</div>`;}
-function limpar(){document.querySelectorAll('input,textarea').forEach(e=>{if(e.type==='checkbox')e.checked=false;else e.value=''});document.querySelectorAll('select').forEach(e=>e.selectedIndex=0);document.getElementById('resumo').innerHTML='';document.getElementById('ranking').innerHTML='';document.getElementById('laudo').textContent='Clique em “Gerar síntese didática”.'}
-</script>
-<footer class="muted" style="max-width:1180px;margin:0 auto 24px;padding:0 20px;font-size:12px">PneumoAgents · asma grave e imunobiológicos · versão educacional · sem identificação de paciente · não substitui bula nem protocolo local.</footer>
 
+<header class="topbar">
+  <div class="top-inner">
+    <div class="brand"><div class="brand-mark">AG</div><div><h1>Asma grave — imunobiológicos</h1><p>PneumoAgents · educacional · v2026.3 · out/2026</p></div></div>
+    <div class="chips-scores">
+      <div class="sc" id="chipGrave"><span>Asma grave não controlada</span><b>—</b></div>
+      <div class="sc" id="chipT2"><span>Inflamação tipo 2</span><b>—</b></div>
+      <div class="sc" id="chipBio"><span>Biológicos indicados</span><b>—</b></div>
+    </div>
+    <div class="top-actions">
+      <select id="templatePick" class="btn" onchange="applyTemplate(this.value);this.value=''">
+        <option value="">Casos-modelo…</option>
+        <option value="alergica">Alérgica, IgE elevada</option>
+        <option value="eosino">Eosinofílica com pólipos, corticoide oral</option>
+        <option value="t2baixo">T2 baixo</option>
+      </select>
+      <button class="btn" onclick="runTests()">Validar regras</button>
+      <button class="btn" onclick="newCase()">Novo caso</button>
+    </div>
+  </div>
+</header>
+
+<div class="shell">
+  <nav class="side no-print" aria-label="Etapas">
+    <a href="#sec-grave"><span class="num">1</span>É asma grave?</a>
+    <a href="#sec-fenotipo"><span class="num">2</span>Fenótipo e biomarcadores</a>
+    <a href="#sec-opcoes"><span class="num">3</span>Opções de biológico</a>
+    <a href="#sec-resposta"><span class="num">4</span>Avaliação da resposta</a>
+    <a href="#sec-sintese"><span class="num">5</span>Síntese</a>
+    <a href="#sec-fontes"><span class="num">•</span>Fontes</a>
+    <div class="note">Preencha na ordem. Cada etapa mostra logo abaixo o que o agente conclui. Tudo é calculado neste navegador.</div>
+  </nav>
+
+  <main class="main">
+
+    <!-- 1 -->
+    <section class="panel input-panel" id="sec-grave">
+      <div class="panel-head"><h2><span class="num">1</span>É asma grave não controlada?</h2><p>Antes de pensar em biológico: confirmar o diagnóstico e afastar asma de difícil controle.</p></div>
+      <div class="panel-body">
+        <div class="grid">
+          <div class="span-2"><label for="rotulo">Rótulo do caso (sem nome real)</label><input id="rotulo" placeholder="Ex.: eosinofílica com pólipos"></div>
+          <div><label for="idade">Idade (anos)</label><input id="idade" type="number" min="1" max="110"></div>
+          <div><label for="sexo">Sexo</label><select id="sexo"><option value=""></option><option>Feminino</option><option>Masculino</option></select></div>
+          <div><label for="peso">Peso (kg)</label><input id="peso" type="number" min="10" max="250" step="0.1"><p class="hint">Necessário para omalizumabe e dupilumabe infantil.</p></div>
+          <div><label for="inicio">Início da asma</label><select id="inicio"><option value="">Não informado</option><option value="infancia">Infância</option><option value="adulto">Idade adulta</option></select></div>
+          <div class="span-2"></div>
+          <div class="subhead">Pré-requisitos (asma de difícil controle afastada)</div>
+        </div>
+        <div class="check-grid" style="margin-top:8px">
+          <div class="check"><input id="dx" type="checkbox"><label for="dx">Diagnóstico de asma confirmado (variabilidade ou resposta ao broncodilatador documentada)</label></div>
+          <div class="check"><input id="altaDose" type="checkbox"><label for="altaDose">Corticoide inalatório em dose alta + segundo controlador (LABA)</label></div>
+          <div class="check"><input id="adesao" type="checkbox"><label for="adesao">Adesão e técnica inalatória verificadas</label></div>
+          <div class="check"><input id="comorb" type="checkbox"><label for="comorb">Comorbidades e exposições tratadas (rinossinusite, DRGE, obesidade, apneia, ansiedade, exposição ocupacional)</label></div>
+          <div class="check"><input id="tabaco" type="checkbox"><label for="tabaco">Tabagismo atual</label></div>
+        </div>
+        <div class="grid" style="margin-top:12px">
+          <div class="subhead">Controle e risco</div>
+          <div><label for="act">ACT (5–25)</label><input id="act" type="number" min="5" max="25"><p class="hint">&lt;20 = não controlada.</p></div>
+          <div><label for="exac">Exacerbações com corticoide oral no último ano</label><input id="exac" type="number" min="0"></div>
+          <div><label for="hosp">Internações, UTI ou intubação no último ano</label><input id="hosp" type="number" min="0"></div>
+          <div><label for="vef1">VEF1 pós-BD (% previsto)</label><input id="vef1" type="number" min="10" max="150" step="0.1"></div>
+          <div><label for="ocs">Corticoide oral de manutenção</label><select id="ocs"><option value="nao">Não</option><option value="sim">Sim</option></select></div>
+          <div><label for="ocsDose">Dose de prednisona (mg/dia)</label><input id="ocsDose" type="number" min="0" step="0.5"></div>
+        </div>
+        <div id="resGrave" class="result"></div>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="panel input-panel" id="sec-fenotipo">
+      <div class="panel-head"><h2><span class="num">2</span>Fenótipo e biomarcadores</h2><p>Biomarcadores colhidos com a menor dose possível de corticoide oral.</p></div>
+      <div class="panel-body">
+        <div class="grid">
+          <div><label for="eos">Eosinófilos atuais (células/µL)</label><input id="eos" type="number" min="0"></div>
+          <div><label for="eosMax">Maior eosinofilia nos últimos 12 meses</label><input id="eosMax" type="number" min="0"></div>
+          <div><label for="feno">FeNO (ppb)</label><input id="feno" type="number" min="0"></div>
+          <div><label for="ige">IgE total (UI/mL)</label><input id="ige" type="number" min="0"></div>
+          <div class="subhead">Alergia e comorbidades</div>
+        </div>
+        <div class="check-grid" style="margin-top:8px">
+          <div class="check"><input id="sens" type="checkbox"><label for="sens">Sensibilização a aeroalérgeno (teste cutâneo ou IgE específica) com sintomas compatíveis</label></div>
+          <div class="check"><input id="escarro" type="checkbox"><label for="escarro">Eosinófilos no escarro induzido ≥2%</label></div>
+          <div class="check"><input id="polipose" type="checkbox"><label for="polipose">Rinossinusite crônica com pólipos nasais</label></div>
+          <div class="check"><input id="dermatite" type="checkbox"><label for="dermatite">Dermatite atópica moderada a grave</label></div>
+          <div class="check"><input id="eoe" type="checkbox"><label for="eoe">Esofagite eosinofílica</label></div>
+          <div class="check"><input id="urticaria" type="checkbox"><label for="urticaria">Urticária crônica espontânea</label></div>
+          <div class="check"><input id="egpa" type="checkbox"><label for="egpa">Suspeita ou diagnóstico de granulomatose eosinofílica com poliangiite (GEPA)</label></div>
+          <div class="check"><input id="helminto" type="checkbox"><label for="helminto">Risco de helmintíase não tratada</label></div>
+        </div>
+        <div class="grid" style="margin-top:12px">
+          <div class="subhead">Biológico anterior</div>
+          <div class="span-2"><label for="prevBio">Já usou</label><select id="prevBio"><option value="">Nenhum</option><option value="omalizumabe">Omalizumabe</option><option value="mepolizumabe">Mepolizumabe</option><option value="benralizumabe">Benralizumabe</option><option value="dupilumabe">Dupilumabe</option><option value="tezepelumabe">Tezepelumabe</option><option value="depemoquimabe">Depemoquimabe</option><option value="reslizumabe">Reslizumabe</option></select></div>
+          <div class="span-2"><label for="prevResp">Resultado</label><select id="prevResp"><option value="">Não se aplica</option><option value="boa">Boa resposta</option><option value="parcial">Resposta parcial</option><option value="falha">Sem resposta</option><option value="adverso">Evento adverso</option></select></div>
+        </div>
+        <div id="resFenotipo" class="result"></div>
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section class="panel" id="sec-opcoes">
+      <div class="panel-head"><h2><span class="num">3</span>Opções de biológico</h2><p>Para cada fármaco: se a bula brasileira cobre o caso, o que favorece a resposta e o que exige atenção.</p></div>
+      <div class="panel-body">
+        <div id="resOpcoes"></div>
+        <div id="testBox" class="tests"></div>
+      </div>
+    </section>
+
+    <!-- 4 -->
+    <section class="panel input-panel" id="sec-resposta">
+      <div class="panel-head"><h2><span class="num">4</span>Avaliação da resposta</h2><p>Teste mínimo de 4 meses (6 meses para depemoquimabe); se incerto, estender para 6–12 meses (GINA 2026; SBPT 2021).</p></div>
+      <div class="panel-body">
+        <div class="grid">
+          <div><label for="fuMeses">Meses de tratamento</label><input id="fuMeses" type="number" min="0"></div>
+          <div><label for="fuAct">ACT atual</label><input id="fuAct" type="number" min="5" max="25"></div>
+          <div><label for="fuExac">Exacerbações (taxa anualizada desde o início)</label><input id="fuExac" type="number" min="0" step="0.1"></div>
+          <div><label for="fuOcs">Prednisona atual (mg/dia)</label><input id="fuOcs" type="number" min="0" step="0.5"></div>
+          <div><label for="fuVef1">VEF1 atual (% previsto)</label><input id="fuVef1" type="number" min="10" max="150" step="0.1"></div>
+        </div>
+        <p class="hint">Os valores basais vêm da etapa 1 (ACT, exacerbações no ano anterior, dose de prednisona, VEF1).</p>
+        <div id="resResposta" class="result"></div>
+      </div>
+    </section>
+
+    <!-- 5 -->
+    <section class="panel" id="sec-sintese">
+      <div class="panel-head no-print"><h2><span class="num">5</span>Síntese didática</h2><p>Gerada a partir das etapas anteriores. Sem identificação e sem valor de prescrição.</p></div>
+      <div class="panel-body">
+        <div class="doc-tabs no-print"><span style="flex:1"></span><button class="btn small" onclick="printDoc()">Imprimir</button><button class="btn small" onclick="downloadTxt()">Baixar TXT</button></div>
+        <article class="doc active print-target" id="docSintese"></article>
+      </div>
+    </section>
+
+    <section class="panel no-print" id="sec-fontes">
+      <div class="panel-head"><h2><span class="num">•</span>Fontes e situação regulatória</h2><p>Indicações e doses conferidas nas bulas brasileiras em out/2026.</p></div>
+      <div class="panel-body"><ol class="refs" id="refList"></ol>
+        <p class="hint">Registro na Anvisa, comercialização, incorporação ao SUS e cobertura pela operadora são etapas diferentes; conferir antes de propor.</p></div>
+    </section>
+  </main>
+</div>
+<footer class="no-print">PneumoAgents · Asma grave — imunobiológicos · versão educacional v2026.3 (out/2026) · Dr. Fernando Lundgren · não substitui bula nem protocolo institucional.</footer>
+<script>
+(function(){
+'use strict';
+const DRAFT_KEY='pneumoagents_asma_bio_rascunho_v2';
+const $=id=>document.getElementById(id);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const SRC=t=>`<span class="pill src">${t}</span>`;
+const num=v=>{if(v===''||v==null)return null;const x=parseFloat(String(v).replace(',','.'));return Number.isFinite(x)?x:null};
+function fields(){return [...document.querySelectorAll('.input-panel input, .input-panel select, .input-panel textarea')].filter(e=>e.id)}
+function readCase(){const d={};fields().forEach(e=>{d[e.id]=e.type==='checkbox'?e.checked:e.value.trim()});return d}
+function setVal(id,v){const e=$(id);if(!e)return;if(e.type==='checkbox')e.checked=!!v;else e.value=v==null?'':v}
+const li=a=>a.length?'<ul>'+a.map(x=>`<li>${x}</li>`).join('')+'</ul>':'';
+
+/* ---------- 1. asma grave ---------- */
+function gravidade(d){
+  const act=num(d.act),exac=num(d.exac),hosp=num(d.hosp),vef=num(d.vef1);
+  const crit=[];
+  if(act!==null&&act<20)crit.push('ACT '+act+' (&lt;20)');
+  if(exac!==null&&exac>=2)crit.push(exac+' exacerbações com corticoide oral');
+  if(hosp!==null&&hosp>=1)crit.push('internação/UTI no último ano');
+  if(vef!==null&&vef<80)crit.push('VEF1 pós-BD '+vef+'% (&lt;80%)');
+  if(d.ocs==='sim')crit.push('corticoide oral de manutenção');
+  const faltaPre=[];if(!d.dx)faltaPre.push('confirmar diagnóstico');if(!d.altaDose)faltaPre.push('dose alta de corticoide inalatório + LABA');if(!d.adesao)faltaPre.push('adesão e técnica');if(!d.comorb)faltaPre.push('comorbidades e exposições');
+  const semDados=act===null&&exac===null&&hosp===null&&vef===null&&d.ocs!=='sim';
+  const naoControlada=crit.length>0;
+  const status=semDados?'indef':(!naoControlada?'nao':(faltaPre.length?'pre':'sim'));
+  return {crit,faltaPre,naoControlada,status,act,exac,hosp,vef};
+}
+
+/* ---------- 2. fenótipo ---------- */
+function fenotipo(d){
+  const eos=num(d.eos),eosMax=num(d.eosMax),feno=num(d.feno),ige=num(d.ige);
+  const eosRef=Math.max(eos??-1,eosMax??-1);
+  const eosin=(eos!==null&&eos>=150)||(eosMax!==null&&eosMax>=300);
+  const t2Sinais=[];
+  if(eosRef>=150)t2Sinais.push('eosinófilos ≥150/µL');
+  if(feno!==null&&feno>=20)t2Sinais.push('FeNO ≥20 ppb');
+  if(d.sens)t2Sinais.push('asma alérgica (sensibilização + sintomas)');
+  if(d.escarro)t2Sinais.push('eosinófilos no escarro ≥2%');
+  const biomarc=eos!==null||eosMax!==null||feno!==null||d.escarro;
+  const t2=t2Sinais.length>0?'alta':(biomarc?'baixa':'indef');
+  const rotulos=[];
+  if(d.sens)rotulos.push('alérgica');
+  if(eosin)rotulos.push('eosinofílica');
+  if(t2==='baixa')rotulos.push('T2 baixa');
+  const alertas=[];
+  if(eosRef>=1500)alertas.push(`Eosinófilos ≥1.500/µL: excluir GEPA, síndrome hipereosinofílica, parasitoses e causas hematológicas antes de atribuir à asma ${SRC('GINA 2026')}.`);
+  if(d.helminto)alertas.push(`Risco de helmintíase: investigar e tratar antes de iniciar biológico ${SRC('GINA 2026')}.`);
+  if(d.egpa)alertas.push('Suspeita de GEPA: investigar (ANCA, biópsia, avaliação sistêmica) com reumatologia; mepolizumabe tem indicação em GEPA recidivante ou refratária em adultos (300 mg).');
+  if(t2==='baixa')alertas.push(`T2 não evidente: repetir eosinófilos e FeNO até 3 vezes antes de concluir — antes de iniciar corticoide oral, 1–2 semanas após um curso ou na menor dose possível ${SRC('GINA 2026')}.`);
+  if(d.ocs==='sim'&&t2==='alta')alertas.push(`Corticoide oral suprime eosinófilos e FeNO: valores medidos em uso podem subestimar a inflamação tipo 2 ${SRC('GINA 2026')}.`);
+  return {eos,eosMax,eosRef,feno,ige,eosin,t2,t2Sinais,rotulos,alertas};
+}
+
+/* ---------- 3. biológicos (bulas brasileiras out/2026; SBPT 2021) ---------- */
+const DRUGS=[
+ {k:'omalizumabe',nome:'Omalizumabe',classe:'anti-IgE',eixo:'IgE'},
+ {k:'mepolizumabe',nome:'Mepolizumabe',classe:'anti-IL-5',eixo:'IL5'},
+ {k:'benralizumabe',nome:'Benralizumabe',classe:'anti-receptor de IL-5 (IL-5Rα)',eixo:'IL5'},
+ {k:'dupilumabe',nome:'Dupilumabe',classe:'anti-receptor de IL-4 (IL-4Rα; bloqueia IL-4 e IL-13)',eixo:'IL4'},
+ {k:'tezepelumabe',nome:'Tezepelumabe',classe:'anti-TSLP',eixo:'TSLP'},
+ {k:'depemoquimabe',nome:'Depemoquimabe',classe:'anti-IL-5 de ação ultraprolongada',eixo:'IL5'},
+ {k:'reslizumabe',nome:'Reslizumabe',classe:'anti-IL-5 (intravenoso)',eixo:'IL5'}
+];
+function avaliaDroga(D,d,g,f){
+  const a=num(d.idade),w=num(d.peso);
+  const req=[],fav=[],aten=[];let st='ind',dose='';
+  const exige=(ok,txt,falhaStatus='nao')=>{if(ok===null){req.push(`○ ${txt} — dado ausente`);if(st==='ind')st='pos'}else if(ok){req.push(`✓ ${txt}`)}else{req.push(`✕ ${txt}`);if(falhaStatus==='nao')st='nao';else if(st==='ind')st='pos'}};
+  const idadeMin=n=>exige(a===null?null:a>=n,`idade ≥${n} anos`);
+  const eosEos=f.eos===null&&f.eosMax===null?null:f.eosin;
+  const exacAno=(g.exac===null&&g.hosp===null)?null:((g.exac||0)>=1||(g.hosp||0)>=1);
+  switch(D.k){
+   case 'omalizumabe':
+    idadeMin(6);
+    exige(d.sens?true:false,'asma alérgica: sensibilização comprovada a aeroalérgeno');
+    exige(f.ige===null?null:(f.ige>=30&&f.ige<=1500),'IgE total 30–1.500 UI/mL (tabela posológica)');
+    exige(w===null?null:(w>=20&&w<=150),'peso 20–150 kg (tabela posológica)');
+    dose='SC a cada 2 ou 4 semanas; dose pela tabela de IgE total e peso.';
+    if(d.inicio==='infancia')fav.push('asma de início na infância');
+    if(d.sens)fav.push('sintomas desencadeados por alérgenos');
+    if(d.urticaria)fav.push('urticária crônica espontânea (indicação ≥12 anos)');
+    if(d.polipose)fav.push('pólipos nasais (indicação em adultos)');
+    aten.push('Anafilaxia em até 0,2%, inclusive após doses subsequentes: observar após a aplicação, em ambiente preparado '+SRC('SBPT 2021')+'.');
+    aten.push('A IgE basal não prediz resposta e não serve para monitorizar.');
+    break;
+   case 'mepolizumabe':
+    idadeMin(6);
+    exige(eosEos,'fenótipo eosinofílico (eosinófilos ≥150/µL atuais ou ≥300/µL nos últimos 12 meses)');
+    dose=a!==null&&a<12?'40 mg SC a cada 4 semanas (6–11 anos).':'100 mg SC a cada 4 semanas (≥12 anos).';
+    if((g.exac||0)>=1)fav.push('exacerbações no último ano');
+    if(d.inicio==='adulto')fav.push('início na idade adulta');
+    if(d.polipose)fav.push('pólipos nasais (também indicação em adultos)');
+    if(d.egpa)fav.push('GEPA: indicação própria em adultos (300 mg a cada 4 semanas)');
+    if(d.ocs==='sim')fav.push('corticoide oral de manutenção');
+    break;
+   case 'benralizumabe':
+    idadeMin(18);
+    if(f.eos===null&&f.eosMax===null)exige(null,'eosinófilos ≥300/µL (estudos pivotais; SBPT 2021)');
+    else if(f.eosRef>=300)exige(true,'eosinófilos ≥300/µL (estudos pivotais; SBPT 2021)');
+    else if(f.eosRef>=150){exige(false,'eosinófilos ≥300/µL (estudos pivotais; SBPT 2021) — entre 150 e 299 o benefício foi menor','pos')}
+    else exige(false,'fenótipo eosinofílico');
+    dose='30 mg SC a cada 4 semanas nas 3 primeiras doses; depois a cada 8 semanas.';
+    if(d.ocs==='sim')fav.push('corticoide oral de manutenção');
+    if(d.polipose)fav.push('pólipos nasais');
+    if(g.vef!==null&&g.vef<65)fav.push('VEF1 &lt;65%');
+    if(d.inicio==='adulto')fav.push('início na idade adulta');
+    break;
+   case 'dupilumabe':
+    idadeMin(6);
+    {const t2=(f.eosRef>=150)||(f.feno!==null&&f.feno>=25);const semBio=f.eos===null&&f.eosMax===null&&f.feno===null;
+     if(a!==null&&a>=12&&d.ocs==='sim')exige(true,'≥12 anos dependente de corticoide oral: indicado independentemente de biomarcadores');
+     else exige(semBio?null:t2,'inflamação tipo 2: eosinófilos ≥150/µL e/ou FeNO ≥25 ppb');}
+    if(a!==null&&a<12){exige(w===null?null:w>=15,'peso ≥15 kg (6–11 anos)');dose=w!==null&&w>=30?'200 mg SC a cada 2 semanas (6–11 anos, ≥30 kg), sem dose de ataque.':'300 mg SC a cada 4 semanas (6–11 anos, 15 a &lt;30 kg), sem dose de ataque.'}
+    else dose=(d.ocs==='sim'||d.dermatite||d.polipose)?'Ataque 600 mg; depois 300 mg SC a cada 2 semanas (corticoide oral, dermatite atópica ou pólipos).':'Ataque 400 mg; depois 200 mg SC a cada 2 semanas.';
+    if(f.feno!==null&&f.feno>=25&&f.eosRef>=150)fav.push('eosinófilos e FeNO ambos elevados');
+    else if(f.feno!==null&&f.feno>=25)fav.push('FeNO ≥25 ppb');
+    if(d.polipose)fav.push('pólipos nasais (indicação em adultos)');
+    if(d.dermatite)fav.push('dermatite atópica');
+    if(d.eoe)fav.push('esofagite eosinofílica (indicação ≥12 anos e ≥40 kg)');
+    if(d.ocs==='sim')fav.push('corticoide oral de manutenção');
+    if(f.eosRef>1500){req.push('✕ eosinófilos atuais ou históricos ≤1.500/µL');st='nao';aten.push('Com eosinófilos &gt;1.500/µL a GINA 2026 não sugere dupilumabe; investigar causas de hipereosinofilia.')}
+    aten.push('Eosinofilia transitória é comum no início; vigiar sinais de GEPA se eosinófilos muito altos.');
+    break;
+   case 'tezepelumabe':
+    idadeMin(12);
+    req.push('✓ sem exigência de biomarcador na bula');
+    dose='210 mg SC a cada 4 semanas.';
+    if(f.t2==='baixa')fav.push('T2 baixa: única opção com indicação independente de biomarcadores');
+    if((g.exac||0)>=2)fav.push('exacerbações frequentes');
+    if(f.eosRef>=300||(f.feno!==null&&f.feno>=25))fav.push('eosinófilos ou FeNO elevados associam-se a benefício maior');
+    if(d.polipose)fav.push('pólipos nasais: preditor de resposta e indicação em adultos aprovada pela Anvisa em 02/02/2026');
+    if(d.ocs==='sim')aten.push('Em uso de corticoide oral de manutenção, o tezepelumabe não reduziu a dose em relação ao placebo '+SRC('GINA 2026')+'.');
+    break;
+   case 'depemoquimabe':
+    idadeMin(12);
+    exige(eosEos,'fenótipo eosinofílico (estudos SWIFT: eosinófilos ≥150/µL na triagem ou ≥300/µL nos últimos 12 meses)');
+    dose='100 mg SC a cada 6 meses (duas aplicações por ano).';
+    if((g.exac||0)>=1)fav.push('exacerbações no último ano (desfecho principal dos estudos)');
+    if(d.polipose)fav.push('pólipos nasais (indicação em adultos)');
+    if(d.prevBio==='mepolizumabe'&&d.prevResp==='boa'&&(num(d.idade)||0)>=18)fav.push('boa resposta ao mepolizumabe: a troca para depemoquimabe pode ser considerada em adultos');
+    if(d.prevBio==='benralizumabe'&&d.prevResp==='boa')aten.push('Boa resposta ao benralizumabe: a GINA 2026 não sugere trocar para depemoquimabe.');
+    aten.push('Teste terapêutico de 6 meses (uma aplicação) antes de avaliar a resposta '+SRC('GINA 2026')+'. Sem dados em gestação.');
+    aten.push('Registro na Anvisa em 11/05/2026: conferir comercialização, incorporação e cobertura.');
+    aten.push('SWIFT-1 e SWIFT-2: redução de exacerbações (razão de taxas 0,42 e 0,52), sem diferença no questionário de qualidade de vida (SGRQ).');
+    break;
+   case 'reslizumabe':
+    idadeMin(18);
+    if(f.eos===null&&f.eosMax===null)exige(null,'eosinófilos ≥400/µL (indicação aprovada na Anvisa)');
+    else if(f.eosRef>=400)exige(true,'eosinófilos ≥400/µL (indicação aprovada na Anvisa)');
+    else if(f.eosRef>=150)exige(false,'eosinófilos ≥400/µL (indicação aprovada na Anvisa)','pos');
+    else exige(false,'fenótipo eosinofílico');
+    dose='3 mg/kg por via intravenosa a cada 4 semanas'+(w!==null?` (≈${Math.round(w*3)} mg para ${w} kg)`:'')+'.';
+    if((g.exac||0)>=2)fav.push('exacerbações frequentes');
+    if(d.inicio==='adulto')fav.push('início na idade adulta');
+    aten.push('Única opção intravenosa: exige infusão em serviço de saúde. Registro na Anvisa desde 2018; conferir comercialização no Brasil.');
+    break;
+  }
+  // critério de exacerbações (GINA 2026)
+  if(exacAno===null){req.push('○ exacerbações no último ano (critério GINA 2026) — dado ausente');if(st==='ind')st='pos'}
+  else if(!exacAno){req.push('✕ exacerbações no último ano (critério típico de elegibilidade GINA 2026)');if(st==='ind')st='pos'}
+  else req.push('✓ exacerbações no último ano (critério GINA 2026)');
+  // biológico anterior
+  if(d.prevBio===D.k&&(d.prevResp==='falha'||d.prevResp==='adverso')){st='nao';aten.unshift(`<b>${d.prevResp==='falha'?'Sem resposta':'Evento adverso'} com este fármaco anteriormente.</b>`)}
+  else if(d.prevBio&&d.prevResp==='falha'){const prev=DRUGS.find(x=>x.k===d.prevBio);if(prev&&prev.eixo===D.eixo&&prev.k!==D.k)aten.push(`Falha prévia com ${prev.nome}, do mesmo eixo (IL-5): a troca dentro do eixo tem evidência limitada; considerar mecanismo diferente.`)}
+  if(d.prevBio===D.k&&d.prevResp==='boa')fav.unshift('boa resposta prévia com este fármaco');
+  if(d.helminto&&D.k!=='tezepelumabe')aten.push('Tratar helmintíase antes de iniciar.');
+  return {...D,st,req,fav,aten,dose};
+}
+function biologicos(d,g,f){
+  const order={ind:0,pos:1,nao:2};
+  return DRUGS.map(D=>avaliaDroga(D,d,g,f)).sort((x,y)=>order[x.st]-order[y.st]||y.fav.length-x.fav.length);
+}
+
+/* ---------- 4. resposta (SBPT 2021) ---------- */
+function resposta(d,g){
+  const meses=num(d.fuMeses),act=num(d.fuAct),ex=num(d.fuExac),ocs=num(d.fuOcs),vef=num(d.fuVef1);
+  if(meses===null&&act===null&&ex===null&&ocs===null&&vef===null)return null;
+  const ocs0=num(d.ocsDose);const dependente=d.ocs==='sim'&&ocs0!==null&&ocs0>0;
+  const crit=[];
+  const ctrl=(act!==null&&g.act!==null)?(act-g.act>=3):null;
+  if(ctrl!==null)crit.push(`Controle: ACT ${g.act} → ${act} (${ctrl?'melhora ≥3 pontos':'sem melhora relevante'})`);
+  const exRed=(ex!==null&&g.exac!==null&&g.exac>0)?1-ex/g.exac:null;
+  if(exRed!==null)crit.push(`Exacerbações: ${g.exac} → ${ex}/ano (${Math.round(exRed*100)}% de redução)`);
+  const ocsRed=(dependente&&ocs!==null)?1-ocs/ocs0:null;
+  if(ocsRed!==null)crit.push(`Prednisona: ${ocs0} → ${ocs} mg/dia (${Math.round(ocsRed*100)}% de redução)`);
+  if(vef!==null&&g.vef!==null)crit.push(`VEF1: ${g.vef}% → ${vef}%`);
+  // critérios SBPT 2021
+  const aval=[];if(ctrl!==null)aval.push(ctrl);if(exRed!==null)aval.push(exRed>=0.5);if(ocsRed!==null)aval.push(ocsRed>=0.25);
+  const falhas=aval.filter(x=>!x).length;
+  const resp=ctrl===true||(exRed!==null&&exRed>=0.5)||(ocsRed!==null&&ocsRed>=0.5);
+  const superR=act!==null&&act>=20&&ex===0&&(!dependente||(ocsRed!==null&&ocsRed>=0.8));
+  let cls,cor,conduta;
+  if(aval.length===0){cls='Dados insuficientes';cor='warn';conduta='Preencha ACT, exacerbações e, se usava corticoide oral, a dose atual.'}
+  else if(superR){cls='Super-respondedor';cor='';conduta='Manter o biológico; considerar redução gradual de corticoide inalatório conforme controle.'}
+  else if(falhas>=2){cls='Não respondedor';cor='warn';conduta='Suspender; reavaliar diagnóstico, adesão, técnica e comorbidades; considerar outro biológico tipo 2 se elegível (GINA 2026; SBPT 2021).'}
+  else if(resp){cls='Respondedor';cor='';conduta='Manter; não suspender antes de 12 meses e só se a asma seguir controlada (GINA 2026). Reavaliar periodicamente.'}
+  else{cls='Resposta intermediária';cor='warn';conduta='Pode-se manter até 12 meses e reavaliar antes de decidir a troca.'}
+  let tempo='';
+  const depemo=d.prevBio==='depemoquimabe'||false;
+  if(meses!==null&&meses<4)tempo='Menos de 4 meses de uso (6 meses para depemoquimabe): cedo para concluir '+SRC('GINA 2026')+'. ';
+  else if(meses!==null&&meses<6)tempo='Avaliação inicial; se a resposta for incerta, estender o teste para 6–12 meses '+SRC('GINA 2026')+'. ';
+  return {crit,cls,cor,conduta,tempo};
+}
+
+/* ---------- renderização ---------- */
+function chip(id,txt,cls){const el=$(id);el.className='sc '+(cls||'');el.querySelector('b').textContent=txt}
+let last={};
+function calc(){
+  const d=readCase(),g=gravidade(d),f=fenotipo(d),bio=biologicos(d,g,f),r=resposta(d,g);
+  last={d,g,f,bio,r};
+  const gMap={sim:['Sim','grave'],pre:['Sim, pré-requisitos pendentes','moderado'],nao:['Não pelos dados','leve'],indef:['—','']};
+  chip('chipGrave',gMap[g.status][0],gMap[g.status][1]);
+  chip('chipT2',{alta:'Provável',baixa:'Não evidente',indef:'—'}[f.t2],{alta:'moderado',baixa:'leve',indef:''}[f.t2]);
+  const nInd=bio.filter(b=>b.st==='ind').length;
+  chip('chipBio',g.status==='indef'?'—':`${nInd} de ${bio.length}`,g.status==='sim'&&nInd?'leve':'');
+
+  // 1
+  $('resGrave').className='result'+(g.status==='sim'?'':' warn');
+  $('resGrave').innerHTML=`<h3>O que o agente conclui</h3>
+  <p><b>${{sim:'Asma grave não controlada: há critério para discutir biológico.',pre:'Há critérios de falta de controle, mas os pré-requisitos ainda não foram todos cumpridos.',nao:'Pelos dados preenchidos, a asma está controlada: não há indicação de biológico.',indef:'Preencha os dados de controle e risco.'}[g.status]}</b></p>
+  ${g.crit.length?'<p>Critérios de falta de controle presentes: '+g.crit.join('; ')+'.</p>':''}
+  ${g.faltaPre.length&&g.status!=='indef'?'<p><b>Pendente antes do biológico:</b> '+g.faltaPre.join('; ')+'. Muitos casos de "asma grave" são asma de difícil controle por esses fatores '+SRC('SBPT 2021')+'.</p>':''}
+  ${d.tabaco?'<p><b>Tabagismo atual:</b> tratar a dependência; o tabaco reduz a resposta ao corticoide e confunde o diagnóstico.</p>':''}
+  <p class="hint">Asma grave: necessita de corticoide inalatório em dose alta + segundo controlador (ou corticoide oral) para se manter controlada, ou permanece não controlada apesar disso, após afastar os fatores acima ${SRC('SBPT 2021')}${SRC('GINA 2026')}.</p>`;
+
+  // 2
+  $('resFenotipo').className='result'+(f.alertas.length?' warn':'');
+  $('resFenotipo').innerHTML=`<h3>O que o agente conclui</h3>
+  <p><b>Inflamação tipo 2: ${{alta:'provável',baixa:'não evidente',indef:'sem biomarcadores informados'}[f.t2]}.</b>${f.t2Sinais.length?' Sinais: '+f.t2Sinais.join('; ')+'.':''}</p>
+  ${f.rotulos.length?'<p>Fenótipo: asma '+f.rotulos.join(' e ')+'.</p>':''}
+  ${li(f.alertas)}
+  <p class="hint">Critérios de T2 refratária: eosinófilos ≥150/µL e/ou FeNO ≥20 ppb e/ou eosinófilos no escarro ≥2% e/ou asma desencadeada por alérgenos. São critérios de avaliação inicial, não de elegibilidade para biológico ${SRC('GINA 2026')}${SRC('SBPT 2021')}.</p>`;
+
+  // 3
+  const aviso=g.status==='sim'?'':`<div class="result warn" style="margin-top:0"><b>${g.status==='nao'?'Asma controlada pelos dados: as opções abaixo são apenas didáticas.':'Confirme a asma grave não controlada (etapa 1) antes de propor biológico.'}</b> O status abaixo mostra só se a bula cobre o perfil.</div>`;
+  const stTxt={ind:'Indicado pela bula',pos:'Possível — conferir',nao:'Não indicado'};
+  $('resOpcoes').innerHTML=aviso+bio.map(b=>`<div class="drug ${b.st}"><span class="st ${b.st}">${stTxt[b.st]}</span><h4>${b.nome}</h4><div class="cls">${b.classe}</div>
+    <ul>${b.req.map(x=>`<li>${x}</li>`).join('')}</ul>
+    ${b.fav.length&&b.st!=='nao'?'<p style="margin:6px 0 0;font-size:13px"><b>A favor neste caso:</b> '+b.fav.join('; ')+'.</p>':''}
+    ${b.aten.length?'<p style="margin:6px 0 0;font-size:13px"><b>Atenção:</b> '+b.aten.join(' ')+'</p>':''}
+    <div class="dose"><b>Posologia (bula):</b> ${b.dose}</div></div>`).join('')+
+    `<p class="hint">Ordem: primeiro os indicados, depois por número de fatores favoráveis. Não é ranking de eficácia: não há comparação direta entre os biológicos ${SRC('SBPT 2021')}${SRC('GINA 2026')}. Fatores favoráveis: preditores de resposta descritos na SBPT 2021 e indicações aprovadas para as comorbidades.</p>`;
+
+  // 4
+  if(!r){$('resResposta').className='result';$('resResposta').innerHTML='<h3>O que o agente conclui</h3><p>Preencha após iniciar o biológico.</p>'}
+  else{$('resResposta').className='result'+(r.cor?' '+r.cor:'');$('resResposta').innerHTML=`<h3>${r.cls}</h3><p>${r.tempo}${r.conduta}</p>${li(r.crit)}
+   <p class="hint">Critérios SBPT 2021: respondedor = melhora do controle e/ou redução ≥50% das exacerbações e/ou ≥50% do corticoide oral; super-respondedor = asma controlada, sem exacerbações e redução ≥80% do corticoide oral; não respondedor = não atinge ao menos dois entre melhora do controle, redução ≥50% das exacerbações e redução ≥25% do corticoide oral. A SBPT usa ACQ (−0,5); aqui, ACT +3 pontos como equivalente aproximado.</p>`}
+
+  sintese();
+  try{const o={};fields().forEach(el=>o[el.id]=el.type==='checkbox'?el.checked:el.value);localStorage.setItem(DRAFT_KEY,JSON.stringify(o))}catch(err){}
+}
+
+const strip=h=>String(h).replace(/<span class="pill[^"]*">([^<]*)<\/span>/g,' [$1]').replace(/<[^>]+>/g,'').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');
+function sintese(){
+  const {d,g,f,bio,r}=last;const a=num(d.idade);
+  const ind=bio.filter(b=>b.st==='ind'),pos=bio.filter(b=>b.st==='pos');
+  $('docSintese').innerHTML=`<h2>Asma grave — síntese didática</h2>
+  <p><b>Caso:</b> ${esc(d.rotulo||'caso didático anônimo')}${a!==null?' · '+a+' anos':''}${d.sexo?' · '+esc(d.sexo):''}${d.peso?' · '+esc(d.peso)+' kg':''}</p>
+  <h3>1. Asma grave não controlada?</h3><p>${{sim:'Sim.',pre:'Critérios de falta de controle presentes; pré-requisitos pendentes: '+g.faltaPre.join('; ')+'.',nao:'Não pelos dados preenchidos.',indef:'Dados insuficientes.'}[g.status]} ${g.crit.length?'Critérios: '+g.crit.join('; ')+'.':''}</p>
+  <h3>2. Fenótipo</h3><p>Eosinófilos ${f.eos??'—'}/µL (máximo em 12 meses ${f.eosMax??'—'}); FeNO ${f.feno??'—'} ppb; IgE ${f.ige??'—'} UI/mL. Inflamação tipo 2 ${{alta:'provável',baixa:'não evidente',indef:'não avaliada'}[f.t2]}${f.rotulos.length?' — asma '+f.rotulos.join(' e '):''}.</p>${li(f.alertas)}
+  <h3>3. Biológicos</h3>
+  <table><tr><th>Fármaco</th><th>Situação</th><th>A favor</th><th>Posologia (bula)</th></tr>${bio.map(b=>`<tr><td>${b.nome}</td><td>${{ind:'indicado pela bula',pos:'possível — conferir',nao:'não indicado'}[b.st]}</td><td>${b.fav.join('; ')||'—'}</td><td>${b.dose}</td></tr>`).join('')}</table>
+  <p>${ind.length?'Indicados pela bula para este perfil: '+ind.map(b=>b.nome).join(', ')+'.':'Nenhum indicado pela bula com os dados atuais.'}${pos.length?' A conferir: '+pos.map(b=>b.nome).join(', ')+'.':''} Não há ensaios comparativos diretos; a escolha considera comorbidades, posologia, preferência e acesso.</p>
+  ${r?`<h3>4. Resposta ao biológico</h3><p><b>${r.cls}.</b> ${r.tempo}${r.conduta}</p>${li(r.crit)}`:''}
+  <p class="muted">Síntese educacional PneumoAgents (v2026.3, out/2026). Caso anônimo; sem valor de prescrição. Conferir bula vigente e critérios do SUS ou da operadora.</p>`;
+}
+
+/* ---------- ações ---------- */
+window.printDoc=()=>window.print();
+window.downloadTxt=function(){const txt=$('docSintese').innerText.replace(/\n{3,}/g,'\n\n').trim()+'\n';const b=new Blob([txt],{type:'text/plain;charset=utf-8'});const u=document.createElement('a');u.href=URL.createObjectURL(b);u.download=`asma_grave_biologicos_${new Date().toISOString().slice(0,10)}.txt`;u.click();URL.revokeObjectURL(u.href)};
+function clearAll(){fields().forEach(el=>{if(el.type==='checkbox')el.checked=false;else if(el.tagName==='SELECT')el.selectedIndex=0;else el.value=''})}
+window.newCase=function(){if(!confirm('Limpar o caso atual?'))return;clearAll();calc()};
+const TEMPLATES={
+  alergica:{rotulo:'Alérgica, IgE elevada',idade:28,sexo:'Feminino',peso:60,inicio:'infancia',dx:true,altaDose:true,adesao:true,comorb:true,act:14,exac:2,hosp:0,vef1:70,eos:220,eosMax:300,feno:35,ige:420,sens:true},
+  eosino:{rotulo:'Eosinofílica com pólipos, corticoide oral',idade:55,sexo:'Masculino',peso:80,inicio:'adulto',dx:true,altaDose:true,adesao:true,comorb:true,act:12,exac:3,hosp:1,vef1:55,ocs:'sim',ocsDose:10,eos:650,eosMax:800,feno:60,ige:90,polipose:true},
+  t2baixo:{rotulo:'T2 baixo',idade:48,sexo:'Feminino',peso:70,inicio:'adulto',dx:true,altaDose:true,adesao:true,comorb:true,act:13,exac:2,hosp:0,vef1:68,eos:80,eosMax:120,feno:15,ige:40}
+};
+window.applyTemplate=function(k){if(!k)return;clearAll();Object.entries(TEMPLATES[k]).forEach(([id,v])=>setVal(id,v));calc();$('sec-grave').scrollIntoView({behavior:'smooth'})};
+
+/* ---------- casos-teste das regras ---------- */
+const TESTS=[
+ ['Alérgica IgE 420',TEMPLATES.alergica,{omalizumabe:'ind',mepolizumabe:'ind',benralizumabe:'ind',dupilumabe:'ind',tezepelumabe:'ind',depemoquimabe:'ind',reslizumabe:'pos'}],
+ ['Eosinofílica com corticoide oral, sem alergia',TEMPLATES.eosino,{omalizumabe:'nao',mepolizumabe:'ind',benralizumabe:'ind',dupilumabe:'ind',tezepelumabe:'ind',depemoquimabe:'ind'}],
+ ['T2 baixo',TEMPLATES.t2baixo,{omalizumabe:'nao',mepolizumabe:'nao',benralizumabe:'nao',dupilumabe:'nao',tezepelumabe:'ind',depemoquimabe:'nao',reslizumabe:'nao'}],
+ ['16 anos eosinofílica: benralizumabe só adultos',{idade:16,peso:55,eos:400,feno:30,sens:false,exac:2},{benralizumabe:'nao',mepolizumabe:'ind',tezepelumabe:'ind',depemoquimabe:'ind',dupilumabe:'ind'}],
+ ['IgE 1.800: fora da tabela do omalizumabe',{idade:30,peso:70,ige:1800,sens:true,eos:100,feno:10,exac:2},{omalizumabe:'nao'}],
+ ['Eosinófilos 200: benralizumabe possível',{idade:40,peso:70,eos:200,exac:2},{benralizumabe:'pos',mepolizumabe:'ind'}],
+ ['Eosinófilos 1.800: dupilumabe não sugerido',{idade:40,peso:70,eos:1800,exac:2},{dupilumabe:'nao'}],
+ ['9 anos, 25 kg, FeNO 30: dupilumabe infantil',{idade:9,peso:25,feno:30,eos:100,exac:2},{dupilumabe:'ind',tezepelumabe:'nao',mepolizumabe:'nao'}],
+ ['Corticoide oral, T2 baixa: dupilumabe indicado (≥12)',{idade:40,peso:70,ocs:'sim',eos:50,feno:10,exac:2},{dupilumabe:'ind',mepolizumabe:'nao'}],
+ ['Sem exacerbações no ano: no máximo possível',{idade:40,peso:70,eos:500,exac:0,hosp:0},{mepolizumabe:'pos',tezepelumabe:'pos'}],
+ ['Reslizumabe: eosinófilos 450 adulto',{idade:40,peso:70,eos:450,exac:2},{reslizumabe:'ind'}],
+ ['Reslizumabe: eosinófilos 250',{idade:40,peso:70,eos:250,exac:2},{reslizumabe:'pos'}],
+ ['Falha prévia com mepolizumabe',{idade:40,peso:70,eos:500,prevBio:'mepolizumabe',prevResp:'falha',exac:2},{mepolizumabe:'nao',benralizumabe:'ind'}]
+];
+const RESP_TESTS=[
+ ['Super-respondedor',{act:12,exac:4,ocs:'sim',ocsDose:10,fuMeses:12,fuAct:22,fuExac:0,fuOcs:0},'Super-respondedor'],
+ ['Respondedor por exacerbações',{act:14,exac:4,fuMeses:8,fuAct:15,fuExac:1},'Respondedor'],
+ ['Não respondedor (corticoide-dependente)',{act:14,exac:4,ocs:'sim',ocsDose:10,fuMeses:8,fuAct:15,fuExac:1,fuOcs:10},'Não respondedor'],
+ ['Não respondedor',{act:14,exac:2,fuMeses:8,fuAct:15,fuExac:2},'Não respondedor']
+];
+window.runTests=function(){
+  const base={};fields().forEach(el=>base[el.id]=el.type==='checkbox'?false:(el.tagName==='SELECT'?el.options[0].value:''));
+  const out=[];
+  TESTS.forEach(([n,inp,exp])=>{const d=Object.assign({},base,inp);const g=gravidade(d),f=fenotipo(d);const bio=biologicos(d,g,f);const bad=Object.entries(exp).filter(([k,v])=>bio.find(b=>b.k===k).st!==v).map(([k,v])=>`${k}: ${bio.find(b=>b.k===k).st} (esperado ${v})`);out.push({n,ok:!bad.length,msg:bad.join('; ')})});
+  RESP_TESTS.forEach(([n,inp,exp])=>{const d=Object.assign({},base,inp);const r=resposta(d,gravidade(d));out.push({n,ok:r&&r.cls===exp,msg:r?r.cls+' (esperado '+exp+')':'sem resultado'})});
+  const box=$('testBox');box.style.display='block';
+  box.innerHTML='<b>Validação das regras</b><br>'+out.map(o=>`<span class="${o.ok?'okt':'bad'}">${o.ok?'✓':'✕'}</span> ${esc(o.n)}${o.ok?'':' — '+esc(o.msg)}`).join('<br>');
+  box.scrollIntoView({behavior:'smooth',block:'nearest'});
+  return out;
+};
+
+$('refList').innerHTML=[
+ 'Carvalho-Pinto RM, Cançado JED, Pizzichini MMM, et al. 2021 Brazilian Thoracic Association recommendations for the management of severe asthma. J Bras Pneumol. 2021;47(6):e20210273. <a href="https://doi.org/10.36416/1806-3756/e20210273" target="_blank" rel="noopener">doi:10.36416/1806-3756/e20210273</a>',
+ 'Global Initiative for Asthma. GINA 2026 Difficult-to-treat &amp; severe asthma guide (v7.0, maio/2026), derivado do GINA 2026 Strategy Report. <a href="https://ginasthma.org/2026-gina-severe-asthma-guide/" target="_blank" rel="noopener">ginasthma.org</a>',
+ 'Cazzola M, Matera MG, Ora J, et al. Current and emerging biologic therapies for severe asthma. Drugs. 2026;86:813–840. Sete anticorpos aprovados: omalizumabe, mepolizumabe, reslizumabe, benralizumabe, depemoquimabe, dupilumabe e tezepelumabe. <a href="https://doi.org/10.1007/s40265-026-02310-4" target="_blank" rel="noopener">doi:10.1007/s40265-026-02310-4</a>',
+ 'Anvisa. Reslizumabe (Cinqair®): registro em 30/07/2018; adultos com asma eosinofílica grave (eosinófilos ≥400/µL).',
+ 'Jackson DJ, Wechsler ME, Jackson DJ, et al. Twice-yearly depemokimab in severe asthma with an eosinophilic phenotype (SWIFT-1 e SWIFT-2). N Engl J Med. 2024;391:2337–2349. <a href="https://doi.org/10.1056/NEJMoa2406673" target="_blank" rel="noopener">doi:10.1056/NEJMoa2406673</a>',
+ 'Anvisa. Depemoquimabe (Densurko®): registro publicado no DOU em 11/05/2026 (Resolução 1.896/2026). Bula: asma ≥12 anos, fenótipo eosinofílico, 100 mg SC a cada 6 meses; RSCcPN em adultos. <a href="https://br.gsk.com/media/jjmp0pwk/densurko.pdf" target="_blank" rel="noopener">bula</a>',
+ 'Anvisa. Tezepelumabe (Tezspire®): nova indicação para RSCcPN grave em adultos, 02/02/2026. <a href="https://www.gov.br/anvisa/pt-br/assuntos/medicamentos/novos-medicamentos-e-indicacoes/tezspire-tezepelumabe-nova-indicacao" target="_blank" rel="noopener">Anvisa</a>',
+ 'Bulas brasileiras consultadas em out/2026: Xolair® (omalizumabe), Nucala® (mepolizumabe), Fasenra® (benralizumabe — adultos), Dupixent® (dupilumabe), Tezspire® (tezepelumabe).'
+].map(x=>`<li>${x}</li>`).join('');
+
+document.addEventListener('input',ev=>{if(ev.target.closest('.input-panel'))calc()});
+document.addEventListener('change',ev=>{if(ev.target.closest('.input-panel'))calc()});
+try{const o=JSON.parse(localStorage.getItem(DRAFT_KEY)||'null');if(o)Object.entries(o).forEach(([k,v])=>setVal(k,v))}catch(err){}
+window.__ag={calc,biologicos,gravidade,fenotipo,resposta};
+calc();
+})();
+</script>
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "41331af379ba4c71af70c5689396f1b8"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
