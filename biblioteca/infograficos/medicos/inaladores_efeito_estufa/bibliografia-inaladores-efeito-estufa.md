@@ -8,7 +8,7 @@ Material educativo atualizado em 15 de junho de 2026, após revisão da aula **I
 
 1. Lundgren F. **Impacto ambiental dos dispositivos inalatórios.** Aula apresentada no Congresso Pernambucano de Pneumologia; 2025. Material educacional não publicado fornecido pelo autor.
 
-2. American Thoracic Society. **Documento sobre impacto ambiental das terapias inalatórias e escolhas de tratamento.** *American Journal of Respiratory and Critical Care Medicine.* DOI: [10.1164/rccm.202410-2058PP](https://doi.org/10.1164/rccm.202410-2058PP).
+2. Halpin DMG, Balmes J, Han MK, Papi A, Martinez FJ, Montes de Oca M, et al. **Climate Change and Chronic Obstructive Pulmonary Disease: A GOLD Science Committee Review.** *American Journal of Respiratory and Critical Care Medicine.* 2025;211(5):700-708. DOI: [10.1164/rccm.202410-2058PP](https://doi.org/10.1164/rccm.202410-2058PP).
 
 3. Jeswani HK, Azapagic A. **Life cycle environmental impacts of inhalers.** *Journal of Cleaner Production.* 2019;237:117733. DOI: [10.1016/j.jclepro.2019.117733](https://doi.org/10.1016/j.jclepro.2019.117733).
 
