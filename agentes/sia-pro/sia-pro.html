@@ -2,14 +2,2050 @@
 <html lang="pt-BR">
 <head>
 <script src="../../assets/js/aviso-profissional.js"></script>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex">
-<title>PneumoAgents</title>
+<script src="../../assets/js/trial-gate.js" data-agent="sia-pro" data-nome="SIA·PRO Imunobiológicos" data-portal="../../profissional/index.html"></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIA·PRO — Sistema Integrado Asma | Imunobiológicos 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ===== DESIGN SYSTEM ===== */
+:root {
+  --navy:   #0D1B2A;
+  --ink:    #1A2B3C;
+  --teal:   #0B8C8F;
+  --teal-l: #12BFC4;
+  --teal-d: #076769;
+  --gold:   #C5973A;
+  --gold-l: #F0C060;
+  --rose:   #C0392B;
+  --green:  #1E8449;
+  --amber:  #D4851A;
+  --purple: #6B46C1;
+  --mist:   #EDF4F5;
+  --cloud:  #F4F8F9;
+  --line:   #D2E4E6;
+  --text:   #1A2B3C;
+  --sub:    #4A6170;
+  --serif:  'Playfair Display', Georgia, serif;
+  --sans:   'IBM Plex Sans', system-ui, sans-serif;
+  --mono:   'IBM Plex Mono', monospace;
+  --r:      8px;
+  --r2:     14px;
+  --shadow: 0 4px 24px rgba(13,27,42,.10);
+  --shadow2: 0 8px 40px rgba(13,27,42,.16);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);background:var(--cloud);color:var(--text);min-height:100vh}
+
+/* MASTHEAD */
+.masthead{background:var(--navy);color:#fff;padding:20px 40px 16px;display:flex;align-items:center;gap:18px;border-bottom:4px solid var(--teal)}
+.masthead .logo{width:50px;height:50px;background:var(--teal);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.masthead h1{font-family:var(--serif);font-size:20px;font-weight:700;line-height:1.2}
+.masthead p{font-size:11px;opacity:.6;margin-top:3px;font-family:var(--mono);letter-spacing:.04em}
+.masthead .badge{margin-left:auto;background:var(--teal);color:#fff;padding:5px 12px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.06em;white-space:nowrap;text-align:center;line-height:1.5}
+
+/* TOP NAV TABS */
+.top-nav{background:#fff;border-bottom:1px solid var(--line);display:flex;gap:0;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px rgba(0,0,0,.06);overflow-x:auto}
+.nav-tab{display:flex;align-items:center;gap:8px;padding:14px 20px;cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;font-size:12px;font-weight:600;color:var(--sub);white-space:nowrap;border:none;background:none;font-family:var(--sans)}
+.nav-tab:hover{color:var(--teal);background:var(--mist)}
+.nav-tab.active{border-bottom:3px solid var(--teal);color:var(--teal)}
+.nav-tab .num{width:20px;height:20px;border-radius:50%;border:2px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0}
+.nav-tab.done .num{background:var(--green);border-color:var(--green);color:#fff}
+.nav-tab.done{color:var(--green)}
+
+/* LAYOUT */
+.main{max-width:980px;margin:0 auto;padding:28px 20px 80px}
+.page{display:none}.page.active{display:block}
+
+/* SECTION CARDS */
+.section{background:#fff;border-radius:var(--r2);padding:28px;margin-bottom:20px;box-shadow:var(--shadow);border:1px solid var(--line)}
+.section-head{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid var(--mist)}
+.section-icon{width:38px;height:38px;border-radius:10px;background:var(--mist);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.section-head h2{font-family:var(--serif);font-size:17px;font-weight:700;color:var(--ink)}
+.section-head p{font-size:11px;color:var(--sub);margin-top:2px}
+
+/* FORM */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.form-grid-4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px}
+.col-span-2{grid-column:span 2}.col-span-3{grid-column:span 3}.col-span-4{grid-column:span 4}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-size:10px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.06em}
+.field input,.field select,.field textarea{padding:9px 12px;border:1.5px solid var(--line);border-radius:var(--r);font-family:var(--sans);font-size:13px;color:var(--text);background:#fff;transition:border-color .2s,box-shadow .2s;width:100%}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(11,140,143,.10)}
+.field textarea{resize:vertical;min-height:80px}
+
+/* CHECKBOXES */
+.check-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.check-item{display:flex;align-items:center;gap:8px;padding:9px 12px;border:1.5px solid var(--line);border-radius:var(--r);cursor:pointer;transition:all .2s}
+.check-item:hover{border-color:var(--teal);background:var(--mist)}
+.check-item input[type=checkbox]{width:15px;height:15px;accent-color:var(--teal);flex-shrink:0}
+.check-item label{font-size:12px;cursor:pointer}
+.check-item.checked{border-color:var(--teal);background:#EEF9F9}
+
+/* ALERTS */
+.alert{padding:11px 14px;border-radius:var(--r);margin:10px 0;font-size:12.5px;line-height:1.5}
+.alert-info{background:#EEF9F9;border-left:4px solid var(--teal);color:#0B5C5E}
+.alert-warn{background:#FEF6E8;border-left:4px solid var(--amber);color:#7A4A00}
+.alert-ok{background:#EAF6ED;border-left:4px solid var(--green);color:#14532D}
+.alert-err{background:#FEF0EF;border-left:4px solid var(--rose);color:#7F1D1D}
+.alert-purple{background:#F3F0FF;border-left:4px solid var(--purple);color:#4C3880}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:7px;padding:10px 22px;border:none;border-radius:var(--r);font-family:var(--sans);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;text-decoration:none}
+.btn-primary{background:var(--teal);color:#fff}
+.btn-primary:hover{background:var(--teal-d);transform:translateY(-1px);box-shadow:var(--shadow)}
+.btn-gold{background:var(--gold);color:#fff}
+.btn-gold:hover{background:var(--gold-l);transform:translateY(-1px)}
+.btn-outline{background:#fff;color:var(--teal);border:2px solid var(--teal)}
+.btn-outline:hover{background:var(--mist)}
+.btn-ghost{background:var(--mist);color:var(--sub)}
+.btn-ghost:hover{background:var(--line)}
+.btn-danger{background:var(--rose);color:#fff}
+.btn-print{background:var(--green);color:#fff}
+.btn-purple{background:var(--purple);color:#fff}
+.btn-navy{background:var(--navy);color:#fff}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.btn-full{width:100%;justify-content:center}
+
+/* DRUG CARDS */
+.drug-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.drug-card{border:2px solid var(--line);border-radius:var(--r2);padding:18px;position:relative;transition:all .2s;cursor:pointer}
+.drug-card:hover{border-color:var(--teal);box-shadow:var(--shadow)}
+.drug-card.rank-1{border-color:var(--gold);background:linear-gradient(135deg,#FFFBF0,#FDF5E0)}
+.drug-card.rank-2{border-color:var(--teal);background:linear-gradient(135deg,#F0FAFA,#E6F6F7)}
+.drug-card.rank-3{border-color:#7EA9C4;background:linear-gradient(135deg,#F5F9FC,#EBF3F8)}
+.drug-card.not-eligible{opacity:.4;filter:grayscale(.5);cursor:not-allowed}
+.drug-rank{position:absolute;top:-9px;left:14px;font-family:var(--serif);font-size:10px;font-weight:700;padding:2px 9px;border-radius:20px;background:var(--ink);color:#fff}
+.drug-rank.r1{background:var(--gold)}.drug-rank.r2{background:var(--teal)}.drug-rank.r3{background:#7EA9C4}
+.drug-card h3{font-family:var(--serif);font-size:16px;margin-bottom:3px;margin-top:5px}
+.drug-card .drug-brand{font-size:11px;color:var(--sub);margin-bottom:10px}
+.drug-card .drug-score{font-family:var(--mono);font-size:26px;font-weight:700;color:var(--teal);margin-bottom:6px}
+.drug-card.rank-1 .drug-score{color:var(--gold)}
+.drug-meta{display:flex;flex-direction:column;gap:4px;font-size:11.5px}
+.drug-meta .row{display:flex;gap:6px}
+.drug-meta .label{color:var(--sub);width:76px;flex-shrink:0}
+.drug-meta .val{color:var(--text);font-weight:500}
+.tag{display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:12px;margin-right:3px;margin-top:3px;letter-spacing:.04em}
+.tag-green{background:#D1F0DC;color:#145C2C}
+.tag-amber{background:#FEE9C5;color:#7A4200}
+.tag-teal{background:#D0F0F1;color:#0B5C5E}
+.tag-red{background:#FDDDD9;color:#7F1D1D}
+.tag-navy{background:#D0D8E8;color:#1E3A5F}
+.tag-new{background:var(--teal);color:#fff;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
+.coverage-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.chip{display:flex;align-items:center;gap:4px;padding:3px 8px;border-radius:20px;font-size:10px;font-weight:600}
+.chip-ok{background:#D1F0DC;color:#145C2C}
+.chip-warn{background:#FEE9C5;color:#7A4200}
+.chip-no{background:#FDDDD9;color:#7F1D1D}
+
+/* TABLE */
+.table-wrap{overflow-x:auto;margin:16px 0}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th,td{padding:9px 11px;border:1px solid var(--line);text-align:left}
+th{background:var(--navy);color:#fff;font-weight:600}
+tr:nth-child(even) td{background:var(--mist)}
+.hl{background:#FFF9E6!important;font-weight:700}
+
+/* ===========================
+   REPORT / LAUDO STYLES
+   =========================== */
+.report-sheet{background:#fff;border:2px solid var(--navy);border-radius:var(--r2);overflow:hidden;box-shadow:var(--shadow2)}
+.report-header{background:var(--navy);color:#fff;padding:24px 32px 20px;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start}
+.report-header h1{font-family:var(--serif);font-size:20px}
+.report-header .subtitle{font-size:11px;opacity:.7;margin-top:3px;font-family:var(--mono)}
+.report-stamp{text-align:right;font-family:var(--mono);font-size:10px;opacity:.75}
+.report-body{padding:30px}
+.report-section{margin-bottom:24px}
+.report-section h3{font-family:var(--serif);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--teal);margin-bottom:10px;padding-bottom:5px;border-bottom:1.5px solid var(--line)}
+.report-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 20px}
+.report-field{font-size:12.5px;line-height:1.5}
+.report-field .lbl{color:var(--sub);font-size:10px;font-weight:700;text-transform:uppercase}
+.report-field .val{font-weight:500}
+.indication-box{background:linear-gradient(135deg,#EEF9F9,#F5FDFD);border:2px solid var(--teal);border-radius:var(--r2);padding:18px;margin:16px 0}
+.indication-box h2{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--teal);margin-bottom:3px}
+.indication-box .brand{color:var(--sub);font-size:12px;margin-bottom:12px}
+.prescrip-box{background:var(--navy);color:#fff;border-radius:var(--r);padding:15px 18px;font-family:var(--mono);font-size:12px;line-height:1.8;margin:12px 0}
+.prescrip-box .line{display:flex;gap:10px}
+.prescrip-box .pk{opacity:.6;width:120px;flex-shrink:0}
+.criteria-list{list-style:none}
+.criteria-list li{display:flex;align-items:start;gap:7px;padding:5px 0;border-bottom:1px solid var(--line);font-size:12.5px}
+.criteria-list li:last-child{border:none}
+.criteria-list .ck{color:var(--green);font-size:15px;flex-shrink:0;margin-top:1px}
+.report-footer{border-top:2px solid var(--line);padding:20px 32px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.sig-block{text-align:center}
+.sig-line{margin:36px auto 5px;border-top:1.5px solid var(--ink);width:190px}
+.sig-label{font-size:11px;color:var(--sub)}
+.ref-box{background:var(--mist);border-radius:var(--r);padding:14px;font-size:10.5px;color:var(--sub);line-height:1.6}
+.ref-box ol{padding-left:14px}
+.ref-box li{margin-bottom:3px}
+
+/* ===== LME OFFICIAL STYLES ===== */
+.lme-sheet{background:#fff;border:3px solid #000;font-family:Arial,sans-serif;font-size:12px;max-width:210mm;margin:0 auto}
+.lme-header-gov{background:#1D4E89;color:#fff;padding:10px 16px;display:flex;align-items:center;gap:12px}
+.lme-header-gov h1{font-size:13px;font-weight:bold;line-height:1.3}
+.lme-header-gov p{font-size:10px;opacity:.8;margin-top:2px}
+.lme-title-bar{background:#2E75B6;color:#fff;text-align:center;padding:6px;font-size:14px;font-weight:bold;letter-spacing:.05em}
+.lme-section-title{background:#BDD7EE;font-weight:bold;padding:4px 8px;font-size:11px;border-top:1px solid #888;border-bottom:1px solid #888;text-transform:uppercase}
+.lme-grid{display:grid;gap:0}
+.lme-field{border:1px solid #666;padding:4px 8px;min-height:32px}
+.lme-field .lme-lbl{font-size:9px;font-weight:bold;color:#555;text-transform:uppercase;display:block;margin-bottom:2px}
+.lme-field .lme-val{font-size:12px;font-weight:bold}
+.lme-check-row{display:flex;gap:16px;flex-wrap:wrap}
+.lme-check{display:flex;align-items:center;gap:5px;font-size:11px}
+.lme-box{width:14px;height:14px;border:1.5px solid #333;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px}
+.lme-box.marked{background:#1D4E89;color:#fff}
+.lme-table{width:100%;border-collapse:collapse}
+.lme-table th,.lme-table td{border:1px solid #666;padding:4px 6px;font-size:11px}
+.lme-table th{background:#BDD7EE;font-weight:bold;text-align:center}
+.lme-sig-area{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.lme-sig-box{border:1px solid #666;padding:8px;min-height:80px}
+.lme-sig-line{border-top:1px solid #333;margin-top:50px;margin-bottom:4px}
+
+/* FOLLOW-UP */
+.followup-card{background:#fff;border:2px solid var(--line);border-radius:var(--r2);padding:18px;margin-bottom:14px;cursor:pointer;transition:all .2s}
+.followup-card:hover{border-color:var(--teal);box-shadow:var(--shadow)}
+.followup-card h3{font-family:var(--serif);font-size:15px;margin-bottom:4px}
+.followup-card .meta{font-size:11px;color:var(--sub)}
+.badge-resp{display:inline-block;padding:3px 9px;border-radius:12px;font-size:10px;font-weight:700}
+.badge-resp.good{background:#D1F0DC;color:#145C2C}
+.badge-resp.partial{background:#FEE9C5;color:#7A4200}
+.badge-resp.poor{background:#FDDDD9;color:#7F1D1D}
+.badge-resp.initial{background:#D0D8E8;color:#1E3A5F}
+
+/* DB TABLE */
+.db-table{width:100%;border-collapse:collapse;font-size:12px}
+.db-table th{background:var(--navy);color:#fff;padding:9px 10px;text-align:left;font-size:11px}
+.db-table td{padding:9px 10px;border-bottom:1px solid var(--line)}
+.db-table tr:hover td{background:var(--mist)}
+.db-table .actions{display:flex;gap:6px}
+.db-table .actions button{padding:3px 8px;border:none;border-radius:4px;font-size:10px;cursor:pointer;font-weight:600}
+.btn-view-sm{background:var(--teal);color:#fff}
+.btn-followup-sm{background:var(--gold);color:#fff}
+.btn-del-sm{background:#fee;color:var(--rose)}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.55);z-index:9000;justify-content:center;align-items:center}
+.modal-overlay.open{display:flex}
+.modal-box{background:#fff;width:92%;max-width:960px;max-height:92vh;border-radius:var(--r2);padding:28px;display:flex;flex-direction:column;box-shadow:0 16px 48px rgba(0,0,0,.3);overflow-y:auto}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;border-bottom:1px solid var(--line);padding-bottom:12px}
+.modal-head h2{font-family:var(--serif);font-size:18px;color:var(--navy)}
+.modal-close{background:none;border:none;font-size:22px;cursor:pointer;color:var(--sub);padding:2px 6px;border-radius:4px}
+.modal-close:hover{background:var(--mist)}
+
+/* PRINT */
+@media print{
+  .masthead,.top-nav,.no-print{display:none!important}
+  body{background:#fff}
+  .main{padding:0;max-width:100%}
+  .report-sheet,.lme-sheet{border-radius:0;box-shadow:none;page-break-inside:avoid}
+  .page-break{page-break-before:always}
+}
+
+@media(max-width:700px){
+  .form-grid,.form-grid-3,.form-grid-4,.drug-grid{grid-template-columns:1fr}
+  .col-span-2,.col-span-3,.col-span-4{grid-column:span 1}
+  .check-grid{grid-template-columns:1fr}
+  .report-grid,.lme-sig-area,.report-footer{grid-template-columns:1fr}
+  .masthead{padding:14px 16px}
+  .section{padding:16px}
+}
+</style>
 </head>
-<body style="font-family:system-ui,sans-serif;max-width:40rem;margin:3rem auto;padding:0 1rem;line-height:1.45">
-<p>Este agente foi retirado do PneumoAgents profissional em 03/10/2026.</p>
-<p><a href="../../profissional/index.html">Voltar à área profissional</a></p>
+<body>
+
+<header class="masthead">
+  <div class="logo">🫁</div>
+  <div>
+    <h1>SIA·PRO — Sistema Integrado de Asma | Imunobiológicos</h1>
+    <p>PNEUMOLOGIA CLÍNICA · ASMA GRAVE · GINA 2025 · CHEST 2026 · ANS RN 634/2025 · SUS/CEAF</p>
+  </div>
+  <div class="badge">GINA 2025<br>CHEST 2026<br>v3.1 · DEPEMOQUIMABE</div>
+</header>
+<div class="alert alert-warn no-print" style="margin:12px 20px;"><strong>Atualização pontual em 07/11/2026:</strong> depemoquimabe (Densurko®). Os demais medicamentos e diretrizes não foram revisados nesta versão. A pontuação original não é um instrumento clínico validado. O depemoquimabe é apresentado para avaliação individual, sem escore comparativo automático.</div>
+
+<nav class="top-nav" id="topNav">
+  <button class="nav-tab active" id="tab-form" onclick="showPage('form')"><div class="num">1</div>Dados Clínicos</button>
+  <button class="nav-tab" id="tab-decision" onclick="showPage('decision')"><div class="num">2</div>Decisão Terapêutica</button>
+  <button class="nav-tab" id="tab-report" onclick="showPage('report')"><div class="num">3</div>Laudo / Relatório</button>
+  <button class="nav-tab" id="tab-lme" onclick="showPage('lme')"><div class="num">4</div>LME (SUS)</button>
+  <button class="nav-tab" id="tab-followup" onclick="showPage('followup')"><div class="num">5</div>Retorno / Seguimento</button>
+  <button class="nav-tab" id="tab-db" onclick="showPage('db');renderDB()"><div class="num">6</div>📂 Banco de Dados</button>
+</nav>
+
+<main class="main">
+
+<!-- ==================== PAGE 1: DADOS CLÍNICOS ==================== -->
+<div id="page-form" class="page active">
+
+  <!-- DADOS DO MÉDICO -->
+  <div class="section">
+    <div class="section-head"><div class="section-icon">👨‍⚕️</div><div><h2>Dados do Médico Solicitante</h2><p>Informações para o laudo e LME oficiais</p></div></div>
+    <div class="form-grid">
+      <div class="field col-span-2"><label>Nome completo do médico</label><input id="docName" type="text" placeholder="Dr. / Dra. Nome Completo"></div>
+      <div class="field"><label>CRM</label><input id="docCRM" type="text" placeholder="Ex: 12345-CE"></div>
+      <div class="field"><label>RQE — Especialidade</label><input id="docRQE" type="text" placeholder="Ex: RQE 67890 – Pneumologia"></div>
+      <div class="field"><label>Instituição / Consultório</label><input id="docInst" type="text" placeholder="Hospital / Clínica"></div>
+      <div class="field"><label>Endereço da Instituição</label><input id="docAddr" type="text" placeholder="Rua, Nº, Bairro, Cidade – UF"></div>
+      <div class="field"><label>CNES (unidade de saúde)</label><input id="docCNES" type="text" placeholder="Nº CNES (obrigatório para SUS/LME)"></div>
+      <div class="field"><label>Data do Laudo</label><input id="docDate" type="date"></div>
+    </div>
+  </div>
+
+  <!-- DADOS DO PACIENTE -->
+  <div class="section">
+    <div class="section-head"><div class="section-icon">🧑‍💼</div><div><h2>Dados do Paciente</h2><p>Identificação completa — necessária para LME (SUS)</p></div></div>
+    <div class="form-grid">
+      <div class="field col-span-2"><label>Nome completo do paciente</label><input id="patName" type="text" placeholder="Nome completo"></div>
+      <div class="field"><label>CPF</label><input id="patCPF" type="text" placeholder="000.000.000-00" maxlength="14"></div>
+      <div class="field"><label>CNS — Cartão Nacional de Saúde</label><input id="patCNS" type="text" placeholder="000 0000 0000 0000 (obrigatório SUS)"></div>
+      <div class="field"><label>RG</label><input id="patRG" type="text" placeholder="Nº do documento de identidade"></div>
+      <div class="field"><label>Data de Nascimento</label><input id="patDOB" type="date"></div>
+      <div class="field"><label>Sexo</label>
+        <select id="patSex"><option value="F">Feminino</option><option value="M">Masculino</option></select>
+      </div>
+      <div class="field"><label>Mãe (nome completo)</label><input id="patMother" type="text" placeholder="Nome da mãe (LME)"></div>
+      <div class="field"><label>Endereço completo</label><input id="patAddr" type="text" placeholder="Rua, Nº, Bairro"></div>
+      <div class="field"><label>Cidade / Estado</label><input id="patCity" type="text" placeholder="Cidade – UF"></div>
+      <div class="field"><label>CEP</label><input id="patCEP" type="text" placeholder="00000-000"></div>
+      <div class="field"><label>Telefone / WhatsApp</label><input id="patPhone" type="text" placeholder="(00) 00000-0000"></div>
+      <div class="field"><label>Convênio / Operadora</label><input id="patConv" type="text" placeholder="Ex: Unimed, Bradesco Saúde, SUS"></div>
+      <div class="field"><label>Nº Beneficiário / Matrícula</label><input id="patPlan" type="text" placeholder="Nº da carteirinha ou matrícula"></div>
+      <div class="field"><label>CID-10</label>
+        <select id="patCID">
+          <option value="J45.0">J45.0 – Asma predominantemente alérgica</option>
+          <option value="J45.1">J45.1 – Asma não alérgica</option>
+          <option value="J45.8">J45.8 – Asma mista</option>
+          <option value="J45.9" selected>J45.9 – Asma não especificada (grave)</option>
+        </select>
+      </div>
+      <div class="field"><label>Prontuário</label><input id="patMR" type="text" placeholder="Nº do prontuário"></div>
+      <div class="field"><label>Peso (kg)</label><input id="patWeight" type="number" placeholder="Ex: 72"></div>
+      <div class="field"><label>Altura (cm)</label><input id="patHeight" type="number" placeholder="Ex: 165"></div>
+    </div>
+  </div>
+
+  <!-- BIOMARCADORES -->
+  <div class="section">
+    <div class="section-head"><div class="section-icon">🔬</div><div><h2>Biomarcadores e Fenótipo</h2><p>Critérios GINA 2025 + CHEST 2026 — necessários para elegibilidade</p></div></div>
+    <div class="alert alert-info">
+      <strong>GINA 2025 + CHEST 2026 (Oberle AJ et al., Chest 2026;169:336-348):</strong> Eos ≥300/µL = limiar típico. Eos ≥150/µL + CI alto já sugere Tipo 2. FeNO ≥25 ppb qualifica. <strong>PICO 7:</strong> FeNO ≥25 ppb pós-anti-IL5/5Rα → indica troca para dupilumabe (redução exac 74% vs 17%, p&lt;0,001).
+    </div>
+    <div class="form-grid-3">
+      <div class="field"><label>Eosinófilos séricos (céls/µL)</label><input type="number" id="eos" min="0" placeholder="Ex: 350"></div>
+      <div class="field"><label>FeNO (ppb)</label><input type="number" id="feno" min="0" placeholder="Ex: 30"></div>
+      <div class="field"><label>IgE Total (kU/L)</label><input type="number" id="ige" min="0" placeholder="Ex: 280"></div>
+      <div class="field"><label>VEF1 pré-BD (% predito)</label><input type="number" id="vef1" min="0" max="200" placeholder="Ex: 65"></div>
+      <div class="field"><label>CVF (% predito)</label><input type="number" id="cvf" min="0" max="200" placeholder="Ex: 78"></div>
+      <div class="field"><label>VEF1/CVF (%)</label><input type="number" id="ratio" min="0" max="100" placeholder="Ex: 65"></div>
+      <div class="field"><label>ACT Score</label>
+        <select id="act">
+          <option value="uncontrolled">≤19 — Não controlada</option>
+          <option value="partial">20–24 — Parcialmente controlada</option>
+          <option value="controlled">≥25 — Controlada</option>
+        </select>
+      </div>
+      <div class="field"><label>Exacerbações graves / último ano</label><input type="number" id="exac" min="0" placeholder="Nº de exacerbações"></div>
+      <div class="field"><label>Hospitalizações / último ano</label><input type="number" id="hosp" min="0" placeholder="Nº de internações"></div>
+      <div class="field"><label>Corticosteroide oral (CO)</label>
+        <select id="ocs">
+          <option value="none">Não usa</option>
+          <option value="intermittent">Uso intermitente (resgate)</option>
+          <option value="dependent">Dependente — uso contínuo ≥6 meses</option>
+        </select>
+      </div>
+      <div class="field"><label>Sensibilização a alérgeno perene</label>
+        <select id="allergen">
+          <option value="yes">Sim — teste positivo</option>
+          <option value="no">Não / não testado</option>
+        </select>
+      </div>
+      <div class="field"><label>Dose CI atual</label>
+        <select id="ics">
+          <option value="high">CI Alta dose</option>
+          <option value="medium">CI Média dose</option>
+          <option value="low">CI Baixa dose</option>
+        </select>
+      </div>
+    </div>
+    <div class="field" style="margin-top:12px;"><label>Resultados de exames complementares (TC de tórax, espirometria, outros)</label><textarea id="examObs" placeholder="Relatar achados relevantes: TC de seios paranasais, espirometria completa, DLCO, pletismografia, oximetria, outros..."></textarea></div>
+  </div>
+
+  <!-- COMORBIDADES -->
+  <div class="section">
+    <div class="section-head"><div class="section-icon">🧬</div><div><h2>Comorbidades Tipo 2</h2><p>Influenciam a escolha do biológico e pontuação clínica</p></div></div>
+    <div class="check-grid">
+      <div class="check-item" onclick="toggleCheck(this,'cRSPN')"><input type="checkbox" id="cRSPN"><label>Rinossinusite crônica com pólipos nasais (RSCcPN)</label></div>
+      <div class="check-item" onclick="toggleCheck(this,'cDA')"><input type="checkbox" id="cDA"><label>Dermatite atópica</label></div>
+      <div class="check-item" onclick="toggleCheck(this,'cGEPA')"><input type="checkbox" id="cGEPA"><label>GEPA (Granulomatose Eosinofílica com Poliangiite)</label></div>
+      <div class="check-item" onclick="toggleCheck(this,'cRA')"><input type="checkbox" id="cRA"><label>Rinite alérgica</label></div>
+      <div class="check-item" onclick="toggleCheck(this,'cEE')"><input type="checkbox" id="cEE"><label>Esofagite eosinofílica</label></div>
+      <div class="check-item" onclick="toggleCheck(this,'cAA')"><input type="checkbox" id="cAA"><label>Alergia alimentar IgE-mediada</label></div>
+      <div class="check-item" onclick="toggleCheck(this,'cDPOC')"><input type="checkbox" id="cDPOC"><label>DPOC com sobreposição eosinofílica</label></div>
+      <div class="check-item" onclick="toggleCheck(this,'cUrtic')"><input type="checkbox" id="cUrtic"><label>Urticária crônica espontânea</label></div>
+    </div>
+  </div>
+
+  <!-- HELMINTÍASE -->
+  <div class="section">
+    <div class="section-head"><div class="section-icon">🦠</div><div><h2>Rastreio de Helmintíase / Parasitose</h2><p>Obrigatório conforme bulas ANVISA</p></div></div>
+    <div class="alert alert-warn"><strong>Exigência de bula ANVISA:</strong> Todos os imunobiológicos para asma grave contraindicam ou alertam sobre infecções parasitárias ativas. O rastreio e tratamento devem ser documentados antes do início da terapia.</div>
+    <div class="form-grid">
+      <div class="field"><label>Histórico de helmintíase</label>
+        <select id="helmHistory">
+          <option value="none">Sem história prévia conhecida</option>
+          <option value="past_treated">Histórico passado — tratado e curado</option>
+          <option value="active">Infecção ativa no momento</option>
+          <option value="unknown">Desconhecido / não investigado</option>
+        </select>
+      </div>
+      <div class="field"><label>Rastreio laboratorial (parasitológico de fezes)</label>
+        <select id="helmTest">
+          <option value="yes_neg">Realizado — Negativo</option>
+          <option value="yes_pos_treated">Realizado — Positivo, tratado</option>
+          <option value="yes_pos_active">Realizado — Positivo, aguarda tratamento</option>
+          <option value="no">Não realizado</option>
+          <option value="endemic_risk">Região endêmica — rastreio clínico realizado</option>
+        </select>
+      </div>
+      <div class="field"><label>Tratamento anti-helmíntico realizado</label>
+        <select id="helmTreatment">
+          <option value="yes_completed">Concluído com sucesso</option>
+          <option value="yes_prophylactic">Profilático empírico realizado</option>
+          <option value="not_needed">Não necessário</option>
+          <option value="pending">Pendente</option>
+        </select>
+      </div>
+      <div class="field"><label>Medicamento utilizado</label>
+        <select id="helmDrug">
+          <option value="na">Não aplicável</option>
+          <option value="albendazol_400">Albendazol 400 mg dose única</option>
+          <option value="albendazol_400x3">Albendazol 400 mg/dia × 3 dias</option>
+          <option value="mebendazol">Mebendazol 100 mg 2×/dia × 3 dias</option>
+          <option value="ivermectina">Ivermectina 200 mcg/kg</option>
+          <option value="outro">Outro esquema</option>
+        </select>
+      </div>
+    </div>
+    <div class="field" style="margin-top:10px;"><label>Observações (data do exame, resultado, esquema)</label><input id="helmObs" type="text" placeholder="Data do exame, resultado, esquema completo..."></div>
+    <div id="helm-alert-active" class="alert alert-err" style="display:none;margin-top:10px;"><strong>🚫 CONTRAINDICAÇÃO:</strong> Infecção parasitária ativa. Iniciar biológico somente após cura documentada.</div>
+    <div id="helm-alert-pending" class="alert alert-warn" style="display:none;margin-top:10px;"><strong>⚠️ PENDÊNCIA:</strong> Rastreio/tratamento pendente. Documenta antes de iniciar terapia biológica.</div>
+  </div>
+
+  <!-- HISTÓRICO TERAPÊUTICO -->
+  <div class="section">
+    <div class="section-head"><div class="section-icon">📋</div><div><h2>Histórico Terapêutico</h2><p>Terapia de base atual e biológicos prévios</p></div></div>
+    <div class="form-grid">
+      <div class="field"><label>Biológico prévio</label>
+        <select id="prevBio">
+          <option value="">Nenhum (virgem de biológico)</option>
+          <option value="omalizumab">Omalizumabe — resposta inadequada</option>
+          <option value="mepolizumab">Mepolizumabe — resposta inadequada</option>
+          <option value="benralizumab">Benralizumabe — resposta inadequada</option>
+          <option value="dupilumab">Dupilumabe — resposta inadequada</option>
+          <option value="tezepelumab">Tezepelumabe — resposta inadequada</option>
+        </select>
+      </div>
+      <div class="field"><label>Destino da solicitação</label>
+        <select id="reqDest">
+          <option value="conv">Convênio / Operadora de Saúde (ANS)</option>
+          <option value="sus">SUS — CEAF / Componente Especializado</option>
+          <option value="judicial">Via Judicial</option>
+          <option value="private">Custeio particular — sem solicitação de cobertura</option>
+        </select>
+      </div>
+    </div>
+    <div class="field" style="margin-top:10px;"><label>Resumo clínico / justificativa adicional</label><textarea id="clinResume" placeholder="Descrição do quadro clínico, evolução, exames anteriores, falhas terapêuticas documentadas..."></textarea></div>
+    <div class="field" style="margin-top:10px;"><label>Terapia inalatória atual</label><textarea id="currentTherapy" rows="2" placeholder="Ex: Budesonida 400 mcg + Formoterol 12 mcg 2×/dia + Montelucaste 10 mg/dia..."></textarea></div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-primary btn-full" onclick="goDecision()">Calcular Recomendação e Ver Opções →</button>
+  </div>
+</div>
+
+<!-- ==================== PAGE 2: DECISÃO TERAPÊUTICA ==================== -->
+<div id="page-decision" class="page">
+
+  <div class="section">
+    <div class="section-head"><div class="section-icon">🧠</div><div><h2>Análise Clínica e Recomendação</h2><p>Baseada em GINA 2025 · CHEST 2026 · Bulas ANVISA · ANS RN 634/2025</p></div></div>
+    <div id="patient-summary" class="alert alert-info" style="margin-bottom:14px;"></div>
+
+    <!-- CHEST 2026 PICO PANEL -->
+    <div id="chest2026-pico" style="margin-bottom:18px;background:linear-gradient(135deg,#EEF9F9,#F5FDFD);border:2px solid var(--teal);border-radius:var(--r2);padding:18px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+        <span style="font-size:18px;">🧬</span>
+        <div><strong style="font-family:var(--serif);font-size:14px;color:var(--teal);">Guia CHEST 2026 — 7 Recomendações PICO</strong>
+        <div style="font-size:10px;color:var(--sub);margin-top:1px;">Oberle AJ et al., Chest 2026;169(2):336-348 · Recomendações condicionais, evidência de muito baixa certeza</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:11.5px;" id="pico-guide-grid">
+        <div style="background:#fff;border-radius:var(--r);padding:9px;border-left:3px solid var(--teal);"><strong>PICO 1 — Alérgico (≥1 exac/ano + CO)</strong><br>• ≥2 exac/ano ou hospitalização → <em>Dupilumabe</em> sobre Omalizumabe<br>• Comprometimento de QV (&lt;2 exac) → <em>Omalizumabe</em> sobre Dupilumabe<br>• VEF₁ &lt;70% → Dupilumabe (melhora 140 mL vs 50 mL)</div>
+        <div style="background:#fff;border-radius:var(--r);padding:9px;border-left:3px solid var(--teal);"><strong>PICO 2 — Dependente de CO</strong><br>• Anti-IL-5/5Rα ou Dupilumabe (equivalentes)<br>• Eos pré-CO &gt;1.500/µL → Anti-IL-5 (evitar hipereosinofilia com dupilumabe)</div>
+        <div style="background:#fff;border-radius:var(--r);padding:9px;border-left:3px solid var(--amber);"><strong>PICO 3 — Dependente de CO: dupi vs teze</strong><br>• <em>Dupilumabe</em> sobre Tezepelumabe (redução CO 28% vs 0%; sem diferença em exac)</div>
+        <div style="background:#fff;border-radius:var(--r);padding:9px;border-left:3px solid var(--gold);"><strong>PICO 4 — Falha de Omalizumabe</strong><br>• Anti-IL-5/5Rα ou Dupilumabe (ou Tezepelumabe)<br>• FeNO ≥25 ppb → favor Dupilumabe</div>
+        <div style="background:#fff;border-radius:var(--r);padding:9px;border-left:3px solid var(--gold);"><strong>PICO 5 — Falha de Anti-IL-5/5Rα</strong><br>• Dupilumabe ou Tezepelumabe<br>• CO-dependente → <em>Dupilumabe</em> sobre Tezepelumabe (PICO 5A)</div>
+        <div style="background:#fff;border-radius:var(--r);padding:9px;border-left:3px solid var(--gold);"><strong>PICO 6 — Falha de Dupilumabe</strong><br>• Anti-IL-5/5Rα ou Tezepelumabe<br>• CO-dependente → <em>Anti-IL-5/5Rα</em> (CO sparing 47% vs 0%)<br>• T2-low → considerar Tezepelumabe</div>
+        <div style="background:#fff;border-radius:var(--r);padding:9px;border-left:3px solid var(--teal);grid-column:span 2;"><strong>PICO 7 — FeNO guia troca para Dupilumabe (pós anti-IL-5/5Rα)</strong><br>• FeNO ≥25 ppb pós-tratamento → troca para Dupilumabe (redução exac 74% vs 17% para FeNO &lt;25 ppb; p&lt;0,001)<br>• VEF₁ com dupilumabe: FeNO 25–50 ppb (+150 mL) · FeNO &gt;50 ppb (+350 mL) vs FeNO &lt;25 ppb (+20 mL)</div>
+      </div>
+    </div>
+
+    <div id="drug-cards" class="drug-grid"></div>
+
+    <div style="margin-top:18px;">
+      <button class="btn btn-outline btn-ghost" onclick="toggleTable()">↕ Ver Tabela Comparativa Completa</button>
+    </div>
+    <div id="compare-table" style="display:none;">
+      <div class="table-wrap" id="table-html"></div>
+    </div>
+  </div>
+
+  <div class="section" id="depemo-regulatory"></div>
+
+  <!-- SELEÇÃO -->
+  <div class="section">
+    <div class="section-head"><div class="section-icon">✅</div><div><h2>Selecionar Medicamento para Laudo</h2><p>Confirme o imunobiológico prescrito antes de gerar documentos</p></div></div>
+    <div class="alert alert-warn"><strong>⚠️ Decisão Clínica:</strong> A prescrição é responsabilidade exclusiva do médico assistente. O sistema aponta a maior pontuação de adequação, mas a escolha final deve integrar critérios clínicos individualizados.</div>
+    <div class="form-grid">
+      <div class="field"><label>Medicamento selecionado para prescrição</label>
+        <select id="selectedDrug">
+          <option value="">— selecione —</option>
+          <option value="omalizumabe">Omalizumabe (Xolair®)</option>
+          <option value="mepolizumabe">Mepolizumabe (Nucala®)</option>
+          <option value="dupilumabe">Dupilumabe (Dupixent®)</option>
+          <option value="benralizumabe">Benralizumabe (Fasenra®)</option>
+          <option value="tezepelumabe">Tezepelumabe (Tezspire®)</option>
+          <option value="depemokimabe">Depemoquimabe (Densurko®)</option>
+        </select>
+      </div>
+      <div class="field"><label>Destino da solicitação</label>
+        <select id="reqDest2" onchange="document.getElementById('reqDest').value=this.value">
+          <option value="conv">Convênio / Operadora de Saúde (ANS)</option>
+          <option value="sus">SUS — CEAF / Componente Especializado</option>
+          <option value="judicial">Via Judicial</option>
+          <option value="private">Custeio particular — sem solicitação de cobertura</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="check-item" style="margin:12px 0;">
+    <input type="checkbox" id="depemoReviewed">
+    <label for="depemoReviewed">Para laudo de depemoquimabe: confirmo avaliação médica da indicação individual (asma T2 eosinofílica não controlada com CI médio/alto + outro controlador), faixa etária, contraindicações e precauções; conferi registro ativo e bula aplicável. Este campo não confirma comercialização nem cobertura.</label>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-ghost" onclick="showPage('form')">← Editar Dados</button>
+    <button class="btn btn-gold" onclick="goReport()">📄 Gerar Laudo / Relatório →</button>
+    <button class="btn btn-navy" onclick="goLME()">🏥 Gerar LME (SUS) →</button>
+  </div>
+</div>
+
+<!-- ==================== PAGE 3: LAUDO ANS / CONVÊNIO ==================== -->
+<div id="page-report" class="page">
+  <div class="report-sheet" id="reportSheet">
+    <div class="report-header">
+      <div>
+        <h1>Laudo Médico de Indicação Terapêutica</h1>
+        <div class="subtitle">IMUNOBIOLÓGICO PARA ASMA GRAVE / INFLAMAÇÃO TIPO 2 – SOLICITAÇÃO DE COBERTURA</div>
+      </div>
+      <div class="report-stamp" id="rep-stamp"></div>
+    </div>
+    <div class="report-body" id="rep-body"></div>
+    <div class="report-footer">
+      <div class="sig-block">
+        <div class="sig-line"></div>
+        <div class="sig-label" id="rep-doc-sig">Médico Solicitante</div>
+      </div>
+      <div><div class="ref-box" id="rep-refs"></div></div>
+    </div>
+  </div>
+  <div class="btn-row no-print" style="margin-top:18px;">
+    <button class="btn btn-ghost" onclick="showPage('decision')">← Voltar</button>
+    <button class="btn btn-print" onclick="window.print()">🖨️ Imprimir / PDF</button>
+    <button class="btn btn-outline" onclick="printWithoutDate()">📄 Imprimir sem Data (Renovação)</button>
+    <button class="btn btn-gold" onclick="saveAndExport()">💾 Salvar no Banco de Dados</button>
+    <button class="btn btn-navy" onclick="goLME()">🏥 Ir para LME (SUS) →</button>
+  </div>
+</div>
+
+<!-- ==================== PAGE 4: LME (SUS) ==================== -->
+<div id="page-lme" class="page">
+  <div class="alert alert-info no-print" style="margin-bottom:16px;">
+    <strong>🏥 Laudo para Solicitação de Medicamentos do Componente Especializado (CEAF / SUS):</strong> Este laudo segue o formulário LME padronizado pelo Ministério da Saúde. Preencha os dados acima (Etapa 1) antes de gerar. O LME pode ser impresso diretamente ou exportado como PDF.
+  </div>
+
+  <div class="lme-sheet" id="lmeSheet">
+    <!-- Tudo gerado via JS -->
+  </div>
+
+  <div class="btn-row no-print" style="margin-top:18px;">
+    <button class="btn btn-ghost" onclick="showPage('decision')">← Voltar</button>
+    <button class="btn btn-print" onclick="printLME()">🖨️ Imprimir LME</button>
+    <button class="btn btn-gold" onclick="saveAndExport()">💾 Salvar no Banco de Dados</button>
+  </div>
+</div>
+
+<!-- ==================== PAGE 5: RETORNO / SEGUIMENTO ==================== -->
+<div id="page-followup" class="page">
+
+  <div class="section">
+    <div class="section-head"><div class="section-icon">🔄</div><div><h2>Registrar Retorno / Seguimento</h2><p>Adicionar dados de resposta ao tratamento ao prontuário do banco de dados</p></div></div>
+    <div class="alert alert-purple">
+      <strong>Modo de uso:</strong> Selecione o paciente no banco de dados (Aba 6), clique em "Retorno" e os dados serão carregados aqui para complementação. Ou busque diretamente pelo CPF.
+    </div>
+    <div class="form-grid">
+      <div class="field"><label>CPF do paciente (busca rápida)</label>
+        <input id="fu-cpf" type="text" placeholder="000.000.000-00" oninput="maskCPF2(this)">
+      </div>
+      <div class="field" style="display:flex;align-items:flex-end;">
+        <button class="btn btn-outline" onclick="buscarPacienteRetorno()">🔍 Buscar Paciente</button>
+      </div>
+    </div>
+    <div id="fu-patient-info" class="alert alert-info" style="display:none;margin:12px 0;"></div>
+    <input type="hidden" id="fu-patient-id">
+
+    <div id="fu-form" style="display:none;">
+      <div style="border-top:2px solid var(--line);margin-top:16px;padding-top:16px;">
+        <h3 style="font-family:var(--serif);font-size:16px;margin-bottom:14px;color:var(--teal);">Avaliação de Resposta ao Tratamento</h3>
+        <div class="form-grid-3">
+          <div class="field"><label>Data do retorno</label><input id="fu-date" type="date"></div>
+          <div class="field"><label>Período de tratamento (meses)</label><input id="fu-months" type="number" min="1" placeholder="Ex: 4"></div>
+          <div class="field"><label>Resposta ao tratamento</label>
+            <select id="fu-response">
+              <option value="good">Boa resposta — manter</option>
+              <option value="partial">Resposta parcial — ajustar</option>
+              <option value="poor">Resposta inadequada — trocar</option>
+              <option value="ae">Evento adverso</option>
+            </select>
+          </div>
+          <div class="field"><label>Eosinófilos no retorno (céls/µL)</label><input id="fu-eos" type="number" placeholder="Valor atual"></div>
+          <div class="field"><label>FeNO no retorno (ppb)</label><input id="fu-feno" type="number" placeholder="Valor atual"></div>
+          <div class="field"><label>VEF1 no retorno (% predito)</label><input id="fu-vef1" type="number" placeholder="Valor atual"></div>
+          <div class="field"><label>ACT no retorno</label>
+            <select id="fu-act">
+              <option value="uncontrolled">≤19 — Não controlada</option>
+              <option value="partial">20–24 — Parcialmente controlada</option>
+              <option value="controlled">≥25 — Controlada</option>
+            </select>
+          </div>
+          <div class="field"><label>Exacerbações desde início do tto</label><input id="fu-exac" type="number" placeholder="Nº de exacerbações"></div>
+          <div class="field"><label>Hospitalizações desde início</label><input id="fu-hosp" type="number" placeholder="Nº de internações"></div>
+          <div class="field"><label>Dose CO atual (mg/dia prednisona eq.)</label><input id="fu-co-dose" type="number" placeholder="0 se descontinuado"></div>
+          <div class="field"><label>CO reduzido vs dose inicial?</label>
+            <select id="fu-co-reduced">
+              <option value="yes">Sim — desmame conseguido</option>
+              <option value="partial">Redução parcial</option>
+              <option value="no">Não — mantida mesma dose</option>
+              <option value="na">Não usava CO</option>
+            </select>
+          </div>
+          <div class="field"><label>Efeitos adversos relatados</label>
+            <select id="fu-ae">
+              <option value="none">Nenhum</option>
+              <option value="local">Reação no local da injeção</option>
+              <option value="sys">Reação sistêmica leve</option>
+              <option value="serious">Evento adverso grave</option>
+            </select>
+          </div>
+        </div>
+        <div class="field" style="margin-top:10px;"><label>Observações clínicas do retorno</label><textarea id="fu-obs" placeholder="Relato da evolução, achados no exame físico, exames realizados, decisão terapêutica..."></textarea></div>
+        <div class="field" style="margin-top:10px;"><label>Conduta decidida</label>
+          <select id="fu-conduct">
+            <option value="continue">Continuar mesmo imunobiológico</option>
+            <option value="switch">Trocar para outro imunobiológico</option>
+            <option value="increase">Ajustar dose / frequência</option>
+            <option value="discontinue">Descontinuar — resposta não satisfatória</option>
+            <option value="renew">Renovar autorização (SUS/convênio)</option>
+          </select>
+        </div>
+        <div id="fu-switch-drug" style="display:none;margin-top:10px;">
+          <div class="field"><label>Novo imunobiológico (se troca)</label>
+            <select id="fu-new-drug">
+              <option value="omalizumabe">Omalizumabe (Xolair®)</option>
+              <option value="mepolizumabe">Mepolizumabe (Nucala®)</option>
+              <option value="dupilumabe">Dupilumabe (Dupixent®)</option>
+              <option value="benralizumabe">Benralizumabe (Fasenra®)</option>
+              <option value="tezepelumabe">Tezepelumabe (Tezspire®)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="salvarRetorno()">💾 Salvar Retorno</button>
+        <button class="btn btn-gold" onclick="gerarRelatorioRetorno()">📄 Gerar Relatório de Seguimento</button>
+        <button class="btn btn-navy" onclick="renovarLME()">🏥 Renovar LME (SUS)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RELATÓRIO DE SEGUIMENTO (oculto até ser gerado) -->
+  <div id="followup-report" style="display:none;">
+    <div class="report-sheet" id="fu-report-sheet">
+      <div class="report-header">
+        <div><h1>Relatório de Seguimento Terapêutico</h1>
+        <div class="subtitle">IMUNOBIOLÓGICO PARA ASMA GRAVE — AVALIAÇÃO DE RESPOSTA</div></div>
+        <div class="report-stamp" id="fu-rep-stamp"></div>
+      </div>
+      <div class="report-body" id="fu-rep-body"></div>
+      <div class="report-footer">
+        <div class="sig-block"><div class="sig-line"></div><div class="sig-label" id="fu-rep-sig">Médico Responsável</div></div>
+        <div><div class="ref-box" style="font-size:11px;color:var(--sub);">GINA 2025 · CHEST 2026 (Oberle AJ et al., Chest 169:336-348) · Bulas ANVISA vigentes</div></div>
+      </div>
+    </div>
+    <div class="btn-row no-print" style="margin-top:16px;">
+      <button class="btn btn-print" onclick="window.print()">🖨️ Imprimir Relatório de Seguimento</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PAGE 6: BANCO DE DADOS ==================== -->
+<div id="page-db" class="page">
+  <div class="section">
+    <div class="section-head"><div class="section-icon">📂</div><div><h2>Banco de Dados de Pacientes</h2><p>Registros armazenados localmente — IndexedDB (persistente neste navegador/máquina)</p></div></div>
+    <div class="alert alert-info" style="margin-bottom:14px;">
+      <strong>Armazenamento local:</strong> Os dados são salvos no IndexedDB do navegador neste computador. Para backup, use o botão "Exportar CSV". Ao abrir o arquivo HTML em outro computador, o banco estará vazio.
+    </div>
+    <div class="btn-row" style="margin-bottom:16px;">
+      <button class="btn btn-outline" onclick="exportarHistoricoCompleto()">📥 Exportar Tudo (CSV)</button>
+      <button class="btn btn-ghost" onclick="renderDB()">🔄 Atualizar Lista</button>
+      <button class="btn btn-danger" onclick="limparHistoricoDB()" style="margin-left:auto;">🗑️ Limpar Banco</button>
+    </div>
+    <div id="db-stats" style="display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap;"></div>
+    <div style="overflow-x:auto;">
+      <table class="db-table" id="dbTable">
+        <thead>
+          <tr>
+            <th>Data/Hora</th>
+            <th>Paciente</th>
+            <th>Médico</th>
+            <th>Medicamento</th>
+            <th>Via</th>
+            <th>CID</th>
+            <th>Eos</th>
+            <th>FeNO</th>
+            <th>Retornos</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="dbTbody">
+          <tr><td colspan="10" style="text-align:center;padding:24px;color:var(--sub);">Carregando...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<!-- MODAL: VER DETALHE DO PACIENTE -->
+<div class="modal-overlay" id="modalDetalhe">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2>📋 Detalhes do Registro</h2>
+      <button class="modal-close" onclick="fecharModal('modalDetalhe')">×</button>
+    </div>
+    <div id="modalDetalheContent"></div>
+  </div>
+</div>
+
+<script>
+/* =============================================
+   DRUG DATABASE
+   ============================================= */
+const DRUGS = {
+  omalizumabe: {
+    name:'Omalizumabe', brand:'Xolair®', maker:'Novartis',
+    mechanism:'Anti-IgE — neutraliza IgE livre, impedindo ativação de mastócitos e basófilos',
+    moa_short:'Anti-IgE', dose_text:'75–600 mg SC Q2W ou Q4W (tabela IgE basal × peso corporal)',
+    freq:'Q2W ou Q4W', route:'Subcutânea (SC)', review:'4–6 meses',
+    biomarker:'IgE total 30–1500 kU/L + sensibilização a alérgeno perene',
+    phenotype:'Alérgico (IgE-mediado)', eos_cut:null, ige_min:30, ige_max:1500, allergen_req:true,
+    efficacy:'40–50% redução de exacerbações (INNOVATE, EXTRA)',
+    ocs:'Redução moderada de CO', studies:'INNOVATE, EXTRA, PROSPERO, XPORT',
+    ans:{status:'ok', label:'ANS: Obrigatório (RN 634/2025)'},
+    sus:{status:'ok', label:'SUS: Disponível (Portaria SECTICS/MS nº 3/2025)'},
+    comorbid:['cRSPN','cRA','cUrtic'],
+    cid_lme:'J45.0',
+    pcdt:'PCDT Asma Grave — Omalizumabe (SAS/MS)',
+    bulaCriteria:[
+      'Diagnóstico de asma alérgica persistente grave confirmado por alergista ou pneumologista',
+      'IgE total sérica entre 30 e 1.500 kU/L (medida antes do início do tratamento)',
+      'Teste cutâneo positivo ou RAST positivo a alérgeno perene',
+      'Idade ≥6 anos',
+      'Asma não controlada adequadamente com corticosteroide inalado + LABA em dose máxima',
+      'VEF1 pré-BD <80% predito (adultos) ou variabilidade de PEF ≥30%',
+      '⚑ CHEST 2026 PICO 1: Omalizumabe preferido sobre dupilumabe em alérgico com <2 exac/ano e maior comprometimento de QV (AQLQ: +0,53 vs +0,28); ≥2 exac ou VEF₁ <70% → preferir dupilumabe',
+      '⚠️ BULA: Cautela em pacientes com alto risco de infecção helmíntica — rastrear antes do início'
+    ], conv:30
+  },
+  mepolizumabe: {
+    name:'Mepolizumabe', brand:'Nucala®', maker:'GSK',
+    mechanism:'Anti-IL-5 — bloqueia IL-5 circulante, inibindo maturação e sobrevida de eosinófilos',
+    moa_short:'Anti-IL-5', dose_text:'100 mg SC Q4W (adultos ≥12 anos); 40 mg SC Q4W (6–11 anos)',
+    freq:'Q4W', route:'Subcutânea (SC)', review:'4 meses',
+    biomarker:'Eosinófilos ≥300/µL (ou ≥150/µL em uso de CO)',
+    phenotype:'Eosinofílico (Tipo 2)', eos_cut:300, ige_min:null, allergen_req:false,
+    efficacy:'50–60% redução de exacerbações (MENSA, MUSCA)',
+    ocs:'Redução de ~50% do CO (SIRIUS)', studies:'MENSA, MUSCA, SIRIUS, COLUMBA, COSMEX',
+    ans:{status:'ok', label:'ANS: Obrigatório desde 02/06/2025 (RN 634/2025)'},
+    sus:{status:'warn', label:'SUS: CONITEC favorável (dez/2024) — em incorporação'},
+    comorbid:['cRSPN','cGEPA'],
+    cid_lme:'J45.9',
+    pcdt:'PCDT Asma Grave — Anti-IL-5 (SAS/MS)',
+    bulaCriteria:[
+      'Asma grave com fenótipo eosinofílico',
+      'Eosinófilos séricos ≥300 céls/µL (pré-tratamento) ou ≥150 céls/µL em uso contínuo de CO',
+      'Idade ≥6 anos',
+      'Asma não controlada com CI dose alta + LABA',
+      '≥2 exacerbações graves no último ano ou uso de CO contínuo',
+      '⚑ CHEST 2026 PICO 2: Equivalente ao dupilumabe em CO-dependência; preferir se eos pré-CO >1.500/µL',
+      '⚑ CHEST 2026 PICO 6: Após falha de dupilumabe CO-dependente → anti-IL-5/5Rα preferido',
+      '⚠️ BULA: Tratar helmintos pré-existentes antes de iniciar terapia'
+    ], conv:40
+  },
+  dupilumabe: {
+    name:'Dupilumabe', brand:'Dupixent®', maker:'Sanofi/Regeneron',
+    mechanism:'Anti-IL-4Rα — bloqueia sinalização de IL-4 e IL-13, eixo central da inflamação Tipo 2',
+    moa_short:'Anti-IL-4Rα (IL-4 + IL-13)', dose_text:'400 mg SC (ataque) → 200 mg SC Q2W; ou 300 mg SC Q2W (dependente de CO)',
+    freq:'Q2W', route:'Subcutânea (SC)', review:'4–6 meses',
+    biomarker:'Eosinófilos ≥300/µL OU FeNO ≥25 ppb; ou Eos ≥150/µL + CO',
+    phenotype:'Tipo 2 amplo (eosinofílico/alérgico)', eos_cut:150, ige_min:null, allergen_req:false,
+    efficacy:'60–70% redução de exacerbações (QUEST); 70% redução de CO (VENTURE)',
+    ocs:'Redução de 70% do CO (VENTURE)', studies:'LIBERTY ASTHMA QUEST, VENTURE, TRAVERSE',
+    ans:{status:'ok', label:'ANS: Obrigatório desde 2022 (RN 634/2025)'},
+    sus:{status:'ok', label:'SUS: Incorporado (Portaria SECTICS/MS nº 3/2025)'},
+    comorbid:['cRSPN','cDA','cEE','cRA'],
+    cid_lme:'J45.9',
+    pcdt:'PCDT Asma Grave — Dupilumabe (SAS/MS)',
+    bulaCriteria:[
+      'Asma grave não controlada (ACT ≤19 ou exacerbações ≥2/ano)',
+      'Eosinófilos séricos ≥300 céls/µL OU FeNO ≥25 ppb (em uso de CI médio ou alto)',
+      'Eosinófilos ≥150 céls/µL em dependência de CO ou comorbidade Tipo 2 documentada',
+      'Idade ≥12 anos (adultos e adolescentes)',
+      'Uso inadequadamente controlado com CI alta dose + LABA',
+      '⚑ CHEST 2026 PICO 7: FeNO ≥25 ppb pós-anti-IL5/5Rα → guia troca para dupilumabe (redução exac 74% vs 17%; p<0,001)',
+      '⚑ CHEST 2026 PICO 1: VEF₁ <70% em alérgico → dupilumabe sobre omalizumabe (+140 mL vs +50 mL)',
+      '⚠️ Monitorar eosinófilos nos primeiros 3–6 meses; risco de hipereosinofilia se eos basal >1.500/µL'
+    ], conv:35
+  },
+  benralizumabe: {
+    name:'Benralizumabe', brand:'Fasenra®', maker:'AstraZeneca',
+    mechanism:'Anti-IL-5Rα com ADCC — depleção direta e rápida de eosinófilos via citotoxicidade celular dependente de anticorpo',
+    moa_short:'Anti-IL-5Rα (ADCC)', dose_text:'30 mg SC Q4W × 3 doses → 30 mg SC Q8W (manutenção)',
+    freq:'Q8W (após 3 doses Q4W)', route:'Subcutânea (SC)', review:'4 meses (após 3ª dose)',
+    biomarker:'Eosinófilos ≥300/µL (ou ≥150/µL em CI alto)',
+    phenotype:'Eosinofílico (Tipo 2)', eos_cut:300, ige_min:null, allergen_req:false,
+    efficacy:'28–51% redução de exacerbações (SIROCCO, CALIMA)',
+    ocs:'Redução de 75% do CO (ZONDA)', studies:'SIROCCO, CALIMA, ZONDA, BORA',
+    ans:{status:'ok', label:'ANS: Obrigatório desde 02/06/2025 (RN 634/2025)'},
+    sus:{status:'warn', label:'SUS: CONITEC favorável (dez/2024) — em incorporação'},
+    comorbid:['cGEPA','cRSPN'],
+    cid_lme:'J45.9',
+    pcdt:'PCDT Asma Grave — Anti-IL-5Rα (SAS/MS)',
+    bulaCriteria:[
+      'Asma grave eosinofílica (eosinófilos ≥300 céls/µL pré-tratamento, ou ≥150/µL em CI alto)',
+      'Idade ≥18 anos (bula ANVISA vigente)',
+      'Asma não controlada com CI dose alta + LABA',
+      '≥2 exacerbações graves no último ano ou dependência de CO',
+      '⚑ CHEST 2026 PICO 2: Equivalente ao dupilumabe em CO-dependência; Q8W em manutenção = menor frequência de injeções',
+      '⚑ CHEST 2026 PICO 6: Após falha de dupilumabe CO-dependente → benralizumabe (CO sparing 75% — ZONDA)',
+      '⚠️ BULA (aprovada 01/09/2025): Não utilizar em infecção parasitária ativa'
+    ], conv:45
+  },
+  tezepelumabe: {
+    name:'Tezepelumabe', brand:'Tezspire®', maker:'AstraZeneca/Amgen',
+    mechanism:'Anti-TSLP — bloqueia alarmina upstream TSLP, inibindo toda a cascata inflamatória Tipo 2 (eosinofílica, alérgica e não-Tipo 2)',
+    moa_short:'Anti-TSLP (alarmina upstream)', dose_text:'210 mg SC Q4W',
+    freq:'Q4W', route:'Subcutânea (SC)', review:'4–6 meses',
+    biomarker:'Não requer biomarcador Tipo 2 (único nessa classe)',
+    phenotype:'Todos os fenótipos (T2-high e T2-low)', eos_cut:0, ige_min:null, allergen_req:false,
+    efficacy:'56% redução de exacerbações (NAVIGATOR); 70% em T2-low',
+    ocs:'Redução de 71% do CO (SOURCE)', studies:'NAVIGATOR, SOURCE, DESTINATION, SUNRISE',
+    ans:{status:'ok', label:'ANS: Obrigatório desde 02/06/2025 (RN 634/2025)'},
+    sus:{status:'no', label:'SUS: NÃO incorporado — aguarda CONITEC'},
+    comorbid:['cRSPN','cDA','cGEPA','cEE'],
+    cid_lme:'J45.9',
+    pcdt:'PCDT ainda não publicado para tezepelumabe no SUS',
+    bulaCriteria:[
+      'Asma grave não controlada (qualquer fenótipo)',
+      'Idade ≥12 anos',
+      'Asma inadequadamente controlada com CI alta dose + LABA, independentemente de biomarcador',
+      '≥2 exacerbações no último ano ou hospitalizações por asma',
+      'ÚNICA opção biológica sem exigência de eosinófilos elevados ou FeNO alto (T2-low)',
+      '⚑ CHEST 2026 PICO 3: Em CO-dependente, dupilumabe preferido sobre tezepelumabe (CO sparing 28% vs 0%)',
+      '⚑ CHEST 2026 PICO 5/6: Indicado após falha de anti-IL5/5Rα ou dupilumabe, especialmente em T2-low'
+    ], conv:20
+  },
+  depemokimabe: {
+    // Chave legada preservada para compatibilidade com o histórico.
+    name:'Depemoquimabe', brand:'Densurko®', maker:'GSK',
+    mechanism:'Anti-IL-5 de ultralonga ação — inibe a sinalização da IL-5 e reduz eosinófilos',
+    moa_short:'Anti-IL-5 (ultralonga ação)', dose_text:'100 mg (1 mL) SC uma vez a cada 6 meses',
+    freq:'A cada 6 meses', route:'Subcutânea (SC)', review:'Seguimento individualizado; revisar antes de cada nova dose',
+    biomarker:'Fenótipo eosinofílico documentado; indicação da bula sem limiar numérico fixo',
+    phenotype:'Eosinofílico (Tipo 2)', eos_cut:null, ige_min:null, allergen_req:false,
+    efficacy:'Redução de exacerbações: 58% no SWIFT-1 e 48% no SWIFT-2 versus placebo + terapia padrão',
+    ocs:'Não presumir benefício comprovado de retirada de CO; redução apenas gradual e supervisionada',
+    studies:'SWIFT-1/2, AGILE; ANCHOR-1/2 (RSCcPN)',
+    ans:{status:'warn', label:'ANS: não listado nas DUT 65.9/65.10; proposta 2026.2.000382 em análise técnica na planilha de 14/10/2026'},
+    sus:{status:'warn', label:'SUS: ausente do PCDT Asma 2026; não localizada incorporação específica para asma'},
+    comorbid:['cRSPN'], cid_lme:'J45.9',
+    pcdt:'Não incluído no PCDT Asma — Portaria Conjunta SAES/SCTIE nº 43, de 24/03/2026',
+    regulatory:{
+      checked:'07/11/2026',
+      registration:'Registro 1.0107.0370. RE nº 1.896, de 07/05/2026, publicada no DOU de 11/05/2026. Processo 25351.075969/2025-41. Vencimento do registro publicado: 05/2036. Situação ativa atual: confirmar na base da Anvisa, cujo acesso não foi possível nesta consulta.',
+      presentations:'100 mg/mL: seringa preenchida (1.0107.0370.001-7) ou caneta aplicadora (1.0107.0370.002-5). Validade do produto no ato de registro: 24 meses; não confundir com o vencimento do registro.',
+      leaflet:'Bula brasileira localizada no catálogo GSK: L2322_Densurko_sol_inj_GDS03, aprovada pela Anvisa em 06/10/2026, apresentação em caneta. É a versão mais recente localizada, não certificada como a última do Bulário; eventual revisão posterior ou bula de outra apresentação deve ser conferida.',
+      market:'Densurko consta no portfólio brasileiro da GSK e possui bula pública. Isso não comprova estoque, preço ou início efetivo de comercialização. Disponibilidade atual: a confirmar com fabricante/fornecedor.',
+      private:'Custeio particular: não depende dos critérios de Rol/DUT da ANS nem de PCDT do SUS. Exige prescrição, indicação e faixa etária da bula brasileira, registro ativo e respeito às contraindicações e precauções. Não significa uso irrestrito nem disponibilidade comercial garantida.',
+      ans:'Não listado nas DUT 65.9/65.10 de asma do Anexo II da RN 465/2021, consolidado com RN 681/2026 e vigente desde 03/11/2026, pp. 83–85. Proposta ANS 2026.2.000382, enviada em 17/08/2026 para asma eosinofílica grave, consta como em análise técnica, com relatório em elaboração, na planilha de 14/10/2026. Proposta em tramitação não equivale a inclusão no Rol. Eventual decisão posterior e cobertura extra-Rol devem ser verificadas individualmente; ausência na lista não é proibição absoluta de cobertura.',
+      sus:'Não incluído no Quadro 8 do PCDT Asma — Portaria Conjunta SAES/SCTIE nº 43, de 24/03/2026, página atualizada em 04/09/2026. Nenhuma portaria de incorporação ou avaliação específica de depemoquimabe para asma localizada nesta pesquisa. A menção na ata CONITEC de 2023 é de monitoramento do horizonte tecnológico, não de decisão sobre incorporação. Processo atual não publicado/indexado e eventual ato posterior permanecem a confirmar. Não equivale a rejeição.',
+      sources:[
+        {label:'Anvisa — comunicado de registro',url:'https://www.gov.br/anvisa/pt-br/assuntos/noticias-anvisa/2026/anvisa-autoriza-novo-medicamento-biologico-para-doencas-respiratorias'},
+        {label:'DOU — RE 1.896/2026',url:'https://in.gov.br/web/dou/-/resolucao-re-n-1.896-de-7-de-maio-de-2026-704392605'},
+        {label:'GSK — bula aprovada em 06/10/2026',url:'https://br.gsk.com/media/jjmp0pwk/densurko.pdf'},
+        {label:'GSK — catálogo brasileiro',url:'https://br.gsk.com/pt-br/produtos/produtos-de-a-a-z/'},
+        {label:'Anvisa — consulta de medicamentos e Bulário',url:'https://consultas.anvisa.gov.br/'},
+        {label:'ANS — Anexo II RN 681/2026, DUT pp. 83–85',url:'https://www.gov.br/ans/pt-br/acesso-a-informacao/participacao-da-sociedade/atualizacao-do-rol-de-procedimentos/anexo_ii_dut_2021_rn_465-2021_rn681-2026.pdf'},
+        {label:'ANS — proposta em análise, planilha de 14/10/2026',url:'https://www.gov.br/ans/pt-br/acesso-a-informacao/participacao-da-sociedade/atualizacao-do-rol-de-procedimentos/par_elegiveis_status_2026.10.14.xlsx/view'},
+        {label:'Ministério da Saúde — PCDT Asma 2026',url:'https://www.gov.br/saude/pt-br/assuntos/pcdt/a/asma/view'},
+        {label:'CONITEC — ata 124ª reunião, monitoramento em 2023',url:'https://www.gov.br/conitec/pt-br/midias/reuniao_conitec/2023/ata_124_reuniao_ordinaria_da_conitec_comite_de_medicamentos.pdf/@@display-file/file'}
+      ]
+    },
+    bulaCriteria:[
+      'Tratamento complementar de manutenção da asma T2 com fenótipo eosinofílico',
+      'Adultos e adolescentes com 12 anos ou mais, conforme a posologia brasileira',
+      'Controle inadequado apesar de CI em doses médias a altas associado a outro controlador da asma',
+      '100 mg SC uma vez a cada 6 meses; não utilizar para sintomas ou exacerbações agudas',
+      'Contraindicação: hipersensibilidade ao depemoquimabe ou a qualquer excipiente',
+      'Tratar helmintíases pré-existentes antes da terapia; se surgir infecção sem resposta ao tratamento, avaliar adiamento da próxima dose',
+      'Não suspender abruptamente corticosteroides; reduções devem ser graduais e supervisionadas',
+      'Avaliar hipersensibilidade, inclusive tardia, e riscos/benefícios na gestação e lactação',
+      'RSCcPN: indicação própria somente em adultos, complementar a corticosteroide intranasal, quando corticosteroide sistêmico e/ou cirurgia não controlam a doença; não há indicação para GEPA nesta bula',
+      'Limiares de recrutamento dos estudos SWIFT não são exigências numéricas da indicação de bula'
+    ], conv:0
+  }
+};
+
+/* =============================================
+   STATE
+   ============================================= */
+let scores = {};
+let patientData = {};
+let currentPatientDBId = null;
+
+/* =============================================
+   UI NAVIGATION
+   ============================================= */
+function showPage(p) {
+  document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+  document.getElementById('page-'+p).classList.add('active');
+  document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-'+p).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+/* =============================================
+   HELPERS
+   ============================================= */
+function toggleCheck(div, id) {
+  const cb = document.getElementById(id);
+  cb.checked = !cb.checked;
+  div.classList.toggle('checked', cb.checked);
+}
+
+function toggleTable() {
+  const t = document.getElementById('compare-table');
+  t.style.display = t.style.display==='none' ? 'block' : 'none';
+}
+
+function maskCPF(v) {
+  return v.replace(/\D/g,'').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2');
+}
+
+function maskCPF2(el) { el.value = maskCPF(el.value); }
+
+function depemoRegulatoryHtml() {
+  const r = DRUGS.depemokimabe.regulatory;
+  const fields = [['Registro Anvisa',r.registration],['Apresentações',r.presentations],['Bula',r.leaflet],['Comercialização',r.market],['Custeio particular',r.private],['ANS',r.ans],['SUS / CONITEC',r.sus]];
+  return `<div class="ref-box"><strong>Depemoquimabe (Densurko®) — atualização em ${r.checked}</strong>${fields.map(([label,text])=>`<p style="margin-top:8px;"><strong>${label}:</strong> ${text}</p>`).join('')}<p style="margin-top:10px;"><strong>Fontes:</strong> ${r.sources.map(x=>`<a href="${x.url}" target="_blank" rel="noopener noreferrer">${x.label}</a>`).join(' · ')}</p></div>`;
+}
+
+function ageAtDate(dob, reference) {
+  if(!dob) return null;
+  const birth = new Date(dob+'T12:00:00');
+  const now = reference ? new Date(reference+'T12:00:00') : new Date();
+  if(Number.isNaN(birth.getTime()) || Number.isNaN(now.getTime()) || birth>now) return null;
+  let age = now.getFullYear()-birth.getFullYear();
+  if(now.getMonth()<birth.getMonth() || (now.getMonth()===birth.getMonth() && now.getDate()<birth.getDate())) age--;
+  return age;
+}
+
+function depemoReportReviewed(d) {
+  const age = ageAtDate(d.patDOB,d.docDate);
+  if(age===null || age<12) { alert('Depemoquimabe para asma: informar nascimento válido e idade de 12 anos ou mais na data do laudo.'); return false; }
+  if(!['medium','high'].includes(d.ics) || d.act==='controlled') { alert('Revisar indicação: a bula exige controle inadequado com CI médio/alto associado a outro controlador.'); return false; }
+  if(!document.getElementById('depemoReviewed').checked) { alert('Confirme a revisão médica individual na etapa de decisão, incluindo registro ativo e bula aplicável.'); return false; }
+  if(d.helmHistory==='active' || d.helmTest==='yes_pos_active' || d.helmTreatment==='pending') { alert('Há infecção helmíntica ativa ou tratamento pendente. Concluir a avaliação/tratamento antes de gerar indicação de início de depemoquimabe.'); return false; }
+  return true;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('depemo-regulatory').innerHTML = depemoRegulatoryHtml();
+  document.getElementById('docDate').valueAsDate = new Date();
+  document.getElementById('fu-date').valueAsDate = new Date();
+  document.getElementById('patCPF').addEventListener('input', function(){ this.value = maskCPF(this.value); });
+  document.getElementById('fu-conduct').addEventListener('change', function(){
+    document.getElementById('fu-switch-drug').style.display = this.value === 'switch' ? 'block' : 'none';
+  });
+  initDB().then(() => { console.log('DB inicializado'); renderDB(); }).catch(e => console.error(e));
+  ['helmHistory','helmTest','helmTreatment'].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.addEventListener('change', () => {
+      const history = document.getElementById('helmHistory').value;
+      const test = document.getElementById('helmTest').value;
+      const treatment = document.getElementById('helmTreatment').value;
+      document.getElementById('helm-alert-active').style.display = history === 'active' ? 'block' : 'none';
+      document.getElementById('helm-alert-pending').style.display = (treatment === 'pending' || test === 'no') ? 'block' : 'none';
+    });
+  });
+});
+
+/* =============================================
+   COLLECT DATA
+   ============================================= */
+function collectData() {
+  return {
+    docName: document.getElementById('docName').value.trim(),
+    docCRM: document.getElementById('docCRM').value.trim(),
+    docRQE: document.getElementById('docRQE').value.trim(),
+    docInst: document.getElementById('docInst').value.trim(),
+    docAddr: document.getElementById('docAddr').value.trim(),
+    docCNES: document.getElementById('docCNES').value.trim(),
+    docDate: document.getElementById('docDate').value,
+    patName: document.getElementById('patName').value.trim(),
+    patCPF: document.getElementById('patCPF').value.trim(),
+    patCNS: document.getElementById('patCNS').value.trim(),
+    patRG: document.getElementById('patRG').value.trim(),
+    patDOB: document.getElementById('patDOB').value,
+    patSex: document.getElementById('patSex').value,
+    patMother: document.getElementById('patMother').value.trim(),
+    patAddr: document.getElementById('patAddr').value.trim(),
+    patCity: document.getElementById('patCity').value.trim(),
+    patCEP: document.getElementById('patCEP').value.trim(),
+    patPhone: document.getElementById('patPhone').value.trim(),
+    patConv: document.getElementById('patConv').value.trim(),
+    patPlan: document.getElementById('patPlan').value.trim(),
+    patCID: document.getElementById('patCID').value,
+    patMR: document.getElementById('patMR').value.trim(),
+    patWeight: parseFloat(document.getElementById('patWeight').value)||0,
+    patHeight: parseFloat(document.getElementById('patHeight').value)||0,
+    eos: parseInt(document.getElementById('eos').value)||0,
+    feno: parseInt(document.getElementById('feno').value)||0,
+    ige: parseInt(document.getElementById('ige').value)||0,
+    vef1: parseInt(document.getElementById('vef1').value)||0,
+    cvf: parseInt(document.getElementById('cvf').value)||0,
+    ratio: parseInt(document.getElementById('ratio').value)||0,
+    exac: parseInt(document.getElementById('exac').value)||0,
+    hosp: parseInt(document.getElementById('hosp').value)||0,
+    act: document.getElementById('act').value,
+    ocs: document.getElementById('ocs').value,
+    allergen: document.getElementById('allergen').value,
+    ics: document.getElementById('ics').value,
+    prevBio: document.getElementById('prevBio').value,
+    reqDest: document.getElementById('reqDest').value,
+    clinResume: document.getElementById('clinResume').value.trim(),
+    currentTherapy: document.getElementById('currentTherapy').value.trim(),
+    examObs: document.getElementById('examObs').value.trim(),
+    helmHistory: document.getElementById('helmHistory').value,
+    helmTest: document.getElementById('helmTest').value,
+    helmTreatment: document.getElementById('helmTreatment').value,
+    helmDrug: document.getElementById('helmDrug').value,
+    helmObs: document.getElementById('helmObs').value.trim(),
+    cRSPN: document.getElementById('cRSPN').checked,
+    cDA: document.getElementById('cDA').checked,
+    cGEPA: document.getElementById('cGEPA').checked,
+    cRA: document.getElementById('cRA').checked,
+    cEE: document.getElementById('cEE').checked,
+    cAA: document.getElementById('cAA').checked,
+    cDPOC: document.getElementById('cDPOC').checked,
+    cUrtic: document.getElementById('cUrtic').checked,
+  };
+}
+
+/* =============================================
+   SCORING ENGINE
+   ============================================= */
+function calcScores(d) {
+  const s = {};
+  Object.keys(DRUGS).forEach(k => {
+    s[k] = { reducaoExac:0, eficaciaVEF1:0, qualidadeVida:0, conveniencia:0, bonusComorbidade:0, total:0, eligible:false, detalhes:'' };
+  });
+
+  // ELIGIBILITY
+  if(d.ige >= 30 && d.ige <= 1500) s.omalizumabe.eligible = true;
+  const meetsEos = d.eos >= 300 || (d.eos >= 150 && (d.ics === 'high' || d.ocs !== 'none')) || d.feno >= 25;
+  if(meetsEos || d.eos >= 150) ['mepolizumabe','benralizumabe','dupilumabe'].forEach(k => { s[k].eligible = true; });
+  s.depemokimabe.infoOnly = true;
+  s.depemokimabe.detalhes = 'Avaliação médica individual; FeNO isolado não estabelece fenótipo eosinofílico. Não integra a pontuação comparativa.';
+  s.tezepelumabe.eligible = true;
+
+  const benchmarks = {
+    omalizumabe:   { exac:45, vef1:100, sgrq:2.0, dose:2 },
+    mepolizumabe:  { exac:55, vef1:120, sgrq:2.5, dose:4 },
+    dupilumabe:    { exac:65, vef1:160, sgrq:3.4, dose:2 },
+    benralizumabe: { exac:51, vef1:130, sgrq:2.5, dose:8 },
+    tezepelumabe:  { exac:58, vef1:140, sgrq:2.8, dose:4 }
+  };
+  const maxExac = Math.max(...Object.values(benchmarks).map(b=>b.exac));
+  const maxVEF1 = Math.max(...Object.values(benchmarks).map(b=>b.vef1));
+  const maxSGRQ = Math.max(...Object.values(benchmarks).map(b=>b.sgrq));
+
+  Object.keys(s).forEach(k => {
+    if(s[k].eligible) {
+      s[k].reducaoExac   = (benchmarks[k].exac / maxExac) * 40;
+      s[k].eficaciaVEF1  = (benchmarks[k].vef1 / maxVEF1) * 20;
+      s[k].qualidadeVida = (benchmarks[k].sgrq / maxSGRQ) * 20;
+      const dose = benchmarks[k].dose;
+      s[k].conveniencia = dose>=24?20:dose>=8?15:dose>=4?10:5;
+    }
+  });
+
+  const comorbMap = {
+    cRSPN: {omalizumabe:5,dupilumabe:15,mepolizumabe:10,benralizumabe:10,tezepelumabe:10},
+    cDA:   {dupilumabe:15},
+    cGEPA: {benralizumabe:15,mepolizumabe:15},
+    cRA:   {omalizumabe:10,dupilumabe:10},
+    cEE:   {dupilumabe:15},
+    cUrtic:{omalizumabe:15},
+    cDPOC: {tezepelumabe:10,dupilumabe:10,mepolizumabe:5},
+    cAA:   {dupilumabe:5}
+  };
+  Object.keys(comorbMap).forEach(cb => {
+    if(d[cb]) Object.keys(comorbMap[cb]).forEach(drug => { if(s[drug] && s[drug].eligible) s[drug].bonusComorbidade += comorbMap[cb][drug]; });
+  });
+
+  Object.keys(s).forEach(k => {
+    if(s[k].eligible) {
+      s[k].total = s[k].reducaoExac + s[k].eficaciaVEF1 + s[k].qualidadeVida + s[k].conveniencia + s[k].bonusComorbidade;
+      if(d.ocs === 'dependent') {
+        if(k==='dupilumabe') s[k].total += 10;
+        if(k==='tezepelumabe') s[k].total -= 10;
+        if(d.eos > 1500 && k==='dupilumabe') s[k].total -= 15;
+      }
+      if(d.prevBio === 'omalizumab' && (k==='mepolizumabe'||k==='benralizumabe'||k==='dupilumabe')) s[k].total += 8;
+      if(d.prevBio === 'mepolizumab' || d.prevBio === 'benralizumab') {
+        if(k==='dupilumabe' && d.feno >= 25) s[k].total += 12; // PICO 7
+        if(k==='tezepelumabe') s[k].total += 6;
+      }
+      if(d.reqDest==='sus' && DRUGS[k].sus.status!=='ok') { s[k].total -= 20; s[k].detalhes += '⚠️ Sem cobertura SUS. '; }
+      if(d.reqDest==='conv' && DRUGS[k].ans.status!=='ok') { s[k].total -= 20; s[k].detalhes += '⚠️ Fora do Rol ANS. '; }
+      s[k].total = Math.round(s[k].total * 10)/10;
+    }
+  });
+
+  return s;
+}
+
+/* =============================================
+   STEP 2: DECISION
+   ============================================= */
+function goDecision() {
+  try {
+    patientData = collectData();
+    document.getElementById('depemoReviewed').checked = false;
+    document.getElementById('helm-alert-active').style.display = patientData.helmHistory==='active' ? 'block' : 'none';
+    document.getElementById('helm-alert-pending').style.display = (patientData.helmTreatment==='pending'||patientData.helmTest==='no') ? 'block' : 'none';
+    scores = calcScores(patientData);
+    const sorted = Object.entries(scores).sort((a,b) => Number(!!a[1].infoOnly)-Number(!!b[1].infoOnly) || b[1].total-a[1].total);
+    const d = patientData;
+    const ageYears = d.patDOB ? Math.floor((new Date()-new Date(d.patDOB))/31557600000) : '—';
+    document.getElementById('patient-summary').innerHTML =
+      `<strong>Paciente:</strong> ${d.patName||'—'} · ${ageYears} anos · Convênio: ${d.patConv||'—'} · CID: ${d.patCID}<br>
+       <strong>Biomarcadores:</strong> Eos: <strong>${d.eos} céls/µL</strong> · FeNO: <strong>${d.feno} ppb</strong> · IgE: <strong>${d.ige} kU/L</strong> · VEF1: <strong>${d.vef1}%</strong><br>
+       <strong>Exacerbações/ano:</strong> ${d.exac} · CO: ${d.ocs} · Biológico prévio: ${d.prevBio||'nenhum'} · Destino: ${d.reqDest==='private'?'Custeio particular':d.reqDest==='sus'?'SUS/CEAF':d.reqDest==='conv'?'Convênio/ANS':'Judicial'}`;
+    const cardContainer = document.getElementById('drug-cards');
+    cardContainer.innerHTML = '';
+    sorted.forEach(([key, sc], idx) => {
+      const drug = DRUGS[key];
+      const rank = idx+1;
+      const rankClass = sc.infoOnly?'':rank===1?'rank-1':rank===2?'rank-2':rank===3?'rank-3':'';
+      const rankLabel = rank===1?'🥇 1ª Escolha':rank===2?'🥈 2ª Opção':rank===3?'🥉 3ª Opção':`#${rank}`;
+      const isNew = key==='depemokimabe';
+      const ansChip = chipHtml(drug.ans);
+      const susChip = chipHtml(drug.sus);
+      cardContainer.innerHTML += `
+        <div class="drug-card ${rankClass} ${!sc.eligible&&!sc.infoOnly?'not-eligible':''}" onclick="selectDrug('${key}')">
+          <div class="drug-rank ${rankClass.replace('rank-','r')}">${sc.infoOnly?'Avaliação individual':sc.eligible ? rankLabel : '⛔ Sem elegibilidade'}</div>
+          <h3>${drug.name} ${isNew?'<span class="tag tag-new">ANVISA 2026</span>':''}</h3>
+          <div class="drug-brand">${drug.brand} · ${drug.maker}</div>
+          <div class="drug-score">${sc.infoOnly?'Sem escore':sc.eligible ? Math.round(sc.total) : '—'}</div>
+          <div class="drug-meta">
+            <div class="row"><span class="label">Mecanismo</span><span class="val">${drug.moa_short}</span></div>
+            <div class="row"><span class="label">Dose</span><span class="val">${drug.freq}</span></div>
+            <div class="row"><span class="label">Biomarcador</span><span class="val">${drug.biomarker}</span></div>
+            <div class="row"><span class="label">Eficácia</span><span class="val">${drug.efficacy}</span></div>
+            <div class="row"><span class="label">CO (sparing)</span><span class="val">${drug.ocs}</span></div>
+            ${sc.detalhes ? `<div class="row"><span class="label" style="color:var(--amber);">Nota</span><span class="val" style="color:var(--amber);font-size:11px;">${sc.detalhes}</span></div>` : ''}
+          </div>
+          <div class="coverage-chips">${ansChip}${susChip}</div>
+        </div>`;
+    });
+    document.getElementById('table-html').innerHTML = buildCompTable(sorted);
+    const top = sorted.find(([k,s]) => s.eligible);
+    if(top) {
+      document.getElementById('selectedDrug').value = top[0];
+      document.getElementById('reqDest2').value = patientData.reqDest;
+    }
+    showPage('decision');
+  } catch(e) { alert('Erro: ' + e.message); console.error(e); }
+}
+
+function chipHtml(c) {
+  const cls = c.status==='ok'?'chip-ok':c.status==='warn'?'chip-warn':'chip-no';
+  const icon = c.status==='ok'?'✅':c.status==='warn'?'⚠️':'❌';
+  return `<span class="chip ${cls}">${icon} ${c.label}</span>`;
+}
+
+function selectDrug(key) {
+  document.getElementById('selectedDrug').value = key;
+  document.querySelectorAll('.drug-card').forEach(c => c.style.outline='none');
+  event.currentTarget.style.outline = '3px solid var(--gold)';
+}
+
+function buildCompTable(sorted) {
+  const rows = [
+    ['Mecanismo', k => DRUGS[k].moa_short],
+    ['Dosagem', k => DRUGS[k].freq],
+    ['Biomarcador', k => DRUGS[k].biomarker],
+    ['Eficácia (exac.)', k => DRUGS[k].efficacy],
+    ['Redução CO', k => DRUGS[k].ocs],
+    ['ANS', k => DRUGS[k].ans.label],
+    ['SUS', k => DRUGS[k].sus.label],
+    ['Pontuação', k => scores[k].infoOnly ? 'Avaliação individual — sem escore' : scores[k].eligible ? Math.round(scores[k].total) : '—'],
+  ];
+  const cols = sorted.map(([k]) => k);
+  let h = `<table><thead><tr><th>Critério</th>${cols.map(k=>`<th>${DRUGS[k].brand}</th>`).join('')}</tr></thead><tbody>`;
+  rows.forEach(([label, fn]) => {
+    h += `<tr><td><strong>${label}</strong></td>`;
+    cols.forEach((k,i) => { h += `<td class="${i===0&&scores[k].eligible?'hl':''}">${fn(k)}</td>`; });
+    h += '</tr>';
+  });
+  h += '</tbody></table>';
+  return h;
+}
+
+/* =============================================
+   REPORT GENERATION (CONVÊNIO / ANS)
+   ============================================= */
+function goReport() {
+  const drug = document.getElementById('selectedDrug').value;
+  if(!drug) { alert('Selecione o medicamento antes de gerar o laudo.'); return; }
+  const dest = document.getElementById('reqDest2').value || patientData.reqDest;
+  const d = patientData;
+  const dr = DRUGS[drug];
+  if(drug==='depemokimabe' && !depemoReportReviewed(d)) return;
+  document.querySelector('#reportSheet .subtitle').textContent = dest==='private' ? 'IMUNOBIOLÓGICO PARA ASMA — RELATÓRIO PARA CUSTEIO PARTICULAR' : 'IMUNOBIOLÓGICO PARA ASMA — SOLICITAÇÃO DE AVALIAÇÃO DE COBERTURA';
+  const ageYears = drug==='depemokimabe' ? ageAtDate(d.patDOB,d.docDate) : d.patDOB ? Math.floor((new Date()-new Date(d.patDOB))/31557600000) : '—';
+  const dateStr = d.docDate ? new Date(d.docDate+'T12:00:00').toLocaleDateString('pt-BR') : new Date().toLocaleDateString('pt-BR');
+  const nDoc = Math.floor(Math.random()*900000+100000);
+
+  document.getElementById('rep-stamp').innerHTML = `Nº ${nDoc}<br>${dateStr}<br>${d.docInst||''}`;
+
+  const destLabel = dest==='private' ? 'Paciente / responsável — custeio particular, sem solicitação de cobertura' : dest==='sus' ? 'Sistema Único de Saúde (SUS) – Componente Especializado da Assistência Farmacêutica (CEAF)'
+                  : dest==='judicial' ? 'Solicitação Via Judicial'
+                  : `Operadora de Saúde / Convênio: ${d.patConv||'—'}`;
+
+  const coverNote = dest==='private' ? `<div class="alert alert-info"><strong>Custeio particular:</strong> ${dr.regulatory ? dr.regulatory.private : 'Prescrição e cumprimento da bula e registro ativo; sem condicionamento a Rol/DUT ou PCDT.'}</div>` : dest==='sus'
+    ? `<div class="alert ${dr.sus.status==='ok'?'alert-ok':dr.sus.status==='warn'?'alert-warn':'alert-err'}"><strong>Status SUS (CEAF):</strong> ${dr.sus.label}</div>`
+    : `<div class="alert ${dr.ans.status==='ok'?'alert-ok':dr.ans.status==='warn'?'alert-warn':'alert-err'}"><strong>Status ANS:</strong> ${dr.ans.label}</div>`;
+
+  const criteriaHTML = dr.bulaCriteria.map(c => `<li><span class="ck">${drug==='depemokimabe'?'•':'✔'}</span> ${c}</li>`).join('');
+  const comorbLabels = {cRSPN:'RSCcPN',cDA:'Dermatite Atópica',cGEPA:'GEPA',cRA:'Rinite Alérgica',cEE:'Esofagite Eosinofílica',cAA:'Alergia Alimentar',cDPOC:'DPOC eosinofílico',cUrtic:'Urticária Crônica'};
+  const comorbList = Object.keys(comorbLabels).filter(k=>d[k]).map(k=>comorbLabels[k]).join(', ') || 'Nenhuma documentada';
+
+  let doseNote = dr.dose_text;
+  if(drug==='omalizumabe' && d.ige>0 && d.patWeight>0) {
+    doseNote += `<br><em>Calcular dose exata pela tabela IgE basal (${d.ige} kU/L) × peso (${d.patWeight} kg) conforme bula.</em>`;
+  }
+
+  const body = `
+    <div class="report-section">
+      <h3>Destinatário</h3>
+      <div class="alert alert-info"><strong>SOLICITAÇÃO FORMAL AO:</strong> ${destLabel}</div>
+      ${coverNote}
+      ${drug==='depemokimabe'?depemoRegulatoryHtml():''}
+    </div>
+    <div class="report-section">
+      <h3>Identificação do Paciente</h3>
+      <div class="report-grid">
+        <div class="report-field"><div class="lbl">Nome completo</div><div class="val">${d.patName||'—'}</div></div>
+        <div class="report-field"><div class="lbl">CPF</div><div class="val">${d.patCPF||'—'}</div></div>
+        <div class="report-field"><div class="lbl">Data de nascimento</div><div class="val">${d.patDOB?new Date(d.patDOB+'T12:00').toLocaleDateString('pt-BR'):'—'} (${ageYears} anos)</div></div>
+        <div class="report-field"><div class="lbl">CNS / Carteirinha</div><div class="val">${d.patCNS||d.patPlan||'—'}</div></div>
+        <div class="report-field"><div class="lbl">Convênio / Operadora</div><div class="val">${d.patConv||'—'}</div></div>
+        <div class="report-field"><div class="lbl">Prontuário</div><div class="val">${d.patMR||'—'}</div></div>
+        <div class="report-field"><div class="lbl">Peso / Altura</div><div class="val">${d.patWeight||'—'} kg / ${d.patHeight||'—'} cm</div></div>
+        <div class="report-field"><div class="lbl">CID-10</div><div class="val">${d.patCID}</div></div>
+      </div>
+    </div>
+    <div class="report-section">
+      <h3>Medicamento Indicado</h3>
+      <div class="indication-box">
+        <h2>${dr.name}</h2>
+        <div class="brand">${dr.brand} · ${dr.maker} · Mecanismo: ${dr.mechanism}</div>
+        <div class="prescrip-box">
+          <div class="line"><span class="pk">Medicamento</span>${dr.brand} (${dr.name})</div>
+          <div class="line"><span class="pk">Dose / Esquema</span>${doseNote}</div>
+          <div class="line"><span class="pk">Via de Aplicação</span>${dr.route}</div>
+          <div class="line"><span class="pk">Período de Revisão</span>${dr.review}</div>
+          <div class="line"><span class="pk">Fenótipo-alvo</span>${dr.phenotype}</div>
+        </div>
+      </div>
+    </div>
+    <div class="report-section">
+      <h3>Dados Clínicos e Biomarcadores</h3>
+      <div class="report-grid">
+        <div class="report-field"><div class="lbl">Eosinófilos séricos</div><div class="val">${d.eos} céls/µL</div></div>
+        <div class="report-field"><div class="lbl">FeNO</div><div class="val">${d.feno} ppb</div></div>
+        <div class="report-field"><div class="lbl">IgE Total</div><div class="val">${d.ige} kU/L</div></div>
+        <div class="report-field"><div class="lbl">VEF1 / CVF / Relação</div><div class="val">${d.vef1||'—'}% / ${d.cvf||'—'}% / ${d.ratio||'—'}%</div></div>
+        <div class="report-field"><div class="lbl">Exacerbações / Hospitalizações</div><div class="val">${d.exac} / ${d.hosp} no último ano</div></div>
+        <div class="report-field"><div class="lbl">Controle (ACT)</div><div class="val">${{uncontrolled:'Não controlada (ACT ≤19)',partial:'Parcialmente controlada (ACT 20–24)',controlled:'Controlada (ACT ≥25)'}[d.act]||'—'}</div></div>
+        <div class="report-field"><div class="lbl">Uso de Corticosteroide Oral</div><div class="val">${{none:'Não usa',intermittent:'Uso intermitente',dependent:'Dependente de CO'}[d.ocs]||'—'}</div></div>
+        <div class="report-field"><div class="lbl">Sensibilização alérgeno</div><div class="val">${d.allergen==='yes'?'Positivo':'Negativo / não testado'}</div></div>
+        <div class="report-field" style="grid-column:span 2"><div class="lbl">Comorbidades Tipo 2</div><div class="val">${comorbList}</div></div>
+        <div class="report-field"><div class="lbl">Biológico prévio</div><div class="val">${d.prevBio||'Nenhum (virgem de biológico)'}</div></div>
+        <div class="report-field"><div class="lbl">Terapia inalatória atual</div><div class="val">${d.currentTherapy||'Não informada'}</div></div>
+      </div>
+      ${d.examObs ? `<div style="margin-top:10px;"><div class="lbl" style="font-size:10px;color:var(--sub);font-weight:700;text-transform:uppercase;">Exames Complementares</div><div style="font-size:12.5px;margin-top:3px;">${d.examObs}</div></div>` : ''}
+    </div>
+    <div class="report-section">
+      <h3>Rastreio de Helmintíase</h3>
+      <div class="alert ${(d.helmTreatment==='yes_completed'||d.helmTreatment==='not_needed')&&d.helmHistory!=='active'?'alert-ok':d.helmHistory==='active'||d.helmTreatment==='pending'?'alert-err':'alert-warn'}">
+        ${d.helmHistory==='active' ? '⛔ INFECÇÃO ATIVA — Iniciar biológico somente após cura documentada'
+          : d.helmTreatment==='pending' ? '⚠️ TRATAMENTO PENDENTE — Concluir rastreio antes de iniciar'
+          : '✅ Condição parasitária avaliada e tratada conforme bula ANVISA'}
+      </div>
+      <div class="report-grid" style="margin-top:8px;">
+        <div class="report-field"><div class="lbl">Histórico</div><div class="val">${{none:'Sem história',past_treated:'Tratado e curado',active:'Infecção ativa',unknown:'Desconhecido'}[d.helmHistory]||'—'}</div></div>
+        <div class="report-field"><div class="lbl">Rastreio laboratorial</div><div class="val">${{yes_neg:'Parasitológico negativo',yes_pos_treated:'Positivo — tratado',yes_pos_active:'Positivo — aguarda tratamento',no:'Não realizado',endemic_risk:'Rastreio clínico (área endêmica)'}[d.helmTest]||'—'}</div></div>
+        <div class="report-field"><div class="lbl">Tratamento realizado</div><div class="val">${{yes_completed:'Concluído',yes_prophylactic:'Profilático realizado',not_needed:'Não necessário',pending:'Pendente'}[d.helmTreatment]||'—'}</div></div>
+        <div class="report-field"><div class="lbl">Medicamento</div><div class="val">${{albendazol_400:'Albendazol 400 mg dose única',albendazol_400x3:'Albendazol 400 mg × 3 dias',mebendazol:'Mebendazol 100 mg 2×/dia × 3 dias',ivermectina:'Ivermectina 200 mcg/kg',outro:'Outro',na:'N/A'}[d.helmDrug]||'—'}</div></div>
+        ${d.helmObs ? `<div class="report-field" style="grid-column:span 2"><div class="lbl">Observações</div><div class="val">${d.helmObs}</div></div>` : ''}
+      </div>
+    </div>
+    <div class="report-section">
+      <h3>Critérios de Indicação — Bula ANVISA</h3>
+      <div class="alert alert-info" style="margin-bottom:10px;">${drug==='depemokimabe'?'Informações da bula localizada, aprovada em 06/10/2026. Lista de referência, não atestação automática de critérios do paciente. Revisão médica individual confirmada na interface.':'Critérios em conformidade com bula ANVISA, GINA 2025 e CHEST 2026 (Oberle AJ et al., <em>Chest</em> 2026;169:336-348).'}</div>
+      <ul class="criteria-list">${criteriaHTML}</ul>
+    </div>
+    <div class="report-section">
+      <h3>Fundamentação Farmacodinâmica</h3>
+      <div class="report-field">
+        <div class="lbl">Mecanismo de Ação</div>
+        <div class="val" style="text-align:justify;">${dr.mechanism}</div>
+      </div>
+      <div class="report-field" style="margin-top:8px;">
+        <div class="lbl">Efeitos Esperados</div>
+        <div class="val" style="text-align:justify;">${drug==='depemokimabe'?`O benefício principal demonstrado foi a redução de exacerbações clinicamente significativas (${dr.efficacy}). Não se deve prometer melhora individual de VEF1, qualidade de vida ou retirada de CO. Manter terapia de base; reduções de corticosteroides devem ser graduais e supervisionadas.`:`A escolha por <strong>${dr.name}</strong> baseia-se no perfil fenotípico do paciente. Espera-se redução significativa da taxa anualizada de exacerbações moderadas a graves (${dr.efficacy}), melhora da função pulmonar (VEF1) e da qualidade de vida. O bloqueio específico da cascata inflamatória Tipo 2 reduz a hiper-responsividade brônquica e permite desmame gradual de corticosteroide oral quando aplicável (${dr.ocs}).`}</div>
+      </div>
+    </div>
+    <div class="report-section">
+      <h3>Justificativa e Parecer Médico</h3>
+      <p style="font-size:13px;line-height:1.8;text-align:justify;">
+        O(a) paciente <strong>${d.patName||'—'}</strong>, ${ageYears} anos, CPF ${d.patCPF||'—'}, apresenta diagnóstico estabelecido de <strong>asma grave com inflamação Tipo 2 (${d.patCID})</strong>, evidenciada por eosinófilos séricos de <strong>${d.eos} céls/µL</strong>${d.feno>=20?`, FeNO de <strong>${d.feno} ppb</strong>`:''} ${d.ige>=30?`e IgE total de <strong>${d.ige} kU/L</strong>`:''}, com <strong>${d.exac} exacerbação(ões) grave(s)</strong> e ${d.hosp} hospitalização(ões) no último ano. A asma permanece ${{uncontrolled:'não controlada',partial:'parcialmente controlada',controlled:'controlada'}[d.act]||'sem controle adequado'} mesmo com terapia inalatória máxima otimizada (${d.currentTherapy||'CI alta dose + LABA'}).
+        <br><br>
+        ${drug==='depemokimabe'?'Após revisão médica individual da indicação e segurança, sem inferência automática de elegibilidade pelos biomarcadores,':`Diante do fenótipo <strong>${dr.phenotype}</strong> e critérios de elegibilidade satisfeitos conforme bula ANVISA,`} ${dest==='private'?'registro a indicação de tratamento com':'prescrevo e solicito avaliação para uso de'} <strong>${dr.name} (${dr.brand})</strong>, na dose de <strong>${dr.dose_text}</strong>, via ${dr.route}. A reavaliação clínica está programada para <strong>${dr.review}</strong>.
+        <br><br>
+        ${drug==='depemokimabe'?'Minuta baseada na bula brasileira localizada, aprovada em 06/10/2026. Indicação individual, conferência do registro ativo e versão aplicável da bula sob responsabilidade do médico. Não há garantia de comercialização ou custeio.':'Laudo elaborado com base nas diretrizes internacionais GINA 2025, CHEST 2026 e na bula ANVISA vigente. Sob minha responsabilidade médica.'}
+      </p>
+      ${d.clinResume ? `<div style="margin-top:12px;background:var(--mist);border-radius:var(--r);padding:12px;font-size:12.5px;"><strong>Observações adicionais:</strong> ${d.clinResume}</div>` : ''}
+    </div>
+    <div class="report-section">
+      <h3>Base Legal e Cobertura</h3>
+      <div class="report-field" style="font-size:12.5px;line-height:1.7;">
+        ${drug==='depemokimabe' ? (dest==='private' ? dr.regulatory.private : dest==='sus' ? dr.regulatory.sus : dest==='conv' ? dr.regulatory.ans : 'Avaliação judicial individual de evidências, alternativas e requisitos legais; registro não garante acesso ou decisão favorável. '+dr.regulatory.ans+' '+dr.regulatory.sus) : dest==='private' ? 'Custeio particular: prescrição e cumprimento da bula e registro ativo, sem condicionamento a critérios de cobertura ANS ou PCDT SUS.' : dest==='sus'
+          ? dr.sus.status==='ok'
+            ? `✅ <strong>SUS — CEAF:</strong> ${dr.name} está incorporado ao SUS (Portaria SECTICS/MS nº 3, 31/01/2025). ${dr.pcdt}. Solicitar dispensação mediante LME e Termo de Esclarecimento e Responsabilidade.`
+            : `⚠️ <strong>SUS — Atenção:</strong> ${dr.sus.label}. O acesso pode requerer via administrativa especial.`
+          : dest==='conv'
+          ? dr.ans.status==='ok'
+            ? `✅ <strong>ANS:</strong> ${dr.name} consta no Rol de Procedimentos (RN 634/2025) para asma grave. O paciente preenche as Diretrizes de Utilização (DUT).`
+            : `⚠️ <strong>ANS — Atenção:</strong> ${dr.ans.label}. Pode ser necessária justificativa de excepcionalidade.`
+          : `⚖️ <strong>Via Judicial:</strong> Este laudo fundamenta a imprescindibilidade do tratamento com base na falha das alternativas disponíveis e no risco de deterioração clínica irreversível.`}
+      </div>
+    </div>
+  `;
+  document.getElementById('rep-body').innerHTML = body;
+  document.getElementById('rep-doc-sig').innerHTML =
+    `${d.docName||'Médico Responsável'}<br><span style="font-size:10px;">${d.docCRM||''} · ${d.docRQE||''}<br>${d.docInst||''}</span>`;
+  document.getElementById('rep-refs').innerHTML = `
+    <strong style="display:block;margin-bottom:5px;color:var(--ink);">📚 Referências</strong>
+    <ol>
+      <li>GINA 2025. Global Strategy for Asthma Management and Prevention.</li>
+      <li>Oberle AJ, et al. Biologic Management in Severe Asthma. <em>Chest</em>. 2026;169(2):336-348.</li>
+      <li>${drug==='depemokimabe'?'ANS — Anexo II RN 465/2021, versão consultada RN 681/2026, DUT 65.9/65.10.':'ANS — Resolução Normativa nº 634/2025.'}</li>
+      <li>${drug==='depemokimabe'?'PCDT Asma — Portaria Conjunta SAES/SCTIE nº 43, 24/03/2026; depemoquimabe não incluído.':'CONITEC — Portaria SECTICS/MS nº 3/2025.'}</li>
+      <li>${drug==='omalizumabe'?'Humbert M, et al. INNOVATE. Allergy. 2005;60:309-316.':drug==='mepolizumabe'?'Ortega HG, et al. MENSA. N Engl J Med. 2014;371:1198-1207.':drug==='dupilumabe'?'Castro M, et al. QUEST. N Engl J Med. 2018;378:2486-2496.':drug==='benralizumabe'?'FitzGerald JM, et al. CALIMA. Lancet. 2016;388:2128-2141.':drug==='tezepelumabe'?'Menzies-Gow A, et al. NAVIGATOR. N Engl J Med. 2021;384:1800-1809.':'Jackson DJ, et al. SWIFT-1/2. N Engl J Med. 2024;391:2337-2349.'}</li>
+    </ol>`;
+  if(drug==='depemokimabe') {
+    document.getElementById('rep-refs').innerHTML = '<strong>Referências específicas — depemoquimabe</strong><ol>'+dr.regulatory.sources.map(x=>`<li><a href="${x.url}" target="_blank" rel="noopener noreferrer">${x.label}</a></li>`).join('')+'<li>Jackson DJ, et al. SWIFT-1/2. N Engl J Med. 2024;391:2337–2349.</li></ol>';
+  }
+  showPage('report');
+}
+
+/* =============================================
+   LME GENERATION (SUS)
+   ============================================= */
+function goLME() {
+  const drug = document.getElementById('selectedDrug').value;
+  if(!drug) { alert('Selecione o medicamento antes de gerar o LME.'); return; }
+  const d = patientData;
+  if(!d.patName){ patientData = collectData(); }
+  const d2 = patientData;
+  renderLME(d2, drug, false);
+  showPage('lme');
+}
+
+function renovarLME() {
+  const fu = coletarDadosRetorno();
+  if(!fu) return;
+  renderLME(patientData, document.getElementById('selectedDrug').value || '', true, fu);
+  showPage('lme');
+}
+
+function renderLME(d, drug, isRenovacao, fuData) {
+  if(drug==='depemokimabe') {
+    document.getElementById('lmeSheet').innerHTML = `<div style="padding:20px;"><strong>Depemoquimabe — LME de dispensação rotineira não gerado.</strong><p style="margin:10px 0;">Não incluído no PCDT Asma consultado; não localizada portaria específica de incorporação para asma. Não atribuir código RENAME/SIGTAP ou cobertura CEAF sem ato oficial aplicável. Isso não é decisão de rejeição ou proibição absoluta de acesso. Para avaliação administrativa ou judicial individual, utilize o relatório médico com essas ressalvas.</p>${depemoRegulatoryHtml()}</div>`;
+    return;
+  }
+  const dr = drug ? DRUGS[drug] : null;
+  const dateStr = new Date().toLocaleDateString('pt-BR');
+  const ageYears = d.patDOB ? Math.floor((new Date()-new Date(d.patDOB))/31557600000) : '—';
+
+  const boxSolicit = isRenovacao ? '☑ Continuidade' : '☑ Início';
+  const boxContinuidade = isRenovacao ? '☑' : '☐';
+
+  const lmeHtml = `
+    <div class="lme-header-gov">
+      <div style="font-size:28px;">🇧🇷</div>
+      <div>
+        <h1>MINISTÉRIO DA SAÚDE<br>SECRETARIA DE ATENÇÃO À SAÚDE</h1>
+        <p>Componente Especializado da Assistência Farmacêutica — CEAF</p>
+      </div>
+    </div>
+    <div class="lme-title-bar">LAUDO PARA SOLICITAÇÃO, AVALIAÇÃO E AUTORIZAÇÃO DE MEDICAMENTOS DO COMPONENTE ESPECIALIZADO DA ASSISTÊNCIA FARMACÊUTICA</div>
+
+    <!-- TIPO DE SOLICITAÇÃO -->
+    <div class="lme-section-title">1. TIPO DE SOLICITAÇÃO</div>
+    <div style="padding:8px 10px;border:1px solid #666;border-top:none;">
+      <div class="lme-check-row">
+        <div class="lme-check"><div class="lme-box ${!isRenovacao?'marked':''}">X</div> <span>Início do Tratamento</span></div>
+        <div class="lme-check"><div class="lme-box ${isRenovacao?'marked':''}">X</div> <span>Continuidade do Tratamento</span></div>
+      </div>
+    </div>
+
+    <!-- ESTABELECIMENTO DE SAÚDE -->
+    <div class="lme-section-title">2. ESTABELECIMENTO DE SAÚDE SOLICITANTE</div>
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr;border:1px solid #666;border-top:none;">
+      <div class="lme-field"><span class="lme-lbl">Nome do Estabelecimento</span><span class="lme-val">${d.docInst||'_________________________'}</span></div>
+      <div class="lme-field"><span class="lme-lbl">CNES</span><span class="lme-val">${d.docCNES||'___________'}</span></div>
+      <div class="lme-field"><span class="lme-lbl">Data da Solicitação</span><span class="lme-val">${dateStr}</span></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;border:1px solid #666;border-top:none;">
+      <div class="lme-field"><span class="lme-lbl">Endereço</span><span class="lme-val">${d.docAddr||'_______________________________'}</span></div>
+      <div class="lme-field"><span class="lme-lbl">Médico Responsável</span><span class="lme-val">${d.docName||'_______________________________'}</span></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;border:1px solid #666;border-top:none;">
+      <div class="lme-field"><span class="lme-lbl">CRM</span><span class="lme-val">${d.docCRM||'____________'}</span></div>
+      <div class="lme-field"><span class="lme-lbl">RQE / Especialidade</span><span class="lme-val">${d.docRQE||'Pneumologia'}</span></div>
+      <div class="lme-field"><span class="lme-lbl">Telefone</span><span class="lme-val">${d.patPhone||'____________'}</span></div>
+    </div>
+
+    <!-- IDENTIFICAÇÃO DO PACIENTE -->
+    <div class="lme-section-title">3. IDENTIFICAÇÃO DO PACIENTE</div>
+    <div style="border:1px solid #666;border-top:none;">
+      <div style="display:grid;grid-template-columns:2fr 1fr;">
+        <div class="lme-field"><span class="lme-lbl">Nome Completo do Paciente</span><span class="lme-val">${d.patName||'_____________________________________'}</span></div>
+        <div class="lme-field"><span class="lme-lbl">Data de Nascimento</span><span class="lme-val">${d.patDOB?new Date(d.patDOB+'T12:00').toLocaleDateString('pt-BR'):'__/__/____'} (${ageYears} anos)</span></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;">
+        <div class="lme-field"><span class="lme-lbl">CNS (Cartão Nacional de Saúde)</span><span class="lme-val">${d.patCNS||'_________________________'}</span></div>
+        <div class="lme-field"><span class="lme-lbl">CPF</span><span class="lme-val">${d.patCPF||'___.___.___-__'}</span></div>
+        <div class="lme-field"><span class="lme-lbl">RG</span><span class="lme-val">${d.patRG||'________________'}</span></div>
+      </div>
+      <div style="display:grid;grid-template-columns:2fr 1fr;">
+        <div class="lme-field"><span class="lme-lbl">Nome da Mãe</span><span class="lme-val">${d.patMother||'_____________________________________'}</span></div>
+        <div class="lme-field"><span class="lme-lbl">Sexo</span><span class="lme-val">${d.patSex==='F'?'☑ Feminino  ☐ Masculino':'☐ Feminino  ☑ Masculino'}</span></div>
+      </div>
+      <div style="display:grid;grid-template-columns:2fr 1fr 1fr;">
+        <div class="lme-field"><span class="lme-lbl">Endereço</span><span class="lme-val">${d.patAddr||'_____________________________'}</span></div>
+        <div class="lme-field"><span class="lme-lbl">CEP</span><span class="lme-val">${d.patCEP||'_______-___'}</span></div>
+        <div class="lme-field"><span class="lme-lbl">Município/UF</span><span class="lme-val">${d.patCity||'_______________'}</span></div>
+      </div>
+    </div>
+
+    <!-- DIAGNÓSTICO -->
+    <div class="lme-section-title">4. DIAGNÓSTICO</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;border:1px solid #666;border-top:none;">
+      <div class="lme-field"><span class="lme-lbl">CID-10 Principal</span><span class="lme-val">${d.patCID||'J45.9'}</span></div>
+      <div class="lme-field"><span class="lme-lbl">Descrição</span><span class="lme-val">Asma Grave — Inflamação Tipo 2</span></div>
+      <div class="lme-field"><span class="lme-lbl">CID-10 Secundário</span><span class="lme-val">J45.1 / J45.8</span></div>
+    </div>
+
+    <!-- ANAMNESE E EXAME FÍSICO -->
+    <div class="lme-section-title">5. ANAMNESE E DADOS CLÍNICOS</div>
+    <div style="border:1px solid #666;border-top:none;">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr;">
+        <div class="lme-field"><span class="lme-lbl">Eosinófilos (céls/µL)</span><span class="lme-val">${d.eos||'__________'}</span></div>
+        <div class="lme-field"><span class="lme-lbl">FeNO (ppb)</span><span class="lme-val">${d.feno||'____'}</span></div>
+        <div class="lme-field"><span class="lme-lbl">IgE Total (kU/L)</span><span class="lme-val">${d.ige||'____'}</span></div>
+        <div class="lme-field"><span class="lme-lbl">VEF1 (% pred.)</span><span class="lme-val">${d.vef1||'____'}%</span></div>
+        <div class="lme-field"><span class="lme-lbl">CVF (% pred.)</span><span class="lme-val">${d.cvf||'____'}%</span></div>
+        <div class="lme-field"><span class="lme-lbl">VEF1/CVF</span><span class="lme-val">${d.ratio||'____'}%</span></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;">
+        <div class="lme-field"><span class="lme-lbl">Exacerbações/ano</span><span class="lme-val">${d.exac||'__'}</span></div>
+        <div class="lme-field"><span class="lme-lbl">Hospitalizações/ano</span><span class="lme-val">${d.hosp||'__'}</span></div>
+        <div class="lme-field"><span class="lme-lbl">Peso (kg) / Altura (cm)</span><span class="lme-val">${d.patWeight||'__'} / ${d.patHeight||'__'}</span></div>
+        <div class="lme-field"><span class="lme-lbl">Corticosteroide Oral</span><span class="lme-val">${{none:'Não usa',intermittent:'Uso intermitente',dependent:'Dependente'}[d.ocs]||'__'}</span></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;">
+        <div class="lme-field"><span class="lme-lbl">Terapia inalatória atual</span><span class="lme-val" style="font-size:11px;">${d.currentTherapy||'CI alta dose + LABA em dose máxima'}</span></div>
+        <div class="lme-field"><span class="lme-lbl">Sensibilização a alérgeno perene</span><span class="lme-val">${d.allergen==='yes'?'☑ Sim  ☐ Não':'☐ Sim  ☑ Não'}</span></div>
+      </div>
+      <div class="lme-field" style="min-height:56px;"><span class="lme-lbl">Resumo Clínico / Anamnese</span><span class="lme-val" style="font-size:11px;">${d.clinResume||'Paciente com asma grave de fenótipo Tipo 2, não controlada apesar de terapia inalatória máxima otimizada, com biomarcadores compatíveis e critérios de elegibilidade preenchidos para imunobiológico.'}</span></div>
+      ${d.examObs ? `<div class="lme-field"><span class="lme-lbl">Exames Complementares</span><span class="lme-val" style="font-size:11px;">${d.examObs}</span></div>` : ''}
+    </div>
+
+    <!-- TRATAMENTOS ANTERIORES -->
+    <div class="lme-section-title">6. TRATAMENTOS ANTERIORES PARA A MESMA DOENÇA</div>
+    <div style="border:1px solid #666;border-top:none;">
+      <table class="lme-table">
+        <tr><th>Medicamento</th><th>Dose</th><th>Período de Uso</th><th>Resultado</th></tr>
+        <tr><td>Corticosteroide Inalado (CI) alta dose + LABA</td><td>Dose máxima recomendada</td><td>≥3 meses</td><td>Controle inadequado</td></tr>
+        <tr><td>Corticosteroide oral (prednisona/prednisolona)</td><td>Conforme prescrição</td><td>Intermitente ou contínuo</td><td>${d.ocs==='none'?'Não utilizado':'Usado — dependência ou resgate frequente'}</td></tr>
+        <tr><td>Antileucotrieno (montelucaste)</td><td>10 mg/dia</td><td>≥3 meses</td><td>Resposta insuficiente</td></tr>
+        ${d.prevBio ? `<tr><td>${d.prevBio} (imunobiológico prévio)</td><td>Conforme bula</td><td>≥4 meses</td><td>Resposta inadequada — troca indicada</td></tr>` : ''}
+      </table>
+    </div>
+
+    <!-- MEDICAMENTO SOLICITADO -->
+    <div class="lme-section-title">7. MEDICAMENTO SOLICITADO</div>
+    <div style="border:1px solid #666;border-top:none;">
+      ${dr ? `
+      <div style="display:grid;grid-template-columns:2fr 1fr 1fr;">
+        <div class="lme-field"><span class="lme-lbl">Medicamento / Princípio Ativo</span><span class="lme-val">${dr.name} (${dr.brand})</span></div>
+        <div class="lme-field"><span class="lme-lbl">Código RENAME / SIGTAP</span><span class="lme-val">Conf. Portaria SECTICS/MS nº 3/2025</span></div>
+        <div class="lme-field"><span class="lme-lbl">Via de Administração</span><span class="lme-val">${dr.route}</span></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;">
+        <div class="lme-field"><span class="lme-lbl">Dose</span><span class="lme-val">${dr.dose_text}</span></div>
+        <div class="lme-field"><span class="lme-lbl">Frequência</span><span class="lme-val">${dr.freq}</span></div>
+        <div class="lme-field"><span class="lme-lbl">Prazo de Tratamento Solicitado</span><span class="lme-val">12 meses (com reavaliação em ${dr.review})</span></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;">
+        <div class="lme-field"><span class="lme-lbl">PCDT de Referência</span><span class="lme-val" style="font-size:11px;">${dr.pcdt}</span></div>
+        <div class="lme-field"><span class="lme-lbl">Status Incorporação SUS</span><span class="lme-val">${dr.sus.label}</span></div>
+      </div>
+      ` : '<div style="padding:12px;color:#c00;font-weight:bold;">⚠️ Nenhum medicamento selecionado</div>'}
+    </div>
+
+    <!-- CRITÉRIOS DE INCLUSÃO -->
+    <div class="lme-section-title">8. CRITÉRIOS DE INCLUSÃO / ELEGIBILIDADE (PCDT / BULA ANVISA)</div>
+    <div style="border:1px solid #666;border-top:none;padding:8px 10px;font-size:11px;line-height:1.7;">
+      ${dr ? dr.bulaCriteria.map(c => `<div style="display:flex;gap:6px;margin-bottom:3px;"><div class="lme-box marked" style="flex-shrink:0;margin-top:1px;">✔</div><span>${c}</span></div>`).join('') : '—'}
+    </div>
+
+    ${isRenovacao && fuData ? `
+    <!-- SEGUIMENTO (RENOVAÇÃO) -->
+    <div class="lme-section-title">9. DADOS DE SEGUIMENTO — REAVALIAÇÃO DE RESPOSTA (Renovação)</div>
+    <div style="border:1px solid #666;border-top:none;">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;">
+        <div class="lme-field"><span class="lme-lbl">Data do retorno</span><span class="lme-val">${fuData.date||'__/__/____'}</span></div>
+        <div class="lme-field"><span class="lme-lbl">Período de tratamento</span><span class="lme-val">${fuData.months||'__'} meses</span></div>
+        <div class="lme-field"><span class="lme-lbl">Resposta</span><span class="lme-val">${{good:'Boa — manter',partial:'Parcial — ajustar',poor:'Inadequada — trocar',ae:'Evento adverso'}[fuData.response]||'—'}</span></div>
+        <div class="lme-field"><span class="lme-lbl">CO reduzido?</span><span class="lme-val">${{yes:'Sim',partial:'Redução parcial',no:'Não',na:'N/A'}[fuData.coReduced]||'—'}</span></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;">
+        <div class="lme-field"><span class="lme-lbl">Eos no retorno</span><span class="lme-val">${fuData.eos||'__'} céls/µL</span></div>
+        <div class="lme-field"><span class="lme-lbl">FeNO no retorno</span><span class="lme-val">${fuData.feno||'__'} ppb</span></div>
+        <div class="lme-field"><span class="lme-lbl">VEF1 no retorno</span><span class="lme-val">${fuData.vef1||'__'}%</span></div>
+        <div class="lme-field"><span class="lme-lbl">Exacerbações desde início</span><span class="lme-val">${fuData.exac||'__'}</span></div>
+      </div>
+      <div class="lme-field" style="min-height:48px;"><span class="lme-lbl">Observações de Seguimento</span><span class="lme-val" style="font-size:11px;">${fuData.obs||'___'}</span></div>
+      <div class="lme-field"><span class="lme-lbl">Conduta</span><span class="lme-val">${{continue:'Continuar mesmo imunobiológico',switch:'Trocar para outro imunobiológico',increase:'Ajustar dose / frequência',discontinue:'Descontinuar',renew:'Renovar autorização'}[fuData.conduct]||'—'}</span></div>
+    </div>
+    ` : ''}
+
+    <!-- ASSINATURAS -->
+    <div class="lme-section-title">${isRenovacao ? '10' : '9'}. ATESTAÇÃO DO MÉDICO SOLICITANTE</div>
+    <div class="lme-sig-area" style="border:1px solid #666;border-top:none;">
+      <div class="lme-sig-box">
+        <div style="font-size:11px;font-weight:bold;">Declaro que as informações contidas neste laudo são verídicas e que a terapia é indispensável para o tratamento do paciente.</div>
+        <div class="lme-sig-line"></div>
+        <div style="font-size:11px;text-align:center;">
+          <strong>${d.docName||'___________________________________'}</strong><br>
+          CRM: ${d.docCRM||'______________'} · ${d.docRQE||'Pneumologia'}<br>
+          Data: ${dateStr}
+        </div>
+      </div>
+      <div class="lme-sig-box">
+        <div style="font-size:11px;font-weight:bold;">Para uso exclusivo da farmácia / setor de autorização:</div>
+        <div class="lme-sig-line"></div>
+        <div style="font-size:11px;text-align:center;">
+          Farmacêutico Responsável / Autorização<br>
+          Data: _____/_____/___________<br>
+          Protocolo: ______________________
+        </div>
+      </div>
+    </div>
+
+    <!-- TERMO DE CONSENTIMENTO (SIMPLIFICADO) -->
+    <div class="lme-section-title">${isRenovacao ? '11' : '10'}. TERMO DE ESCLARECIMENTO E RESPONSABILIDADE DO PACIENTE</div>
+    <div style="border:1px solid #666;border-top:none;padding:8px 10px;font-size:10.5px;line-height:1.6;">
+      Declaro ter sido devidamente esclarecido(a) sobre minha doença, o tratamento proposto com ${dr?dr.name:'imunobiológico'}, seus benefícios esperados, efeitos adversos possíveis e alternativas terapêuticas disponíveis, conforme as informações prestadas pelo médico.
+      <div class="lme-sig-line"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;font-size:11px;">
+        <div>Paciente (ou responsável legal): <strong>${d.patName||'___________________'}</strong><br>CPF: ${d.patCPF||'_____________'}</div>
+        <div style="text-align:right;">Data: _____/_____/___________<br>Assinatura: _____________________</div>
+      </div>
+    </div>
+
+    <div style="padding:6px 10px;font-size:9px;color:#666;border-top:1px solid #ccc;text-align:center;">
+      Laudo gerado pelo Sistema SIA·PRO | Pneumologia Clínica 2026 | GINA 2025 · CHEST 2026 (Oberle AJ et al., Chest 2026;169:336-348) | Bulas ANVISA vigentes
+    </div>
+  `;
+  document.getElementById('lmeSheet').innerHTML = lmeHtml;
+}
+
+function printLME() {
+  window.print();
+}
+
+/* =============================================
+   SAVE & EXPORT
+   ============================================= */
+function saveAndExport() {
+  if(!patientData || !patientData.patName) {
+    alert('Preencha os dados clínicos antes de salvar.');
+    return;
+  }
+  const drug = document.getElementById('selectedDrug').value;
+  if(!drug) { alert('Selecione o medicamento antes de salvar.'); return; }
+  const dr = DRUGS[drug];
+  const d = patientData;
+
+  salvarNoHistorico(d, drug, dr).then(id => {
+    currentPatientDBId = id;
+    alert(`✅ Registro salvo no banco de dados local.\n\nID: ${id}\nPaciente: ${d.patName}\nMedicamento: ${dr.name}`);
+  }).catch(err => alert('Erro ao salvar: ' + err));
+}
+
+function printWithoutDate() {
+  const stampEl = document.getElementById('rep-stamp');
+  const orig = stampEl.innerHTML;
+  stampEl.innerHTML = orig.replace(/\d{2}\/\d{2}\/\d{4}/, '___/___/_____');
+  window.print();
+  stampEl.innerHTML = orig;
+}
+
+/* =============================================
+   FOLLOW-UP
+   ============================================= */
+function buscarPacienteRetorno() {
+  const cpf = document.getElementById('fu-cpf').value.trim();
+  if(!cpf) { alert('Digite o CPF para buscar.'); return; }
+  carregarHistorico().then(registros => {
+    const found = registros.find(r => r.cpf && r.cpf.replace(/\D/g,'') === cpf.replace(/\D/g,''));
+    if(!found) {
+      document.getElementById('fu-patient-info').style.display = 'block';
+      document.getElementById('fu-patient-info').className = 'alert alert-err';
+      document.getElementById('fu-patient-info').innerHTML = `<strong>Paciente não encontrado</strong> com CPF ${cpf} no banco de dados.`;
+      document.getElementById('fu-form').style.display = 'none';
+    } else {
+      document.getElementById('fu-patient-id').value = found.id;
+      document.getElementById('fu-patient-info').style.display = 'block';
+      document.getElementById('fu-patient-info').className = 'alert alert-ok';
+      const retornos = found.followups ? found.followups.length : 0;
+      document.getElementById('fu-patient-info').innerHTML =
+        `<strong>✅ Paciente encontrado:</strong> ${found.paciente} · CPF: ${found.cpf}<br>
+         Médico: ${found.medico} · Medicamento: ${found.medicamento} · Via: ${found.viaAcesso}<br>
+         Início: ${new Date(found.data).toLocaleDateString('pt-BR')} · Retornos registrados: ${retornos}`;
+      // Pre-fill patient data
+      patientData = Object.assign({}, found.dadosClinicos, {
+        patName: found.paciente, patCPF: found.cpf,
+        docName: found.medico, docCRM: found.dadosClinicos ? found.dadosClinicos.docCRM : ''
+      });
+      document.getElementById('fu-form').style.display = 'block';
+    }
+  }).catch(err => alert('Erro ao buscar: ' + err));
+}
+
+function coletarDadosRetorno() {
+  return {
+    date: document.getElementById('fu-date').value,
+    months: parseInt(document.getElementById('fu-months').value)||0,
+    response: document.getElementById('fu-response').value,
+    eos: parseInt(document.getElementById('fu-eos').value)||0,
+    feno: parseInt(document.getElementById('fu-feno').value)||0,
+    vef1: parseInt(document.getElementById('fu-vef1').value)||0,
+    act: document.getElementById('fu-act').value,
+    exac: parseInt(document.getElementById('fu-exac').value)||0,
+    hosp: parseInt(document.getElementById('fu-hosp').value)||0,
+    coDose: parseInt(document.getElementById('fu-co-dose').value)||0,
+    coReduced: document.getElementById('fu-co-reduced').value,
+    ae: document.getElementById('fu-ae').value,
+    obs: document.getElementById('fu-obs').value.trim(),
+    conduct: document.getElementById('fu-conduct').value,
+    newDrug: document.getElementById('fu-new-drug').value
+  };
+}
+
+function salvarRetorno() {
+  const id = document.getElementById('fu-patient-id').value;
+  if(!id) { alert('Busque o paciente primeiro.'); return; }
+  const fu = coletarDadosRetorno();
+  adicionarFollowup(parseInt(id), fu).then(() => {
+    alert('✅ Retorno salvo com sucesso!');
+    renderDB();
+  }).catch(err => alert('Erro ao salvar retorno: ' + err));
+}
+
+function gerarRelatorioRetorno() {
+  const fu = coletarDadosRetorno();
+  const d = patientData;
+  const drug = document.getElementById('selectedDrug').value || 'dupilumabe';
+  const dr = DRUGS[drug] || DRUGS['dupilumabe'];
+  const dateStr = new Date().toLocaleDateString('pt-BR');
+  const ageYears = d.patDOB ? Math.floor((new Date()-new Date(d.patDOB))/31557600000) : '—';
+
+  const respLabel = {good:'Boa resposta — manter tratamento',partial:'Resposta parcial — ajustar conduta',poor:'Resposta inadequada — troca indicada',ae:'Evento adverso registrado'}[fu.response]||'—';
+  const respClass = {good:'badge-resp good',partial:'badge-resp partial',poor:'badge-resp poor',ae:'badge-resp poor'}[fu.response]||'badge-resp initial';
+
+  const fuBody = `
+    <div class="report-section">
+      <h3>Identificação</h3>
+      <div class="report-grid">
+        <div class="report-field"><div class="lbl">Paciente</div><div class="val">${d.patName||'—'} · ${ageYears} anos</div></div>
+        <div class="report-field"><div class="lbl">CPF / CNS</div><div class="val">${d.patCPF||'—'}</div></div>
+        <div class="report-field"><div class="lbl">Imunobiológico em uso</div><div class="val">${dr.name} (${dr.brand}) — ${dr.freq}</div></div>
+        <div class="report-field"><div class="lbl">Data do retorno</div><div class="val">${fu.date?new Date(fu.date+'T12:00').toLocaleDateString('pt-BR'):dateStr}</div></div>
+        <div class="report-field"><div class="lbl">Período de tratamento</div><div class="val">${fu.months} meses</div></div>
+        <div class="report-field"><div class="lbl">Avaliação de resposta</div><div class="val"><span class="${respClass}">${respLabel}</span></div></div>
+      </div>
+    </div>
+    <div class="report-section">
+      <h3>Biomarcadores no Retorno vs Basal</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Parâmetro</th><th>Valor Basal</th><th>Valor no Retorno</th><th>Variação</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Eosinófilos (céls/µL)</strong></td><td>${d.eos||'—'}</td><td>${fu.eos||'—'}</td><td>${d.eos&&fu.eos?`${fu.eos<d.eos?'▼':'▲'} ${Math.abs(fu.eos-d.eos)} céls/µL (${Math.round((fu.eos-d.eos)/d.eos*100)}%)`:'—'}</td></tr>
+            <tr><td><strong>FeNO (ppb)</strong></td><td>${d.feno||'—'}</td><td>${fu.feno||'—'}</td><td>${d.feno&&fu.feno?`${fu.feno<d.feno?'▼':'▲'} ${Math.abs(fu.feno-d.feno)} ppb`:'—'}</td></tr>
+            <tr><td><strong>VEF1 (% predito)</strong></td><td>${d.vef1||'—'}%</td><td>${fu.vef1||'—'}%</td><td>${d.vef1&&fu.vef1?`${fu.vef1>d.vef1?'▲':'▼'} ${Math.abs(fu.vef1-d.vef1)} pontos percentuais`:'—'}</td></tr>
+            <tr><td><strong>Exacerbações graves</strong></td><td>${d.exac||'—'}/ano (basal)</td><td>${fu.exac||'—'} no período</td><td>${d.exac&&fu.exac?`${fu.exac<d.exac?'▼ Redução':'▲ Aumento'}`:''}</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="report-section">
+      <h3>Dados de Seguimento</h3>
+      <div class="report-grid">
+        <div class="report-field"><div class="lbl">Hospitalizações desde início</div><div class="val">${fu.hosp||'0'}</div></div>
+        <div class="report-field"><div class="lbl">Dose CO atual</div><div class="val">${fu.coDose||'0'} mg/dia (prednisona equivalente)</div></div>
+        <div class="report-field"><div class="lbl">Desmame de CO</div><div class="val">${{yes:'Sim — desmame conseguido',partial:'Redução parcial',no:'Não — mantida mesma dose',na:'Não usava CO'}[fu.coReduced]||'—'}</div></div>
+        <div class="report-field"><div class="lbl">Controle (ACT)</div><div class="val">${{uncontrolled:'Não controlada (≤19)',partial:'Parcialmente controlada (20–24)',controlled:'Controlada (≥25)'}[fu.act]||'—'}</div></div>
+        <div class="report-field"><div class="lbl">Efeitos adversos</div><div class="val">${{none:'Nenhum',local:'Reação local (injeção)',sys:'Reação sistêmica leve',serious:'Evento adverso grave'}[fu.ae]||'—'}</div></div>
+        <div class="report-field"><div class="lbl">Conduta decidida</div><div class="val">${{continue:'Continuar mesmo biológico',switch:`Trocar para ${DRUGS[fu.newDrug]?DRUGS[fu.newDrug].name:fu.newDrug}`,increase:'Ajustar dose/frequência',discontinue:'Descontinuar',renew:'Renovar autorização (SUS/convênio)'}[fu.conduct]||'—'}</div></div>
+      </div>
+      ${fu.obs ? `<div style="margin-top:10px;background:var(--mist);border-radius:var(--r);padding:12px;font-size:12.5px;"><strong>Observações clínicas:</strong> ${fu.obs}</div>` : ''}
+    </div>
+    <div class="report-section">
+      <h3>Conclusão e Conduta Terapêutica</h3>
+      <p style="font-size:13px;line-height:1.8;text-align:justify;">
+        Após ${fu.months} meses de tratamento com <strong>${dr.name} (${dr.brand})</strong>, o(a) paciente <strong>${d.patName||'—'}</strong> apresentou <strong>${respLabel}</strong>.
+        ${fu.response==='good'?`Os biomarcadores demonstraram resposta favorável à terapia anti-${dr.moa_short}, com redução das exacerbações e melhora da qualidade de vida. Recomenda-se continuidade do tratamento.`:''}
+        ${fu.response==='partial'?`A resposta foi parcial, com benefício clínico parcialmente documentado. Recomenda-se ajuste da conduta conforme indicado.`:''}
+        ${fu.response==='poor'?`A resposta ao tratamento foi inadequada após período mínimo de avaliação de 4–6 meses. Conforme CHEST 2026, a troca de biológico está indicada com reavaliação do fenótipo.`:''}
+        <br><br>
+        <strong>Conduta:</strong> ${{continue:'Manutenção de '+dr.name+'.',switch:`Troca para ${DRUGS[fu.newDrug]?DRUGS[fu.newDrug].name:'novo biológico'} — indicação baseada em CHEST 2026 PICO ${d.prevBio?'5/6':'4'}.`,increase:'Ajuste de dose/frequência do esquema atual.',discontinue:'Descontinuação do biológico por resposta insatisfatória.',renew:'Renovação da autorização SUS/convênio — tratamento eficaz em curso.'}[fu.conduct]||'—'}
+      </p>
+    </div>
+  `;
+
+  document.getElementById('fu-rep-stamp').innerHTML = `${dateStr}<br>${d.docInst||''}`;
+  document.getElementById('fu-rep-body').innerHTML = fuBody;
+  document.getElementById('fu-rep-sig').innerHTML = `${d.docName||'Médico Responsável'}<br><span style="font-size:10px;">${d.docCRM||''} · ${d.docRQE||''}</span>`;
+  document.getElementById('followup-report').style.display = 'block';
+  document.getElementById('followup-report').scrollIntoView({behavior:'smooth'});
+}
+
+/* =============================================
+   DATABASE (IndexedDB)
+   ============================================= */
+const DB_NAME = 'SIAPROv3';
+const DB_VERSION = 3;
+const STORE_NAME = 'historico_laudos';
+let db;
+
+function initDB() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(DB_NAME, DB_VERSION);
+    req.onerror = e => reject(e.target.error);
+    req.onsuccess = e => { db = e.target.result; resolve(db); };
+    req.onupgradeneeded = e => {
+      const dbase = e.target.result;
+      if(!dbase.objectStoreNames.contains(STORE_NAME)) {
+        const store = dbase.createObjectStore(STORE_NAME, {keyPath:'id', autoIncrement:true});
+        store.createIndex('cpf','cpf',{unique:false});
+        store.createIndex('data','data',{unique:false});
+        store.createIndex('medicamento','medicamento',{unique:false});
+      }
+    };
+  });
+}
+
+function salvarNoHistorico(d, drug, dr) {
+  return new Promise((resolve, reject) => {
+    if(!db) { reject('DB não inicializado'); return; }
+    const tr = db.transaction([STORE_NAME],'readwrite');
+    const store = tr.objectStore(STORE_NAME);
+    const reg = {
+      data: new Date().toISOString(),
+      paciente: d.patName||'—',
+      cpf: d.patCPF||'—',
+      cns: d.patCNS||'—',
+      medico: d.docName||'—',
+      medicamento: dr.name,
+      viaAcesso: d.reqDest==='private'?'Custeio particular':d.reqDest==='sus'?'SUS/CEAF':d.reqDest==='conv'?'Convênio/ANS':'Judicial',
+      cid: d.patCID||'J45.9',
+      dadosClinicos: {
+        docName:d.docName, docCRM:d.docCRM, docRQE:d.docRQE, docInst:d.docInst, docAddr:d.docAddr, docCNES:d.docCNES,
+        patDOB:d.patDOB, patSex:d.patSex, patMother:d.patMother, patAddr:d.patAddr, patCity:d.patCity, patCEP:d.patCEP, patPhone:d.patPhone, patMR:d.patMR,
+        patWeight:d.patWeight, patHeight:d.patHeight,
+        eos:d.eos, feno:d.feno, ige:d.ige, vef1:d.vef1, cvf:d.cvf, ratio:d.ratio,
+        exac:d.exac, hosp:d.hosp, act:d.act, ocs:d.ocs, allergen:d.allergen, ics:d.ics,
+        prevBio:d.prevBio, currentTherapy:d.currentTherapy, clinResume:d.clinResume, examObs:d.examObs,
+        helmHistory:d.helmHistory, helmTest:d.helmTest, helmTreatment:d.helmTreatment,
+        cRSPN:d.cRSPN, cDA:d.cDA, cGEPA:d.cGEPA, cRA:d.cRA, cEE:d.cEE, cAA:d.cAA, cDPOC:d.cDPOC, cUrtic:d.cUrtic
+      },
+      followups: []
+    };
+    const r = store.add(reg);
+    r.onsuccess = () => resolve(r.result);
+    r.onerror = e => reject(e.target.error);
+  });
+}
+
+function adicionarFollowup(patId, fuData) {
+  return new Promise((resolve, reject) => {
+    if(!db) { reject('DB não inicializado'); return; }
+    const tr = db.transaction([STORE_NAME],'readwrite');
+    const store = tr.objectStore(STORE_NAME);
+    const getReq = store.get(patId);
+    getReq.onsuccess = () => {
+      const reg = getReq.result;
+      if(!reg) { reject('Registro não encontrado'); return; }
+      if(!reg.followups) reg.followups = [];
+      reg.followups.push({ ...fuData, timestamp: new Date().toISOString() });
+      const putReq = store.put(reg);
+      putReq.onsuccess = () => resolve(putReq.result);
+      putReq.onerror = e => reject(e.target.error);
+    };
+    getReq.onerror = e => reject(e.target.error);
+  });
+}
+
+function carregarHistorico() {
+  return new Promise((resolve, reject) => {
+    if(!db) { reject('DB não inicializado'); return; }
+    const tr = db.transaction([STORE_NAME],'readonly');
+    const req = tr.objectStore(STORE_NAME).getAll();
+    req.onsuccess = () => resolve(req.result.sort((a,b) => new Date(b.data)-new Date(a.data)));
+    req.onerror = e => reject(e.target.error);
+  });
+}
+
+function limparHistorico() {
+  return new Promise((resolve, reject) => {
+    if(!confirm('Tem certeza que deseja apagar todo o histórico? Esta ação não pode ser desfeita.')) { resolve(false); return; }
+    const tr = db.transaction([STORE_NAME],'readwrite');
+    const req = tr.objectStore(STORE_NAME).clear();
+    req.onsuccess = () => resolve(true);
+    req.onerror = e => reject(e.target.error);
+  });
+}
+
+/* =============================================
+   RENDER DATABASE TABLE
+   ============================================= */
+function renderDB() {
+  carregarHistorico().then(registros => {
+    const tbody = document.getElementById('dbTbody');
+    const stats = document.getElementById('db-stats');
+    if(registros.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;padding:24px;color:var(--sub);">Nenhum registro encontrado. Gere um laudo e salve para que apareça aqui.</td></tr>';
+      stats.innerHTML = '';
+      return;
+    }
+    // Stats
+    const drugs = {};
+    registros.forEach(r => { drugs[r.medicamento] = (drugs[r.medicamento]||0)+1; });
+    const sus = registros.filter(r=>r.viaAcesso==='SUS/CEAF').length;
+    const conv = registros.filter(r=>r.viaAcesso==='Convênio/ANS').length;
+    stats.innerHTML = `
+      <div style="background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px 16px;font-size:12px;">
+        <div style="color:var(--sub);font-size:10px;text-transform:uppercase;font-weight:700;">Total de Pacientes</div>
+        <div style="font-size:22px;font-weight:700;color:var(--teal);">${registros.length}</div>
+      </div>
+      <div style="background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px 16px;font-size:12px;">
+        <div style="color:var(--sub);font-size:10px;text-transform:uppercase;font-weight:700;">SUS/CEAF</div>
+        <div style="font-size:22px;font-weight:700;color:var(--navy);">${sus}</div>
+      </div>
+      <div style="background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px 16px;font-size:12px;">
+        <div style="color:var(--sub);font-size:10px;text-transform:uppercase;font-weight:700;">Convênio/ANS</div>
+        <div style="font-size:22px;font-weight:700;color:var(--gold);">${conv}</div>
+      </div>
+      <div style="background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px 16px;font-size:12px;">
+        <div style="color:var(--sub);font-size:10px;text-transform:uppercase;font-weight:700;">Biológico mais prescrito</div>
+        <div style="font-size:14px;font-weight:700;color:var(--teal);">${Object.entries(drugs).sort((a,b)=>b[1]-a[1])[0]?.[0]||'—'}</div>
+      </div>
+    `;
+    tbody.innerHTML = registros.map(r => {
+      const dt = new Date(r.data).toLocaleString('pt-BR');
+      const via = r.viaAcesso;
+      const retornos = r.followups ? r.followups.length : 0;
+      const viaColor = via==='SUS/CEAF'?'#D1F0DC':via==='Convênio/ANS'?'#E0E7FF':'#FFF3E0';
+      const eos = r.dadosClinicos ? r.dadosClinicos.eos : '—';
+      const feno = r.dadosClinicos ? r.dadosClinicos.feno : '—';
+      return `<tr>
+        <td style="font-size:11px;">${dt}</td>
+        <td style="font-weight:bold;">${r.paciente}<br><span style="font-size:10px;color:var(--sub);">${r.cpf}</span></td>
+        <td style="font-size:11px;">${r.medico}</td>
+        <td style="color:var(--teal);font-weight:bold;">${r.medicamento}</td>
+        <td><span style="background:${viaColor};padding:2px 6px;border-radius:4px;font-size:10px;font-weight:600;">${via}</span></td>
+        <td style="font-size:11px;">${r.cid}</td>
+        <td style="font-size:11px;">${eos}</td>
+        <td style="font-size:11px;">${feno}</td>
+        <td style="text-align:center;"><span style="background:${retornos>0?'#D1F0DC':'#f5f5f5'};padding:2px 6px;border-radius:10px;font-size:10px;">${retornos}</span></td>
+        <td>
+          <div class="actions">
+            <button class="btn-view-sm" onclick="verDetalhe(${r.id})">Ver</button>
+            <button class="btn-followup-sm" onclick="iniciarRetorno(${r.id})">Retorno</button>
+            <button class="btn-del-sm" onclick="excluirRegistro(${r.id})">Del</button>
+          </div>
+        </td>
+      </tr>`;
+    }).join('');
+  }).catch(err => {
+    document.getElementById('dbTbody').innerHTML = `<tr><td colspan="10" style="color:var(--rose);padding:16px;">Erro ao carregar: ${err}</td></tr>`;
+  });
+}
+
+function verDetalhe(id) {
+  carregarHistorico().then(regs => {
+    const r = regs.find(x => x.id===id);
+    if(!r) { alert('Registro não encontrado.'); return; }
+    const d = r.dadosClinicos || {};
+    const fuHtml = r.followups && r.followups.length > 0
+      ? `<h4 style="margin-top:16px;margin-bottom:8px;font-family:var(--serif);">Histórico de Retornos (${r.followups.length})</h4>` +
+        r.followups.map((fu, i) => `
+          <div style="background:var(--mist);border-radius:8px;padding:12px;margin-bottom:8px;font-size:12px;">
+            <strong>Retorno ${i+1}</strong> — ${fu.date?new Date(fu.date+'T12:00').toLocaleDateString('pt-BR'):new Date(fu.timestamp).toLocaleDateString('pt-BR')} · ${fu.months} meses
+            <br>Resposta: <strong>${{good:'Boa ✅',partial:'Parcial ⚠️',poor:'Inadequada ❌',ae:'Evento adverso ⚠️'}[fu.response]||fu.response}</strong>
+            · Eos: ${fu.eos} · FeNO: ${fu.feno} · VEF1: ${fu.vef1}%
+            · Exac: ${fu.exac}
+            · Conduta: ${{continue:'Manter',switch:'Troca',increase:'Ajuste',discontinue:'Descontinuar',renew:'Renovar'}[fu.conduct]||fu.conduct}
+            ${fu.obs ? `<br><em>${fu.obs}</em>` : ''}
+          </div>`).join('')
+      : '<div style="color:var(--sub);font-size:12px;margin-top:12px;">Nenhum retorno registrado ainda.</div>';
+
+    document.getElementById('modalDetalheContent').innerHTML = `
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:13px;">
+        <div><strong>Paciente:</strong> ${r.paciente}</div>
+        <div><strong>CPF:</strong> ${r.cpf}</div>
+        <div><strong>Médico:</strong> ${r.medico}</div>
+        <div><strong>Data laudo:</strong> ${new Date(r.data).toLocaleString('pt-BR')}</div>
+        <div><strong>Medicamento:</strong> ${r.medicamento}</div>
+        <div><strong>Via acesso:</strong> ${r.viaAcesso}</div>
+        <div><strong>Eos basal:</strong> ${d.eos||'—'} céls/µL</div>
+        <div><strong>FeNO basal:</strong> ${d.feno||'—'} ppb</div>
+        <div><strong>VEF1 basal:</strong> ${d.vef1||'—'}%</div>
+        <div><strong>Exacerbações:</strong> ${d.exac||'—'}/ano</div>
+        <div><strong>CO:</strong> ${d.ocs||'—'}</div>
+        <div><strong>Biológico prévio:</strong> ${d.prevBio||'Nenhum'}</div>
+      </div>
+      ${fuHtml}
+      <div class="btn-row" style="margin-top:16px;">
+        <button class="btn btn-gold" onclick="iniciarRetorno(${r.id});fecharModal('modalDetalhe')">Registrar Retorno</button>
+        <button class="btn btn-ghost" onclick="fecharModal('modalDetalhe')">Fechar</button>
+      </div>
+    `;
+    document.getElementById('modalDetalhe').classList.add('open');
+  });
+}
+
+function iniciarRetorno(id) {
+  carregarHistorico().then(regs => {
+    const r = regs.find(x => x.id===id);
+    if(!r) return;
+    document.getElementById('fu-patient-id').value = r.id;
+    document.getElementById('fu-cpf').value = r.cpf;
+    const retornos = r.followups ? r.followups.length : 0;
+    document.getElementById('fu-patient-info').style.display = 'block';
+    document.getElementById('fu-patient-info').className = 'alert alert-ok';
+    document.getElementById('fu-patient-info').innerHTML =
+      `<strong>✅ ${r.paciente}</strong> · ${r.medicamento} · ${r.viaAcesso}<br>Início: ${new Date(r.data).toLocaleDateString('pt-BR')} · Retornos: ${retornos}`;
+    document.getElementById('fu-form').style.display = 'block';
+    const d = r.dadosClinicos || {};
+    patientData = { ...d, patName: r.paciente, patCPF: r.cpf, cid: r.cid };
+    // Pre-fill selected drug if possible
+    const drugKey = Object.keys(DRUGS).find(k => DRUGS[k].name === r.medicamento);
+    if(drugKey) document.getElementById('selectedDrug').value = drugKey;
+    showPage('followup');
+  });
+}
+
+function excluirRegistro(id) {
+  if(!confirm('Excluir este registro permanentemente?')) return;
+  const tr = db.transaction([STORE_NAME],'readwrite');
+  tr.objectStore(STORE_NAME).delete(id);
+  tr.oncomplete = () => { renderDB(); };
+}
+
+function fecharModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+function limparHistoricoDB() {
+  limparHistorico().then(ok => { if(ok) renderDB(); });
+}
+
+function exportarHistoricoCompleto() {
+  carregarHistorico().then(registros => {
+    if(registros.length === 0) { alert('Não há dados para exportar.'); return; }
+    const headers = 'ID;Data;Paciente;CPF;Medico;Medicamento;ViaAcesso;CID;Eos;FeNO;IgE;VEF1;Exac;Hosp;CO;Biológico_Prévio;Retornos';
+    const rows = registros.map(r => {
+      const d = r.dadosClinicos || {};
+      const retornos = r.followups ? r.followups.length : 0;
+      return `"${r.id}";"${new Date(r.data).toLocaleString('pt-BR')}";"${r.paciente}";"${r.cpf}";"${r.medico}";"${r.medicamento}";"${r.viaAcesso}";"${r.cid}";"${d.eos||''}";"${d.feno||''}";"${d.ige||''}";"${d.vef1||''}";"${d.exac||''}";"${d.hosp||''}";"${d.ocs||''}";"${d.prevBio||''}";"${retornos}"`;
+    });
+    const csv = '\uFEFF' + headers + '\n' + rows.join('\n');
+    const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `SIAPro_Banco_Imunobiologicos_${new Date().toISOString().slice(0,10)}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  });
+}
+</script>
+
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "41331af379ba4c71af70c5689396f1b8"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
