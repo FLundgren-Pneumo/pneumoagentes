@@ -1,6 +1,6 @@
 window.PULMO_AGENTES = [
   {id:'bronquiectasias-2026',categoria:'Bronquiectasias',nome:'Agente Bronquiectasias 2026',descricao:'Avaliação, estratificação, microbiologia, investigação etiológica, tratamento e geração de documentos.',arquivo:'bronquiectasias-2026.html',pasta:'agentes/bronquiectasias/'},
-  {id:'sia-pro',categoria:'Espirometria',nome:'SIA-PRO',descricao:'Aplicativo HTML para apoio à análise e interpretação clínica da espirometria.',arquivo:'sia-pro.html',pasta:'agentes/sia-pro/'},
+  {id:'sia-pro',categoria:'Asma',nome:'SIA·PRO Imunobiológicos',descricao:'Prescrição de imunobiológicos na asma grave: decisão terapêutica, laudo, LME (SUS) e seguimento (v3.2).',arquivo:'sia-pro.html',pasta:'agentes/sia-pro/'},
   {id:'espirolab2',categoria:'Espirometria',nome:'EspiroLab2',descricao:'Lê PDFs do espirômetro, aceita entrada manual e produz laudo estruturado.',arquivo:'espirolab2.html',pasta:'agentes/espirolab2/'},
   {id:'preoperatorio',categoria:'Pré-operatório',nome:'Agente de Avaliação Pré-Operatória',descricao:'Avaliação pré-operatória de risco cardiopulmonar com relatório local.',arquivo:'preoperatorio.html',pasta:'agentes/preoperatorio/'},
   {id:'biologicos-asma',categoria:'Asma',nome:'Decisor Biológicos Asma Grave',descricao:'Critérios de indicação, posologia e monitoramento de terapias biológicas na asma grave.',arquivo:'biologicos-asma.html',pasta:'agentes/biologicos-asma/'},
