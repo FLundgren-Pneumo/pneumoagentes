@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <script src="../../assets/js/aviso-profissional.js"></script>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DPOC — Avaliação Funcional e Anatômica das Vias Aéreas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a4d7a;
+            --secondary: #2e7ab8;
+            --accent: #4aa3df;
+            --highlight: #ff6b6b;
+            --success: #51cf66;
+            --warning: #ffd43b;
+            --teal: #12b886;
+            --purple: #7950f2;
+            --bg-light: #f8f9fa;
+            --bg-dark: #0a1628;
+            --text-dark: #1a1a1a;
+            --text-light: #ffffff;
+            --card-bg: #ffffff;
+            --shadow: rgba(26, 77, 122, 0.15);
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            background: linear-gradient(135deg, #0a1628 0%, #1a4d7a 50%, #2e7ab8 100%);
+            color: var(--text-dark);
+            min-height: 100vh;
+            padding: 40px 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(74, 163, 223, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 107, 107, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 4.8vw, 3.6rem);
+            font-weight: 900;
+            color: var(--text-light);
+            margin-bottom: 15px;
+            text-shadow: 2px 4px 12px rgba(0, 0, 0, 0.3);
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            margin-bottom: 12px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .source {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 8px 20px;
+            border-radius: 30px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Mapa Anatômico das Gerações (Modelo de Weibel) */
+        .anatomy-banner {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px var(--shadow);
+            animation: fadeInUp 0.7s ease-out;
+        }
+
+        .anatomy-banner h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .anatomy-desc {
+            color: #555;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+        }
+
+        .generations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .gen-zone {
+            border-radius: 15px;
+            padding: 22px;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gen-zone:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .gen-zone.condutora {
+            background: linear-gradient(135deg, #e7f5ff 0%, #d0ebff 100%);
+            border-left: 5px solid #1971c2;
+        }
+
+        .gen-zone.transicao {
+            background: linear-gradient(135deg, #e6fcf5 0%, #c3fae8 100%);
+            border-left: 5px solid #0ca678;
+        }
+
+        .gen-zone.alveolar {
+            background: linear-gradient(135deg, #fff4e6 0%, #ffe8cc 100%);
+            border-left: 5px solid #f76707;
+        }
+
+        .gen-badge {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .condutora .gen-badge { background: #1971c2; color: white; }
+        .transicao .gen-badge { background: #0ca678; color: white; }
+        .alveolar .gen-badge { background: #f76707; color: white; }
+
+        .gen-zone h3 {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .gen-zone p {
+            font-size: 0.92rem;
+            color: #495057;
+            line-height: 1.5;
+        }
+
+        /* Tabela / Mapa Visual de Alcance por Modalidade */
+        .matrix-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px var(--shadow);
+            overflow-x: auto;
+        }
+
+        .matrix-card h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .range-table {
+            width: 100%;
+            min-width: 780px;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+        }
+
+        .range-table th {
+            text-align: left;
+            padding: 12px 15px;
+            color: var(--primary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .range-table th.center {
+            text-align: center;
+        }
+
+        .range-row {
+            background: #f8f9fa;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .range-row:hover {
+            transform: scale(1.008);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            background: #f1f7fc;
+        }
+
+        .range-row td {
+            padding: 16px 15px;
+            vertical-align: middle;
+        }
+
+        .range-row td:first-child {
+            border-radius: 12px 0 0 12px;
+            width: 28%;
+        }
+
+        .range-row td:last-child {
+            border-radius: 0 12px 12px 0;
+        }
+
+        .method-name {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1rem;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .method-sub {
+            font-size: 0.85rem;
+            color: #495057;
+            line-height: 1.4;
+        }
+
+        .bar-track {
+            position: relative;
+            height: 38px;
+            background: #e9ecef;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            position: absolute;
+            height: 100%;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 0 12px;
+            text-align: center;
+            line-height: 1.2;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .bar-split {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            gap: 4px;
+        }
+
+        .bar-part {
+            height: 100%;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0 8px;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        /* Workflow Cards Detalhados */
+        .workflow {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .step-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 10px 40px var(--shadow);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .step-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--secondary), var(--accent));
+            transition: width 0.4s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(26, 77, 122, 0.25);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 22px;
+        }
+
+        .step-number {
+            min-width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-light);
+            box-shadow: 0 5px 20px rgba(46, 122, 184, 0.4);
+        }
+
+        .step-title-group {
+            flex: 1;
+        }
+
+        .step-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .step-subtitle {
+            font-size: 0.95rem;
+            color: #6c757d;
+            font-weight: 500;
+            margin-top: 3px;
+        }
+
+        .step-content {
+            padding-left: 76px;
+        }
+
+        .criteria-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 18px;
+        }
+
+        .criteria-item {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .criteria-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            border-left-color: var(--highlight);
+        }
+
+        .criteria-label {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 6px;
+            font-size: 1rem;
+        }
+
+        .criteria-value {
+            color: #495057;
+            font-size: 0.92rem;
+            line-height: 1.55;
+        }
+
+        /* Correlação Morfológica na TC (Parte inferior da figura) */
+        .action-box {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--text-light);
+            border-radius: 18px;
+            padding: 35px;
+            margin-top: 40px;
+            text-align: center;
+            box-shadow: 0 15px 50px rgba(26, 77, 122, 0.3);
+        }
+
+        .action-box h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.9rem;
+            margin-bottom: 12px;
+            font-weight: 900;
+        }
+
+        .action-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+            text-align: left;
+        }
+
+        .action-step {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 22px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            font-size: 0.93rem;
+            line-height: 1.6;
+        }
+
+        .action-step:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-5px);
+        }
+
+        .action-step strong {
+            display: block;
+            font-size: 1.08rem;
+            margin-bottom: 8px;
+            color: var(--warning);
+        }
+
+        .abbreviations-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 40px;
+            color: rgba(255, 255, 255, 0.92);
+            font-size: 0.88rem;
+            line-height: 1.75;
+        }
+
+        .abbreviations-box strong {
+            color: var(--warning);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .step-content {
+                padding-left: 0;
+            }
+            .step-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .criteria-list, .generations-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+                <nav aria-label="Navegação" style="margin:0 0 18px;font-size:0.9rem;">
+            <a href="index.html" style="color:#ffffff;font-weight:600;text-decoration:none;">← DPOC – Lancet Commission 2026</a>
+        </nav>
+<header>
+            <h1>Doença das Vias Aéreas na DPOC</h1>
+            <p class="subtitle">Medidas de avaliação segundo a localização predominante na árvore brônquica: das grandes vias aéreas às pequenas vias e regiões alveolares ou parenquimatosas</p>
+            <span class="source">Localização Anatômica e Biomarcadores Funcionais / de Imagem (Modelo de Weibel)</span>
+        </header>
+
+        <!-- MODELO DE WEIBEL -->
+        <div class="anatomy-banner">
+            <h2>🌳 Gerações das Vias Aéreas (Modelo de Weibel)</h2>
+            <p class="anatomy-desc">Divisão anatômica aproximada da árvore respiratória utilizada para mapear a sensibilidade de cada teste funcional e de imagem:</p>
+            
+            <div class="generations-grid">
+                <div class="gen-zone condutora">
+                    <span class="gen-badge">Gerações ~0–16</span>
+                    <h3>Vias Aéreas Condutoras</h3>
+                    <p>Compreendem desde a traqueia e brônquios centrais até aos bronquíolos terminais (incluindo vias periféricas entre as gerações 8 e 16).</p>
+                </div>
+
+                <div class="gen-zone transicao">
+                    <span class="gen-badge">Gerações ~17–19</span>
+                    <h3>Bronquíolos Respiratórios</h3>
+                    <p>Zona de transição próxima à entrada acinar, onde se inicia a troca gasosa e a heterogeneidade ventilatória dependente de difusão-convecção.</p>
+                </div>
+
+                <div class="gen-zone alveolar">
+                    <span class="gen-badge">Gerações ~20–23</span>
+                    <h3>Ductos e Sacos Alveolares</h3>
+                    <p>Região alvéolo-capilar terminal e parênquima pulmonar responsável pela difusão gasosa e alterações enfisematosas.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- MATRIZ COMPARATIVA DE ALCANCE -->
+        <div class="matrix-card">
+            <h2>📊 Mapa de Alcance por Modalidade Diagnóstica (Gerações 0 a 23)</h2>
+            <table class="range-table">
+                <thead>
+                    <tr>
+                        <th>Método / Modalidade</th>
+                        <th class="center" style="width: 48%;">Gerações 0–16 (Vias Condutoras)</th>
+                        <th class="center" style="width: 12%;">17–19 (Bronq. Resp.)</th>
+                        <th class="center" style="width: 12%;">20–23 (Alvéolos)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Espirometria -->
+                    <tr class="range-row">
+                        <td>
+                            <span class="method-name">Espirometria</span>
+                            <span class="method-sub">Diagnóstico: VEF₁/CVF < 0,70<br>VEF₁: graduação da gravidade</span>
+                        </td>
+                        <td colspan="3">
+                            <div class="bar-track">
+                                <div class="bar-fill" style="left: 0%; width: 66%; background: linear-gradient(90deg, #1a4d7a, #2e7ab8);">
+                                    VEF₁/CVF (diagnóstico DPOC) • VEF₁, CVF (limitação global) • FEF₂₅₋₇₅ (gen. ~4–16)
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Broncoprovocação -->
+                    <tr class="range-row">
+                        <td>
+                            <span class="method-name">Broncoprovocação*</span>
+                            <span class="method-sub">Ex.: metacolina<br>Desfecho primário: ΔVEF₁</span>
+                        </td>
+                        <td colspan="3">
+                            <div class="bar-track">
+                                <div class="bar-fill" style="left: 16%; width: 50%; background: linear-gradient(90deg, #3b5bdb, #4c6ef5);">
+                                    ΔCVF na PC₂₀ ou PD₂₀ (fechamento das vias aéreas ou aprisionamento gasoso)
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Oscilometria -->
+                    <tr class="range-row">
+                        <td>
+                            <span class="method-name">Oscilometria Respiratória (FOT ou IOS)</span>
+                            <span class="method-sub">Mecânica de todo o sistema; índices sensíveis à periferia</span>
+                        </td>
+                        <td colspan="3">
+                            <div class="bar-track">
+                                <div class="bar-fill" style="left: 0%; width: 96%; background: linear-gradient(90deg, #0ca678, #20c997);">
+                                    Resistências (R₅, R₂₀), reatância (X₅), AX, Fres — Maior sensibilidade às vias periféricas (~gen. 8–16)
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Washout -->
+                    <tr class="range-row">
+                        <td>
+                            <span class="method-name">Lavagem por Múltiplas Respirações (MBW)</span>
+                            <span class="method-sub">Heterogeneidade da ventilação</span>
+                        </td>
+                        <td colspan="3">
+                            <div class="bar-track">
+                                <div class="bar-split" style="width: 82%;">
+                                    <div class="bar-part" style="width: 80%; background: #1971c2;">
+                                        Scond (convecção) • Zona condutora ~gen. 0–16
+                                    </div>
+                                    <div class="bar-part" style="width: 20%; background: #099268;">
+                                        Sacin (~16–19)
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Difusão DLCO / TLCO -->
+                    <tr class="range-row">
+                        <td>
+                            <span class="method-name">Transferência Gasosa (DLCO ou TLCO)</span>
+                            <span class="method-sub">Região alvéolo-capilar (~gen. 17–23)</span>
+                        </td>
+                        <td colspan="3">
+                            <div class="bar-track">
+                                <div class="bar-fill" style="left: 68%; width: 32%; background: linear-gradient(90deg, #f76707, #ff922b);">
+                                    Região alvéolo-capilar (~17–23)
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Oxigenação -->
+                    <tr class="range-row">
+                        <td>
+                            <span class="method-name">Oxigenação</span>
+                            <span class="method-sub">SpO₂ ou gasometria arterial; troca gasosa integrada</span>
+                        </td>
+                        <td colspan="3">
+                            <div class="bar-track">
+                                <div class="bar-fill" style="left: 0%; width: 100%; background: linear-gradient(90deg, #5f3dc4, #7950f2);">
+                                    Reflete a relação ventilação-perfusão global e troca gasosa (sem localização específica por geração)
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- TC de Tórax -->
+                    <tr class="range-row">
+                        <td>
+                            <span class="method-name">TC de Tórax</span>
+                            <span class="method-sub">Inspiratória e expiratória</span>
+                        </td>
+                        <td colspan="3">
+                            <div class="bar-track">
+                                <div class="bar-fill" style="left: 0%; width: 100%; background: linear-gradient(90deg, #2b8a3e, #40c057);">
+                                    A TC avalia todo o pulmão (~gerações 0–23): morfologia direta, aprisionamento aéreo e parênquima
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- DETALHAMENTO DOS MÉTODOS -->
+        <div class="workflow">
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title-group">
+                        <h2 class="step-title">Função Pulmonar Convencional e Hiperresponsividade</h2>
+                        <div class="step-subtitle">Avaliação predominante das vias aéreas condutoras (gerações 0–16)</div>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="criteria-list">
+                        <div class="criteria-item">
+                            <div class="criteria-label">💨 Espirometria</div>
+                            <div class="criteria-value">
+                                • <strong>VEF₁/CVF < 0,70:</strong> critério diagnóstico de DPOC.<br>
+                                • <strong>VEF₁ e CVF:</strong> refletem a limitação global ao fluxo aéreo.<br>
+                                • <strong>FEF₂₅₋₇₅:</strong> índice complementar e inespecífico das pequenas vias aéreas (gerações ~4–16).
+                            </div>
+                        </div>
+
+                        <div class="criteria-item">
+                            <div class="criteria-label">🧪 Broncoprovocação* (ex.: metacolina)</div>
+                            <div class="criteria-value">
+                                • <strong>Desfecho primário:</strong> queda do VEF₁ (ΔVEF₁).<br>
+                                • <strong>ΔCVF na PC₂₀ ou PD₂₀:</strong> indica fechamento prematuro das vias aéreas ou aprisionamento gasoso (gerações ~4–16).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title-group">
+                        <h2 class="step-title">Mecânica Respiratória e Heterogeneidade Ventilatória</h2>
+                        <div class="step-subtitle">Técnicas sensíveis às pequenas vias aéreas periféricas e entrada acinar</div>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="criteria-list">
+                        <div class="criteria-item">
+                            <div class="criteria-label">〰️ Oscilometria Respiratória (FOT ou IOS)</div>
+                            <div class="criteria-value">
+                                • Avalia a mecânica de todo o sistema respiratório (incluindo vias aéreas superiores, tecido pulmonar e parede torácica).<br>
+                                • Parâmetros: <strong>Resistências (R₅, R₂₀), Reatância (X₅), Área de Reatância (AX) e Frequência de Ressonância (Fres)</strong>.<br>
+                                • <strong>Maior sensibilidade</strong> para alterações nas vias aéreas periféricas (<strong>gerações ~8–16</strong>).
+                            </div>
+                        </div>
+
+                        <div class="criteria-item">
+                            <div class="criteria-label">🌬️ Lavagem por Múltiplas Respirações (MBW)</div>
+                            <div class="criteria-value">
+                                • Mede a heterogeneidade da distribuição da ventilação:<br>
+                                • <strong>Scond</strong> (dependente de convecção): avalia a zona condutora (<strong>gerações ~0–16</strong>).<br>
+                                • <strong>Sacin</strong> (dependente de difusão-convecção): avalia a região próxima à entrada acinar (<strong>gerações 16 ou 17–19</strong>).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title-group">
+                        <h2 class="step-title">Troca Gasosa e Membrana Alvéolo-Capilar</h2>
+                        <div class="step-subtitle">Avaliação das regiões distais (~gerações 17–23) e integração ventilação-perfusão</div>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="criteria-list">
+                        <div class="criteria-item">
+                            <div class="criteria-label">🫧 Transferência Gasosa (DLCO ou TLCO)</div>
+                            <div class="criteria-value">
+                                • Avalia especificamente a integridade da <strong>região alvéolo-capilar (~gerações 17–23)</strong>, sendo sensível à perda de superfície alveolar (enfisema).
+                            </div>
+                        </div>
+
+                        <div class="criteria-item">
+                            <div class="criteria-label">🩸 Oxigenação (SpO₂ ou Gasometria Arterial)</div>
+                            <div class="criteria-value">
+                                • Reflete o acoplamento global entre <strong>ventilação e perfusão (V/Q)</strong> e a troca gasosa integrada, sem localização específica por geração brônquica.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CORRELAÇÃO ESTRUTURAL NA TC DE TÓRAX (PARTE INFERIOR DA FIGURA) -->
+        <div class="action-box">
+            <h2>🩻 Tomografia Computadorizada (TC) de Tórax: Correlação Estrutural (Gerações 0–23)</h2>
+            <p style="font-size: 1.05rem; line-height: 1.7; opacity: 0.95;">
+                A TC inspiratória e expiratória avalia todo o pulmão através de três compartimentos anatômicos e patológicos:
+            </p>
+
+            <div class="action-steps">
+                <div class="action-step">
+                    <strong>1. Morfologia Direta das Vias Aéreas</strong>
+                    • <strong>Localização:</strong> Vias aéreas centrais e médias (gerações proximais).<br>
+                    • <strong>Avaliação:</strong> Medição direta do lúmen e da espessura da parede brônquica.
+                </div>
+
+                <div class="action-step">
+                    <strong>2. Doença Indireta das Pequenas Vias Aéreas</strong>
+                    • <strong>Localização:</strong> Bronquíolos terminais e respiratórios (gerações intermediárias/distais).<br>
+                    • <strong>Avaliação:</strong> Aprisionamento aéreo na TC expiratória, Mapeamento Paramétrico de Resposta (<strong>PRM</strong>), entre outros biomarcadores.
+                </div>
+
+                <div class="action-step">
+                    <strong>3. Alterações Parenquimatosas</strong>
+                    • <strong>Localização:</strong> Ductos e sacos alveolares (gerações 20–23).<br>
+                    • <strong>Avaliação:</strong> Destruição alveolar (<strong>enfisema</strong>) e espessamento da parede das vias aéreas distais.
+                </div>
+            </div>
+        </div>
+
+        <!-- LEGENDA E ABREVIATURAS -->
+        <div class="abbreviations-box">
+            <p style="margin-bottom: 12px;">
+                <strong>Nota:</strong> As avaliações principais incluem espirometria, oscilometria de impulso (IOS), heterogeneidade da ventilação, troca gasosa e biomarcadores por TC. As gerações aproximadas das vias aéreas são indicadas de acordo com o <strong>modelo de Weibel</strong>: as gerações 0–16 compreendem as vias aéreas condutoras, as gerações 17–19 os bronquíolos respiratórios e as gerações 20–23 os ductos e sacos alveolares.
+            </p>
+            <p>
+                <strong>Abreviações:</strong> 
+                <strong>AX</strong> = área de reatância • 
+                <strong>CVF (FVC)</strong> = capacidade vital forçada • 
+                <strong>DLCO</strong> = capacidade de difusão pulmonar para o monóxido de carbono • 
+                <strong>DPOC (COPD)</strong> = doença pulmonar obstrutiva crônica • 
+                <strong>FEF₂₅₋₇₅</strong> = fluxo expiratório forçado entre 25% e 75% da CVF • 
+                <strong>FOT</strong> = técnica de oscilação forçada • 
+                <strong>Fres</strong> = frequência de ressonância • 
+                <strong>IOS</strong> = oscilometria de impulso • 
+                <strong>LIN (ULN)</strong> = limite superior da normalidade • 
+                <strong>PC₂₀</strong> = concentração provocativa que causa queda de 20% no VEF₁ • 
+                <strong>PD₂₀</strong> = dose provocativa que causa queda de 20% no VEF₁ • 
+                <strong>PRM</strong> = mapeamento paramétrico de resposta • 
+                <strong>Sacin / Scond</strong> = heterogeneidade da ventilação acinar / condutora • 
+                <strong>SpO₂</strong> = saturação periférica de oxigênio • 
+                <strong>TLCO</strong> = fator de transferência pulmonar para o monóxido de carbono • 
+                <strong>VEF₁ (FEV₁)</strong> = volume expiratório forçado no primeiro segundo.
+            </p>
+        </div>
+
+                <footer>
+            <p><strong>Adaptado de:</strong> Stolz D, et al. Reframing disease elimination: an update from the Lancet Commission on COPD. <em>Lancet</em>. 2026. doi:<a href="https://doi.org/10.1016/S0140-6736(26)01947-1" target="_blank" rel="noopener noreferrer">10.1016/S0140-6736(26)01947-1</a></p>
+            <p style="margin-top: 8px; font-size: 0.85rem; opacity: 0.9;">Adaptação educacional em português, preparada pelo Dr. Fernando Lundgren. Não reproduz as figuras originais do artigo.</p>
+            <p style="margin-top: 8px; font-size: 0.85rem; opacity: 0.8;">
+                Ferramenta educacional para visualização fisiopatológica e diagnóstica na DPOC.
+            </p>
+            <p style="margin-top: 14px;"><a href="index.html" style="color:#ffffff;font-weight:600;text-decoration:underline;">← Voltar a DPOC – Lancet Commission 2026</a></p>
+        </footer>
+    </div>
+
+    <script>
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -60px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.step-card, .matrix-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+
+        document.querySelectorAll('.criteria-item, .gen-zone').forEach(item => {
+            item.addEventListener('click', function() {
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+            });
+        });
+    </script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "41331af379ba4c71af70c5689396f1b8"}'></script><!-- End Cloudflare Web Analytics -->
+<script data-goatcounter="https://pneumoagents.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>

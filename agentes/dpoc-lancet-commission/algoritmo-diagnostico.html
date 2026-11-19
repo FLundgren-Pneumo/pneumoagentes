@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <script src="../../assets/js/aviso-profissional.js"></script>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DPOC — Algoritmo Diagnóstico (DPOC-RR vs. DPOC-PR)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a4d7a;
+            --secondary: #2e7ab8;
+            --accent: #4aa3df;
+            --highlight: #ff6b6b;
+            --success: #51cf66;
+            --warning: #ffd43b;
+            --bg-light: #f8f9fa;
+            --bg-dark: #0a1628;
+            --text-dark: #1a1a1a;
+            --text-light: #ffffff;
+            --card-bg: #ffffff;
+            --shadow: rgba(26, 77, 122, 0.15);
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            background: linear-gradient(135deg, #0a1628 0%, #1a4d7a 50%, #2e7ab8 100%);
+            color: var(--text-dark);
+            min-height: 100vh;
+            padding: 40px 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(74, 163, 223, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 107, 107, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 4.8vw, 3.6rem);
+            font-weight: 900;
+            color: var(--text-light);
+            margin-bottom: 15px;
+            text-shadow: 2px 4px 12px rgba(0, 0, 0, 0.3);
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            margin-bottom: 12px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .source {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 8px 20px;
+            border-radius: 30px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Cartão de Indivíduos em Risco (Topo) */
+        .risk-banner {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 35px;
+            box-shadow: 0 10px 40px var(--shadow);
+            border-left: 8px solid #6c757d;
+            animation: fadeInUp 0.7s ease-out;
+        }
+
+        .risk-grid {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .risk-info h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .risk-info p {
+            color: #495057;
+            font-size: 0.98rem;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .risk-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 10px;
+        }
+
+        .risk-list li {
+            background: #f1f3f5;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 0.92rem;
+            color: #212529;
+            font-weight: 500;
+            border-left: 3px solid #495057;
+        }
+
+        .illustration-box {
+            background: #e9ecef;
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #dee2e6;
+        }
+
+        /* Workflow */
+        .workflow {
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+            margin-bottom: 50px;
+        }
+
+        .step-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 10px 40px var(--shadow);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .step-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--secondary), var(--accent));
+            transition: width 0.4s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(26, 77, 122, 0.25);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 22px;
+        }
+
+        .step-number {
+            min-width: 58px;
+            height: 58px;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-light);
+            box-shadow: 0 5px 20px rgba(46, 122, 184, 0.4);
+        }
+
+        .step-title-group {
+            flex: 1;
+        }
+
+        .step-title {
+            font-size: 1.55rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .step-subtitle {
+            font-size: 0.95rem;
+            color: #6c757d;
+            font-weight: 500;
+            margin-top: 3px;
+        }
+
+        .step-content {
+            padding-left: 78px;
+        }
+
+        .two-col-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 20px;
+        }
+
+        .criteria-item {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 20px;
+            border-radius: 14px;
+            border-left: 4px solid var(--accent);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .criteria-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            border-left-color: var(--highlight);
+        }
+
+        .criteria-label {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-size: 1.02rem;
+        }
+
+        .criteria-value {
+            color: #495057;
+            font-size: 0.93rem;
+            line-height: 1.6;
+        }
+
+        .criteria-value ul {
+            padding-left: 18px;
+            margin-top: 6px;
+        }
+
+        /* Bifurcação Espirométrica */
+        .split-decision {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 28px;
+            margin-top: 15px;
+        }
+
+        .branch-card {
+            border-radius: 18px;
+            padding: 28px;
+            border: 3px solid transparent;
+            transition: all 0.35s ease;
+            position: relative;
+        }
+
+        .branch-card.rr {
+            background: linear-gradient(135deg, #edf2ff 0%, #dbe4ff 100%);
+            border-color: #4c6ef5;
+        }
+
+        .branch-card.pr {
+            background: linear-gradient(135deg, #fff4e6 0%, #ffe8cc 100%);
+            border-color: #f76707;
+        }
+
+        .branch-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+
+        .branch-badge {
+            display: inline-block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 5px 14px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+        }
+
+        .rr .branch-badge { background: #3b5bdb; color: white; }
+        .pr .branch-badge { background: #d9480f; color: white; }
+
+        .branch-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .rr .branch-title { color: #1c3d8f; }
+        .pr .branch-title { color: #9c360b; }
+
+        .branch-visual {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 15px;
+            background: rgba(255,255,255,0.75);
+            padding: 15px;
+            border-radius: 14px;
+        }
+
+        /* Avaliação Objetiva (Passo 3) */
+        .abnormality-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 28px;
+            margin-top: 20px;
+        }
+
+        .abnormality-card {
+            border-radius: 18px;
+            padding: 28px;
+            transition: all 0.3s ease;
+        }
+
+        .abnormality-card.structural {
+            background: linear-gradient(135deg, #ebfbee 0%, #d3f9d8 100%);
+            border: 2px solid #40c057;
+        }
+
+        .abnormality-card.functional {
+            background: linear-gradient(135deg, #f3f0ff 0%, #e5dbff 100%);
+            border: 2px solid #7950f2;
+        }
+
+        .abnormality-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+        }
+
+        .structural h3 { color: #2b8a3e; }
+        .functional h3 { color: #5f3dc4; }
+
+        .abnormality-card ul {
+            padding-left: 20px;
+            margin-bottom: 18px;
+            color: #343a40;
+            font-size: 0.93rem;
+            line-height: 1.6;
+        }
+
+        .visual-pair {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            background: rgba(255,255,255,0.85);
+            padding: 12px;
+            border-radius: 12px;
+        }
+
+        .visual-caption {
+            text-align: center;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #495057;
+            margin-top: 6px;
+        }
+
+        /* Subtipos Finais DPOC-PR (Caixa Inferior) */
+        .action-box {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--text-light);
+            border-radius: 20px;
+            padding: 35px;
+            margin-top: 30px;
+            box-shadow: 0 15px 50px rgba(26, 77, 122, 0.3);
+        }
+
+        .action-box h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.9rem;
+            margin-bottom: 10px;
+            font-weight: 900;
+            text-align: center;
+        }
+
+        .outcome-split {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .outcome-no {
+            background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .outcome-yes {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid var(--warning);
+            border-radius: 14px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .subtypes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .subtype-card {
+            background: #ffffff;
+            color: var(--text-dark);
+            border-radius: 16px;
+            padding: 22px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .subtype-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .subtype-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .subtype-desc {
+            font-size: 0.85rem;
+            color: #495057;
+            margin-bottom: 14px;
+            font-weight: 600;
+        }
+
+        .subtype-figs {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            background: #f1f3f5;
+            padding: 12px;
+            border-radius: 12px;
+        }
+
+        .arrow-connector {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--accent);
+            margin: -15px 0;
+            animation: bounce 2s infinite;
+        }
+
+        .abbreviations-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 40px;
+            color: rgba(255, 255, 255, 0.92);
+            font-size: 0.88rem;
+            line-height: 1.75;
+        }
+
+        .abbreviations-box strong {
+            color: var(--warning);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @media (max-width: 850px) {
+            .risk-grid, .outcome-split {
+                grid-template-columns: 1fr;
+            }
+            .step-content {
+                padding-left: 0;
+            }
+            .step-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+                <nav aria-label="Navegação" style="margin:0 0 18px;font-size:0.9rem;">
+            <a href="index.html" style="color:#ffffff;font-weight:600;text-decoration:none;">← DPOC – Lancet Commission 2026</a>
+        </nav>
+<header>
+            <h1>Algoritmo Diagnóstico na DPOC</h1>
+            <p class="subtitle">Abordagem integrada desde a exposição a fatores de risco e sintomas respiratórios até a classificação em DPOC-RR e subtipos de DPOC-PR</p>
+            <span class="source">Fluxograma Diagnóstico — Avaliação Estrutural e Funcional</span>
+        </header>
+
+        <!-- BLOCO DE INDIVÍDUOS EM RISCO (COM ILUSTRAÇÃO MANTIDA) -->
+        <div class="risk-banner">
+            <div class="risk-grid">
+                <div class="risk-info">
+                    <h2>🏭 Indivíduos em Risco</h2>
+                    <p>Exposição a fatores de risco para DPOC, incluindo:</p>
+                    <ul class="risk-list">
+                        <li>• Fumo do tabaco</li>
+                        <li>• Fumo de combustíveis de biomassa</li>
+                        <li>• Poluição atmosférica</li>
+                        <li>• Poeiras e produtos químicos ocupacionais</li>
+                        <li>• Outros fatores de risco (ex.: asma, infecções, suscetibilidade genética ou desenvolvimento pulmonar anormal)</li>
+                    </ul>
+                </div>
+
+                <!-- Ilustração Vetorial: Cigarro, Fábricas e Fumo -->
+                <div class="illustration-box">
+                    <svg viewBox="0 0 320 170" width="100%" height="155" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Fumo do cigarro -->
+                        <path d="M 65 130 C 50 100, 90 95, 70 65 C 55 45, 85 35, 75 15 C 95 25, 110 45, 95 70 C 80 90, 105 105, 80 130 Z" fill="#868e96" opacity="0.75"/>
+                        <!-- Fumo das chaminés -->
+                        <path d="M 190 75 C 180 50, 150 55, 155 30 C 160 10, 210 10, 235 25 C 260 40, 225 55, 225 75 Z" fill="#5c6770" opacity="0.8"/>
+                        <!-- Cigarro -->
+                        <rect x="18" y="136" width="22" height="10" fill="#d9822b" stroke="#222" stroke-width="1"/>
+                        <rect x="40" y="136" width="44" height="10" fill="#ffffff" stroke="#222" stroke-width="1"/>
+                        <rect x="84" y="136" width="5" height="10" fill="#495057"/>
+                        <!-- Fábricas e edifícios -->
+                        <rect x="115" y="112" width="45" height="34" fill="#dee2e6" stroke="#222" stroke-width="1.2"/>
+                        <polygon points="115,112 130,98 130,112 145,98 145,112 160,98 160,112" fill="#adb5bd" stroke="#222" stroke-width="1.2"/>
+                        <!-- Chaminés -->
+                        <rect x="178" y="80" width="8" height="66" fill="#ced4da" stroke="#222" stroke-width="1.2"/>
+                        <rect x="195" y="80" width="8" height="66" fill="#ced4da" stroke="#222" stroke-width="1.2"/>
+                        <rect x="212" y="80" width="8" height="66" fill="#ced4da" stroke="#222" stroke-width="1.2"/>
+                        <rect x="165" y="106" width="65" height="40" fill="#adb5bd" stroke="#222" stroke-width="1.2"/>
+                        <!-- Prédio -->
+                        <rect x="240" y="65" width="48" height="81" fill="#ced4da" stroke="#222" stroke-width="1.2"/>
+                        <g fill="#495057">
+                            <rect x="248" y="74" width="12" height="8"/><rect x="268" y="74" width="12" height="8"/>
+                            <rect x="248" y="90" width="12" height="8"/><rect x="268" y="90" width="12" height="8"/>
+                            <rect x="248" y="106" width="12" height="8"/><rect x="268" y="106" width="12" height="8"/>
+                            <rect x="248" y="122" width="12" height="8"/><rect x="268" y="122" width="12" height="8"/>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="workflow">
+            <!-- PASSO 1 -->
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title-group">
+                        <h2 class="step-title">Sintomas Respiratórios e Diagnóstico Diferencial</h2>
+                        <div class="step-subtitle">Avaliação clínica inicial e exclusão de condições concomitantes</div>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="two-col-grid">
+                        <div class="criteria-item">
+                            <div class="criteria-label">🩺 1) Sintomas Respiratórios</div>
+                            <div class="criteria-value">
+                                Presença de sintomas sugestivos, tais como:
+                                <ul>
+                                    <li>Dispneia</li>
+                                    <li>Tosse crônica</li>
+                                    <li>Expetoração</li>
+                                    <li>Pieira (sibilância)</li>
+                                    <li>Limitação ao exercício</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="criteria-item" style="border-left-color: var(--highlight);">
+                            <div class="criteria-label">🔍 Excluir ou Abordar Condições Concomitantes</div>
+                            <div class="criteria-value">
+                                Avaliar e tratar comorbilidades que mimetizam ou coexistem:
+                                <ul>
+                                    <li><strong>Asma</strong></li>
+                                    <li><strong>Doença cardiovascular</strong></li>
+                                    <li><strong>Bronquiectasias</strong></li>
+                                    <li><strong>Obesidade</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="arrow-connector">↓</div>
+
+            <!-- PASSO 2 -->
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title-group">
+                        <h2 class="step-title">Espirometria</h2>
+                        <div class="step-subtitle">Avaliar a razão VEF₁/CVF e o Limite Inferior da Normalidade (LIN)</div>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="two-col-grid" style="align-items: center; margin-bottom: 22px;">
+                        <div class="criteria-item">
+                            <div class="criteria-label">📊 Critério Espirométrico Central</div>
+                            <div class="criteria-value">
+                                Realizar espirometria pós-broncodilatador para determinar a <strong>razão VEF₁/CVF</strong> e compará-la com o limiar fixo (<strong>0,70</strong>) e com o <strong>LIN</strong>.
+                            </div>
+                        </div>
+
+                        <!-- Ilustração Vetorial: Curva Fluxo-Volume -->
+                        <div class="illustration-box" style="background: #f8f0fc; border-color: #d0bfff;">
+                            <svg viewBox="0 0 220 110" width="210" height="100" xmlns="http://www.w3.org/2000/svg">
+                                <line x1="25" y1="15" x2="25" y2="95" stroke="#495057" stroke-width="1.5"/>
+                                <line x1="25" y1="95" x2="200" y2="95" stroke="#495057" stroke-width="1.5"/>
+                                <path d="M 25 95 C 32 45, 42 22, 54 22 C 70 22, 95 75, 190 88" fill="none" stroke="#862e9c" stroke-width="2.8"/>
+                                <text x="115" y="45" font-size="11" font-weight="600" fill="#862e9c">Curva Fluxo-Volume</text>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Bifurcação VEF1/CVF -->
+                    <div class="split-decision">
+                        <!-- Ramo Esquerdo: DPOC-RR -->
+                        <div class="branch-card rr">
+                            <span class="branch-badge">VEF₁/CVF < 0,70 ou < LIN</span>
+                            <div class="branch-title">DPOC-RR (Obstrução do Fluxo Aéreo)</div>
+                            <p style="font-size: 0.93rem; color: #343a40; line-height: 1.5;">
+                                Confirma-se obstrução espirométrica. Considerar também outras doenças concomitantes ou alternativas.
+                            </p>
+                            <div class="branch-visual">
+                                <div style="font-size: 0.85rem; color: #1c3d8f; font-weight: 600;">
+                                    • Remodelação brônquica<br>
+                                    • Destruição alveolar (enfisema)
+                                </div>
+                                <!-- Ilustração Alvéolos com Enfisema/Obstrução -->
+                                <svg viewBox="0 0 120 100" width="105" height="88" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M 48 5 L 55 32 L 42 48 M 62 5 L 66 32 L 78 48" fill="none" stroke="#8c6d53" stroke-width="4" stroke-linecap="round"/>
+                                    <circle cx="60" cy="65" r="30" fill="#d97b7b" stroke="#5c2b2b" stroke-width="1.8"/>
+                                    <circle cx="48" cy="56" r="8" fill="#a64444"/><circle cx="72" cy="56" r="9" fill="#a64444"/>
+                                    <circle cx="52" cy="76" r="10" fill="#a64444"/><circle cx="73" cy="75" r="7" fill="#a64444"/>
+                                    <circle cx="48" cy="56" r="2.5" fill="#222"/><circle cx="72" cy="56" r="2.5" fill="#222"/>
+                                    <circle cx="52" cy="76" r="3" fill="#222"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Ramo Direito: DPOC-PR -->
+                        <div class="branch-card pr">
+                            <span class="branch-badge">VEF₁/CVF ≥ 0,70 ou ≥ LIN</span>
+                            <div class="branch-title">Prosseguir para o Passo 3</div>
+                            <p style="font-size: 0.93rem; color: #343a40; line-height: 1.5;">
+                                Apesar da razão VEF₁/CVF preservada, doentes sintomáticos em risco devem ser avaliados quanto a <strong>alterações estruturais ou funcionais objetivas</strong> relacionadas com a DPOC.
+                            </p>
+                            <div class="branch-visual">
+                                <div style="font-size: 0.88rem; color: #9c360b; font-weight: 700;">
+                                    → Investigar alterações estruturais (imagem) e funcionais (fisiologia)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="arrow-connector">↓</div>
+
+            <!-- PASSO 3 -->
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title-group">
+                        <h2 class="step-title">Avaliar Alterações Objetivas Relacionadas com a DPOC</h2>
+                        <div class="step-subtitle">Pelo menos uma alteração estrutural ou funcional apesar da razão VEF₁/CVF preservada (e considerar outras doenças)</div>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="abnormality-grid">
+                        <!-- Alterações Estruturais -->
+                        <div class="abnormality-card structural">
+                            <h3>🩻 Alterações Estruturais (Imagem)</h3>
+                            <ul>
+                                <li><strong>Espessamento da parede brônquica</strong> (ex.: Pi10)</li>
+                                <li><strong>Enfisema</strong> (ex.: LAA950<sub>insp</sub>)</li>
+                                <li><strong>Aprisionamento gasoso</strong></li>
+                                <li><strong>Doença estrutural das pequenas vias aéreas</strong> (ex.: PRM-fSAD)</li>
+                            </ul>
+
+                            <!-- Ilustrações TC Tórax + Mapa PRM -->
+                            <div class="visual-pair">
+                                <div>
+                                    <svg viewBox="0 0 140 110" width="100%" height="95" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="140" height="110" rx="8" fill="#1a1a1a"/>
+                                        <ellipse cx="70" cy="56" rx="58" ry="44" fill="#495057" stroke="#adb5bd" stroke-width="2"/>
+                                        <path d="M 64 25 C 35 25, 22 50, 28 78 C 34 90, 56 85, 62 70 Z" fill="#111"/>
+                                        <path d="M 76 25 C 105 25, 118 50, 112 78 C 106 90, 84 85, 78 70 Z" fill="#111"/>
+                                        <circle cx="70" cy="52" r="14" fill="#ced4da"/>
+                                        <circle cx="70" cy="80" r="8" fill="#dee2e6"/>
+                                    </svg>
+                                    <div class="visual-caption">TC de Tórax</div>
+                                </div>
+                                <div>
+                                    <svg viewBox="0 0 140 110" width="100%" height="95" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="140" height="110" rx="8" fill="#141414"/>
+                                        <path d="M 64 22 C 32 22, 18 52, 25 84 C 34 96, 58 88, 63 72 Z" fill="#2b8a3e" stroke="#3b5bdb" stroke-width="3"/>
+                                        <path d="M 76 22 C 108 22, 122 52, 115 84 C 106 96, 82 88, 77 72 Z" fill="#2b8a3e" stroke="#3b5bdb" stroke-width="3"/>
+                                        <ellipse cx="44" cy="58" rx="11" ry="18" fill="#fcc419"/>
+                                        <ellipse cx="96" cy="58" rx="11" ry="18" fill="#fcc419"/>
+                                        <circle cx="42" cy="62" r="5" fill="#f03e3e"/>
+                                        <circle cx="98" cy="62" r="5" fill="#f03e3e"/>
+                                    </svg>
+                                    <div class="visual-caption">Mapa Paramétrico (PRM)</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Alterações Funcionais -->
+                        <div class="abnormality-card functional">
+                            <h3>🫁 Alterações Funcionais (Fisiologia)</h3>
+                            <ul>
+                                <li><strong>DLCO reduzida</strong></li>
+                                <li><strong>Hiperinsuflação</strong></li>
+                                <li><strong>Oscilometria anormal</strong></li>
+                                <li><strong>Índices anormais de lavagem de azoto (nitrogen washout)</strong></li>
+                                <li><strong>Heterogeneidade da ventilação</strong></li>
+                                <li><strong>PRISm</strong> (quando sintomático)</li>
+                            </ul>
+
+                            <!-- Ilustrações Oscilometria / Espirometria + Pletismografia -->
+                            <div class="visual-pair">
+                                <div>
+                                    <svg viewBox="0 0 140 110" width="100%" height="95" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="140" height="110" rx="8" fill="#e5dbff"/>
+                                        <!-- Silhueta Paciente -->
+                                        <circle cx="42" cy="40" r="14" fill="#adb5bd" stroke="#343a40" stroke-width="1.3"/>
+                                        <path d="M 22 105 L 25 65 C 25 56, 58 56, 58 65 L 62 105" fill="#adb5bd" stroke="#343a40" stroke-width="1.3"/>
+                                        <!-- Aparelho Oscilometria -->
+                                        <rect x="55" y="42" width="24" height="6" fill="#fff" stroke="#343a40" stroke-width="1.2"/>
+                                        <rect x="79" y="34" width="38" height="22" rx="3" fill="#ced4da" stroke="#343a40" stroke-width="1.3"/>
+                                        <rect x="93" y="56" width="10" height="49" fill="#868e96" stroke="#343a40" stroke-width="1.3"/>
+                                    </svg>
+                                    <div class="visual-caption">Oscilometria / Função</div>
+                                </div>
+                                <div>
+                                    <svg viewBox="0 0 140 110" width="100%" height="95" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="140" height="110" rx="8" fill="#d0bfff"/>
+                                        <!-- Cabine Pletismográfica -->
+                                        <rect x="18" y="10" width="104" height="92" fill="none" stroke="#495057" stroke-width="2"/>
+                                        <!-- Paciente dentro da cabine -->
+                                        <circle cx="46" cy="42" r="12" fill="#adb5bd" stroke="#343a40" stroke-width="1.3"/>
+                                        <path d="M 28 102 L 30 64 C 30 56, 60 56, 60 64 L 64 102" fill="#adb5bd" stroke="#343a40" stroke-width="1.3"/>
+                                        <!-- Pneumotacógrafo -->
+                                        <rect x="57" y="43" width="20" height="5" fill="#fff" stroke="#343a40" stroke-width="1.2"/>
+                                        <rect x="77" y="36" width="26" height="18" rx="2" fill="#ced4da" stroke="#343a40" stroke-width="1.3"/>
+                                        <rect x="108" y="65" width="10" height="20" fill="#868e96" stroke="#343a40" stroke-width="1.2"/>
+                                    </svg>
+                                    <div class="visual-caption">Pletismografia Corporal</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RESULTADO DO PASSO 3 E SUBTIPOS DE DPOC-PR -->
+        <div class="action-box">
+            <h2>Classificação Final após Avaliação Objetiva (VEF₁/CVF ≥ 0,70)</h2>
+
+            <div class="outcome-split">
+                <div class="outcome-no">
+                    <strong style="color: var(--warning); display: block; font-size: 1.05rem; margin-bottom: 8px;">❌ Sem alteração objetiva</strong>
+                    <p style="font-size: 0.92rem; line-height: 1.55;">
+                        Considerar outras doenças ou prosseguir com investigação adicional e acompanhamento clínico.
+                    </p>
+                </div>
+
+                <div class="outcome-yes">
+                    <div>
+                        <strong style="color: var(--warning); display: block; font-size: 1.15rem; margin-bottom: 6px;">✅ ≥ 1 alteração objetiva → DPOC-PR</strong>
+                        <p style="font-size: 0.93rem; line-height: 1.55;">
+                            DPOC com razão VEF₁/CVF preservada, subdividida em três fenótipos conforme a presença de alterações estruturais e/ou funcionais:
+                        </p>
+                    </div>
+                    <!-- Ícone Alvéolo DPOC-PR -->
+                    <svg viewBox="0 0 90 80" width="80" height="70" style="flex-shrink:0;" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M 35 5 L 40 26 L 28 38 M 46 5 L 50 26 L 62 38" fill="none" stroke="#ffd43b" stroke-width="3.5" stroke-linecap="round"/>
+                        <circle cx="44" cy="52" r="23" fill="#e5989b" stroke="#fff" stroke-width="1.5"/>
+                        <circle cx="36" cy="46" r="6" fill="#b56576"/><circle cx="52" cy="46" r="6" fill="#b56576"/>
+                        <circle cx="44" cy="60" r="7" fill="#b56576"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- 3 Subtipos de DPOC-PR -->
+            <div class="subtypes-grid">
+                <!-- DPOC-PRS -->
+                <div class="subtype-card">
+                    <div class="subtype-title">DPOC-PRS</div>
+                    <div class="subtype-desc">Alteração Estrutural Isolada (Imagem)</div>
+                    <div class="subtype-figs">
+                        <svg viewBox="0 0 130 95" width="125" height="90" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="130" height="95" rx="8" fill="#1a1a1a"/>
+                            <ellipse cx="65" cy="48" rx="52" ry="38" fill="#495057" stroke="#adb5bd" stroke-width="2"/>
+                            <path d="M 60 22 C 34 22, 22 44, 28 68 C 33 78, 52 74, 58 60 Z" fill="#111"/>
+                            <path d="M 70 22 C 96 22, 108 44, 102 68 C 97 78, 78 74, 72 60 Z" fill="#111"/>
+                            <circle cx="65" cy="45" r="12" fill="#ced4da"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- DPOC-PRM -->
+                <div class="subtype-card">
+                    <div class="subtype-title">DPOC-PRM</div>
+                    <div class="subtype-desc">Alteração Mista (Estrutural + Funcional)</div>
+                    <div class="subtype-figs">
+                        <svg viewBox="0 0 105 90" width="95" height="82" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="105" height="90" rx="8" fill="#1a1a1a"/>
+                            <ellipse cx="52" cy="45" rx="44" ry="34" fill="#495057" stroke="#adb5bd" stroke-width="1.8"/>
+                            <path d="M 48 20 C 26 20, 16 40, 22 62 C 26 70, 42 66, 46 54 Z" fill="#111"/>
+                            <path d="M 56 20 C 78 20, 88 40, 82 62 C 78 70, 62 66, 58 54 Z" fill="#111"/>
+                            <circle cx="52" cy="42" r="10" fill="#ced4da"/>
+                        </svg>
+                        <svg viewBox="0 0 100 90" width="90" height="82" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="100" height="90" rx="8" fill="#e5dbff"/>
+                            <circle cx="30" cy="34" r="11" fill="#adb5bd" stroke="#343a40" stroke-width="1.2"/>
+                            <path d="M 15 86 L 18 54 C 18 46, 42 46, 42 54 L 45 86" fill="#adb5bd" stroke="#343a40" stroke-width="1.2"/>
+                            <rect x="40" y="35" width="18" height="5" fill="#fff" stroke="#343a40" stroke-width="1"/>
+                            <rect x="58" y="28" width="28" height="18" rx="2" fill="#ced4da" stroke="#343a40" stroke-width="1.2"/>
+                            <rect x="68" y="46" width="8" height="40" fill="#868e96" stroke="#343a40" stroke-width="1.2"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- DPOC-PRF -->
+                <div class="subtype-card">
+                    <div class="subtype-title">DPOC-PRF</div>
+                    <div class="subtype-desc">Alteração Funcional Isolada (Fisiologia)</div>
+                    <div class="subtype-figs">
+                        <svg viewBox="0 0 130 95" width="125" height="90" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="130" height="95" rx="8" fill="#d0bfff"/>
+                            <rect x="16" y="8" width="98" height="80" fill="none" stroke="#495057" stroke-width="2"/>
+                            <circle cx="42" cy="36" r="11" fill="#adb5bd" stroke="#343a40" stroke-width="1.2"/>
+                            <path d="M 26 88 L 28 55 C 28 48, 55 48, 55 55 L 58 88" fill="#adb5bd" stroke="#343a40" stroke-width="1.2"/>
+                            <rect x="52" y="37" width="18" height="5" fill="#fff" stroke="#343a40" stroke-width="1"/>
+                            <rect x="70" y="31" width="24" height="16" rx="2" fill="#ced4da" stroke="#343a40" stroke-width="1.2"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ABREVIATURAS -->
+        <div class="abbreviations-box">
+            <p>
+                <strong>Abreviações:</strong> 
+                <strong>CVF (FVC)</strong> = capacidade vital forçada • 
+                <strong>DLCO</strong> = capacidade de difusão pulmonar para o monóxido de carbono • 
+                <strong>DPOC (COPD)</strong> = doença pulmonar obstrutiva crônica • 
+                <strong>DPOC-PR (COPD-PR)</strong> = DPOC com razão VEF₁/CVF preservada • 
+                <strong>DPOC-PRF (COPD-PRF)</strong> = DPOC-PR com alteração funcional • 
+                <strong>DPOC-PRM (COPD-PRM)</strong> = DPOC-PR com alteração mista (estrutural e funcional) • 
+                <strong>DPOC-PRS (COPD-PRS)</strong> = DPOC-PR com alteração estrutural • 
+                <strong>LAA950<sub>insp</sub></strong> = área de baixa atenuação abaixo de −950 UH na inspiração • 
+                <strong>LIN (LLN)</strong> = limite inferior da normalidade • 
+                <strong>Pi10</strong> = raiz quadrada da área da parede de uma via aérea hipotética com perímetro interno de 10 mm • 
+                <strong>PRISm</strong> = espirometria alterada com razão preservada • 
+                <strong>PRM-fSAD</strong> = doença funcional das pequenas vias aéreas por mapeamento paramétrico de resposta • 
+                <strong>VEF₁ (FEV₁)</strong> = volume expiratório forçado no primeiro segundo.
+            </p>
+        </div>
+
+                <footer>
+            <p><strong>Adaptado de:</strong> Stolz D, et al. Reframing disease elimination: an update from the Lancet Commission on COPD. <em>Lancet</em>. 2026. doi:<a href="https://doi.org/10.1016/S0140-6736(26)01947-1" target="_blank" rel="noopener noreferrer">10.1016/S0140-6736(26)01947-1</a></p>
+            <p style="margin-top: 8px; font-size: 0.85rem; opacity: 0.9;">Adaptação educacional em português, preparada pelo Dr. Fernando Lundgren. Não reproduz as figuras originais do artigo.</p>
+            <p style="margin-top: 8px; font-size: 0.85rem; opacity: 0.8;">
+                Ferramenta educacional para suporte diagnóstico na DPOC.
+            </p>
+            <p style="margin-top: 14px;"><a href="index.html" style="color:#ffffff;font-weight:600;text-decoration:underline;">← Voltar a DPOC – Lancet Commission 2026</a></p>
+        </footer>
+    </div>
+
+    <script>
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -60px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.step-card, .risk-banner').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+
+        document.querySelectorAll('.criteria-item, .subtype-card').forEach(item => {
+            item.addEventListener('click', function() {
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+            });
+        });
+    </script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "41331af379ba4c71af70c5689396f1b8"}'></script><!-- End Cloudflare Web Analytics -->
+<script data-goatcounter="https://pneumoagents.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>

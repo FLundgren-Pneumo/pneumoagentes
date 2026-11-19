@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <script src="../../assets/js/aviso-profissional.js"></script>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DPOC — Trajetória ao Longo da Vida (Do Risco à DPOC-RR)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a4d7a;
+            --secondary: #2e7ab8;
+            --accent: #4aa3df;
+            --highlight: #ff6b6b;
+            --success: #51cf66;
+            --warning: #ffd43b;
+            --bg-light: #f8f9fa;
+            --bg-dark: #0a1628;
+            --text-dark: #1a1a1a;
+            --text-light: #ffffff;
+            --card-bg: #ffffff;
+            --shadow: rgba(26, 77, 122, 0.15);
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            background: linear-gradient(135deg, #0a1628 0%, #1a4d7a 50%, #2e7ab8 100%);
+            color: var(--text-dark);
+            min-height: 100vh;
+            padding: 40px 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(74, 163, 223, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 107, 107, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 4.8vw, 3.6rem);
+            font-weight: 900;
+            color: var(--text-light);
+            margin-bottom: 15px;
+            text-shadow: 2px 4px 12px rgba(0, 0, 0, 0.3);
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            margin-bottom: 12px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .source {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 8px 20px;
+            border-radius: 30px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Cartão do Gráfico Interativo */
+        .chart-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px var(--shadow);
+            animation: fadeInUp 0.7s ease-out;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .chart-header h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .legend-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .legend-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #f8f9fa;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            border: 1px solid #dee2e6;
+        }
+
+        .line-sample {
+            width: 24px;
+            height: 3px;
+            border-radius: 2px;
+        }
+
+        .line-sample.green { background: #1b7a43; }
+        .line-sample.blue { background: #26547c; }
+        .line-sample.dashed {
+            background: repeating-linear-gradient(90deg, #5c7c8a 0, #5c7c8a 5px, transparent 5px, transparent 9px);
+        }
+
+        .svg-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            padding: 10px 0;
+        }
+
+        .trajectory-svg {
+            width: 100%;
+            min-width: 780px;
+            height: auto;
+            display: block;
+            font-family: 'Work Sans', sans-serif;
+        }
+
+        /* Fases da Trajetória (Workflow Cards) */
+        .workflow {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .step-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 10px 40px var(--shadow);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .step-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            transition: width 0.4s ease;
+        }
+
+        .step-card.fase-1::before { background: linear-gradient(180deg, #5c6bc0, #4db6ac); }
+        .step-card.fase-2::before { background: linear-gradient(180deg, #4db6ac, #f6d365); }
+        .step-card.fase-3::before { background: linear-gradient(180deg, #e57373, #c62828); }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(26, 77, 122, 0.25);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 22px;
+        }
+
+        .step-number {
+            min-width: 58px;
+            height: 58px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-light);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .fase-1 .step-number { background: linear-gradient(135deg, #5c6bc0, #4db6ac); }
+        .fase-2 .step-number { background: linear-gradient(135deg, #26a69a, #d4a017); }
+        .fase-3 .step-number { background: linear-gradient(135deg, #d32f2f, #9b1c2c); }
+
+        .step-title-group {
+            flex: 1;
+        }
+
+        .step-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .step-subtitle {
+            font-size: 0.95rem;
+            color: #6c757d;
+            font-weight: 600;
+            margin-top: 3px;
+        }
+
+        .step-content {
+            padding-left: 78px;
+        }
+
+        .criteria-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+        }
+
+        .criteria-item {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .criteria-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            border-left-color: var(--highlight);
+        }
+
+        .criteria-label {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 6px;
+            font-size: 1rem;
+        }
+
+        .criteria-value {
+            color: #495057;
+            font-size: 0.92rem;
+            line-height: 1.55;
+        }
+
+        .arrow-connector {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--accent);
+            margin: -15px 0;
+            animation: bounce 2s infinite;
+        }
+
+        /* Caixa de Síntese Clínica */
+        .action-box {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--text-light);
+            border-radius: 18px;
+            padding: 35px;
+            margin-top: 30px;
+            text-align: center;
+            box-shadow: 0 15px 50px rgba(26, 77, 122, 0.3);
+        }
+
+        .action-box h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.9rem;
+            margin-bottom: 12px;
+            font-weight: 900;
+        }
+
+        .action-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+            text-align: left;
+        }
+
+        .action-step {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 22px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            font-size: 0.93rem;
+            line-height: 1.6;
+        }
+
+        .action-step:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-5px);
+        }
+
+        .action-step strong {
+            display: block;
+            font-size: 1.08rem;
+            margin-bottom: 8px;
+            color: var(--warning);
+        }
+
+        .abbreviations-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 40px;
+            color: rgba(255, 255, 255, 0.92);
+            font-size: 0.88rem;
+            line-height: 1.75;
+        }
+
+        .abbreviations-box strong {
+            color: var(--warning);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @media (max-width: 768px) {
+            .step-content {
+                padding-left: 0;
+            }
+            .step-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .criteria-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+                <nav aria-label="Navegação" style="margin:0 0 18px;font-size:0.9rem;">
+            <a href="index.html" style="color:#ffffff;font-weight:600;text-decoration:none;">← DPOC – Lancet Commission 2026</a>
+        </nav>
+<header>
+            <h1>Trajetória de Vida na DPOC</h1>
+            <p class="subtitle">Exemplo de evolução ao longo do curso de vida: desde o risco precoce até a DPOC com razão preservada (DPOC-PR) e razão reduzida (DPOC-RR)</p>
+            <span class="source">Trajetória de Risco, Função Pulmonar e Disfunção Orgânica na DPOC</span>
+        </header>
+
+        <!-- GRÁFICO VETORIAL FIALMENTE TRADUZIDO -->
+        <div class="chart-card">
+            <div class="chart-header">
+                <h2>📈 Curva de Evolução Funcional (VEF₁ e Razão VEF₁/CVF)</h2>
+                <div class="legend-pills">
+                    <div class="legend-pill">
+                        <span class="line-sample green"></span> VEF₁ (% do previsto)
+                    </div>
+                    <div class="legend-pill">
+                        <span class="line-sample blue"></span> Razão VEF₁/CVF
+                    </div>
+                    <div class="legend-pill">
+                        <span class="line-sample dashed"></span> Limiar VEF₁/CVF (0,70)
+                    </div>
+                </div>
+            </div>
+
+            <div class="svg-wrapper">
+                <svg class="trajectory-svg" viewBox="0 0 960 470" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="lifeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#8490b5"/>
+                            <stop offset="18%" stop-color="#7fb3a6"/>
+                            <stop offset="40%" stop-color="#a8d5ba"/>
+                            <stop offset="60%" stop-color="#f5ecd0"/>
+                            <stop offset="78%" stop-color="#e5a399"/>
+                            <stop offset="100%" stop-color="#c45c5c"/>
+                        </linearGradient>
+                    </defs>
+
+                    <!-- Barra Superior: Estágios da Doença -->
+                    <rect x="110" y="15" width="790" height="22" fill="url(#lifeGradient)" stroke="#222" stroke-width="1"/>
+                    <line x1="373" y1="15" x2="373" y2="43" stroke="#222" stroke-width="1"/>
+                    <line x1="654" y1="15" x2="654" y2="43" stroke="#222" stroke-width="1"/>
+
+                    <text x="241" y="54" font-size="12.5" font-weight="600" text-anchor="middle" fill="#222">Programação biológica e exposições</text>
+                    <text x="241" y="70" font-size="12.5" font-weight="600" text-anchor="middle" fill="#222">nocivas que conduzem à DPOC</text>
+                    <text x="513" y="55" font-size="13" font-weight="700" text-anchor="middle" fill="#1a4d7a">DPOC-PR</text>
+                    <text x="777" y="55" font-size="13" font-weight="700" text-anchor="middle" fill="#9b1c2c">DPOC-RR</text>
+
+                    <!-- Rótulo VEF1/CVF e Sintomas -->
+                    <text x="513" y="80" font-size="12.5" font-weight="700" text-anchor="middle" fill="#222">VEF₁/CVF</text>
+
+                    <text x="241" y="110" font-size="12.5" font-weight="600" text-anchor="middle" fill="#333">Sem sintomas</text>
+
+                    <text x="513" y="102" font-size="12.5" font-weight="600" text-anchor="middle" fill="#333">Sintomas e disfunção</text>
+                    <text x="513" y="117" font-size="12.5" font-weight="600" text-anchor="middle" fill="#333">orgânica progressiva</text>
+
+                    <text x="777" y="102" font-size="12.5" font-weight="600" text-anchor="middle" fill="#333">Sintomas e disfunção</text>
+                    <text x="777" y="117" font-size="12.5" font-weight="600" text-anchor="middle" fill="#333">orgânica grave</text>
+
+                    <!-- Chavetas (Braces) -->
+                    <path d="M 110 136 Q 110 128 118 128 L 233 128 Q 241 128 241 121 Q 241 128 249 128 L 365 128 Q 373 128 373 136" fill="none" stroke="#333" stroke-width="1.3"/>
+                    <path d="M 375 136 Q 375 128 383 128 L 505 128 Q 513 128 513 121 Q 513 128 521 128 L 644 128 Q 652 128 652 136" fill="none" stroke="#333" stroke-width="1.3"/>
+                    <path d="M 654 136 Q 654 128 662 128 L 769 128 Q 777 128 777 121 Q 777 128 785 128 L 892 128 Q 900 128 900 136" fill="none" stroke="#333" stroke-width="1.3"/>
+
+                    <!-- Eixos do Gráfico -->
+                    <line x1="110" y1="145" x2="110" y2="355" stroke="#222" stroke-width="1.2"/>
+                    <line x1="110" y1="355" x2="900" y2="355" stroke="#222" stroke-width="1.2"/>
+
+                    <!-- Título Eixo Y -->
+                    <text x="35" y="250" font-size="13" font-weight="600" text-anchor="middle" fill="#222" transform="rotate(-90, 35, 250)">VEF₁ (% do previsto) ou VEF₁/CVF</text>
+
+                    <!-- Marcações Eixo Y (0 a 100) -->
+                    <g font-size="12" fill="#333" text-anchor="end">
+                        <text x="98" y="149">100</text><line x1="104" y1="145" x2="110" y2="145" stroke="#222"/>
+                        <text x="98" y="170">90</text><line x1="104" y1="166" x2="110" y2="166" stroke="#222"/>
+                        <text x="98" y="191">80</text><line x1="104" y1="187" x2="110" y2="187" stroke="#222"/>
+                        <text x="98" y="212">70</text><line x1="104" y1="208" x2="110" y2="208" stroke="#222"/>
+                        <text x="98" y="233">60</text><line x1="104" y1="229" x2="110" y2="229" stroke="#222"/>
+                        <text x="98" y="254">50</text><line x1="104" y1="250" x2="110" y2="250" stroke="#222"/>
+                        <text x="98" y="275">40</text><line x1="104" y1="271" x2="110" y2="271" stroke="#222"/>
+                        <text x="98" y="296">30</text><line x1="104" y1="292" x2="110" y2="292" stroke="#222"/>
+                        <text x="98" y="317">20</text><line x1="104" y1="313" x2="110" y2="313" stroke="#222"/>
+                        <text x="98" y="338">10</text><line x1="104" y1="334" x2="110" y2="334" stroke="#222"/>
+                        <text x="98" y="359">0</text><line x1="104" y1="355" x2="110" y2="355" stroke="#222"/>
+                    </g>
+
+                    <!-- Marcações Eixo X (0 a 90 anos) -->
+                    <g font-size="12" fill="#333" text-anchor="middle">
+                        <text x="110" y="373">0</text><line x1="110" y1="355" x2="110" y2="361" stroke="#222"/>
+                        <text x="198" y="373">10</text><line x1="198" y1="355" x2="198" y2="361" stroke="#222"/>
+                        <text x="285" y="373">20</text><line x1="285" y1="355" x2="285" y2="361" stroke="#222"/>
+                        <text x="373" y="373">30</text><line x1="373" y1="355" x2="373" y2="361" stroke="#222"/>
+                        <text x="461" y="373">40</text><line x1="461" y1="355" x2="461" y2="361" stroke="#222"/>
+                        <text x="549" y="373">50</text><line x1="549" y1="355" x2="549" y2="361" stroke="#222"/>
+                        <text x="637" y="373">60</text><line x1="637" y1="355" x2="637" y2="361" stroke="#222"/>
+                        <text x="724" y="373">70</text><line x1="724" y1="355" x2="724" y2="361" stroke="#222"/>
+                        <text x="812" y="373">80</text><line x1="812" y1="355" x2="812" y2="361" stroke="#222"/>
+                        <text x="900" y="373">90</text><line x1="900" y1="355" x2="900" y2="361" stroke="#222"/>
+                    </g>
+                    <text x="505" y="393" font-size="13" font-weight="600" text-anchor="middle" fill="#222">Idade em anos</text>
+
+                    <!-- Linha Tracejada Limiar 0,70 (70%) -->
+                    <line x1="110" y1="208" x2="900" y2="208" stroke="#5c7c8a" stroke-width="1.8" stroke-dasharray="5,5"/>
+
+                    <!-- Curva Azul: Razão VEF1/CVF -->
+                    <path d="M 110 169 C 240 176, 420 183, 665 207 C 750 216, 820 227, 860 233" fill="none" stroke="#26547c" stroke-width="2.5"/>
+
+                    <!-- Curva Verde: VEF1 (% do previsto) -->
+                    <path d="M 110 146 C 220 146, 300 150, 380 157 C 500 168, 630 176, 705 213 C 760 245, 795 305, 825 318 C 840 323, 850 322, 860 321" fill="none" stroke="#1b7a43" stroke-width="2.5"/>
+
+                    <!-- Caixa de Legenda Interna -->
+                    <rect x="705" y="152" width="190" height="52" rx="6" fill="rgba(255,255,255,0.92)" stroke="#dee2e6"/>
+                    <line x1="715" y1="164" x2="737" y2="164" stroke="#1b7a43" stroke-width="2.5"/>
+                    <text x="743" y="168" font-size="11" font-weight="600" fill="#222">VEF₁ (% do previsto)</text>
+                    <line x1="715" y1="180" x2="737" y2="180" stroke="#26547c" stroke-width="2.5"/>
+                    <text x="743" y="184" font-size="11" font-weight="600" fill="#222">VEF₁/CVF</text>
+                    <line x1="715" y1="196" x2="737" y2="196" stroke="#5c7c8a" stroke-width="1.8" stroke-dasharray="4,3"/>
+                    <text x="743" y="200" font-size="11" font-weight="600" fill="#222">Limiar VEF₁/CVF (0,70)</text>
+
+                    <!-- Barra Inferior: Etapas da Vida -->
+                    <text x="110" y="415" font-size="12.5" font-weight="700" fill="#222">Pré-concepção</text>
+                    <rect x="110" y="422" width="790" height="24" fill="url(#lifeGradient)" stroke="#222" stroke-width="1"/>
+                    <g font-size="12" font-weight="600" fill="#1a1a1a" text-anchor="middle">
+                        <text x="132" y="438">Nascimento</text>
+                        <text x="198" y="438">Infância</text>
+                        <text x="275" y="438">Adolescência</text>
+                        <text x="485" y="438">Idade adulta</text>
+                        <text x="775" y="438">Idade adulta avançada</text>
+                    </g>
+                </svg>
+            </div>
+        </div>
+
+        <!-- DETALHAMENTO DAS 3 FASES DA TRAJETÓRIA -->
+        <div class="workflow">
+            <!-- FASE 1 -->
+            <div class="step-card fase-1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title-group">
+                        <h2 class="step-title">Programação Biológica e Exposições Nocivas</h2>
+                        <div class="step-subtitle">Pré-concepção, Nascimento, Infância e Adolescência (0 aos ~30 anos)</div>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="criteria-list">
+                        <div class="criteria-item">
+                            <div class="criteria-label">🧬 Determinantes Precoces</div>
+                            <div class="criteria-value">
+                                Fatores genéticos, epigenéticos e ambientais desde a <strong>pré-concepção</strong>, nascimento, infância e adolescência que condicionam o desenvolvimento pulmonar e o risco futuro de DPOC.
+                            </div>
+                        </div>
+
+                        <div class="criteria-item">
+                            <div class="criteria-label">🫁 Perfil Funcional e Clínico</div>
+                            <div class="criteria-value">
+                                • <strong>Estado clínico:</strong> Sem sintomas respiratórios evidentes.<br>
+                                • <strong>Função pulmonar:</strong> VEF₁ (% do previsto) próximo de 100% e razão VEF₁/CVF claramente acima do limiar de 0,70.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="arrow-connector">↓</div>
+
+            <!-- FASE 2 -->
+            <div class="step-card fase-2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title-group">
+                        <h2 class="step-title">DPOC-PR (DPOC com Razão VEF₁/CVF Preservada)</h2>
+                        <div class="step-subtitle">Idade Adulta (~30 aos ~62 anos) — Fase Pré-Obstrutiva</div>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="criteria-list">
+                        <div class="criteria-item">
+                            <div class="criteria-label">📉 Declínio Funcional Silencioso</div>
+                            <div class="criteria-value">
+                                Ocorre um declínio gradual tanto do <strong>VEF₁ (% do previsto)</strong> como da razão <strong>VEF₁/CVF</strong>, embora esta última permaneça <strong>preservada (≥ 0,70)</strong>.
+                            </div>
+                        </div>
+
+                        <div class="criteria-item">
+                            <div class="criteria-label">🩺 Manifestações Clínicas</div>
+                            <div class="criteria-value">
+                                Aparecimento de <strong>sintomas respiratórios</strong> e início de <strong>disfunção orgânica progressiva</strong> antes mesmo de se atingir o critério espirométrico clássico de obstrução fixa.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="arrow-connector">↓</div>
+
+            <!-- FASE 3 -->
+            <div class="step-card fase-3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title-group">
+                        <h2 class="step-title">DPOC-RR (DPOC com Razão VEF₁/CVF Reduzida)</h2>
+                        <div class="step-subtitle">Idade Adulta Avançada (> ~62 anos) — Obstrução Estabelecida</div>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="criteria-list">
+                        <div class="criteria-item">
+                            <div class="criteria-label">⚠️ Cruzamento do Limiar Diagnóstico</div>
+                            <div class="criteria-value">
+                                A razão <strong>VEF₁/CVF cai abaixo de 0,70</strong>, acompanhada por uma queda acentuada e acelerada do <strong>VEF₁ (% do previsto)</strong> até valores gravemente reduzidos (~15–20%).
+                            </div>
+                        </div>
+
+                        <div class="criteria-item">
+                            <div class="criteria-label">🏥 Impacto Clínico Avançado</div>
+                            <div class="criteria-value">
+                                Presença de <strong>sintomas marcados</strong> e <strong>disfunção orgânica grave</strong>, refletindo a perda estabelecida da função pulmonar e sistêmica.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- IMPLICAÇÕES CLÍNICAS -->
+        <div class="action-box">
+            <h2>💡 Implicações Clínicas desta Trajetória</h2>
+            <p style="font-size: 1.05rem; line-height: 1.7; opacity: 0.95;">
+                Compreender a transição da DPOC-PR para a DPOC-RR permite intervir antes da perda irreversível da função pulmonar:
+            </p>
+
+            <div class="action-steps">
+                <div class="action-step">
+                    <strong>1. Janela de Prevenção Precoce</strong>
+                    • Proteger o desenvolvimento pulmonar desde a gestação, infância e adolescência, evitando exposições nocivas (tabaco, poluição, infecções graves).
+                </div>
+
+                <div class="action-step">
+                    <strong>2. Identificação na Fase DPOC-PR</strong>
+                    • Doentes sintomáticos com declínio acelerado da função pulmonar podem já apresentar doença estrutural ativa mesmo com <strong>VEF₁/CVF ≥ 0,70</strong>.
+                </div>
+
+                <div class="action-step">
+                    <strong>3. Incerteza dos Preditores</strong>
+                    • Esta curva ilustra uma trajetória possível; os determinantes exatos e os preditores individuais de progressão ainda permanecem incertos.
+                </div>
+            </div>
+        </div>
+
+        <!-- NOTAS E ABREVIATURAS -->
+        <div class="abbreviations-box">
+            <p style="margin-bottom: 12px;">
+                <strong>Nota da Figura:</strong> O declínio da razão VEF₁/CVF ilustra a fase de DPOC-PR antes da evolução para DPOC-RR e a subsequente perda da função orgânica. Esta figura exemplifica uma possível trajetória da doença; os determinantes e preditores de progressão permanecem incertos.
+            </p>
+            <p>
+                <strong>Abreviações:</strong> 
+                <strong>CVF (FVC)</strong> = capacidade vital forçada • 
+                <strong>DPOC (COPD)</strong> = doença pulmonar obstrutiva crônica • 
+                <strong>DPOC-PR (COPD-PR)</strong> = DPOC com razão VEF₁/CVF preservada • 
+                <strong>DPOC-RR (COPD-RR)</strong> = DPOC com razão VEF₁/CVF reduzida • 
+                <strong>VEF₁ (FEV₁)</strong> = volume expiratório forçado no primeiro segundo.
+            </p>
+        </div>
+
+                <footer>
+            <p><strong>Adaptado de:</strong> Stolz D, et al. Reframing disease elimination: an update from the Lancet Commission on COPD. <em>Lancet</em>. 2026. doi:<a href="https://doi.org/10.1016/S0140-6736(26)01947-1" target="_blank" rel="noopener noreferrer">10.1016/S0140-6736(26)01947-1</a></p>
+            <p style="margin-top: 8px; font-size: 0.85rem; opacity: 0.9;">Adaptação educacional em português, preparada pelo Dr. Fernando Lundgren. Não reproduz as figuras originais do artigo.</p>
+            <p style="margin-top: 8px; font-size: 0.85rem; opacity: 0.8;">
+                Ferramenta educacional para visualização da história natural e fisiopatologia da DPOC.
+            </p>
+            <p style="margin-top: 14px;"><a href="index.html" style="color:#ffffff;font-weight:600;text-decoration:underline;">← Voltar a DPOC – Lancet Commission 2026</a></p>
+        </footer>
+    </div>
+
+    <script>
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -60px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.step-card, .chart-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+
+        document.querySelectorAll('.criteria-item').forEach(item => {
+            item.addEventListener('click', function() {
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+            });
+        });
+    </script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "41331af379ba4c71af70c5689396f1b8"}'></script><!-- End Cloudflare Web Analytics -->
+<script data-goatcounter="https://pneumoagents.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>

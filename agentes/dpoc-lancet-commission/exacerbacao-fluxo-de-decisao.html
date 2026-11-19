@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <script src="../../assets/js/aviso-profissional.js"></script>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DPOC — Fluxo de Decisão na Exacerbação</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a4d7a;
+            --secondary: #2e7ab8;
+            --accent: #4aa3df;
+            --highlight: #ff6b6b;
+            --danger-dark: #9b1c2c;
+            --success: #51cf66;
+            --warning: #ffd43b;
+            --bg-light: #f8f9fa;
+            --bg-dark: #0a1628;
+            --text-dark: #1a1a1a;
+            --text-light: #ffffff;
+            --card-bg: #ffffff;
+            --shadow: rgba(26, 77, 122, 0.15);
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            background: linear-gradient(135deg, #0a1628 0%, #1a4d7a 50%, #2e7ab8 100%);
+            color: var(--text-dark);
+            min-height: 100vh;
+            padding: 40px 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(74, 163, 223, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 107, 107, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.3rem, 5vw, 3.8rem);
+            font-weight: 900;
+            color: var(--text-light);
+            margin-bottom: 15px;
+            text-shadow: 2px 4px 12px rgba(0, 0, 0, 0.3);
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .source {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 8px 20px;
+            border-radius: 30px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Red Flags Banner */
+        .red-flags-banner {
+            background: linear-gradient(135deg, #8b1e2b 0%, #b82535 100%);
+            color: var(--text-light);
+            border-radius: 18px;
+            padding: 25px 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 12px 35px rgba(139, 30, 43, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            animation: fadeInUp 0.7s ease-out;
+        }
+
+        .red-flags-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #ffd43b;
+        }
+
+        .red-flags-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+        }
+
+        .red-flag-item {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border-left: 3px solid #ffd43b;
+        }
+
+        .workflow {
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+            margin-bottom: 60px;
+        }
+
+        .step-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 10px 40px var(--shadow);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .step-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--secondary), var(--accent));
+            transition: width 0.4s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(26, 77, 122, 0.25);
+        }
+
+        .step-card:hover::before {
+            width: 100%;
+            opacity: 0.04;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .step-number {
+            min-width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-light);
+            box-shadow: 0 5px 20px rgba(46, 122, 184, 0.4);
+        }
+
+        .step-title-group {
+            flex: 1;
+        }
+
+        .step-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .step-subtitle {
+            font-size: 0.95rem;
+            color: #6c757d;
+            font-weight: 500;
+            margin-top: 4px;
+        }
+
+        .step-content {
+            padding-left: 80px;
+        }
+
+        .criteria-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 18px;
+            margin-top: 15px;
+        }
+
+        .criteria-item {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .criteria-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            border-left-color: var(--highlight);
+        }
+
+        .criteria-label {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .criteria-value {
+            color: #495057;
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        .criteria-value ul {
+            padding-left: 18px;
+            margin-top: 5px;
+        }
+
+        .criteria-value li {
+            margin-bottom: 4px;
+        }
+
+        /* Triage Decision Box */
+        .triage-box {
+            margin-top: 25px;
+            background: #f1f7fc;
+            border: 2px solid var(--accent);
+            border-radius: 15px;
+            padding: 25px;
+        }
+
+        .triage-title {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.15rem;
+            margin-bottom: 12px;
+        }
+
+        .triage-branches {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .branch-no {
+            background: #e6fcf5;
+            border: 2px solid #20c997;
+            padding: 16px;
+            border-radius: 12px;
+            color: #087f5b;
+        }
+
+        .branch-yes {
+            background: #ffe3e3;
+            border: 2px solid #ff6b6b;
+            padding: 16px;
+            border-radius: 12px;
+            color: #c92a2a;
+        }
+
+        /* Severity Cards (Step 3) */
+        .severity-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .severity-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f1f7fc 100%);
+            border-radius: 18px;
+            padding: 28px;
+            border: 3px solid transparent;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .severity-card.grave {
+            border-color: var(--highlight);
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe3e3 100%);
+        }
+
+        .severity-card.nao-grave {
+            border-color: var(--success);
+            background: linear-gradient(135deg, #f4fce3 0%, #e9fac8 100%);
+        }
+
+        .severity-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .severity-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .grave .severity-title {
+            color: #c92a2a;
+        }
+
+        .nao-grave .severity-title {
+            color: #2b8a3e;
+        }
+
+        .severity-badge {
+            display: inline-block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 18px;
+        }
+
+        .grave .severity-badge {
+            background: rgba(201, 42, 42, 0.15);
+            color: #c92a2a;
+        }
+
+        .nao-grave .severity-badge {
+            background: rgba(43, 138, 62, 0.15);
+            color: #2b8a3e;
+        }
+
+        .severity-list {
+            list-style: none;
+        }
+
+        .severity-list li {
+            padding: 10px 14px;
+            margin-bottom: 8px;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 10px;
+            font-size: 0.93rem;
+            line-height: 1.5;
+            border-left: 3px solid currentColor;
+        }
+
+        .grave .severity-list li {
+            border-left-color: #c92a2a;
+        }
+
+        .nao-grave .severity-list li {
+            border-left-color: #2b8a3e;
+        }
+
+        .severity-action {
+            margin-top: 15px;
+            padding: 12px 15px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-align: center;
+        }
+
+        .grave .severity-action {
+            background: #c92a2a;
+            color: white;
+        }
+
+        .nao-grave .severity-action {
+            background: #2b8a3e;
+            color: white;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
+            border: 2px solid var(--warning);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 25px;
+            position: relative;
+        }
+
+        .highlight-box h3 {
+            color: #c77700;
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .highlight-box p, .highlight-box ul {
+            color: #856404;
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .highlight-box ul {
+            padding-left: 20px;
+        }
+
+        .action-box {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--text-light);
+            border-radius: 18px;
+            padding: 35px;
+            margin-top: 40px;
+            text-align: center;
+            box-shadow: 0 15px 50px rgba(26, 77, 122, 0.3);
+        }
+
+        .action-box h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 15px;
+            font-weight: 900;
+        }
+
+        .action-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+            text-align: left;
+        }
+
+        .action-step {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        .action-step:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-5px);
+        }
+
+        .action-step strong {
+            display: block;
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+            color: var(--warning);
+        }
+
+        .arrow-connector {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--accent);
+            margin: -15px 0;
+            animation: bounce 2s infinite;
+        }
+
+        .abbreviations-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 40px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.88rem;
+            line-height: 1.7;
+        }
+
+        .abbreviations-box strong {
+            color: var(--warning);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @media (max-width: 768px) {
+            .step-content {
+                padding-left: 0;
+            }
+            .step-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .criteria-list, .severity-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+                <nav aria-label="Navegação" style="margin:0 0 18px;font-size:0.9rem;">
+            <a href="index.html" style="color:#ffffff;font-weight:600;text-decoration:none;">← DPOC – Lancet Commission 2026</a>
+        </nav>
+<header>
+            <h1>Exacerbação da DPOC</h1>
+            <p class="subtitle">Fluxo de Decisão: Contato Inicial, Avaliação, Gravidade, Manejo e Alta</p>
+            <span class="source">Algoritmo Clínico de Exacerbação da DPOC</span>
+        </header>
+
+        <!-- SINAIS DE ALERTA (RED FLAGS) -->
+        <div class="red-flags-banner">
+            <div class="red-flags-header">
+                🚨 Sinais de Alerta (Red Flags): Procure Atendimento Médico Imediato
+            </div>
+            <div class="red-flags-grid">
+                <div class="red-flag-item">• Dispneia grave em repouso</div>
+                <div class="red-flag-item">• Confusão mental ou sonolência</div>
+                <div class="red-flag-item">• SpO₂ < 90% apesar de oxigenoterapia</div>
+                <div class="red-flag-item">• Cianose</div>
+                <div class="red-flag-item">• Dor torácica</div>
+                <div class="red-flag-item">• Hemoptise</div>
+                <div class="red-flag-item">• Hipotensão</div>
+                <div class="red-flag-item">• Piora clínica apesar do tratamento inicial</div>
+            </div>
+        </div>
+
+        <div class="workflow">
+            <!-- PASSO 1 -->
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title-group">
+                        <h2 class="step-title">Primeiro Contato</h2>
+                        <div class="step-subtitle">Triagem clínica inicial e identificação da necessidade de cuidados de urgência</div>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="criteria-list">
+                        <div class="criteria-item">
+                            <div class="criteria-label">🩺 Apresentação Clínica</div>
+                            <div class="criteria-value">
+                                <ul>
+                                    <li>Piora da dispneia</li>
+                                    <li>Aumento do volume do escarro</li>
+                                    <li>Aumento da purulência do escarro</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="criteria-item">
+                            <div class="criteria-label">⏱️ Avaliação Clínica Imediata</div>
+                            <div class="criteria-value">
+                                <ul>
+                                    <li>Sinais vitais: FR, FC, PA, temperatura e SpO₂</li>
+                                    <li>Estado mental</li>
+                                    <li>História clínica focada e revisão medicamentosa</li>
+                                    <li>Avaliar técnica inalatória e adesão</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="triage-box">
+                        <div class="triage-title">⚠️ Necessidade de Cuidados de Urgência?</div>
+                        <p style="font-size: 0.93rem; color: #495057;">
+                            Avaliar presença de: <strong>Desconforto respiratório grave</strong> • <strong>SpO₂ < 88% em ar ambiente</strong> • <strong>Alteração do estado mental</strong> • <strong>Instabilidade hemodinâmica</strong>
+                        </p>
+                        <div class="triage-branches">
+                            <div class="branch-no">
+                                <strong>✅ NÃO:</strong> Prosseguir com a avaliação diagnóstica (Passo 2).
+                            </div>
+                            <div class="branch-yes">
+                                <strong>🚨 SIM:</strong> Avaliação e estabilização urgentes (Hospital ou UTI, se indicado).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="arrow-connector">↓</div>
+
+            <!-- PASSO 2 -->
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title-group">
+                        <h2 class="step-title">Avaliação Diagnóstica</h2>
+                        <div class="step-subtitle">Exames essenciais conforme a gravidade da doença e da apresentação clínica</div>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="criteria-list">
+                        <div class="criteria-item">
+                            <div class="criteria-label">🫁 Troca Gasosa e Oxigenação</div>
+                            <div class="criteria-value">
+                                <ul>
+                                    <li>Oximetria de pulso (SpO₂)</li>
+                                    <li>Gasometria venosa</li>
+                                    <li><strong>Gasometria arterial</strong> (se SpO₂ < 92%, dispneia grave ou suspeita de hipercapnia)</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="criteria-item">
+                            <div class="criteria-label">🧪 Exames Laboratoriais</div>
+                            <div class="criteria-value">
+                                <ul>
+                                    <li>Hemograma completo</li>
+                                    <li>PCR ou procalcitonina</li>
+                                    <li>Ureia, eletrólitos e creatinina</li>
+                                    <li>BNP ou NT-proBNP</li>
+                                    <li>Dímero-D e Troponina</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="criteria-item">
+                            <div class="criteria-label">🦠 Microbiologia (se indicado)</div>
+                            <div class="criteria-value">
+                                <ul>
+                                    <li>Cultura de escarro</li>
+                                    <li>PCR viral (sazonal ou casos graves)</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="criteria-item">
+                            <div class="criteria-label">🖼️ Exames de Imagem (conforme indicação)</div>
+                            <div class="criteria-value">
+                                <ul>
+                                    <li><strong>Radiografia de tórax</strong> (recomendada na maioria das apresentações hospitalares): excluir pneumonia, pneumotórax e avaliar sinais de insuficiência cardíaca</li>
+                                    <li><strong>Ultrassonografia pulmonar</strong> (se disponível): detectar consolidação, avaliar linhas B (congestão) e pneumotórax</li>
+                                    <li><strong>TC de tórax</strong> (se disponível): se suspeita de embolia pulmonar ou diagnóstico incerto/sem resolução</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="criteria-item">
+                            <div class="criteria-label">❤️ Outras Avaliações (conforme indicação)</div>
+                            <div class="criteria-value">
+                                <ul>
+                                    <li>Eletrocardiograma (ECG)</li>
+                                    <li>Ecocardiograma</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="arrow-connector">↓</div>
+
+            <!-- PASSO 3 -->
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title-group">
+                        <h2 class="step-title">Determinar a Gravidade</h2>
+                        <div class="step-subtitle">Classificação baseada na fisiologia e na necessidade de suporte assistencial</div>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="severity-section">
+                        <!-- GRAVE -->
+                        <div class="severity-card grave">
+                            <div class="severity-title">🔴 Exacerbação Grave</div>
+                            <span class="severity-badge">Requer internação hospitalar ou UTI</span>
+                            <ul class="severity-list">
+                                <li>Insuficiência respiratória aguda ou agudizada</li>
+                                <li><strong>pH < 7,35</strong> e/ou <strong>PaCO₂ elevada</strong> ou <strong>PaO₂ < 60 mmHg</strong> em ar ambiente</li>
+                                <li><strong>SpO₂ < 90%</strong> em ar ambiente (apesar de oxigênio)</li>
+                                <li>Desconforto respiratório acentuado</li>
+                                <li>Instabilidade hemodinâmica</li>
+                                <li>Alteração do estado mental</li>
+                                <li>Incapacidade de manter ingesta oral</li>
+                                <li>Necessidade de suporte ventilatório (invasivo ou não invasivo)</li>
+                            </ul>
+                            <div class="severity-action">
+                                → Admitir no Hospital ou UTI
+                            </div>
+                        </div>
+
+                        <!-- NÃO GRAVE -->
+                        <div class="severity-card nao-grave">
+                            <div class="severity-title">🟢 Exacerbação Não Grave</div>
+                            <span class="severity-badge">Manejo ambulatorial ou unidade de observação</span>
+                            <ul class="severity-list">
+                                <li>Sem insuficiência respiratória aguda</li>
+                                <li><strong>SpO₂ ≥ 90%</strong> em ar ambiente (ou estável com oxigênio)</li>
+                                <li>Sinais vitais e estado mental estáveis</li>
+                                <li>Capaz de manter ingesta oral</li>
+                                <li>Suporte social e acompanhamento adequados</li>
+                                <li>Baixo risco de falha terapêutica precoce</li>
+                            </ul>
+                            <div class="severity-action">
+                                → Manejar na comunidade ou ambulatório com seguimento próximo
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="highlight-box">
+                        <h3>🔍 Considerar e Excluir Diagnósticos Diferenciais (se indicado)</h3>
+                        <ul>
+                            <li><strong>Pneumonia</strong></li>
+                            <li><strong>Pneumotórax</strong></li>
+                            <li><strong>Insuficiência cardíaca aguda</strong></li>
+                            <li><strong>Embolia pulmonar (TEP)</strong></li>
+                            <li><strong>Síndrome coronariana aguda (SCA)</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="arrow-connector">↓</div>
+
+            <!-- PASSO 4 -->
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title-group">
+                        <h2 class="step-title">Manejo Inicial</h2>
+                        <div class="step-subtitle">Considerar intervenções de acordo com a apresentação clínica</div>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="criteria-list">
+                        <div class="criteria-item">
+                            <div class="criteria-label">💨 Broncodilatadores</div>
+                            <div class="criteria-value">
+                                Broncodilatadores de curta duração (<strong>SABA ± SAMA</strong>); manter a medicação inalatória de longa duração.
+                            </div>
+                        </div>
+
+                        <div class="criteria-item">
+                            <div class="criteria-label">💊 Corticosteroides Sistêmicos</div>
+                            <div class="criteria-value">
+                                <strong>Prednisolona 40 mg/dia por 5 dias</strong> ± eosinófilos elevados.<br>
+                                <em>(Evitar exposição desnecessária a corticosteroides)</em>
+                            </div>
+                        </div>
+
+                        <div class="criteria-item">
+                            <div class="criteria-label">🦠 Antibióticos (se indicados)</div>
+                            <div class="criteria-value">
+                                Se infecção bacteriana provável: mudança na purulência do escarro + aumento de PCR, procalcitonina ou outros sinais de infecção.
+                            </div>
+                        </div>
+
+                        <div class="criteria-item">
+                            <div class="criteria-label">🫧 Oxigenoterapia</div>
+                            <div class="criteria-value">
+                                Meta de saturação: <strong>SpO₂ > 92%</strong>.
+                            </div>
+                        </div>
+
+                        <div class="criteria-item">
+                            <div class="criteria-label">😷 Ventilação Não Invasiva (VNI)</div>
+                            <div class="criteria-value">
+                                Indicada na presença de <strong>insuficiência respiratória hipercápnica aguda</strong>.
+                            </div>
+                        </div>
+
+                        <div class="criteria-item">
+                            <div class="criteria-label">🫀 Tratar ou Otimizar Comorbidades</div>
+                            <div class="criteria-value">
+                                Ex.: insuficiência cardíaca, arritmias, isquemia miocárdica, embolia pulmonar, etc.
+                            </div>
+                        </div>
+
+                        <div class="criteria-item">
+                            <div class="criteria-label">🤝 Cuidados de Suporte</div>
+                            <div class="criteria-value">
+                                Hidratação, suporte nutricional, fisioterapia respiratória e apoio para cessação do tabagismo.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PASSO 5 (ALTA HOSPITALAR) -->
+        <div class="action-box">
+            <h2>5️⃣ Avaliar na Alta (Transição para o Cuidado Estável)</h2>
+            <p style="font-size: 1.05rem; line-height: 1.7; opacity: 0.95;">
+                Planejamento estruturado de alta para prevenir novas exacerbações e garantir continuidade do cuidado:
+            </p>
+
+            <div class="action-steps">
+                <div class="action-step">
+                    <strong>1. Resposta à Terapia</strong>
+                    • Avaliar resposta clínica e estabilização antes da alta.
+                </div>
+
+                <div class="action-step">
+                    <strong>2. Otimizar Medicações</strong>
+                    • Revisar e corrigir técnica inalatória e adesão<br>
+                    • Suporte para cessação do tabagismo<br>
+                    • Garantir vacinação atualizada<br>
+                    • Fornecer plano de ação por escrito
+                </div>
+
+                <div class="action-step">
+                    <strong>3. Considerar Terapia Tripla</strong>
+                    • Avaliar associação de <strong>CI + LABA + LAMA</strong> (corticoide inalatório, beta-2 agonista e antimuscarínico de longa duração).
+                </div>
+
+                <div class="action-step">
+                    <strong>4. Prevenção de Exacerbações</strong>
+                    • Em pacientes selecionados com exacerbações persistentes apesar da terapia de manutenção otimizada: reavaliar traços tratáveis e ajustar ou adicionar tratamento preventivo.
+                </div>
+
+                <div class="action-step">
+                    <strong>5. Organizar Seguimento</strong>
+                    • Retorno precoce (<strong>2 a 4 semanas</strong>)<br>
+                    • Revisar sintomas e recuperação<br>
+                    • Ajustar terapia de manutenção<br>
+                    • Abordar fatores de risco
+                </div>
+            </div>
+        </div>
+
+        <!-- NOTAS E ABREVIATURAS -->
+        <div class="abbreviations-box">
+            <p style="margin-bottom: 12px;">
+                <strong>Nota Clínica:</strong> O algoritmo resume o primeiro contato, avaliação, classificação de gravidade, tratamento inicial, sinais de alerta e planejamento de alta. A extensão da investigação e da terapia depende da gravidade da doença e da apresentação clínica; nem todos os exames e intervenções são necessariamente obrigatórios para todos os pacientes. Deve-se evitar a exposição desnecessária a corticosteroides.
+            </p>
+            <p>
+                <strong>Abreviações:</strong> 
+                <strong>BNP</strong> = peptídeo natriurético tipo B • 
+                <strong>CI (ICS)</strong> = corticosteroide inalatório • 
+                <strong>DPOC (COPD)</strong> = doença pulmonar obstrutiva crônica • 
+                <strong>LABA</strong> = agonista β₂ de longa duração • 
+                <strong>LAMA</strong> = antagonista muscarínico de longa duração • 
+                <strong>PaCO₂</strong> = pressão parcial arterial de dióxido de carbono • 
+                <strong>PaO₂</strong> = pressão parcial arterial de oxigênio • 
+                <strong>PCR (CRP)</strong> = proteína C-reativa • 
+                <strong>SABA</strong> = agonista β₂ de curta duração • 
+                <strong>SAMA</strong> = antagonista muscarínico de curta duração • 
+                <strong>SpO₂</strong> = saturação periférica de oxigênio • 
+                <strong>UTI (ICU)</strong> = unidade de terapia intensiva.
+            </p>
+        </div>
+
+                <footer>
+            <p><strong>Adaptado de:</strong> Stolz D, et al. Reframing disease elimination: an update from the Lancet Commission on COPD. <em>Lancet</em>. 2026. doi:<a href="https://doi.org/10.1016/S0140-6736(26)01947-1" target="_blank" rel="noopener noreferrer">10.1016/S0140-6736(26)01947-1</a></p>
+            <p style="margin-top: 8px; font-size: 0.85rem; opacity: 0.9;">Adaptação educacional em português, preparada pelo Dr. Fernando Lundgren. Não reproduz as figuras originais do artigo.</p>
+            <p style="margin-top: 8px; font-size: 0.85rem; opacity: 0.8;">
+                Ferramenta educacional para suporte à decisão clínica. Adapte sempre ao julgamento médico e aos protocolos locais.
+            </p>
+            <p style="margin-top: 14px;"><a href="index.html" style="color:#ffffff;font-weight:600;text-decoration:underline;">← Voltar a DPOC – Lancet Commission 2026</a></p>
+        </footer>
+    </div>
+
+    <script>
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -80px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.step-card, .severity-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+
+        document.querySelectorAll('.criteria-item, .severity-card').forEach(item => {
+            item.addEventListener('click', function() {
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+            });
+        });
+    </script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "41331af379ba4c71af70c5689396f1b8"}'></script><!-- End Cloudflare Web Analytics -->
+<script data-goatcounter="https://pneumoagents.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>
