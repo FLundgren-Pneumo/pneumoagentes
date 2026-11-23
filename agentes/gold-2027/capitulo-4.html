@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head>
+<script src="../../assets/js/aviso-profissional.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GOLD 2027 – Cap. 4: Manejo das Exacerbações</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --primary: #1a4d7a; --secondary: #2e7ab8; --accent: #4aa3df; --highlight: #ff6b6b;
+  --success: #51cf66; --warning: #ffd43b; --bg-light: #f8f9fa; --bg-dark: #0a1628;
+  --text-dark: #1a1a1a; --text-light: #ffffff; --card-bg: #ffffff; --shadow: rgba(26, 77, 122, 0.15);
+  --green-bg: #ebfbee; --green-bd: #69db7c; --green-tx: #1b4332;
+  --blue-bg: #edf2ff; --blue-bd: #91a7ff; --blue-tx: #1c3d8f;
+  --grey-bg: #f1f3f5; --grey-bd: #adb5bd;
+  --amber-bg: #fff9db; --amber-bd: #fcc419; --amber-tx: #5c4400;
+  --red-bg: #fff5f5; --red-bd: #ff8787; --red-tx: #8a1c1c;
+  --purple-bg: #f3f0ff; --purple-bd: #b197fc; --purple-tx: #3b2a7a;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Work Sans', system-ui, sans-serif;
+  background: linear-gradient(135deg, #0a1628 0%, #1a4d7a 50%, #2e7ab8 100%);
+  background-attachment: fixed;
+  color: var(--text-dark); min-height: 100vh; padding: 40px 20px; position: relative; overflow-x: hidden;
+}
+body::before {
+  content: ''; position: fixed; inset: 0;
+  background: radial-gradient(circle at 20% 50%, rgba(74,163,223,0.1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 80%, rgba(255,107,107,0.1) 0%, transparent 50%);
+  pointer-events: none; z-index: 0;
+}
+.container { max-width: 1400px; margin: 0 auto; position: relative; z-index: 1; }
+a { color: var(--secondary); }
+
+/* navegação */
+.topnav, .footnav { display: flex; flex-wrap: wrap; gap: 18px; font-size: 0.9rem; margin: 0 0 18px; }
+.topnav a, .footnav a { color: #fff; font-weight: 600; text-decoration: none; opacity: .92; }
+.topnav a:hover, .footnav a:hover { text-decoration: underline; opacity: 1; }
+.footnav { justify-content: center; margin-top: 14px; }
+
+/* cabeçalho */
+header { text-align: center; margin-bottom: 40px; animation: fadeInDown 0.8s ease-out; }
+.chapter-tag { display: inline-block; background: var(--warning); color: #3a2c00; font-weight: 800; letter-spacing: 1.5px;
+  text-transform: uppercase; font-size: .78rem; padding: 6px 16px; border-radius: 30px; margin-bottom: 14px; }
+h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.1rem, 4.6vw, 3.5rem); font-weight: 900; color: var(--text-light);
+  margin-bottom: 15px; text-shadow: 2px 4px 12px rgba(0,0,0,0.3); letter-spacing: -1px; line-height: 1.1; }
+.subtitle { font-size: clamp(1rem, 2vw, 1.2rem); color: rgba(255,255,255,0.9); font-weight: 500; margin: 0 auto 12px; max-width: 920px; }
+.source { display: inline-block; background: rgba(255,255,255,0.15); padding: 8px 20px; border-radius: 30px; color: var(--text-light);
+  font-size: 0.9rem; font-weight: 600; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); }
+
+/* sumário */
+.toc { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 18px; padding: 26px 30px; margin-bottom: 35px; color: #fff; }
+.toc h2 { font-size: 1.25rem; margin-bottom: 12px; color: var(--warning); }
+.toc ol { columns: 2 320px; column-gap: 40px; padding-left: 22px; }
+.toc li { margin: 4px 0; break-inside: avoid; }
+.toc a { color: #fff; text-decoration: none; font-weight: 600; }
+.toc a:hover { text-decoration: underline; }
+.figlist { margin-top: 16px; border-top: 1px solid rgba(255,255,255,.2); padding-top: 12px; }
+.figlist summary { cursor: pointer; font-weight: 700; color: var(--warning); }
+.figlist ul { list-style: none; columns: 2 380px; column-gap: 40px; margin-top: 10px; font-size: .9rem; }
+.figlist li { margin: 4px 0; break-inside: avoid; }
+
+/* cartões de tópico */
+.topic { background: var(--card-bg); border-radius: 20px; padding: 35px; margin-bottom: 35px;
+  box-shadow: 0 10px 40px var(--shadow); scroll-margin-top: 20px; }
+.topic > h2 { font-size: 1.6rem; color: var(--primary); margin-bottom: 6px; display: flex; gap: 12px; align-items: baseline; }
+.topic > h2 .tn { font-family: 'Playfair Display', serif; color: var(--accent); font-size: 1.9rem; font-weight: 900; }
+.topic > .lead { color: #495057; font-weight: 500; margin-bottom: 22px; border-bottom: 2px solid #dee2e6; padding-bottom: 14px; }
+.topic h3 { font-size: 1.12rem; color: var(--secondary); margin: 24px 0 10px; }
+.topic h4 { font-size: 1rem; color: var(--primary); margin: 14px 0 6px; }
+.topic p { line-height: 1.68; margin-bottom: 12px; font-size: .97rem; }
+.topic ul.bul, .topic ol.bul { padding-left: 22px; margin-bottom: 12px; line-height: 1.6; font-size: .96rem; }
+.topic ul.bul li, .topic ol.bul li { margin-bottom: 5px; }
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity .6s ease-out, transform .6s ease-out; }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* pontos-chave */
+.keypoints { background: linear-gradient(135deg, var(--blue-bg) 0%, #dbe4ff 100%); border-left: 5px solid #5c7cfa;
+  border-radius: 14px; padding: 20px 24px; margin: 6px 0 22px; }
+.keypoints h4 { color: var(--blue-tx); margin: 0 0 8px; font-size: 1rem; text-transform: uppercase; letter-spacing: .6px; }
+.keypoints ul { padding-left: 20px; color: #22306b; font-weight: 500; line-height: 1.55; font-size: .95rem; }
+.keypoints li { margin-bottom: 6px; }
+.callout { border-radius: 14px; padding: 16px 20px; margin: 14px 0; font-size: .95rem; line-height: 1.55; }
+.callout.new { background: var(--amber-bg); border: 1.5px solid var(--amber-bd); color: var(--amber-tx); }
+.callout.new::before { content: 'NOVO 2027 · '; font-weight: 800; }
+.callout.warn { background: var(--red-bg); border: 1.5px solid var(--red-bd); color: var(--red-tx); }
+.callout.info { background: var(--green-bg); border: 1.5px solid var(--green-bd); color: var(--green-tx); }
+
+/* grades e células (do modelo) */
+.grid2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 12px 0; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 12px 0; }
+.grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 12px 0; }
+.cell { border-radius: 14px; padding: 16px 18px; font-size: .92rem; line-height: 1.52; font-weight: 500;
+  transition: transform .25s ease, box-shadow .25s ease; }
+.cell:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,.08); }
+.cell h4, .cell strong.t { display: block; margin: 0 0 6px; font-size: 1rem; }
+.cell ul { padding-left: 18px; }
+.cell li { margin-bottom: 3px; }
+.c-green { background: linear-gradient(135deg, #ebfbee 0%, #d3f9d8 100%); border: 1.5px solid var(--green-bd); color: var(--green-tx); }
+.c-grey { background: linear-gradient(135deg, #f1f3f5 0%, #e9ecef 100%); border: 1.5px solid var(--grey-bd); color: #212529; }
+.c-blue { background: linear-gradient(135deg, #edf2ff 0%, #dbe4ff 100%); border: 1.5px solid var(--blue-bd); color: var(--blue-tx); }
+.c-amber { background: linear-gradient(135deg, #fff9db 0%, #fff3bf 100%); border: 1.5px solid var(--amber-bd); color: var(--amber-tx); }
+.c-red { background: linear-gradient(135deg, #fff5f5 0%, #ffe3e3 100%); border: 1.5px solid var(--red-bd); color: var(--red-tx); }
+.c-purple { background: linear-gradient(135deg, #f3f0ff 0%, #e5dbff 100%); border: 1.5px solid var(--purple-bd); color: var(--purple-tx); }
+.c-dark { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff; border: none; }
+
+/* figuras */
+.fig { background: #f8f9fa; border: 2px solid #ced4da; border-radius: 16px; margin: 22px 0 26px; overflow: hidden; scroll-margin-top: 20px; }
+.fig > .fig-h { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff; padding: 12px 20px;
+  font-weight: 700; line-height: 1.6; }
+.fig > .fig-h .fn { background: var(--warning); color: #3a2c00; border-radius: 8px; padding: 2px 10px; font-size: .85rem; font-weight: 800; white-space: nowrap; margin-right: 12px; }
+.fig > .fig-b { padding: 20px; overflow-x: auto; }
+.fig > figcaption { font-size: .8rem; color: #6c757d; padding: 0 20px 14px; font-style: italic; }
+.fig svg { width: 100%; height: auto; display: block; font-family: 'Work Sans', sans-serif; }
+.fig .svgwrap { min-width: 680px; }
+
+/* tabelas */
+table.gt { width: 100%; border-collapse: separate; border-spacing: 0; font-size: .9rem; background: #fff;
+  border-radius: 12px; overflow: hidden; border: 1.5px solid #ced4da; }
+table.gt th { background: #dbe4ff; color: var(--blue-tx); text-align: left; padding: 10px 12px; font-weight: 700; border-bottom: 2px solid var(--blue-bd); }
+table.gt td { padding: 9px 12px; border-bottom: 1px solid #e9ecef; vertical-align: top; line-height: 1.45; }
+table.gt tr:last-child td { border-bottom: none; }
+table.gt tr:nth-child(even) td { background: #f8f9fa; }
+table.gt td.rh { font-weight: 700; color: var(--primary); background: #f1f3f5; }
+table.gt .ok { color: #2b8a3e; font-weight: 800; }
+table.gt .no { color: #c92a2a; font-weight: 800; }
+table.gt .mid { color: #e67700; font-weight: 800; }
+
+/* fluxogramas */
+.flow { display: flex; flex-direction: column; align-items: center; gap: 0; }
+.flow .step { width: 100%; max-width: 760px; text-align: center; }
+.flow .arrow { font-size: 1.5rem; color: var(--secondary); line-height: 1.3; }
+.flow .branch { display: grid; gap: 14px; width: 100%; }
+.pill { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: .78rem; font-weight: 700; margin: 2px; }
+.pill.g { background: #d3f9d8; color: #1b4332; } .pill.b { background: #dbe4ff; color: #1c3d8f; }
+.pill.a { background: #fff3bf; color: #5c4400; } .pill.r { background: #ffe3e3; color: #8a1c1c; } .pill.k { background: #e9ecef; color: #343a40; }
+
+/* questionários */
+.scale-row { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: center; padding: 10px 14px; border-radius: 10px; margin-bottom: 6px; }
+.scale-row .g { font-weight: 800; color: var(--primary); text-align: center; font-size: 1.05rem; }
+.cat-row { display: grid; grid-template-columns: 1fr repeat(6, 34px) 1fr; gap: 6px; align-items: center; font-size: .85rem; padding: 7px 0; border-bottom: 1px dashed #dee2e6; }
+.cat-row span.n { width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--secondary); display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--secondary); }
+.cat-row .r { text-align: right; }
+
+/* síntese e abreviaturas (do modelo) */
+.action-box { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: var(--text-light); border-radius: 18px;
+  padding: 35px; margin: 30px 0; text-align: center; box-shadow: 0 15px 50px rgba(26,77,122,.3); }
+.action-box h2 { font-family: 'Playfair Display', serif; font-size: 1.9rem; margin-bottom: 12px; font-weight: 900; }
+.action-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 25px; text-align: left; }
+.action-step { background: rgba(255,255,255,.15); padding: 22px; border-radius: 12px; backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,.2); transition: all .3s ease; font-size: .93rem; line-height: 1.6; }
+.action-step:hover { background: rgba(255,255,255,.25); transform: translateY(-5px); }
+.action-step strong { display: block; font-size: 1.08rem; margin-bottom: 8px; color: var(--warning); }
+.abbreviations-box { background: rgba(255,255,255,.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.2);
+  border-radius: 15px; padding: 25px; margin-top: 40px; color: rgba(255,255,255,.92); font-size: .88rem; line-height: 1.75; }
+.abbreviations-box strong { color: var(--warning); }
+
+/* índice */
+.chapter-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 22px; margin-bottom: 35px; }
+.chapter-card { display: flex; gap: 20px; align-items: center; background: #fff; border-radius: 20px; padding: 26px; text-decoration: none;
+  color: var(--text-dark); box-shadow: 0 10px 40px var(--shadow); transition: transform .25s, box-shadow .25s; }
+.chapter-card:hover { transform: translateY(-6px); box-shadow: 0 18px 50px rgba(0,0,0,.25); }
+.chapter-num { flex: 0 0 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: #fff; font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 900; display: flex; align-items: center; justify-content: center; }
+.chapter-card h3 { color: var(--primary); font-size: 1.2rem; margin-bottom: 6px; }
+.chapter-card p { font-size: .9rem; color: #495057; line-height: 1.5; }
+
+footer { text-align: center; margin-top: 40px; padding: 20px; color: rgba(255,255,255,.8); font-size: .9rem; }
+footer a { color: #fff; }
+#toTop { position: fixed; right: 22px; bottom: 22px; width: 46px; height: 46px; border-radius: 50%; border: none; background: var(--warning);
+  color: #3a2c00; font-size: 1.3rem; font-weight: 900; cursor: pointer; opacity: 0; transition: opacity .3s; z-index: 10; box-shadow: 0 6px 20px rgba(0,0,0,.3); }
+
+@keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: none; } }
+@media (max-width: 950px) {
+  .grid2, .grid3, .grid4 { grid-template-columns: 1fr; }
+  .topic { padding: 24px 18px; }
+  .scale-row { grid-template-columns: 60px 1fr; }
+}
+@media print {
+  body { background: #fff; padding: 0; } body::before { display: none; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .topic, .fig { break-inside: avoid-page; box-shadow: none; }
+  header h1, .subtitle, .source, .toc, .toc a, footer, footer a { color: #1a4d7a !important; text-shadow: none; }
+  .topnav, #toTop { display: none; }
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+<nav class="topnav" aria-label="Navegação"><a href="index.html">← GOLD 2027 – Índice</a> <a href="capitulo-3.html">‹ Capítulo 3</a> <a href="capitulo-5.html">Capítulo 5 ›</a></nav>
+<header>
+  <span class="chapter-tag">Capítulo 4</span>
+  <h1>Manejo das Exacerbações</h1>
+  <p class="subtitle">Definição, gravidade, local de tratamento, terapia farmacológica, insuficiência respiratória, alta hospitalar e prevenção</p>
+  <span class="source">Relatório GOLD 2027 – Estratégia Global para Diagnóstico, Tratamento e Prevenção da DPOC</span>
+</header>
+<div class="toc reveal"><h2>📑 Tópicos do capítulo</h2><ol><li><a href="#definicao-exacerbacao">Definição, impacto e diagnóstico</a></li><li><a href="#gravidade-roma">Classificação de gravidade (proposta de Roma)</a></li><li><a href="#condicoes-local">Condições a considerar e local de tratamento</a></li><li><a href="#fatores-risco-exac">Desencadeantes, sintomas e fatores de risco</a></li><li><a href="#tratamento-exacerbacao">Tratamento farmacológico da exacerbação</a></li><li><a href="#insuficiencia-respiratoria">Manejo da insuficiência respiratória</a></li><li><a href="#alta-seguimento">Alta hospitalar e seguimento</a></li><li><a href="#prevencao-exacerbacoes">Prevenção de novas exacerbações</a></li></ol><details class="figlist"><summary>🖼️ Figuras deste capítulo (12)</summary><ul><li><a href="#fig-4-1"><strong>Figura 4.1</strong> – Exacerbações: diagnóstico e avaliação</a></li><li><a href="#fig-4-2"><strong>Figura 4.2</strong> – Classificação da gravidade das exacerbações da DPOC</a></li><li><a href="#fig-4-3"><strong>Figura 4.3</strong> – Condições que simulam ou agravam sintomas de exacerbação</a></li><li><a href="#fig-4-4"><strong>Figura 4.4</strong> – Local adequado de tratamento da exacerbação</a></li><li><a href="#fig-4-5"><strong>Figura 4.5</strong> – Risco cardiovascular grave ou morte após exacerbação</a></li><li><a href="#fig-4-6"><strong>Figura 4.6</strong> – Manejo das exacerbações graves sem risco imediato de vida</a></li><li><a href="#fig-4-7"><strong>Figura 4.7</strong> – Pontos-chave para o manejo das exacerbações</a></li><li><a href="#fig-4-8"><strong>Figura 4.8</strong> – Indicações de oxigênio de alto fluxo (CNAF)</a></li><li><a href="#fig-4-9"><strong>Figura 4.9</strong> – Indicações de ventilação mecânica não invasiva (VNI)</a></li><li><a href="#fig-4-10"><strong>Figura 4.10</strong> – Indicações de ventilação mecânica invasiva</a></li><li><a href="#fig-4-11"><strong>Figura 4.11</strong> – Critérios de alta e recomendações de seguimento</a></li><li><a href="#fig-4-12"><strong>Figura 4.12</strong> – Intervenções que reduzem a frequência de exacerbações</a></li></ul></details></div><!-- CAPÍTULO 4 – MANEJO DAS EXACERBAÇÕES -->
+
+<section class="topic reveal" id="definicao-exacerbacao" data-title="Definição, impacto e diagnóstico">
+  <h2><span class="tn">4.1</span> Definição, impacto e diagnóstico</h2>
+  <p class="lead">O que é uma exacerbação e como avaliá-la no ponto de atendimento.</p>
+  <div class="keypoints">
+    <h4>Pontos-chave</h4>
+    <ul>
+      <li>A exacerbação é um evento agudo, com piora dos sintomas ao longo de alguns dias (<strong>até 14 dias</strong>), caracterizado por aumento de dispneia e/ou tosse e escarro, com ou sem taquipneia ou taquicardia, e geralmente associado a inflamação local e sistêmica por infecção, poluição ou outra agressão.</li>
+      <li>Pneumonia, embolia pulmonar, insuficiência cardíaca aguda e pneumotórax podem simular ou agravar o quadro. Em muitos casos, a causa exata não é identificada.</li>
+      <li>A gravidade é classificada em leve, moderada ou grave pela clínica do paciente (<strong>proposta de Roma</strong>).</li>
+      <li>Tratamento precoce: SABA ± SAMA; corticosteroide sistêmico por até 5 dias; antibiótico por 5 dias quando indicado; metilxantinas não recomendadas.</li>
+      <li>CNAF e VNI na insuficiência respiratória aguda melhoram trocas gasosas, reduzem intubação e internação e aumentam a sobrevida.</li>
+      <li>Iniciar broncodilatador de longa ação o quanto antes. Com ≥ 1 exacerbação moderada ou grave e eosinófilos elevados, considerar acrescentar CI ao broncodilatador duplo na alta.</li>
+      <li>A recuperação leva até 4–6 semanas, e alguns pacientes não voltam ao estado prévio. O <strong>risco cardiovascular grave aumenta após qualquer exacerbação</strong>.</li>
+    </ul>
+  </div>
+  <p><strong>Impacto:</strong> as exacerbações pioram o estado de saúde, a obstrução e a progressão da doença e aumentam internações, readmissões e mortalidade. Elas aumentam a inflamação das vias aéreas, o muco e o aprisionamento aéreo, e por isso a dispneia é o sintoma-chave. Muitas exacerbações não são relatadas ao profissional e, mesmo assim, têm impacto. A OMS definiu um conjunto mínimo de intervenções aplicáveis na maioria dos cenários.</p>
+
+  <figure class="fig" id="fig-4-1" data-num="4.1" data-title="Exacerbações: diagnóstico e avaliação">
+    <div class="fig-h"><span class="fn">Figura 4.1</span>Exacerbações: diagnóstico e avaliação</div>
+    <div class="fig-b">
+      <table class="gt">
+        <tbody>
+          <tr><td class="rh" style="width:8%;text-align:center;font-size:1.2rem">1.</td><td>Fazer avaliação clínica completa em busca de evidências de DPOC e de possíveis condições respiratórias e não respiratórias, incluindo sintomas e sinais de pneumonia, doença cardiovascular e embolia pulmonar.</td></tr>
+          <tr><td class="rh" style="text-align:center;font-size:1.2rem">2.</td><td><strong>Avaliar:</strong><br>a. Sintomas: gravidade da dispneia, que pode ser medida por escala visual analógica (EVA), e presença de tosse.<br>b. Sinais (taquipneia, taquicardia), volume e cor do escarro e desconforto respiratório (uso de musculatura acessória).</td></tr>
+          <tr><td class="rh" style="text-align:center;font-size:1.2rem">3.</td><td>Fazer exames adicionais, se necessários e disponíveis, para avaliar a gravidade: oximetria; laboratório (eosinófilos, PCR, pesquisa viral e bacteriana); gasometria arterial.</td></tr>
+          <tr><td class="rh" style="text-align:center;font-size:1.2rem">4.</td><td>Avaliar condições subjacentes (infecções virais ou bacterianas, eventos ambientais ou cardiovasculares) que simulam a exacerbação.</td></tr>
+          <tr><td class="rh" style="text-align:center;font-size:1.2rem">5.</td><td>Definir o local de cuidado adequado.</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:.8rem;color:#6c757d;margin-top:6px">PCR = proteína C-reativa; EVA = escala visual analógica.</p>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 4.1.</figcaption>
+  </figure>
+</section>
+
+<section class="topic reveal" id="gravidade-roma" data-title="Classificação de gravidade (proposta de Roma)">
+  <h2><span class="tn">4.2</span> Classificação de gravidade: proposta de Roma</h2>
+  <p class="lead">Gravidade definida pela clínica no ponto de atendimento, e não pelo uso de recursos <em>a posteriori</em>.</p>
+  <p>Até recentemente, a gravidade era definida retrospectivamente pelo uso de recursos e pelo tratamento, o que serve para ensaios clínicos mas é inútil à beira do leito. A <strong>classificação de Roma</strong> (revisão da literatura e Delphi modificado) usa variáveis clínicas e laboratoriais rotineiras. Em estudos de validação, <strong>15–30% dos internados tinham exacerbação leve</strong> (que seria “grave” pelo critério de uso de recursos), ~50% moderada e ~10% grave. A gravidade por Roma correlaciona-se com UTI e mortalidade. Na atenção primária sem laboratório, bastam EVA de dispneia, FR, FC e SaO<sub>2</sub>. Recomenda-se dosar PCR quando disponível.</p>
+
+  <figure class="fig" id="fig-4-2" data-num="4.2" data-title="Classificação da gravidade das exacerbações da DPOC">
+    <div class="fig-h"><span class="fn">Figura 4.2</span>Classificação da gravidade das exacerbações da DPOC</div>
+    <div class="fig-b">
+      <div class="flow">
+        <div class="step"><div class="cell c-grey" style="max-width:460px;margin:auto;text-align:center"><strong>Paciente com DPOC e suspeita de exacerbação</strong></div></div>
+        <div class="arrow">↓</div>
+        <div class="step"><div class="cell c-grey" style="max-width:460px;margin:auto;text-align:center"><strong>Confirmar o diagnóstico de exacerbação e a gravidade do episódio</strong></div></div>
+        <div class="arrow">↓</div>
+        <table class="gt" style="max-width:820px">
+          <thead><tr><th style="width:28%">Gravidade</th><th>Limiares das variáveis</th></tr></thead>
+          <tbody>
+            <tr><td class="rh" style="background:#d3f9d8">Leve (padrão)</td><td><ul class="bul"><li>Dispneia EVA &lt; 5</li><li>FR &lt; 24 irpm</li><li>FC &lt; 95 bpm</li><li>SaO<sub>2</sub> em repouso ≥ 92% em ar ambiente (ou na prescrição habitual de O<sub>2</sub>) <strong>E</strong> variação ≤ 3% (quando conhecida)</li><li>PCR &lt; 10 mg/L (se obtida)</li></ul></td></tr>
+            <tr><td class="rh" style="background:#fff3bf">Moderada<br><small>(≥ 3 de 5*)</small></td><td><ul class="bul"><li>Dispneia EVA ≥ 5</li><li>FR ≥ 24 irpm</li><li>FC ≥ 95 bpm</li><li>SaO<sub>2</sub> em repouso &lt; 92% em ar ambiente (ou na prescrição habitual) <strong>E/OU</strong> variação &gt; 3% (quando conhecida)</li><li>PCR ≥ 10 mg/L</li></ul><em>*Se obtida, a gasometria pode mostrar hipoxemia (PaO<sub>2</sub> 70–80 mmHg)</em></td></tr>
+            <tr><td class="rh" style="background:#ffe3e3">Grave</td><td><ul class="bul"><li>Dispneia, FR, FC, SaO<sub>2</sub> e PCR como na moderada</li><li>Se obtida, a gasometria pode mostrar hipoxemia (PaO<sub>2</sub> ≤ 60 mmHg) e/ou hipercapnia e acidose (<strong>PaCO<sub>2</sub> &gt; 45 mmHg e pH &lt; 7,35</strong>)</li></ul></td></tr>
+          </tbody>
+        </table>
+        <div class="arrow">↓</div>
+        <div class="step"><div class="cell c-grey" style="max-width:460px;margin:auto;text-align:center"><strong>Determinar a etiologia:</strong> pesquisa viral, cultura de escarro, outras</div></div>
+      </div>
+      <p style="font-size:.8rem;color:#495057;margin-top:8px">Adaptado da Proposta de Roma: Celli et al. Am J Respir Crit Care Med 2021;204(11):1251-8. EVA = escala visual analógica de dispneia (0–10); FR = frequência respiratória; FC = frequência cardíaca; PCR = proteína C-reativa.</p>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 4.2.</figcaption>
+  </figure>
+
+  <h3>Paciente internado: gravidade pelos sinais clínicos</h3>
+  <div class="grid3">
+    <div class="cell c-green"><strong class="t">Sem insuficiência respiratória</strong>FR ≤ 24; FC ≤ 95; sem musculatura acessória; estado mental normal; hipoxemia corrigida com Venturi FiO<sub>2</sub> 24–35%; sem aumento da PaCO<sub>2</sub>.</div>
+    <div class="cell c-amber"><strong class="t">Insuficiência respiratória</strong>FR &gt; 24; FC &gt; 95; uso de musculatura acessória; estado mental adequado; hipoxemia corrigida com Venturi &gt; 35%; hipercapnia (PaCO<sub>2</sub> acima do basal ou 50–60 mmHg).</div>
+    <div class="cell c-red"><strong class="t">Falência ventilatória</strong>FR &gt; 24; FC &gt; 95; musculatura acessória; <strong>alteração aguda do estado mental</strong>; hipoxemia não corrigida ou FiO<sub>2</sub> &gt; 40%; PaCO<sub>2</sub> &gt; 60 mmHg ou acima do basal e <strong>acidose (pH ≤ 7,25)</strong>.</div>
+  </div>
+</section>
+
+<section class="topic reveal" id="condicoes-local" data-title="Condições a considerar e local de tratamento">
+  <h2><span class="tn">4.3</span> Condições a considerar e local de tratamento</h2>
+  <p class="lead">Diagnósticos que simulam ou agravam a exacerbação e onde tratar.</p>
+  <p>Pacientes com DPOC têm mais risco de viroses, infecções bacterianas, pneumonia, IC descompensada, IAM, arritmias e embolia pulmonar. Essas condições podem simular ou agravar exacerbações e elevam o risco de eventos cardiovasculares fatais e não fatais por até 1 ano. O ecocardiograma detecta alterações direitas e esquerdas mesmo sem cardiopatia conhecida.</p>
+
+  <figure class="fig" id="fig-4-3" data-num="4.3" data-title="Condições que simulam ou agravam sintomas de exacerbação">
+    <div class="fig-h"><span class="fn">Figura 4.3</span>Condições que podem simular ou agravar sintomas semelhantes aos da exacerbação</div>
+    <div class="fig-b">
+      <p style="font-weight:700;margin-bottom:8px">Ferramentas disponíveis para investigar possíveis fatores de confusão:</p>
+      <table class="gt">
+        <tbody>
+          <tr><td class="rh" rowspan="5" style="width:18%;text-align:center;vertical-align:middle">Mais frequentes</td><td><strong>Bronquite aguda viral ou bacteriana</strong><br>• Avaliação microbiológica viral e bacteriana • Radiografia de tórax</td></tr>
+          <tr><td><strong>Insuficiência cardíaca</strong><br>• Radiografia ou TC de tórax • NT-proBNP e BNP • Ecocardiograma</td></tr>
+          <tr><td><strong>Infarto do miocárdio e/ou arritmias</strong> (<em>flutter</em>/fibrilação atrial)<br>• Eletrocardiograma • Troponina</td></tr>
+          <tr><td><strong>Embolia pulmonar</strong><br>• Avaliação da probabilidade clínica (hemoptise, TVP, câncer, cirurgia, fratura óssea) • D-dímero • Angiotomografia de tórax</td></tr>
+          <tr><td><strong>Pneumonia</strong><br>• Avaliação microbiológica viral e bacteriana • Radiografia ou TC de tórax • Ultrassom pulmonar</td></tr>
+          <tr><td class="rh" style="text-align:center">Menos frequente</td><td><strong>Pneumotórax</strong><br>• Radiografia ou TC de tórax • Ultrassom torácico</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 4.3.</figcaption>
+  </figure>
+
+  <p>Para decidir o local de tratamento, considere a gravidade do episódio, a gravidade da DPOC de base, as comorbidades, o estado mental e o apoio domiciliar. Mais de 80% das exacerbações são tratadas ambulatorialmente, mas até uma exacerbação leve pode exigir internação. No pronto-socorro, verificar se há risco de vida e necessidade de CNAF ou VNI (com gasometria). No internado, monitorar Roma e estado mental. A gasometria arterial é o padrão-ouro nos casos graves; a venosa e a capnografia transcutânea ajudam nos menos graves. A oximetria é menos precisa em <strong>peles mais escuras</strong>.</p>
+
+  <figure class="fig" id="fig-4-4" data-num="4.4" data-title="Local adequado de tratamento da exacerbação">
+    <div class="fig-h"><span class="fn">Figura 4.4</span>Avaliação do local adequado de tratamento na exacerbação da DPOC</div>
+    <div class="fig-b">
+      <div class="flow">
+        <div class="step"><div class="cell c-amber" style="max-width:300px;margin:auto;text-align:center"><strong>Confirmar o diagnóstico de exacerbação</strong></div></div>
+        <div class="arrow">↓</div>
+        <div class="step" style="max-width:100%"><div class="cell c-dark" style="text-align:center"><strong style="font-size:1.2rem">AVALIAR</strong>
+          <div class="grid4" style="grid-template-columns:repeat(5,1fr);margin-top:10px">
+            <div class="cell c-grey">Gravidade da exacerbação</div><div class="cell c-grey">Estado mental e estabilidade hemodinâmica</div><div class="cell c-grey">Comorbidades graves</div><div class="cell c-grey">Apoio domiciliar</div><div class="cell c-grey">Resposta ao tratamento inicial</div>
+          </div></div></div>
+        <div class="arrow">↓</div>
+        <div class="step"><div class="cell c-amber" style="max-width:300px;margin:auto;text-align:center"><strong>Local de tratamento</strong></div></div>
+        <div class="grid3" style="width:100%;margin-top:10px">
+          <div class="cell c-green"><strong class="t">Ambulatorial</strong><ul><li>Exacerbação leve</li><li>Pouco comprometimento por comorbidades</li><li>Paciente colaborativo</li><li>Bom apoio domiciliar</li></ul></div>
+          <div class="cell c-amber"><strong class="t">Indicações de internação</strong><ul><li>Sinais e sintomas de insuficiência respiratória: ↑ FR, uso de musculatura acessória, piora da hipoxemia e/ou hipercapnia, alteração do estado mental</li><li>Falta de resposta ao tratamento inicial</li><li>Comorbidades graves concomitantes (IC, arritmias etc.)</li><li>Apoio domiciliar insuficiente</li></ul></div>
+          <div class="cell c-red"><strong class="t">Indicações de UTI respiratória ou clínica</strong><ul><li>Hipoxemia e/ou hipercapnia persistente ou em piora apesar do suporte ventilatório</li><li>Piora do estado mental (confusão, letargia, coma)</li><li>Necessidade de ventilação mecânica invasiva</li><li>Instabilidade hemodinâmica: vasopressor, arritmias</li></ul></div>
+        </div>
+      </div>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 4.4.</figcaption>
+  </figure>
+</section>
+
+<section class="topic reveal" id="fatores-risco-exac" data-title="Desencadeantes, sintomas e fatores de risco">
+  <h2><span class="tn">4.4</span> Desencadeantes, sintomas e fatores de risco</h2>
+  <p class="lead">Gatilhos, evolução, preditores de novos eventos e risco cardiovascular.</p>
+  <div class="grid2">
+    <div class="cell c-blue"><strong class="t">Desencadeantes</strong>Principalmente <strong>vírus respiratórios</strong> (rinovírus, influenza, parainfluenza, metapneumovírus; VSR em 8,7% das exacerbações ambulatoriais), além de bactérias, poluição (NO<sub>2</sub>, MP<sub>2,5</sub>, MP<sub>10</sub>), calor e frio extremos, fumaça de queimadas e tempestades de poeira. As virais são mais graves e longas e levam a mais internações no inverno. <em>Aspergillus</em> no escarro tem relevância incerta; a aspergilose invasiva é rara (1,3–3,9%), e a sensibilização a <em>Aspergillus</em> marca risco de exacerbação.</div>
+    <div class="cell c-blue"><strong class="t">Sintomas e evolução</strong>Mais dispneia, febre e escarro (a purulência sugere bactéria). Viroses causam tosse seca persistente, dispneia e sibilância. Os sintomas duram 7–10 dias, mas <strong>até 20% não se recuperam em 8 semanas</strong>. As exacerbações aceleram a progressão e tendem a se agrupar no tempo. Na DPOC por biomassa, o quadro é semelhante, com mais inflamação T2.</div>
+    <div class="cell c-amber"><strong class="t">Risco de novos eventos</strong>O preditor mais forte é o <strong>número de exacerbações no ano anterior</strong> (uma já aumenta o risco; ≥ 2 aumentam mais). Outros: VEF<sub>1</sub> baixo, nº de medicações de manutenção, sexo feminino, uso de resgate, eosinófilos, DRGE, relação artéria pulmonar/aorta &gt; 1, enfisema e espessamento brônquico na TC, hiperinsuflação dinâmica, bronquite crônica e alta carga de sintomas.</div>
+    <div class="cell c-amber"><strong class="t">Readmissão e prognóstico</strong>Idade, sexo masculino, estado de saúde, exacerbações prévias, acidose, ventilação, tempo de internação, multimorbidade, contexto sociofamiliar e falta de especialistas. <strong>Mortalidade em 5 anos após internação ≈ 50%</strong>. <strong>Vitamina D:</strong> investigar deficiência grave (&lt; 10 ng/mL ou &lt; 25 nM) em todo internado e suplementar se necessário (redução de até 50% de episódios em deficientes graves). IgG sérica baixa associa-se a risco.</div>
+  </div>
+
+  <h3>Interações cardiopulmonares</h3>
+  <p>Durante e após a exacerbação aumenta o risco de IAM, IC, arritmias e AVC, máximo nas primeiras semanas e persistente por até 1 ano, inclusive após exacerbações <strong>moderadas</strong>. Implicações: considerar dosar troponina e peptídeos natriuréticos na exacerbação (evidência ainda fraca) e investigar e tratar se estiverem alterados. Não há evidência para prevenção cardiovascular de rotina (por exemplo, AAS). Betabloqueadores e estatinas seguem as indicações cardiovasculares.</p>
+
+  <figure class="fig" id="fig-4-5" data-num="4.5" data-title="Risco cardiovascular grave ou morte após exacerbação">
+    <div class="fig-h"><span class="fn">Figura 4.5</span>Risco de evento cardiovascular grave ou morte por qualquer causa após exacerbação da DPOC de qualquer gravidade</div>
+    <div class="fig-b"><div class="svgwrap">
+      <svg viewBox="0 0 860 360" xmlns="http://www.w3.org/2000/svg" font-size="13.5">
+        <text x="20" y="22" font-weight="800" fill="#1a4d7a">Exposição (dias após a exacerbação)</text>
+        <text x="840" y="22" font-weight="800" fill="#1a4d7a" text-anchor="end">HR combinado* (IC95%)</text>
+        <!-- eixo log: x = 260 + 150*log10(HR/0.8)... map HR 0.8..20 -->
+        <line x1="260" y1="300" x2="700" y2="300" stroke="#222"/>
+        <g font-size="11" text-anchor="middle" fill="#333">
+          <line x1="301" y1="40" x2="301" y2="300" stroke="#c92a2a" stroke-dasharray="4 3"/><text x="301" y="318">1</text>
+          <text x="391" y="318">2</text><text x="511" y="318">5</text><text x="601" y="318">10</text><text x="691" y="318">20</text><line x1="691" y1="296" x2="691" y2="304" stroke="#222"/>
+          <line x1="391" y1="296" x2="391" y2="304" stroke="#222"/><line x1="511" y1="296" x2="511" y2="304" stroke="#222"/><line x1="601" y1="296" x2="601" y2="304" stroke="#222"/>
+        </g>
+        <text x="460" y="340" text-anchor="middle" font-size="12">Hazard ratio (escala log)</text>
+        <g>
+          <text x="20" y="64">1–7 dias</text><line x1="519" y1="60" x2="688" y2="60" stroke="#1a4d7a" stroke-width="2"/><rect x="598" y="54" width="12" height="12" fill="#1a4d7a"/><text x="840" y="64" text-anchor="end">10,22 (5,34–19,57)</text>
+          <text x="20" y="106">8–14 dias</text><line x1="424" y1="102" x2="538" y2="102" stroke="#1a4d7a" stroke-width="2"/><rect x="476" y="96" width="12" height="12" fill="#1a4d7a"/><text x="840" y="106" text-anchor="end">4,00 (2,58–6,18)</text>
+          <text x="20" y="148">15–30 dias</text><line x1="400" y1="144" x2="482" y2="144" stroke="#1a4d7a" stroke-width="2"/><rect x="435" y="138" width="12" height="12" fill="#1a4d7a"/><text x="840" y="148" text-anchor="end">2,93 (2,13–4,02)</text>
+          <text x="20" y="190">31–180 dias</text><line x1="349" y1="186" x2="391" y2="186" stroke="#1a4d7a" stroke-width="2"/><rect x="364" y="180" width="12" height="12" fill="#1a4d7a"/><text x="840" y="190" text-anchor="end">1,70 (1,45–2,00)</text>
+          <text x="20" y="232">181–365 dias</text><line x1="311" y1="228" x2="345" y2="228" stroke="#1a4d7a" stroke-width="2"/><rect x="323" y="222" width="12" height="12" fill="#1a4d7a"/><text x="840" y="232" text-anchor="end">1,24 (1,08–1,40)</text>
+          <text x="20" y="274">&gt; 365 dias</text><line x1="292" y1="270" x2="354" y2="270" stroke="#868e96" stroke-width="2"/><rect x="317" y="264" width="12" height="12" fill="#868e96"/><text x="840" y="274" text-anchor="end">1,18 (0,93–1,50)</text>
+        </g>
+      </svg>
+    </div>
+      <p style="font-size:.8rem;color:#495057;margin-top:6px">*Metanálise de efeitos aleatórios dos HR ajustados. Adaptado de Nordon et al. ERJ Open Res 2025;11(3):01091-2024. Gráfico de floresta construído a partir dos valores numéricos da figura original (tabela).</p>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 4.5.</figcaption>
+  </figure>
+
+  <div class="callout warn"><strong>Escores de risco</strong> (SCOPEX, CEX-HScore, DECAF/mDECAF): têm validação limitada e baixa sensibilidade e especificidade. <strong>O GOLD não recomenda o uso rotineiro de nenhum deles.</strong></div>
+</section>
+
+<section class="topic reveal" id="tratamento-exacerbacao" data-title="Tratamento farmacológico da exacerbação">
+  <h2><span class="tn">4.5</span> Tratamento farmacológico da exacerbação</h2>
+  <p class="lead">Broncodilatadores, corticosteroides, antibióticos e terapias adjuvantes.</p>
+
+  <figure class="fig" id="fig-4-6" data-num="4.6" data-title="Manejo das exacerbações graves sem risco imediato de vida">
+    <div class="fig-h"><span class="fn">Figura 4.6</span>Manejo das exacerbações graves, mas sem risco imediato de vida*</div>
+    <div class="fig-b">
+      <table class="gt">
+        <tbody>
+          <tr><td><strong>Avaliar a gravidade dos sintomas, gasometria e radiografia de tórax</strong></td></tr>
+          <tr><td><strong>Broncodilatadores:</strong><ul class="bul"><li>Aumentar a dose e/ou a frequência dos broncodilatadores de curta ação</li><li>Combinar β<sub>2</sub>-agonistas e anticolinérgicos de curta ação</li><li>Considerar broncodilatadores de longa ação quando o paciente estabilizar</li><li>Usar espaçadores ou nebulizadores a ar comprimido quando apropriado</li></ul></td></tr>
+          <tr><td><strong>Considerar corticosteroide oral</strong></td></tr>
+          <tr><td><strong>Considerar antibiótico (oral)</strong> se secreção purulenta, cultura de escarro positiva prévia ou necessidade de ventilação mecânica (invasiva ou não invasiva)</td></tr>
+          <tr><td><strong>Considerar oxigênio de alto fluxo (CNAF) ou VNI</strong>; gasometria seriada, gasometria venosa e oximetria</td></tr>
+          <tr><td><strong>Sempre:</strong><ul class="bul"><li>Monitorar o balanço hídrico</li><li>Considerar heparina subcutânea ou de baixo peso molecular para profilaxia tromboembólica</li><li>Identificar e tratar condições associadas (IC, arritmias, embolia pulmonar etc.)</li></ul></td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:.8rem;color:#6c757d;margin-top:6px">*Considerar os recursos locais.</p>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 4.6.</figcaption>
+  </figure>
+
+  <div class="grid2">
+    <div class="cell c-blue"><strong class="t">Broncodilatadores</strong><strong>SABA ± SAMA</strong> inalatórios como broncodilatadores iniciais. pMDI (± espaçador) e nebulizador são equivalentes; o nebulizador é mais fácil nos pacientes mais graves e deve ser movido <strong>a ar, não a O<sub>2</sub></strong>, pelo risco de ↑ PaCO<sub>2</sub>. Esquema: 1 nebulização/h por 2–3 doses ou 1–2 jatos/h por 2–3 doses, depois a cada 2–4 h conforme resposta. Evitar doses altas. Manter ou iniciar broncodilatadores de longa ação (± CI) antes da alta. LABA nebulizado (arformoterol, formoterol, revefenacina) reduziu readmissão em 30 dias num estudo retrospectivo. <strong>Metilxantinas IV não recomendadas.</strong></div>
+    <div class="cell c-green"><strong class="t">Corticosteroides sistêmicos</strong>Encurtam a recuperação, melhoram VEF<sub>1</sub> e oxigenação e reduzem recaída precoce, falha terapêutica e tempo de internação. Dose: <strong>40 mg/dia de prednisona-equivalente por 5 dias</strong>. VO equivale a IV. A budesonida nebulizada é alternativa. Cursos mais longos e mesmo ciclos curtos associam-se a pneumonia, sepse e morte, por isso devem ser reservados às exacerbações significativas. A resposta é maior com eosinófilos altos. No STARR2, o corticoide guiado por eosinófilos permitiu evitá-lo com segurança em parte dos pacientes da atenção primária; falta validação em internados.</div>
+    <div class="cell c-amber"><strong class="t">Antibióticos – indicações</strong><ul><li>≥ 2 entre: ↑ dispneia, febre, ↑ volume de escarro, ↑ purulência, desde que <strong>a purulência seja um deles</strong></li><li>Cultura de escarro positiva em exacerbação prévia</li><li>Necessidade de ventilação mecânica (invasiva ou não invasiva)</li></ul>Grande benefício na UTI. Escarro purulento: sensibilidade de 94,4% e especificidade de 52% para alta carga bacteriana. A PCR de beira de leito reduz prescrições sem piorar desfechos. <strong>Procalcitonina não recomendada</strong> (resultados conflitantes; maior mortalidade na UTI).</div>
+    <div class="cell c-amber"><strong class="t">Antibióticos – escolha e duração</strong>Pela resistência local: amoxicilina-clavulanato, macrolídeo, tetraciclina ou, em casos selecionados, quinolona. Cultura em exacerbações frequentes, obstrução grave ou ventilação (gram-negativos, <em>Pseudomonas</em>, germes resistentes). <strong>Duração ≤ 5 dias no ambulatório</strong> (eficácia igual à de cursos longos, com menos resistência).</div>
+    <div class="cell c-purple" style="grid-column:1/-1"><strong class="t">Outras terapias</strong><strong>Mucolíticos/antioxidantes:</strong> a N-acetilcisteína não melhora a recuperação do VEF<sub>1</sub>, mas reduz tosse e catarro. Em metanálise (24 estudos, 2.172 pacientes), os mucolíticos aumentaram o sucesso terapêutico em 37%. <strong>Adjuvantes:</strong> balanço hídrico, diuréticos se indicados, anticoagulação, nutrição e comorbidades. Embolia pulmonar em até 5,9% dos internados: <strong>profilaxia de tromboembolismo</strong>. Reforçar a cessação do tabagismo.</div>
+  </div>
+
+  <figure class="fig" id="fig-4-7" data-num="4.7" data-title="Pontos-chave para o manejo das exacerbações">
+    <div class="fig-h"><span class="fn">Figura 4.7</span>Pontos-chave para o manejo das exacerbações</div>
+    <div class="fig-b"><ul class="bul">
+      <li>β<sub>2</sub>-agonistas inalatórios de curta ação, com ou sem anticolinérgicos de curta ação, são os broncodilatadores iniciais recomendados <strong>(Evidência C)</strong></li>
+      <li>Corticosteroides sistêmicos melhoram a função pulmonar (VEF<sub>1</sub>) e a oxigenação e encurtam a recuperação e a internação. Duração: 5 dias <strong>(Evidência A)</strong></li>
+      <li>Antibióticos estão indicados se houver escarro purulento, cultura de escarro positiva prévia ou necessidade de ventilação mecânica (invasiva ou não invasiva) <strong>(Evidência A)</strong></li>
+      <li>Quando indicados, os antibióticos encurtam a recuperação e reduzem recaída precoce, falha terapêutica e tempo de internação. Duração: 5 dias <strong>(Evidência B)</strong></li>
+      <li>O oxigênio de alto fluxo (CNAF) é o primeiro modo de suporte na insuficiência respiratória aguda <strong>hipoxêmica</strong>. Na <strong>hipercápnica</strong>, ou sem resposta à CNAF, usar VNI salvo contraindicação absoluta. A VNI melhora as trocas gasosas, reduz o trabalho respiratório e a intubação, encurta a internação e aumenta a sobrevida <strong>(Evidência A)</strong></li></ul></div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 4.7.</figcaption>
+  </figure>
+</section>
+
+<section class="topic reveal" id="insuficiencia-respiratoria" data-title="Manejo da insuficiência respiratória">
+  <h2><span class="tn">4.6</span> Manejo da insuficiência respiratória</h2>
+  <p class="lead">Cânula nasal de alto fluxo, VNI e ventilação invasiva.</p>
+  <div class="grid3">
+    <div class="cell c-blue"><strong class="t">Cânula nasal de alto fluxo (CNAF)</strong>Mistura aquecida e umidificada de 10–60 L/min. Reduz FR, esforço e hipercapnia. Três cenários: (1) exacerbação internada, com menos falha que O<sub>2</sub> convencional em um ECR e sem diferença em outro; (2) prevenção de reintubação; (3) DPOC estável em risco. Na acidose respiratória, a CNAF foi não inferior à VNI em PaCO<sub>2</sub>, mas ~30% migraram para VNI em 6 h. Em um estudo, intubou mais que a VNI. <strong>A ERS recomenda VNI em vez de CNAF</strong> na hipercapnia e no pós-extubação de alto risco, salvo contraindicação.</div>
+    <div class="cell c-green"><strong class="t">Ventilação não invasiva (VNI)</strong>Modo inicial na insuficiência respiratória aguda da exacerbação internada. Sucesso de 80–85%: melhora pH, PaCO<sub>2</sub>, FR, trabalho respiratório e dispneia, reduz pneumonia associada e internação e, sobretudo, <strong>reduz mortalidade e intubação</strong>. Pode ser suspensa diretamente, sem desmame, quando o paciente tolera ≥ 4 h sem suporte. <strong>Estimulantes respiratórios não recomendados.</strong></div>
+    <div class="cell c-red"><strong class="t">Ventilação invasiva</strong>Inclui falha da VNI, situação em que a morbimortalidade é maior. A decisão considera a reversibilidade, os desejos do paciente (diretivas antecipadas) e a disponibilidade de UTI. A mortalidade hospitalar é de 17–49%, menor que na ventilação por outras causas. O <strong>pessimismo prognóstico injustificado</strong> leva a negar UTI a quem sobreviveria. O prognóstico é pior com VEF<sub>1</sub> &lt; 30%, doença cardiovascular ou restrição ao domicílio, e melhor com causa reversível, boa mobilidade e sem OLD.</div>
+  </div>
+
+  <figure class="fig" id="fig-4-8" data-num="4.8" data-title="Indicações de oxigênio de alto fluxo (CNAF)">
+    <div class="fig-h"><span class="fn">Figura 4.8</span>Indicações de oxigenoterapia de alto fluxo (CNAF)*</div>
+    <div class="fig-b"><p><strong>Pelo menos um dos seguintes:</strong></p><ul class="bul">
+      <li>Hipoxemia persistente</li><li>Intolerância à ventilação não invasiva (VNI)</li><li>Contraindicação à VNI</li><li>Desmame do oxigênio suplementar após a VNI</li><li>Prevenção de reintubação em pacientes que precisaram de intubação e ventilação com pressão positiva</li><li>Tratamento de pacientes com DPOC estável em risco de exacerbações</li></ul>
+      <p style="font-size:.8rem;color:#6c757d">*Considerar os recursos locais.</p></div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 4.8.</figcaption>
+  </figure>
+
+  <div class="grid2">
+    <figure class="fig" id="fig-4-9" data-num="4.9" data-title="Indicações de ventilação mecânica não invasiva (VNI)" style="margin:0">
+      <div class="fig-h"><span class="fn">Figura 4.9</span>Indicações de VNI</div>
+      <div class="fig-b"><p><strong>Pelo menos um dos seguintes:</strong></p><ul class="bul">
+        <li>Acidose respiratória (<strong>PaCO<sub>2</sub> ≥ 6,0 kPa ou 45 mmHg e pH arterial ≤ 7,35</strong>)</li>
+        <li>Dispneia grave com sinais de fadiga muscular respiratória e/ou aumento do trabalho respiratório: uso de musculatura acessória, movimento paradoxal do abdome ou retração intercostal</li>
+        <li>Hipoxemia persistente apesar de oxigênio suplementar</li></ul></div>
+      <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 4.9.</figcaption>
+    </figure>
+    <figure class="fig" id="fig-4-10" data-num="4.10" data-title="Indicações de ventilação mecânica invasiva" style="margin:0">
+      <div class="fig-h"><span class="fn">Figura 4.10</span>Indicações de ventilação mecânica invasiva</div>
+      <div class="fig-b"><ul class="bul">
+        <li>Hipoxemia persistente com risco de vida apesar de CNAF ou VNI</li><li>Intolerância à CNAF e/ou à VNI</li><li>Pós-parada respiratória ou cardíaca</li><li>Rebaixamento de consciência; agitação psicomotora não controlada por sedação</li><li>Aspiração maciça ou vômitos persistentes</li><li>Incapacidade persistente de eliminar secreções</li><li>Instabilidade hemodinâmica grave sem resposta a volume e drogas vasoativas</li><li>Arritmias ventriculares ou supraventriculares graves</li></ul></div>
+      <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 4.10.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="topic reveal" id="alta-seguimento" data-title="Alta hospitalar e seguimento">
+  <h2><span class="tn">4.7</span> Alta hospitalar e seguimento</h2>
+  <p class="lead">Prevenir readmissão: tratamento adequado na alta, reabilitação precoce e consultas programadas.</p>
+  <p><strong>30–50% são readmitidos em 30 dias</strong>, com maior mortalidade. Pacotes de alta incluem educação, otimização e técnica inalatória, adesão, comorbidades, reabilitação, autocuidado, consulta precoce com especialista, telemonitorização e contato continuado. Iniciar a <strong>tripla em inalador único nos primeiros 30 dias</strong> após a primeira exacerbação reduziu em 20–30% a próxima exacerbação e as reinternações. Porém, num grande estudo de mundo real, só 17,5% saíram com tripla, e mais de 1/4 saiu com SABA isolado ou sem inalador. A reabilitação precoce (&lt; 4 semanas) melhora a qualidade de vida e o exercício. A consulta em até 1 mês reduz readmissões. Em 3 meses: espirometria, BODE, reavaliação da OLD por gasometria. Na exacerbação recorrente, fazer TC para bronquiectasias e enfisema.</p>
+
+  <figure class="fig" id="fig-4-11" data-num="4.11" data-title="Critérios de alta e recomendações de seguimento">
+    <div class="fig-h"><span class="fn">Figura 4.11</span>Critérios de alta e recomendações de seguimento</div>
+    <div class="fig-b">
+      <div class="grid2">
+        <ol class="bul">
+          <li>Revisão completa dos dados clínicos e laboratoriais</li>
+          <li>Conferir a terapia de manutenção (ver <a href="capitulo-3.html#fig-3-9">Figura 3.9</a>); pacientes com <strong>eosinófilos elevados devem receber alta com LABA+LAMA+CI</strong></li>
+          <li>Reavaliar a técnica inalatória</li>
+          <li>Garantir o entendimento da suspensão das medicações agudas (corticoide e/ou antibiótico)</li>
+        </ol>
+        <ol class="bul" start="5">
+          <li>Avaliar a necessidade de manter o oxigênio suplementar</li>
+          <li>Fornecer plano de manejo</li>
+          <li>Seguimento das comorbidades, como doença cardiovascular</li>
+          <li>Garantir o seguimento: precoce (&lt; 4 semanas) e tardio (&gt; 12 semanas), conforme indicado</li>
+        </ol>
+      </div>
+      <div class="grid2" style="margin-top:10px">
+        <div class="cell c-grey"><strong class="t">Seguimento em 1–4 semanas</strong><ul><li>Avaliar a capacidade de lidar com o ambiente habitual</li><li>Revisar o entendimento do esquema terapêutico</li><li>Reavaliar a técnica inalatória</li><li>Reavaliar a necessidade de O<sub>2</sub> de longo prazo</li><li>Registrar a capacidade de atividade física e considerar elegibilidade para reabilitação</li><li>Registrar sintomas: CAAT™ ou mMRC</li><li>Verificar a situação das comorbidades</li></ul></div>
+        <div class="cell c-amber"><strong class="t">Seguimento em 12–16 semanas</strong><ul><li>Avaliar a capacidade de lidar com o ambiente habitual</li><li>Revisar o entendimento do esquema terapêutico</li><li>Reavaliar a técnica inalatória</li><li>Reavaliar a necessidade de O<sub>2</sub> de longo prazo</li><li>Registrar a capacidade de atividade física e as AVD</li><li><strong>Medir espirometria: VEF<sub>1</sub></strong></li><li>Registrar sintomas: CAAT™ ou mMRC</li><li>Verificar a situação das comorbidades</li></ul></div>
+      </div>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 4.11.</figcaption>
+  </figure>
+</section>
+
+<section class="topic reveal" id="prevencao-exacerbacoes" data-title="Prevenção de novas exacerbações">
+  <h2><span class="tn">4.8</span> Prevenção de novas exacerbações</h2>
+  <p class="lead">Medidas a iniciar após toda exacerbação.</p>
+  <p>Terapia tripla, cessação do tabagismo, vacinas (influenza, pneumococo, VSR) e reabilitação reduzem novas exacerbações. A tripla em inalador único após internação reduz a primeira exacerbação moderada ou grave e as reinternações. Alertas em tempo real sobre picos de poluição também reduzem o risco.</p>
+  <figure class="fig" id="fig-4-12" data-num="4.12" data-title="Intervenções que reduzem a frequência de exacerbações">
+    <div class="fig-h"><span class="fn">Figura 4.12</span>Intervenções que reduzem a frequência das exacerbações da DPOC</div>
+    <div class="fig-b">
+      <table class="gt" style="max-width:820px">
+        <thead><tr><th style="width:38%">Classe</th><th>Intervenção</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Broncodilatadores</td><td>LABA · LAMA · LABA + LAMA</td></tr>
+          <tr><td class="rh">Esquemas com corticosteroide</td><td>LABA + LAMA + CI</td></tr>
+          <tr><td class="rh">Anti-inflamatórios (não esteroides)</td><td>Roflumilaste · Dupilumabe · Mepolizumabe</td></tr>
+          <tr><td class="rh">Anti-infecciosos</td><td>Vacinas · Macrolídeos de longo prazo</td></tr>
+          <tr><td class="rh">Mucorreguladores</td><td>N-acetilcisteína · Carbocisteína · Erdosteína</td></tr>
+          <tr><td class="rh">Outros</td><td>Cessação do tabagismo · Reabilitação · Redução de volume pulmonar · Vitamina D · Medidas de proteção (máscara, menos contato social, lavagem frequente das mãos) · Evitar exposições (por exemplo, à poluição externa)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 4.12.</figcaption>
+  </figure>
+</section>
+
+<div class="action-box reveal">
+  <h2>🚑 Mensagens do Capítulo 4</h2>
+  <div class="action-steps">
+    <div class="action-step"><strong>1. Classificar pela clínica (Roma)</strong>• EVA, FR, FC, SaO<sub>2</sub> e PCR definem leve/moderada/grave; a gasometria define hipercapnia e acidose. Sempre procurar pneumonia, IC, IAM/arritmia, embolia e pneumotórax.</div>
+    <div class="action-step"><strong>2. Tratar cedo e por pouco tempo</strong>• SABA ± SAMA; prednisona 40 mg × 5 dias; antibiótico ≤ 5 dias se escarro purulento, cultura prévia positiva ou ventilação. Sem metilxantinas. CNAF na hipoxemia; VNI na hipercapnia/acidose.</div>
+    <div class="action-step"><strong>3. A alta é o começo</strong>• Tripla se eos elevados, técnica, plano de ação, reabilitação &lt; 4 semanas, consultas em 1–4 e 12–16 semanas, vitamina D, vigilância cardiovascular (risco ×10 na 1ª semana).</div>
+  </div>
+</div>
+
+<div class="abbreviations-box">
+  <p><strong>Abreviações:</strong> <strong>AVD</strong> = atividades de vida diária • <strong>BNP/NT-proBNP</strong> = peptídeo natriurético tipo B • <strong>CI (ICS)</strong> = corticosteroide inalatório • <strong>CNAF (HFNT)</strong> = cânula nasal de alto fluxo • <strong>DRGE</strong> = doença do refluxo gastroesofágico • <strong>EVA (VAS)</strong> = escala visual analógica • <strong>FC</strong> = frequência cardíaca • <strong>FR</strong> = frequência respiratória • <strong>HR</strong> = <em>hazard ratio</em> • <strong>IAM</strong> = infarto agudo do miocárdio • <strong>IC</strong> = insuficiência cardíaca • <strong>OLD</strong> = oxigenoterapia de longo prazo • <strong>PCR (CRP)</strong> = proteína C-reativa • <strong>SABA</strong> = β<sub>2</sub>-agonista de curta ação • <strong>SAMA</strong> = antimuscarínico de curta ação • <strong>TVP</strong> = trombose venosa profunda • <strong>UTI (ICU)</strong> = unidade de terapia intensiva • <strong>VNI (NIV)</strong> = ventilação não invasiva • <strong>VSR</strong> = vírus sincicial respiratório.</p>
+</div>
+
+<footer>
+  <p><strong>Adaptado de:</strong> Global Initiative for Chronic Obstructive Lung Disease (GOLD). <em>Global Strategy for the Diagnosis, Management, and Prevention of Chronic Obstructive Pulmonary Disease – 2027 Report</em>. <a href="https://goldcopd.org" target="_blank" rel="noopener noreferrer">goldcopd.org</a></p>
+  <p style="margin-top:8px;font-size:0.85rem;opacity:0.9;">Adaptação educacional em português, preparada pelo Dr. Fernando Lundgren. As figuras foram redesenhadas e traduzidas; não reproduzem as figuras originais do relatório. Apenas a versão em inglês do GOLD é revisada e aprovada pelo GOLD.</p>
+  <p style="margin-top:8px;font-size:0.85rem;opacity:0.8;">Ferramenta educacional destinada a profissionais de saúde. Não substitui o julgamento clínico.</p>
+  <p class="footnav"><a href="index.html">← GOLD 2027 – Índice</a> <a href="capitulo-3.html">‹ Capítulo 3</a> <a href="capitulo-5.html">Capítulo 5 ›</a></p>
+</footer>
+</div>
+<button id="toTop" aria-label="Voltar ao topo" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>
+const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } }), {threshold: 0.05, rootMargin: '0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+const tt = document.getElementById('toTop');
+window.addEventListener('scroll', () => { tt.style.opacity = window.scrollY > 600 ? '1' : '0'; });
+</script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "41331af379ba4c71af70c5689396f1b8"}'></script><!-- End Cloudflare Web Analytics -->
+<script data-goatcounter="https://pneumoagents.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body></html>

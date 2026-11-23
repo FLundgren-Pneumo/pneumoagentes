@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head>
+<script src="../../assets/js/aviso-profissional.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GOLD 2027 – Cap. 1: Definição e Visão Geral</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --primary: #1a4d7a; --secondary: #2e7ab8; --accent: #4aa3df; --highlight: #ff6b6b;
+  --success: #51cf66; --warning: #ffd43b; --bg-light: #f8f9fa; --bg-dark: #0a1628;
+  --text-dark: #1a1a1a; --text-light: #ffffff; --card-bg: #ffffff; --shadow: rgba(26, 77, 122, 0.15);
+  --green-bg: #ebfbee; --green-bd: #69db7c; --green-tx: #1b4332;
+  --blue-bg: #edf2ff; --blue-bd: #91a7ff; --blue-tx: #1c3d8f;
+  --grey-bg: #f1f3f5; --grey-bd: #adb5bd;
+  --amber-bg: #fff9db; --amber-bd: #fcc419; --amber-tx: #5c4400;
+  --red-bg: #fff5f5; --red-bd: #ff8787; --red-tx: #8a1c1c;
+  --purple-bg: #f3f0ff; --purple-bd: #b197fc; --purple-tx: #3b2a7a;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Work Sans', system-ui, sans-serif;
+  background: linear-gradient(135deg, #0a1628 0%, #1a4d7a 50%, #2e7ab8 100%);
+  background-attachment: fixed;
+  color: var(--text-dark); min-height: 100vh; padding: 40px 20px; position: relative; overflow-x: hidden;
+}
+body::before {
+  content: ''; position: fixed; inset: 0;
+  background: radial-gradient(circle at 20% 50%, rgba(74,163,223,0.1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 80%, rgba(255,107,107,0.1) 0%, transparent 50%);
+  pointer-events: none; z-index: 0;
+}
+.container { max-width: 1400px; margin: 0 auto; position: relative; z-index: 1; }
+a { color: var(--secondary); }
+
+/* navegação */
+.topnav, .footnav { display: flex; flex-wrap: wrap; gap: 18px; font-size: 0.9rem; margin: 0 0 18px; }
+.topnav a, .footnav a { color: #fff; font-weight: 600; text-decoration: none; opacity: .92; }
+.topnav a:hover, .footnav a:hover { text-decoration: underline; opacity: 1; }
+.footnav { justify-content: center; margin-top: 14px; }
+
+/* cabeçalho */
+header { text-align: center; margin-bottom: 40px; animation: fadeInDown 0.8s ease-out; }
+.chapter-tag { display: inline-block; background: var(--warning); color: #3a2c00; font-weight: 800; letter-spacing: 1.5px;
+  text-transform: uppercase; font-size: .78rem; padding: 6px 16px; border-radius: 30px; margin-bottom: 14px; }
+h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.1rem, 4.6vw, 3.5rem); font-weight: 900; color: var(--text-light);
+  margin-bottom: 15px; text-shadow: 2px 4px 12px rgba(0,0,0,0.3); letter-spacing: -1px; line-height: 1.1; }
+.subtitle { font-size: clamp(1rem, 2vw, 1.2rem); color: rgba(255,255,255,0.9); font-weight: 500; margin: 0 auto 12px; max-width: 920px; }
+.source { display: inline-block; background: rgba(255,255,255,0.15); padding: 8px 20px; border-radius: 30px; color: var(--text-light);
+  font-size: 0.9rem; font-weight: 600; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); }
+
+/* sumário */
+.toc { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 18px; padding: 26px 30px; margin-bottom: 35px; color: #fff; }
+.toc h2 { font-size: 1.25rem; margin-bottom: 12px; color: var(--warning); }
+.toc ol { columns: 2 320px; column-gap: 40px; padding-left: 22px; }
+.toc li { margin: 4px 0; break-inside: avoid; }
+.toc a { color: #fff; text-decoration: none; font-weight: 600; }
+.toc a:hover { text-decoration: underline; }
+.figlist { margin-top: 16px; border-top: 1px solid rgba(255,255,255,.2); padding-top: 12px; }
+.figlist summary { cursor: pointer; font-weight: 700; color: var(--warning); }
+.figlist ul { list-style: none; columns: 2 380px; column-gap: 40px; margin-top: 10px; font-size: .9rem; }
+.figlist li { margin: 4px 0; break-inside: avoid; }
+
+/* cartões de tópico */
+.topic { background: var(--card-bg); border-radius: 20px; padding: 35px; margin-bottom: 35px;
+  box-shadow: 0 10px 40px var(--shadow); scroll-margin-top: 20px; }
+.topic > h2 { font-size: 1.6rem; color: var(--primary); margin-bottom: 6px; display: flex; gap: 12px; align-items: baseline; }
+.topic > h2 .tn { font-family: 'Playfair Display', serif; color: var(--accent); font-size: 1.9rem; font-weight: 900; }
+.topic > .lead { color: #495057; font-weight: 500; margin-bottom: 22px; border-bottom: 2px solid #dee2e6; padding-bottom: 14px; }
+.topic h3 { font-size: 1.12rem; color: var(--secondary); margin: 24px 0 10px; }
+.topic h4 { font-size: 1rem; color: var(--primary); margin: 14px 0 6px; }
+.topic p { line-height: 1.68; margin-bottom: 12px; font-size: .97rem; }
+.topic ul.bul, .topic ol.bul { padding-left: 22px; margin-bottom: 12px; line-height: 1.6; font-size: .96rem; }
+.topic ul.bul li, .topic ol.bul li { margin-bottom: 5px; }
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity .6s ease-out, transform .6s ease-out; }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* pontos-chave */
+.keypoints { background: linear-gradient(135deg, var(--blue-bg) 0%, #dbe4ff 100%); border-left: 5px solid #5c7cfa;
+  border-radius: 14px; padding: 20px 24px; margin: 6px 0 22px; }
+.keypoints h4 { color: var(--blue-tx); margin: 0 0 8px; font-size: 1rem; text-transform: uppercase; letter-spacing: .6px; }
+.keypoints ul { padding-left: 20px; color: #22306b; font-weight: 500; line-height: 1.55; font-size: .95rem; }
+.keypoints li { margin-bottom: 6px; }
+.callout { border-radius: 14px; padding: 16px 20px; margin: 14px 0; font-size: .95rem; line-height: 1.55; }
+.callout.new { background: var(--amber-bg); border: 1.5px solid var(--amber-bd); color: var(--amber-tx); }
+.callout.new::before { content: 'NOVO 2027 · '; font-weight: 800; }
+.callout.warn { background: var(--red-bg); border: 1.5px solid var(--red-bd); color: var(--red-tx); }
+.callout.info { background: var(--green-bg); border: 1.5px solid var(--green-bd); color: var(--green-tx); }
+
+/* grades e células (do modelo) */
+.grid2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 12px 0; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 12px 0; }
+.grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 12px 0; }
+.cell { border-radius: 14px; padding: 16px 18px; font-size: .92rem; line-height: 1.52; font-weight: 500;
+  transition: transform .25s ease, box-shadow .25s ease; }
+.cell:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,.08); }
+.cell h4, .cell strong.t { display: block; margin: 0 0 6px; font-size: 1rem; }
+.cell ul { padding-left: 18px; }
+.cell li { margin-bottom: 3px; }
+.c-green { background: linear-gradient(135deg, #ebfbee 0%, #d3f9d8 100%); border: 1.5px solid var(--green-bd); color: var(--green-tx); }
+.c-grey { background: linear-gradient(135deg, #f1f3f5 0%, #e9ecef 100%); border: 1.5px solid var(--grey-bd); color: #212529; }
+.c-blue { background: linear-gradient(135deg, #edf2ff 0%, #dbe4ff 100%); border: 1.5px solid var(--blue-bd); color: var(--blue-tx); }
+.c-amber { background: linear-gradient(135deg, #fff9db 0%, #fff3bf 100%); border: 1.5px solid var(--amber-bd); color: var(--amber-tx); }
+.c-red { background: linear-gradient(135deg, #fff5f5 0%, #ffe3e3 100%); border: 1.5px solid var(--red-bd); color: var(--red-tx); }
+.c-purple { background: linear-gradient(135deg, #f3f0ff 0%, #e5dbff 100%); border: 1.5px solid var(--purple-bd); color: var(--purple-tx); }
+.c-dark { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff; border: none; }
+
+/* figuras */
+.fig { background: #f8f9fa; border: 2px solid #ced4da; border-radius: 16px; margin: 22px 0 26px; overflow: hidden; scroll-margin-top: 20px; }
+.fig > .fig-h { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff; padding: 12px 20px;
+  font-weight: 700; line-height: 1.6; }
+.fig > .fig-h .fn { background: var(--warning); color: #3a2c00; border-radius: 8px; padding: 2px 10px; font-size: .85rem; font-weight: 800; white-space: nowrap; margin-right: 12px; }
+.fig > .fig-b { padding: 20px; overflow-x: auto; }
+.fig > figcaption { font-size: .8rem; color: #6c757d; padding: 0 20px 14px; font-style: italic; }
+.fig svg { width: 100%; height: auto; display: block; font-family: 'Work Sans', sans-serif; }
+.fig .svgwrap { min-width: 680px; }
+
+/* tabelas */
+table.gt { width: 100%; border-collapse: separate; border-spacing: 0; font-size: .9rem; background: #fff;
+  border-radius: 12px; overflow: hidden; border: 1.5px solid #ced4da; }
+table.gt th { background: #dbe4ff; color: var(--blue-tx); text-align: left; padding: 10px 12px; font-weight: 700; border-bottom: 2px solid var(--blue-bd); }
+table.gt td { padding: 9px 12px; border-bottom: 1px solid #e9ecef; vertical-align: top; line-height: 1.45; }
+table.gt tr:last-child td { border-bottom: none; }
+table.gt tr:nth-child(even) td { background: #f8f9fa; }
+table.gt td.rh { font-weight: 700; color: var(--primary); background: #f1f3f5; }
+table.gt .ok { color: #2b8a3e; font-weight: 800; }
+table.gt .no { color: #c92a2a; font-weight: 800; }
+table.gt .mid { color: #e67700; font-weight: 800; }
+
+/* fluxogramas */
+.flow { display: flex; flex-direction: column; align-items: center; gap: 0; }
+.flow .step { width: 100%; max-width: 760px; text-align: center; }
+.flow .arrow { font-size: 1.5rem; color: var(--secondary); line-height: 1.3; }
+.flow .branch { display: grid; gap: 14px; width: 100%; }
+.pill { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: .78rem; font-weight: 700; margin: 2px; }
+.pill.g { background: #d3f9d8; color: #1b4332; } .pill.b { background: #dbe4ff; color: #1c3d8f; }
+.pill.a { background: #fff3bf; color: #5c4400; } .pill.r { background: #ffe3e3; color: #8a1c1c; } .pill.k { background: #e9ecef; color: #343a40; }
+
+/* questionários */
+.scale-row { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: center; padding: 10px 14px; border-radius: 10px; margin-bottom: 6px; }
+.scale-row .g { font-weight: 800; color: var(--primary); text-align: center; font-size: 1.05rem; }
+.cat-row { display: grid; grid-template-columns: 1fr repeat(6, 34px) 1fr; gap: 6px; align-items: center; font-size: .85rem; padding: 7px 0; border-bottom: 1px dashed #dee2e6; }
+.cat-row span.n { width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--secondary); display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--secondary); }
+.cat-row .r { text-align: right; }
+
+/* síntese e abreviaturas (do modelo) */
+.action-box { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: var(--text-light); border-radius: 18px;
+  padding: 35px; margin: 30px 0; text-align: center; box-shadow: 0 15px 50px rgba(26,77,122,.3); }
+.action-box h2 { font-family: 'Playfair Display', serif; font-size: 1.9rem; margin-bottom: 12px; font-weight: 900; }
+.action-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 25px; text-align: left; }
+.action-step { background: rgba(255,255,255,.15); padding: 22px; border-radius: 12px; backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,.2); transition: all .3s ease; font-size: .93rem; line-height: 1.6; }
+.action-step:hover { background: rgba(255,255,255,.25); transform: translateY(-5px); }
+.action-step strong { display: block; font-size: 1.08rem; margin-bottom: 8px; color: var(--warning); }
+.abbreviations-box { background: rgba(255,255,255,.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.2);
+  border-radius: 15px; padding: 25px; margin-top: 40px; color: rgba(255,255,255,.92); font-size: .88rem; line-height: 1.75; }
+.abbreviations-box strong { color: var(--warning); }
+
+/* índice */
+.chapter-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 22px; margin-bottom: 35px; }
+.chapter-card { display: flex; gap: 20px; align-items: center; background: #fff; border-radius: 20px; padding: 26px; text-decoration: none;
+  color: var(--text-dark); box-shadow: 0 10px 40px var(--shadow); transition: transform .25s, box-shadow .25s; }
+.chapter-card:hover { transform: translateY(-6px); box-shadow: 0 18px 50px rgba(0,0,0,.25); }
+.chapter-num { flex: 0 0 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: #fff; font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 900; display: flex; align-items: center; justify-content: center; }
+.chapter-card h3 { color: var(--primary); font-size: 1.2rem; margin-bottom: 6px; }
+.chapter-card p { font-size: .9rem; color: #495057; line-height: 1.5; }
+
+footer { text-align: center; margin-top: 40px; padding: 20px; color: rgba(255,255,255,.8); font-size: .9rem; }
+footer a { color: #fff; }
+#toTop { position: fixed; right: 22px; bottom: 22px; width: 46px; height: 46px; border-radius: 50%; border: none; background: var(--warning);
+  color: #3a2c00; font-size: 1.3rem; font-weight: 900; cursor: pointer; opacity: 0; transition: opacity .3s; z-index: 10; box-shadow: 0 6px 20px rgba(0,0,0,.3); }
+
+@keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: none; } }
+@media (max-width: 950px) {
+  .grid2, .grid3, .grid4 { grid-template-columns: 1fr; }
+  .topic { padding: 24px 18px; }
+  .scale-row { grid-template-columns: 60px 1fr; }
+}
+@media print {
+  body { background: #fff; padding: 0; } body::before { display: none; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .topic, .fig { break-inside: avoid-page; box-shadow: none; }
+  header h1, .subtitle, .source, .toc, .toc a, footer, footer a { color: #1a4d7a !important; text-shadow: none; }
+  .topnav, #toTop { display: none; }
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+<nav class="topnav" aria-label="Navegação"><a href="index.html">← GOLD 2027 – Índice</a> <a href="capitulo-2.html">Capítulo 2 ›</a></nav>
+<header>
+  <span class="chapter-tag">Capítulo 1</span>
+  <h1>Definição e Visão Geral</h1>
+  <p class="subtitle">O que é a DPOC, causas e fatores de risco, carga global, patogênese, patobiologia, fisiopatologia e taxonomia</p>
+  <span class="source">Relatório GOLD 2027 – Estratégia Global para Diagnóstico, Tratamento e Prevenção da DPOC</span>
+</header>
+<div class="toc reveal"><h2>📑 Tópicos do capítulo</h2><ol><li><a href="#o-que-e-dpoc">O que é a DPOC?</a></li><li><a href="#carga-da-dpoc">Carga da DPOC</a></li><li><a href="#patogenese">Patogênese</a></li><li><a href="#patobiologia">Patobiologia</a></li><li><a href="#fisiopatologia">Fisiopatologia</a></li><li><a href="#taxonomia">Taxonomia</a></li></ol><details class="figlist"><summary>🖼️ Figuras deste capítulo (4)</summary><ul><li><a href="#fig-1-1"><strong>Figura 1.1</strong> – Prevalência estimada da DPOC segundo diferentes fontes</a></li><li><a href="#fig-1-2"><strong>Figura 1.2</strong> – Trajetórias do VEF1 ao longo da vida</a></li><li><a href="#fig-1-3"><strong>Figura 1.3</strong> – Grupos que podem ser classificados como pré-DPOC</a></li><li><a href="#fig-1-4"><strong>Figura 1.4</strong> – Taxonomia proposta (etiotipos) para a DPOC</a></li></ul></details></div><!-- CAPÍTULO 1 – DEFINIÇÃO E VISÃO GERAL -->
+
+<section class="topic reveal" id="o-que-e-dpoc" data-title="O que é a DPOC?">
+  <h2><span class="tn">1.1</span> O que é a DPOC?</h2>
+  <p class="lead">Definição, causas e fatores de risco, critério diagnóstico, apresentação clínica e novas oportunidades.</p>
+
+  <div class="keypoints">
+    <h4>Pontos-chave</h4>
+    <ul>
+      <li><strong>Definição:</strong> a DPOC é uma condição pulmonar heterogênea, caracterizada por sintomas respiratórios crônicos (dispneia, tosse, expectoração e/ou exacerbações) decorrentes de alterações das vias aéreas (bronquite, bronquiolite) e/ou dos alvéolos (enfisema), que causam obstrução persistente e frequentemente progressiva ao fluxo aéreo.</li>
+      <li><strong>Causas:</strong> resulta de interações gene (G) × ambiente (E) ao longo da vida (T) – o conceito <em>GETomics</em> – capazes de lesar os pulmões e/ou alterar seu desenvolvimento e envelhecimento normais.</li>
+      <li><strong>Critério diagnóstico:</strong> no contexto clínico apropriado, a obstrução ao fluxo aéreo não totalmente reversível (VEF<sub>1</sub>/CVF &lt; 0,7 pós-broncodilatador) confirma o diagnóstico.</li>
+      <li><strong>Novas oportunidades:</strong> a DPOC é comum, prevenível e tratável, mas é amplamente subdiagnosticada. Saber que ela pode começar cedo, ter causas além do tabaco e ser precedida por condições precursoras (pré-DPOC, PRISm) abre janelas para prevenção e diagnóstico precoce.</li>
+    </ul>
+  </div>
+
+  <h3>Causas e fatores de risco</h3>
+  <div class="grid2">
+    <div class="cell c-grey"><strong class="t">🚬 Tabagismo</strong>
+      Principal fator ambiental: mais sintomas, maior queda anual do VEF<sub>1</sub> e maior mortalidade. Iniciar antes dos 15 anos aumenta o risco independentemente da carga tabágica; mesmo &lt; 10 maços-ano há aumento do risco em 5 anos. Ainda assim, menos de 50% dos grandes fumantes desenvolvem DPOC, e cerca de metade dos casos no mundo decorre de outros fatores. Cachimbo, charuto, narguilé e tabagismo passivo também contam; o tabagismo na gestação altera o crescimento pulmonar fetal.</div>
+    <div class="cell c-amber"><strong class="t">🔥 Biomassa (poluição domiciliar)</strong>
+      Em países de alta renda o tabaco responde por &gt; 70% dos casos; nos países de baixa e média renda (PBMR), por apenas 30–40%. Como os PBMR concentram &gt; 85% da carga global, os fatores não tabágicos já respondem por &gt; 50% da DPOC no mundo. A troca por gás de cozinha/aquecimento reduz o risco e pode ser uma opção de transição onde não há eletricidade.</div>
+    <div class="cell c-blue"><strong class="t">🏭 Exposição ocupacional</strong>
+      Poeiras orgânicas e inorgânicas, agentes químicos, fumos e pesticidas. Fração atribuível estimada de 19,2% no geral e 31,1% entre nunca fumantes (NHANES III); a ATS estima 10–20%. Associa-se a mais enfisema e aprisionamento aéreo na TC.</div>
+    <div class="cell c-purple"><strong class="t">🌫️ Poluição atmosférica</strong>
+      Material particulado, ozônio, óxidos de nitrogênio e enxofre: ≈ 50% do risco atribuível nos PBMR e principal fator conhecido em nunca fumantes. O efeito é dose-dependente, sem limiar seguro: prejudica o crescimento pulmonar na infância, acelera o declínio no adulto e aumenta exacerbações e mortalidade. O fechamento de uma coqueria reduziu em 19% as hospitalizações por DPOC na vizinhança.</div>
+    <div class="cell c-green" style="grid-column:1/-1"><strong class="t">🧬 Fatores genéticos</strong>
+      O fator genético mais relevante, embora raro, é a mutação do gene <em>SERPINA1</em> (deficiência de alfa-1 antitripsina, DAAT): genótipo PiZZ em 0,12% dos pacientes com DPOC na Europa. Heterozigotos MZ/SZ não fumantes não parecem ter risco aumentado, e o estado heterozigoto não indica terapia de reposição. Centenas de variantes de pequeno efeito (MMP-12, glutationa-S-transferase, receptor nicotínico, HHIP) também se associam a menor função pulmonar.</div>
+  </div>
+
+  <h3>Critério diagnóstico e pré-DPOC</h3>
+  <p>A espirometria com VEF<sub>1</sub>/CVF &lt; 0,7 após broncodilatador confirma a DPOC no contexto clínico adequado. Algumas pessoas, porém, têm lesões estruturais (por exemplo, enfisema) ou alterações fisiológicas (VEF<sub>1</sub> baixo, aprisionamento aéreo, hiperinsuflação, DLCO reduzida, declínio rápido do VEF<sub>1</sub>) <strong>sem</strong> obstrução: são classificadas como <strong>pré-DPOC</strong>. O termo <strong>PRISm</strong> descreve razão preservada com espirometria alterada. Ambos podem evoluir para obstrução, mas nem todos evoluem.</p>
+
+  <h3>Apresentação clínica</h3>
+  <p>Dispneia, sibilância, opressão torácica, fadiga, limitação das atividades e tosse com ou sem expectoração, com episódios agudos de piora (exacerbações). As comorbidades são frequentes, alteram o prognóstico e podem simular ou agravar exacerbações.</p>
+</section>
+
+<section class="topic reveal" id="carga-da-dpoc" data-title="Carga da DPOC">
+  <h2><span class="tn">1.2</span> Carga da DPOC</h2>
+  <p class="lead">Prevalência, morbidade, mortalidade e carga econômica e social.</p>
+
+  <p>A DPOC é uma das principais causas de morbidade e mortalidade no mundo, com carga econômica e social crescente. A projeção é de quase <strong>600 milhões de pacientes até 2050</strong>, com aumento maior entre mulheres e nos PBMR.</p>
+
+  <h3>Prevalência</h3>
+  <p>As estimativas variam conforme o método. O GBD, que inclui pessoas a partir de 15 anos e combina fontes em modelos estatísticos, tende a subestimar a carga em relação aos estudos com espirometria. O GBD 2021 estimou 213,39 milhões de casos. Uma revisão sistemática com dados espirométricos de 65 países estimou prevalência de <strong>10,3% (30–79 anos)</strong> em 2019, ou 392 milhões de pessoas, 80,5% delas nos PBMR, e prevalência em homens mais que o dobro da observada em mulheres (14,1% vs 6,5%). Os dez países com mais casos (China, Índia, Indonésia, EUA, Bangladesh, Japão, Paquistão, Rússia, Vietnã e Alemanha) somam 65,2% do total. O <strong>subdiagnóstico é universal: 81,4%</strong> dos casos definidos por espirometria não têm diagnóstico.</p>
+
+  <figure class="fig" id="fig-1-1" data-num="1.1" data-title="Prevalência estimada da DPOC segundo diferentes fontes">
+    <div class="fig-h"><span class="fn">Figura 1.1</span>Prevalência estimada da DPOC segundo diferentes fontes</div>
+    <div class="fig-b">
+      <table class="gt">
+        <thead><tr><th></th><th>GBD 2019ª</th><th>GBD 2021ᵇ</th><th>Estudo populacional 2019ᶜ</th><th>Outras fontes 2020ᵈ</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Prevalência (%)</td><td>2,6</td><td>2,5</td><td>10,3</td><td>10,6</td></tr>
+          <tr><td class="rh">Número de casos (milhões)</td><td>212</td><td>213</td><td>392</td><td>479</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:.8rem;color:#6c757d;margin-top:10px">ª Safiri et al. BMJ 2022;378:e069679 · ᵇ Wang et al. Respir Res 2025;26:2 · ᶜ Adeloye et al. Lancet Respir Med 2022;10:447–458 · ᵈ Boers et al. JAMA Netw Open 2023;6:e2346598. A figura original indica a unidade “por milhão”; os valores correspondem a milhões de casos.</p>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 1.1.</figcaption>
+  </figure>
+
+  <div class="grid3">
+    <div class="cell c-grey"><strong class="t">Morbidade</strong>Consultas, idas à emergência e internações aumentam com a idade. Na DPOC, as comorbidades (cardiovasculares, musculoesqueléticas, diabetes) surgem mais cedo que na população geral.</div>
+    <div class="cell c-red"><strong class="t">Mortalidade</strong>É a <strong>3ª causa de morte</strong> no mundo. Os óbitos passaram de 2,50 milhões (1990) para 3,72 milhões (2021), embora a taxa padronizada tenha caído 37,1%. A perda média de expectativa de vida é de ~2 anos, chegando a 7 anos no estágio 4. O tabagismo responde por 35% dos óbitos (51% em homens, 15% em mulheres). A projeção é de &gt; 5,4 milhões de mortes/ano até 2060. A DPOC costuma ser sub-registrada nos atestados de óbito.</div>
+    <div class="cell c-amber"><strong class="t">Carga econômica</strong>Na UE, a DPOC responde por 56% (€ 38,6 bilhões) dos custos diretos das doenças respiratórias. Até 2050 projetam-se US$ 24,35 trilhões em custos diretos e US$ 15,43 trilhões em indiretos. As exacerbações são o maior componente do custo. Nos PBMR, inaladores e espirometria são pouco disponíveis e pouco acessíveis, e a doença pode afastar do trabalho o paciente e um familiar cuidador.</div>
+  </div>
+  <h3>Carga social (DALY)</h3>
+  <p>Em 2021 foram 79,8 milhões de DALY (anos de vida perdidos ajustados por incapacidade), com taxa padronizada de 940,7/100.000. A DPOC deve subir do 6º para o <strong>4º lugar em DALY até 2050</strong>. A China mostra o efeito de políticas integradas (controle do tabaco, energia limpa, acesso a diagnóstico e tratamento). Nos EUA, a mortalidade padronizada aumentou, sobretudo entre mulheres.</p>
+</section>
+
+<section class="topic reveal" id="patogenese" data-title="Patogênese">
+  <h2><span class="tn">1.3</span> Patogênese</h2>
+  <p class="lead">GETomics, trajetórias da função pulmonar, disanapse, nomenclatura (DPOC precoce, leve, em jovens, pré-DPOC, PRISm) e outros determinantes.</p>
+
+  <p>Pelo modelo <strong>GETomics</strong>, o resultado de uma interação G×E depende também do tempo (T): da idade em que ocorre (desenvolvimento ou envelhecimento) e do histórico prévio de interações, a chamada <em>memória biológica</em>.</p>
+
+  <h3>Trajetórias da função pulmonar: desenvolvimento e envelhecimento</h3>
+  <p>Os pulmões crescem até ~20–25 anos (mais cedo nas mulheres), mantêm um platô curto e depois declinam por envelhecimento fisiológico. Eventos na gestação, no parto, na infância e na adolescência podem reduzir o pico, e outros processos podem encurtar o platô ou acelerar o declínio. Trajetórias acima do normal associam-se a envelhecimento saudável; trajetórias abaixo, a mais doenças respiratórias, cardiovasculares e metabólicas e a morte prematura. Por isso a espirometria pode ser vista como um <strong>marcador de saúde global</strong>. Em três coortes (Framingham, Copenhague e Lovelace), cerca de <strong>50%</strong> dos casos de DPOC vieram de declínio acelerado (modelo clássico de Fletcher-Peto) e <strong>50%</strong> de crescimento pulmonar deficiente com declínio normal.</p>
+
+  <figure class="fig" id="fig-1-2" data-num="1.2" data-title="Trajetórias do VEF1 ao longo da vida">
+    <div class="fig-h"><span class="fn">Figura 1.2</span>Trajetórias do VEF<sub>1</sub> ao longo da vida</div>
+    <div class="fig-b"><div class="svgwrap">
+      <svg viewBox="0 0 1000 560" xmlns="http://www.w3.org/2000/svg">
+        <rect x="60" y="20" width="110" height="420" fill="#dbe4ff"/>
+        <rect x="170" y="20" width="140" height="420" fill="#c5e3e3"/>
+        <rect x="310" y="20" width="390" height="420" fill="#eceef0"/>
+        <g font-size="12.5" font-weight="600" fill="#222" text-anchor="middle">
+          <text x="115" y="44">Idade mais</text><text x="115" y="60">precoce confiável</text><text x="115" y="76">para espirometria</text><text x="115" y="92">(linha de base)</text>
+          <text x="240" y="44">Testar a cada</text><text x="240" y="60">3 anos na</text><text x="240" y="76">adolescência para</text><text x="240" y="92">acompanhar o</text><text x="240" y="108">crescimento e o pico</text>
+          <text x="505" y="44">Estabelecido o pico, monitorar a cada 5 anos</text><text x="505" y="60">para detectar declínio acelerado</text><text x="505" y="76">ou desvios de trajetória</text>
+        </g>
+        <!-- eixos -->
+        <line x1="60" y1="440" x2="700" y2="440" stroke="#222" stroke-width="1.5"/>
+        <text x="28" y="250" font-size="15" font-weight="700" transform="rotate(-90 28 250)" text-anchor="middle">VEF₁ (% do pico previsto)</text>
+        <!-- normal -->
+        <path d="M 60 420 C 150 400, 190 210, 230 175 C 260 150, 330 150, 360 155 C 470 175, 600 230, 700 255" fill="none" stroke="#1c3d8f" stroke-width="4"/>
+        <!-- declinio acelerado -->
+        <path d="M 360 155 C 450 180, 560 260, 700 325" fill="none" stroke="#6c757d" stroke-width="4"/>
+        <!-- pico subótimo -->
+        <path d="M 60 420 C 160 405, 210 330, 240 250 C 270 205, 330 205, 380 220 C 480 250, 600 300, 700 345" fill="none" stroke="#1f6f5c" stroke-width="3.5" stroke-dasharray="12 8"/>
+        <path d="M 380 220 C 470 270, 560 360, 700 405" fill="none" stroke="#1f6f5c" stroke-width="3.5" stroke-dasharray="12 8"/>
+        <g font-size="13" text-anchor="middle">
+          <text x="560" y="112" font-weight="800" fill="#1c3d8f">TRAJETÓRIA NORMAL</text>
+          <text x="560" y="130" fill="#222">Desenvolvimento saudável com pico ideal</text>
+          <text x="560" y="146" fill="#222">(~25 anos) e declínio natural gradual</text>
+          <text x="395" y="290" font-weight="800" fill="#1f6f5c">PICO SUBÓTIMO</text>
+          <text x="395" y="307" fill="#222">Afetado por fatores</text>
+          <text x="395" y="323" fill="#222">do início da vida</text>
+          <text x="420" y="385" font-weight="800" fill="#6c757d">DECLÍNIO ACELERADO</text>
+          <text x="420" y="403" fill="#222">Perda rápida na vida adulta por</text>
+          <text x="420" y="419" fill="#222">exposições ambientais e ocupacionais</text>
+        </g>
+        <!-- faixas inferiores -->
+        <rect x="60" y="440" width="110" height="70" fill="#a5b4d6"/>
+        <rect x="170" y="440" width="140" height="70" fill="#1f6f5c"/>
+        <rect x="310" y="440" width="390" height="70" fill="#5c636a"/>
+        <g font-size="12.5" font-weight="800" text-anchor="middle">
+          <text x="115" y="470" fill="#1a1a1a">6 ANOS:</text><text x="115" y="487" fill="#1a1a1a">LINHA DE BASE</text>
+          <text x="240" y="463" fill="#fff">12–26 ANOS:</text><text x="240" y="480" fill="#fff">A CADA 3 ANOS</text><text x="240" y="497" fill="#fff">MAPEAR O PICO</text>
+          <text x="505" y="470" fill="#fff">≥ 26 ANOS:</text><text x="505" y="487" fill="#fff">MONITORIZAÇÃO A CADA 5 ANOS</text>
+        </g>
+        <!-- caixas laterais -->
+        <g font-size="12">
+          <rect x="725" y="30" width="265" height="140" rx="6" fill="#f1f3f5" stroke="#8a99b8" stroke-width="1.5"/>
+          <rect x="725" y="30" width="265" height="40" rx="6" fill="#8a99b8"/>
+          <text x="857" y="55" text-anchor="middle" font-weight="800" fill="#fff">INFÂNCIA: CONSTRUIR A RESERVA</text>
+          <text x="737" y="92">Vacinação infantil, nutrição adequada,</text><text x="737" y="108">controle da obesidade, exercício regular,</text><text x="737" y="124">evitar tabagismo passivo e poluição.</text><text x="737" y="140">Tratar a asma quando indicado.</text>
+          <rect x="725" y="190" width="265" height="150" rx="6" fill="#e6f4f1" stroke="#1f6f5c" stroke-width="1.5"/>
+          <rect x="725" y="190" width="265" height="40" rx="6" fill="#1f6f5c"/>
+          <text x="857" y="215" text-anchor="middle" font-weight="800" fill="#fff">ADOLESCÊNCIA: PROTEGER O PICO</text>
+          <text x="737" y="252">Intervenções comportamentais para evitar</text><text x="737" y="268">exposições inalatórias (tabaco, maconha,</text><text x="737" y="284">vape). Manter boa nutrição e exercício.</text><text x="737" y="300">Tratar a asma quando indicado.</text>
+          <rect x="725" y="360" width="265" height="150" rx="6" fill="#f1f3f5" stroke="#5c636a" stroke-width="1.5"/>
+          <rect x="725" y="360" width="265" height="40" rx="6" fill="#5c636a"/>
+          <text x="857" y="385" text-anchor="middle" font-weight="800" fill="#fff">VIDA ADULTA: ATENUAR O DECLÍNIO</text>
+          <text x="737" y="422">Proteção ocupacional, evitar exposições</text><text x="737" y="438">inalatórias, exercício regular, vacinas</text><text x="737" y="454">do adulto contra vírus respiratórios.</text><text x="737" y="470">Farmacoterapia quando indicada.</text>
+        </g>
+        <text x="500" y="545" font-size="11.5" fill="#6c757d" text-anchor="middle">Referências: Agusti A, Hogg JC. N Engl J Med 2019;381:1248-56; Han MK et al. AJRCCM 2026.</text>
+      </svg>
+    </div></div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 1.2. Esquema conceitual, sem escala.</figcaption>
+  </figure>
+
+  <div class="callout info">O envelhecimento das vias aéreas e do parênquima reproduz parte das alterações da DPOC, e há evidência de <strong>envelhecimento acelerado</strong> na doença: o encurtamento acelerado dos telômeros associa-se a piora das trocas gasosas, à hiperinsuflação e à mortalidade.</div>
+
+  <h3>Disanapse</h3>
+  <p>A <strong>disanapse</strong> é a desproporção entre o calibre da árvore brônquica e o volume pulmonar. Detectada pela TC, é comum na população, associa-se ao VEF<sub>1</sub>/CVF desde o início da vida adulta e ao risco de DPOC incidente, mas não ao declínio acelerado, o que é compatível com a trajetória de “pico baixo”. Suas causas (genéticas, pré-natais, prematuridade, infecções precoces) ainda não estão esclarecidas.</p>
+
+  <h3>Nomenclatura proposta</h3>
+  <table class="gt">
+    <thead><tr><th style="width:24%">Termo</th><th>Uso recomendado pelo GOLD</th></tr></thead>
+    <tbody>
+      <tr><td class="rh">DPOC precoce (<em>early</em>)</td><td>Conceito útil para pesquisa sobre os mecanismos iniciais. <strong>Não deve ser usado na clínica</strong>, porque o início do processo em cada paciente é indeterminável.</td></tr>
+      <tr><td class="rh">DPOC leve</td><td>Usar apenas para descrever a gravidade da obstrução espirométrica (GOLD 1). Obstrução leve não significa carga de doença baixa.</td></tr>
+      <tr><td class="rh">DPOC em jovens</td><td>Pacientes com DPOC &lt; 50 anos: inclui quem nunca atingiu o pico normal até os 25 anos e/ou teve declínio acelerado entre 30 e 50 anos. É frequentemente não diagnosticada. História familiar e eventos precoces (internação respiratória antes dos 5 anos) são comuns. Prefere-se “DPOC em indivíduos jovens” a “DPOC jovem”.</td></tr>
+      <tr><td class="rh">Pré-DPOC</td><td>VEF<sub>1</sub>/CVF pós-BD ≥ 0,70 com fatores de risco <strong>e</strong> sintomas respiratórios, alterações estruturais na TC ou alterações fisiológicas. Seis grupos (Figura 1.3). Nenhum tratamento além da cessação do tabagismo mostrou alterar a evolução para DPOC; o valor atual é sobretudo prognóstico.</td></tr>
+      <tr><td class="rh">PRISm</td><td>VEF<sub>1</sub>/CVF pós-BD ≥ 0,7 com VEF<sub>1</sub> &lt; 80% do previsto. Prevalência de 7,1–11% na população. Associa-se a sintomas, doença cardiopulmonar, internações e mortalidade. É instável: 20–30% evoluem para obstrução. Esses pacientes merecem cuidado, embora ainda falte evidência sobre o melhor tratamento.</td></tr>
+    </tbody>
+  </table>
+
+  <figure class="fig" id="fig-1-3" data-num="1.3" data-title="Grupos que podem ser classificados como pré-DPOC">
+    <div class="fig-h"><span class="fn">Figura 1.3</span>Grupos que podem ser classificados como pré-DPOC</div>
+    <div class="fig-b">
+      <p style="font-weight:700;text-align:center;margin-bottom:14px;color:#1a4d7a">Esses indivíduos podem, mas não necessariamente vão, desenvolver obstrução persistente ao fluxo aéreo (isto é, DPOC) ao longo do tempo.</p>
+      <div class="grid3">
+        <div class="cell c-blue"><strong class="t">① Espirometria alterada com razão preservada (PRISm)</strong>
+          <ul><li>VEF<sub>1</sub>/CVF pós-BD ≥ 0,70</li><li>VEF<sub>1</sub> pós-BD &lt; 80% do previsto</li></ul>
+          <svg viewBox="0 0 220 120" style="margin-top:8px"><line x1="20" y1="70" x2="210" y2="70" stroke="#555"/><line x1="20" y1="10" x2="20" y2="115" stroke="#555"/><path d="M20 70 L 45 14 C 90 30, 160 55, 200 70" fill="none" stroke="#999" stroke-dasharray="5 4"/><path d="M20 70 L 42 32 C 80 44, 140 60, 175 70 C 150 105, 50 110, 20 70" fill="none" stroke="#2e7ab8" stroke-width="2.5"/><text x="120" y="22" font-size="10" fill="#666">VEF₁/CVF &gt; 0,70</text><text x="110" y="45" font-size="10" fill="#2e7ab8">VEF₁ &lt; 80% prev.</text><text x="190" y="85" font-size="9">Volume</text></svg>
+          <span class="pill b">Razão preservada, VEF₁ reduzido</span></div>
+        <div class="cell c-green"><strong class="t">② Limitação limítrofe ao fluxo aéreo</strong>
+          <ul><li>VEF<sub>1</sub>/CVF pós-BD ≥ 0,70, porém abaixo do LIN; ou</li><li>VEF<sub>1</sub>/CVF pré-BD &lt; 0,70 com pós-BD ≥ 0,70</li></ul>
+          <svg viewBox="0 0 220 120" style="margin-top:8px"><rect x="70" y="8" width="50" height="22" fill="#b2f2bb"/><rect x="70" y="30" width="50" height="22" fill="#ffe066"/><rect x="70" y="52" width="50" height="62" fill="#ffc9c9"/><line x1="66" y1="52" x2="124" y2="52" stroke="#e03131" stroke-dasharray="4 3"/><g font-size="10"><text x="40" y="14">0,80</text><text x="40" y="34">0,75</text><text x="44" y="56">0,70</text><text x="44" y="114">0,50</text><text x="128" y="22" fill="#2b8a3e">Normal</text><text x="128" y="44" fill="#e67700">Limítrofe</text><text x="128" y="84" fill="#c92a2a">Obstrução</text><text x="128" y="97" fill="#c92a2a">(DPOC)</text></g></svg>
+          <span class="pill a">Razão ≥ 0,70, mas abaixo do LIN</span></div>
+        <div class="cell c-purple"><strong class="t">③ Evidência tomográfica de enfisema ou espessamento da parede brônquica</strong>
+          Enfisema na TC: percentual de voxels &lt; −950 UH acima do limite superior da normalidade, ou avaliação visual pelo radiologista.
+          <svg viewBox="0 0 250 110" style="margin-top:8px"><ellipse cx="80" cy="55" rx="62" ry="45" fill="#343a40"/><ellipse cx="58" cy="55" rx="24" ry="34" fill="#868e96"/><ellipse cx="102" cy="55" rx="24" ry="34" fill="#868e96"/><g fill="#212529"><circle cx="52" cy="45" r="5"/><circle cx="62" cy="64" r="4"/><circle cx="108" cy="40" r="6"/><circle cx="98" cy="66" r="4"/></g><circle cx="180" cy="55" r="22" fill="#ff8787"/><circle cx="180" cy="55" r="12" fill="#212529"/><text x="180" y="96" font-size="9.5" text-anchor="middle">Parede espessada</text></svg></div>
+        <div class="cell c-green"><strong class="t">④ Fumantes com sintomas de bronquite crônica</strong>
+          <ul><li>Tosse e expectoração crônicas por ≥ 3 meses/ano durante 2 anos consecutivos</li></ul>
+          <span class="pill g">Tosse crônica</span><span class="pill g">Expectoração</span></div>
+        <div class="cell c-blue"><strong class="t">⑤ Fumantes com espirometria normal e difusão isoladamente reduzida</strong>
+          Espirometria normal (VEF<sub>1</sub>/CVF ≥ 0,70 e VEF<sub>1</sub> ≥ 80% do previsto) com <strong>DLCO ↓</strong>.</div>
+        <div class="cell c-purple"><strong class="t">⑥ Fumantes com declínio acelerado da função pulmonar</strong>
+          Queda do VEF<sub>1</sub> ≥ 30–40 mL/ano, mais rápida que o esperado para a idade.
+          <svg viewBox="0 0 220 100" style="margin-top:8px"><line x1="25" y1="85" x2="210" y2="85" stroke="#555"/><line x1="25" y1="10" x2="25" y2="85" stroke="#555"/><path d="M25 15 C 90 18, 150 28, 205 40" fill="none" stroke="#5c7cfa" stroke-dasharray="6 4" stroke-width="2"/><path d="M25 15 C 90 25, 150 50, 205 80" fill="none" stroke="#e03131" stroke-width="2.5"/><text x="135" y="20" font-size="9.5" fill="#364fc7">Declínio normal</text><text x="140" y="68" font-size="9.5" fill="#c92a2a">Acelerado</text><text x="90" y="98" font-size="9">Idade (40 → 80 anos)</text></svg></div>
+      </div>
+      <div class="callout info" style="text-align:center;font-weight:700">Nem todos os indivíduos com pré-DPOC evoluem para DPOC.</div>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 1.3.</figcaption>
+  </figure>
+
+  <h3>Outros determinantes da patogênese</h3>
+  <div class="grid2">
+    <div class="cell c-grey"><strong class="t">Asma e hiper-responsividade brônquica</strong>Adultos com asma têm risco de DPOC 12 vezes maior (ajustado para tabagismo). Cerca de 20% evoluem com obstrução irreversível, e 11% das crianças asmáticas têm padrão de DPOC no início da vida adulta. A hiper-responsividade, mesmo sem asma, prediz DPOC e mortalidade respiratória.</div>
+    <div class="cell c-grey"><strong class="t">Bronquite crônica</strong>Tosse e expectoração ≥ 3 meses/ano por 2 anos, na ausência de outra causa. Presente em 27–35% dos pacientes com DPOC e em 4–22% dos nunca fumantes. Tampões mucosos na TC, mesmo sem sintomas, associam-se a mais obstrução, menor SpO<sub>2</sub>, mais exacerbações e maior mortalidade. Em pessoas com menos de 50 anos, a bronquite crônica sem obstrução é marcador de risco futuro.</div>
+    <div class="cell c-grey"><strong class="t">Infecções</strong>Infecções graves na infância, colonização brônquica por <em>Pseudomonas aeruginosa</em>, tuberculose, micobacterioses não tuberculosas e HIV aumentam o risco de DPOC.</div>
+    <div class="cell c-grey"><strong class="t">Sexo</strong>A prevalência entre homens e mulheres tende a se igualar nos países desenvolvidos. Mulheres podem ser mais suscetíveis ao tabaco, com doença mais grave para a mesma exposição. Fatores reprodutivos (menarca, paridade, menopausa) associam-se ao risco.</div>
+    <div class="cell c-grey"><strong class="t">Raça e etnia</strong>A ATS recomenda substituir equações de referência específicas por raça/etnia por equações médias <strong>neutras quanto à raça</strong>, com pesquisa sobre as consequências clínicas dessa mudança.</div>
+    <div class="cell c-grey"><strong class="t">Nível socioeconômico</strong>A pobreza associa-se à obstrução. A prevalência, as exacerbações, os sintomas e a mortalidade são maiores na zona rural, o que reflete desigualdade de acesso e de exposições.</div>
+  </div>
+</section>
+
+<section class="topic reveal" id="patobiologia" data-title="Patobiologia">
+  <h2><span class="tn">1.4</span> Patobiologia</h2>
+  <p class="lead">Alterações inflamatórias, estruturais e disbiose: acometem vias aéreas, parênquima e vasculatura, aumentam com a gravidade e podem persistir após a cessação do tabagismo.</p>
+  <div class="grid3">
+    <div class="cell c-red"><strong class="t">Inflamação</strong>Resposta amplificada a irritantes crônicos, com aumento de macrófagos, neutrófilos ativados e linfócitos. Os mediadores atraem células (quimiotaxia), amplificam a inflamação (citocinas) e induzem remodelamento (fatores de crescimento). A inflamação persiste após cessar o tabagismo, possivelmente por autoantígenos e microbioma. Parte dos pacientes tem padrão eosinofílico/ILC2, semelhante à asma. O <strong>estresse oxidativo</strong> (H<sub>2</sub>O<sub>2</sub>, 8-isoprostano) aumenta nas exacerbações.</div>
+    <div class="cell c-amber"><strong class="t">Alterações estruturais</strong>Desequilíbrio protease–antiprotease com destruição de elastina (enfisema); fibrose peribronquiolar e opacidades intersticiais; produção excessiva de músculo e tecido fibroso na parede das pequenas vias aéreas. A vasculatura pode estar alterada já na doença leve.</div>
+    <div class="cell c-purple"><strong class="t">Disbiose</strong>O trato respiratório inferior não é estéril. A ruptura do microbioma (vias aéreas e intestino, no <em>eixo intestino–pulmão</em>) associa-se à DPOC e à frequência de exacerbações. O microbioma muda após viroses e exacerbações e com antibióticos e corticosteroides. A causalidade ainda precisa de estudos longitudinais.</div>
+  </div>
+</section>
+
+<section class="topic reveal" id="fisiopatologia" data-title="Fisiopatologia">
+  <h2><span class="tn">1.5</span> Fisiopatologia</h2>
+  <p class="lead">Da doença das pequenas vias aéreas e do enfisema à hiperinsuflação, aos distúrbios das trocas gasosas, à hipertensão pulmonar, às exacerbações e à multimorbidade.</p>
+  <div class="grid2">
+    <div class="cell c-blue"><strong class="t">Obstrução ao fluxo e aprisionamento aéreo</strong>Combinação variável de doença das pequenas vias aéreas (↑ resistência) e destruição parenquimatosa (↓ retração elástica), com perda de pequenas vias aéreas por destruição ou por desenvolvimento deficiente (disanapse). O resultado é ↓ VEF<sub>1</sub>, ↓ VEF<sub>1</sub>/CVF, aprisionamento e hiperinsuflação.</div>
+    <div class="cell c-blue"><strong class="t">Hiperinsuflação</strong>Estática (perda de retração elástica) e/ou dinâmica (no exercício). Contribui para dispneia, intolerância ao exercício, internações, insuficiência respiratória e mortalidade, e existe mesmo na obstrução leve. Avalia-se por pletismografia ou diluição de gases; a capacidade inspiratória em repouso e no exercício é uma medida indireta.</div>
+    <div class="cell c-green"><strong class="t">Trocas gasosas</strong>A desigualdade V<sub>A</sub>/Q é o principal mecanismo de hipoxemia, com ou sem hipercapnia. O enfisema reduz a DLCO. Raramente, a hipoventilação decorre de depressão do centro respiratório (sedativos).</div>
+    <div class="cell c-green"><strong class="t">Hipertensão pulmonar</strong>Alterações vasculares (hiperplasia intimal, hipertrofia muscular, disfunção endotelial) já em fumantes com espirometria normal. A HP grave é rara e tardia, pode levar ao <em>cor pulmonale</em> e piora a sobrevida. O diâmetro da artéria pulmonar na TC prediz exacerbações.</div>
+    <div class="cell c-red"><strong class="t">Exacerbações</strong>Desencadeadas por vírus, bactérias e poluentes, com ↑ inflamação, aprisionamento e hiperinsuflação e piora V<sub>A</sub>/Q. Pneumonia, embolia e insuficiência cardíaca podem simulá-las ou agravá-las (Capítulo 4).</div>
+    <div class="cell c-red"><strong class="t">Multimorbidade</strong>Fatores de risco compartilhados (tabaco, envelhecimento, inatividade): o conceito de <em>sindemia</em>. A hiperinsuflação compromete a função cardíaca, e a inflamação sistêmica contribui para caquexia, cardiopatia isquêmica, IC, osteoporose, anemia, diabetes e síndrome metabólica (Capítulo 5).</div>
+  </div>
+</section>
+
+<section class="topic reveal" id="taxonomia" data-title="Taxonomia">
+  <h2><span class="tn">1.6</span> Taxonomia</h2>
+  <p class="lead">Ampliar a classificação para além da DPOC do fumante, por etiotipos.</p>
+  <p>Tradicionalmente a DPOC foi vista como doença única causada pelo tabaco. O GOLD combina duas propostas taxonômicas independentes para incluir os tipos não relacionados ao tabagismo, com pouco impacto na prática atual, mas com o objetivo de estimular estudos e terapias específicos para cada etiotipo.</p>
+  <figure class="fig" id="fig-1-4" data-num="1.4" data-title="Taxonomia proposta (etiotipos) para a DPOC">
+    <div class="fig-h"><span class="fn">Figura 1.4</span>Taxonomia proposta (etiotipos) para a DPOC</div>
+    <div class="fig-b">
+      <table class="gt">
+        <thead><tr><th style="width:38%">Classificação</th><th>Descrição</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">DPOC geneticamente determinada (DPOC-G)</td><td>Deficiência de alfa-1 antitripsina (DAAT); outras variantes genéticas de menor efeito agindo em combinação</td></tr>
+          <tr><td class="rh">DPOC por desenvolvimento pulmonar anormal (DPOC-D)</td><td>Eventos do início da vida, incluindo prematuridade e baixo peso ao nascer, entre outros</td></tr>
+          <tr><td class="rh">DPOC ambiental – tabagismo (DPOC-C)</td><td>Exposição à fumaça do tabaco, inclusive intraútero ou passiva; cigarro eletrônico/vape; <em>Cannabis</em></td></tr>
+          <tr><td class="rh">DPOC ambiental – biomassa e poluição (DPOC-P)</td><td>Poluição domiciliar, poluição do ar ambiente, fumaça de queimadas e incêndios florestais, riscos ocupacionais</td></tr>
+          <tr><td class="rh">DPOC por infecções (DPOC-I)</td><td>Infecções na infância; DPOC associada à tuberculose; DPOC associada ao HIV</td></tr>
+          <tr><td class="rh">DPOC e asma (DPOC-A)</td><td>Particularmente a asma da infância</td></tr>
+          <tr><td class="rh">DPOC de causa desconhecida (DPOC-U)</td><td>—</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:.8rem;color:#6c757d;margin-top:8px">*Adaptado de Celli et al. (2022) e Stolz et al. (2022).</p>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 1.4.</figcaption>
+  </figure>
+</section>
+
+<div class="action-box reveal">
+  <h2>🔬 Mensagens do Capítulo 1</h2>
+  <div class="action-steps">
+    <div class="action-step"><strong>1. Doença heterogênea</strong>• A DPOC é definida por sintomas e alterações de vias aéreas e/ou alvéolos com obstrução persistente, confirmada por VEF<sub>1</sub>/CVF pós-BD &lt; 0,7.</div>
+    <div class="action-step"><strong>2. Muito além do tabaco</strong>• Biomassa, poluição, ocupação, infecções, asma e desenvolvimento pulmonar anormal respondem por mais de metade da carga global.</div>
+    <div class="action-step"><strong>3. Trajetórias e precursores</strong>• Metade dos casos vem de pico baixo de função pulmonar. Pré-DPOC e PRISm são alvos de vigilância e cuidado, embora sem tratamento validado além da cessação do tabagismo.</div>
+  </div>
+</div>
+
+<div class="abbreviations-box">
+  <p><strong>Abreviações:</strong> <strong>ATS</strong> = American Thoracic Society • <strong>BD</strong> = broncodilatador • <strong>CVF (FVC)</strong> = capacidade vital forçada • <strong>DAAT (AATD)</strong> = deficiência de alfa-1 antitripsina • <strong>DALY</strong> = anos de vida perdidos ajustados por incapacidade • <strong>DLCO</strong> = capacidade de difusão do monóxido de carbono • <strong>GBD</strong> = Global Burden of Disease • <strong>HP</strong> = hipertensão pulmonar • <strong>IC</strong> = insuficiência cardíaca • <strong>ILC2</strong> = células linfoides inatas tipo 2 • <strong>LIN (LLN)</strong> = limite inferior da normalidade • <strong>PBMR (LMICs)</strong> = países de baixa e média renda • <strong>PRISm</strong> = <em>preserved ratio impaired spirometry</em> • <strong>TC</strong> = tomografia computadorizada • <strong>UH</strong> = unidades Hounsfield • <strong>VEF<sub>1</sub> (FEV<sub>1</sub>)</strong> = volume expiratório forçado no 1º segundo.</p>
+</div>
+
+<footer>
+  <p><strong>Adaptado de:</strong> Global Initiative for Chronic Obstructive Lung Disease (GOLD). <em>Global Strategy for the Diagnosis, Management, and Prevention of Chronic Obstructive Pulmonary Disease – 2027 Report</em>. <a href="https://goldcopd.org" target="_blank" rel="noopener noreferrer">goldcopd.org</a></p>
+  <p style="margin-top:8px;font-size:0.85rem;opacity:0.9;">Adaptação educacional em português, preparada pelo Dr. Fernando Lundgren. As figuras foram redesenhadas e traduzidas; não reproduzem as figuras originais do relatório. Apenas a versão em inglês do GOLD é revisada e aprovada pelo GOLD.</p>
+  <p style="margin-top:8px;font-size:0.85rem;opacity:0.8;">Ferramenta educacional destinada a profissionais de saúde. Não substitui o julgamento clínico.</p>
+  <p class="footnav"><a href="index.html">← GOLD 2027 – Índice</a> <a href="capitulo-2.html">Capítulo 2 ›</a></p>
+</footer>
+</div>
+<button id="toTop" aria-label="Voltar ao topo" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>
+const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } }), {threshold: 0.05, rootMargin: '0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+const tt = document.getElementById('toTop');
+window.addEventListener('scroll', () => { tt.style.opacity = window.scrollY > 600 ? '1' : '0'; });
+</script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "41331af379ba4c71af70c5689396f1b8"}'></script><!-- End Cloudflare Web Analytics -->
+<script data-goatcounter="https://pneumoagents.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body></html>

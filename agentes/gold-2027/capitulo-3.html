@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head>
+<script src="../../assets/js/aviso-profissional.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GOLD 2027 – Cap. 3: Prevenção e Tratamento da DPOC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --primary: #1a4d7a; --secondary: #2e7ab8; --accent: #4aa3df; --highlight: #ff6b6b;
+  --success: #51cf66; --warning: #ffd43b; --bg-light: #f8f9fa; --bg-dark: #0a1628;
+  --text-dark: #1a1a1a; --text-light: #ffffff; --card-bg: #ffffff; --shadow: rgba(26, 77, 122, 0.15);
+  --green-bg: #ebfbee; --green-bd: #69db7c; --green-tx: #1b4332;
+  --blue-bg: #edf2ff; --blue-bd: #91a7ff; --blue-tx: #1c3d8f;
+  --grey-bg: #f1f3f5; --grey-bd: #adb5bd;
+  --amber-bg: #fff9db; --amber-bd: #fcc419; --amber-tx: #5c4400;
+  --red-bg: #fff5f5; --red-bd: #ff8787; --red-tx: #8a1c1c;
+  --purple-bg: #f3f0ff; --purple-bd: #b197fc; --purple-tx: #3b2a7a;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Work Sans', system-ui, sans-serif;
+  background: linear-gradient(135deg, #0a1628 0%, #1a4d7a 50%, #2e7ab8 100%);
+  background-attachment: fixed;
+  color: var(--text-dark); min-height: 100vh; padding: 40px 20px; position: relative; overflow-x: hidden;
+}
+body::before {
+  content: ''; position: fixed; inset: 0;
+  background: radial-gradient(circle at 20% 50%, rgba(74,163,223,0.1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 80%, rgba(255,107,107,0.1) 0%, transparent 50%);
+  pointer-events: none; z-index: 0;
+}
+.container { max-width: 1400px; margin: 0 auto; position: relative; z-index: 1; }
+a { color: var(--secondary); }
+
+/* navegação */
+.topnav, .footnav { display: flex; flex-wrap: wrap; gap: 18px; font-size: 0.9rem; margin: 0 0 18px; }
+.topnav a, .footnav a { color: #fff; font-weight: 600; text-decoration: none; opacity: .92; }
+.topnav a:hover, .footnav a:hover { text-decoration: underline; opacity: 1; }
+.footnav { justify-content: center; margin-top: 14px; }
+
+/* cabeçalho */
+header { text-align: center; margin-bottom: 40px; animation: fadeInDown 0.8s ease-out; }
+.chapter-tag { display: inline-block; background: var(--warning); color: #3a2c00; font-weight: 800; letter-spacing: 1.5px;
+  text-transform: uppercase; font-size: .78rem; padding: 6px 16px; border-radius: 30px; margin-bottom: 14px; }
+h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.1rem, 4.6vw, 3.5rem); font-weight: 900; color: var(--text-light);
+  margin-bottom: 15px; text-shadow: 2px 4px 12px rgba(0,0,0,0.3); letter-spacing: -1px; line-height: 1.1; }
+.subtitle { font-size: clamp(1rem, 2vw, 1.2rem); color: rgba(255,255,255,0.9); font-weight: 500; margin: 0 auto 12px; max-width: 920px; }
+.source { display: inline-block; background: rgba(255,255,255,0.15); padding: 8px 20px; border-radius: 30px; color: var(--text-light);
+  font-size: 0.9rem; font-weight: 600; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); }
+
+/* sumário */
+.toc { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 18px; padding: 26px 30px; margin-bottom: 35px; color: #fff; }
+.toc h2 { font-size: 1.25rem; margin-bottom: 12px; color: var(--warning); }
+.toc ol { columns: 2 320px; column-gap: 40px; padding-left: 22px; }
+.toc li { margin: 4px 0; break-inside: avoid; }
+.toc a { color: #fff; text-decoration: none; font-weight: 600; }
+.toc a:hover { text-decoration: underline; }
+.figlist { margin-top: 16px; border-top: 1px solid rgba(255,255,255,.2); padding-top: 12px; }
+.figlist summary { cursor: pointer; font-weight: 700; color: var(--warning); }
+.figlist ul { list-style: none; columns: 2 380px; column-gap: 40px; margin-top: 10px; font-size: .9rem; }
+.figlist li { margin: 4px 0; break-inside: avoid; }
+
+/* cartões de tópico */
+.topic { background: var(--card-bg); border-radius: 20px; padding: 35px; margin-bottom: 35px;
+  box-shadow: 0 10px 40px var(--shadow); scroll-margin-top: 20px; }
+.topic > h2 { font-size: 1.6rem; color: var(--primary); margin-bottom: 6px; display: flex; gap: 12px; align-items: baseline; }
+.topic > h2 .tn { font-family: 'Playfair Display', serif; color: var(--accent); font-size: 1.9rem; font-weight: 900; }
+.topic > .lead { color: #495057; font-weight: 500; margin-bottom: 22px; border-bottom: 2px solid #dee2e6; padding-bottom: 14px; }
+.topic h3 { font-size: 1.12rem; color: var(--secondary); margin: 24px 0 10px; }
+.topic h4 { font-size: 1rem; color: var(--primary); margin: 14px 0 6px; }
+.topic p { line-height: 1.68; margin-bottom: 12px; font-size: .97rem; }
+.topic ul.bul, .topic ol.bul { padding-left: 22px; margin-bottom: 12px; line-height: 1.6; font-size: .96rem; }
+.topic ul.bul li, .topic ol.bul li { margin-bottom: 5px; }
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity .6s ease-out, transform .6s ease-out; }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* pontos-chave */
+.keypoints { background: linear-gradient(135deg, var(--blue-bg) 0%, #dbe4ff 100%); border-left: 5px solid #5c7cfa;
+  border-radius: 14px; padding: 20px 24px; margin: 6px 0 22px; }
+.keypoints h4 { color: var(--blue-tx); margin: 0 0 8px; font-size: 1rem; text-transform: uppercase; letter-spacing: .6px; }
+.keypoints ul { padding-left: 20px; color: #22306b; font-weight: 500; line-height: 1.55; font-size: .95rem; }
+.keypoints li { margin-bottom: 6px; }
+.callout { border-radius: 14px; padding: 16px 20px; margin: 14px 0; font-size: .95rem; line-height: 1.55; }
+.callout.new { background: var(--amber-bg); border: 1.5px solid var(--amber-bd); color: var(--amber-tx); }
+.callout.new::before { content: 'NOVO 2027 · '; font-weight: 800; }
+.callout.warn { background: var(--red-bg); border: 1.5px solid var(--red-bd); color: var(--red-tx); }
+.callout.info { background: var(--green-bg); border: 1.5px solid var(--green-bd); color: var(--green-tx); }
+
+/* grades e células (do modelo) */
+.grid2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 12px 0; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 12px 0; }
+.grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 12px 0; }
+.cell { border-radius: 14px; padding: 16px 18px; font-size: .92rem; line-height: 1.52; font-weight: 500;
+  transition: transform .25s ease, box-shadow .25s ease; }
+.cell:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,.08); }
+.cell h4, .cell strong.t { display: block; margin: 0 0 6px; font-size: 1rem; }
+.cell ul { padding-left: 18px; }
+.cell li { margin-bottom: 3px; }
+.c-green { background: linear-gradient(135deg, #ebfbee 0%, #d3f9d8 100%); border: 1.5px solid var(--green-bd); color: var(--green-tx); }
+.c-grey { background: linear-gradient(135deg, #f1f3f5 0%, #e9ecef 100%); border: 1.5px solid var(--grey-bd); color: #212529; }
+.c-blue { background: linear-gradient(135deg, #edf2ff 0%, #dbe4ff 100%); border: 1.5px solid var(--blue-bd); color: var(--blue-tx); }
+.c-amber { background: linear-gradient(135deg, #fff9db 0%, #fff3bf 100%); border: 1.5px solid var(--amber-bd); color: var(--amber-tx); }
+.c-red { background: linear-gradient(135deg, #fff5f5 0%, #ffe3e3 100%); border: 1.5px solid var(--red-bd); color: var(--red-tx); }
+.c-purple { background: linear-gradient(135deg, #f3f0ff 0%, #e5dbff 100%); border: 1.5px solid var(--purple-bd); color: var(--purple-tx); }
+.c-dark { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff; border: none; }
+
+/* figuras */
+.fig { background: #f8f9fa; border: 2px solid #ced4da; border-radius: 16px; margin: 22px 0 26px; overflow: hidden; scroll-margin-top: 20px; }
+.fig > .fig-h { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff; padding: 12px 20px;
+  font-weight: 700; line-height: 1.6; }
+.fig > .fig-h .fn { background: var(--warning); color: #3a2c00; border-radius: 8px; padding: 2px 10px; font-size: .85rem; font-weight: 800; white-space: nowrap; margin-right: 12px; }
+.fig > .fig-b { padding: 20px; overflow-x: auto; }
+.fig > figcaption { font-size: .8rem; color: #6c757d; padding: 0 20px 14px; font-style: italic; }
+.fig svg { width: 100%; height: auto; display: block; font-family: 'Work Sans', sans-serif; }
+.fig .svgwrap { min-width: 680px; }
+
+/* tabelas */
+table.gt { width: 100%; border-collapse: separate; border-spacing: 0; font-size: .9rem; background: #fff;
+  border-radius: 12px; overflow: hidden; border: 1.5px solid #ced4da; }
+table.gt th { background: #dbe4ff; color: var(--blue-tx); text-align: left; padding: 10px 12px; font-weight: 700; border-bottom: 2px solid var(--blue-bd); }
+table.gt td { padding: 9px 12px; border-bottom: 1px solid #e9ecef; vertical-align: top; line-height: 1.45; }
+table.gt tr:last-child td { border-bottom: none; }
+table.gt tr:nth-child(even) td { background: #f8f9fa; }
+table.gt td.rh { font-weight: 700; color: var(--primary); background: #f1f3f5; }
+table.gt .ok { color: #2b8a3e; font-weight: 800; }
+table.gt .no { color: #c92a2a; font-weight: 800; }
+table.gt .mid { color: #e67700; font-weight: 800; }
+
+/* fluxogramas */
+.flow { display: flex; flex-direction: column; align-items: center; gap: 0; }
+.flow .step { width: 100%; max-width: 760px; text-align: center; }
+.flow .arrow { font-size: 1.5rem; color: var(--secondary); line-height: 1.3; }
+.flow .branch { display: grid; gap: 14px; width: 100%; }
+.pill { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: .78rem; font-weight: 700; margin: 2px; }
+.pill.g { background: #d3f9d8; color: #1b4332; } .pill.b { background: #dbe4ff; color: #1c3d8f; }
+.pill.a { background: #fff3bf; color: #5c4400; } .pill.r { background: #ffe3e3; color: #8a1c1c; } .pill.k { background: #e9ecef; color: #343a40; }
+
+/* questionários */
+.scale-row { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: center; padding: 10px 14px; border-radius: 10px; margin-bottom: 6px; }
+.scale-row .g { font-weight: 800; color: var(--primary); text-align: center; font-size: 1.05rem; }
+.cat-row { display: grid; grid-template-columns: 1fr repeat(6, 34px) 1fr; gap: 6px; align-items: center; font-size: .85rem; padding: 7px 0; border-bottom: 1px dashed #dee2e6; }
+.cat-row span.n { width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--secondary); display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--secondary); }
+.cat-row .r { text-align: right; }
+
+/* síntese e abreviaturas (do modelo) */
+.action-box { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: var(--text-light); border-radius: 18px;
+  padding: 35px; margin: 30px 0; text-align: center; box-shadow: 0 15px 50px rgba(26,77,122,.3); }
+.action-box h2 { font-family: 'Playfair Display', serif; font-size: 1.9rem; margin-bottom: 12px; font-weight: 900; }
+.action-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 25px; text-align: left; }
+.action-step { background: rgba(255,255,255,.15); padding: 22px; border-radius: 12px; backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,.2); transition: all .3s ease; font-size: .93rem; line-height: 1.6; }
+.action-step:hover { background: rgba(255,255,255,.25); transform: translateY(-5px); }
+.action-step strong { display: block; font-size: 1.08rem; margin-bottom: 8px; color: var(--warning); }
+.abbreviations-box { background: rgba(255,255,255,.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.2);
+  border-radius: 15px; padding: 25px; margin-top: 40px; color: rgba(255,255,255,.92); font-size: .88rem; line-height: 1.75; }
+.abbreviations-box strong { color: var(--warning); }
+
+/* índice */
+.chapter-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 22px; margin-bottom: 35px; }
+.chapter-card { display: flex; gap: 20px; align-items: center; background: #fff; border-radius: 20px; padding: 26px; text-decoration: none;
+  color: var(--text-dark); box-shadow: 0 10px 40px var(--shadow); transition: transform .25s, box-shadow .25s; }
+.chapter-card:hover { transform: translateY(-6px); box-shadow: 0 18px 50px rgba(0,0,0,.25); }
+.chapter-num { flex: 0 0 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: #fff; font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 900; display: flex; align-items: center; justify-content: center; }
+.chapter-card h3 { color: var(--primary); font-size: 1.2rem; margin-bottom: 6px; }
+.chapter-card p { font-size: .9rem; color: #495057; line-height: 1.5; }
+
+footer { text-align: center; margin-top: 40px; padding: 20px; color: rgba(255,255,255,.8); font-size: .9rem; }
+footer a { color: #fff; }
+#toTop { position: fixed; right: 22px; bottom: 22px; width: 46px; height: 46px; border-radius: 50%; border: none; background: var(--warning);
+  color: #3a2c00; font-size: 1.3rem; font-weight: 900; cursor: pointer; opacity: 0; transition: opacity .3s; z-index: 10; box-shadow: 0 6px 20px rgba(0,0,0,.3); }
+
+@keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: none; } }
+@media (max-width: 950px) {
+  .grid2, .grid3, .grid4 { grid-template-columns: 1fr; }
+  .topic { padding: 24px 18px; }
+  .scale-row { grid-template-columns: 60px 1fr; }
+}
+@media print {
+  body { background: #fff; padding: 0; } body::before { display: none; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .topic, .fig { break-inside: avoid-page; box-shadow: none; }
+  header h1, .subtitle, .source, .toc, .toc a, footer, footer a { color: #1a4d7a !important; text-shadow: none; }
+  .topnav, #toTop { display: none; }
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+<nav class="topnav" aria-label="Navegação"><a href="index.html">← GOLD 2027 – Índice</a> <a href="capitulo-2.html">‹ Capítulo 2</a> <a href="capitulo-4.html">Capítulo 4 ›</a></nav>
+<header>
+  <span class="chapter-tag">Capítulo 3</span>
+  <h1>Prevenção e Tratamento da DPOC</h1>
+  <p class="subtitle">Redução de riscos, tratamento farmacológico de manutenção, terapia inalatória, tratamento não farmacológico, reabilitação, oxigênio, cuidados paliativos e intervenções</p>
+  <span class="source">Relatório GOLD 2027 – Estratégia Global para Diagnóstico, Tratamento e Prevenção da DPOC</span>
+</header>
+<div class="toc reveal"><h2>📑 Tópicos do capítulo</h2><ol><li><a href="#introducao-atividade">Introdução e atividade da doença</a></li><li><a href="#reducao-de-risco">Redução de risco, estilo de vida e vacinação</a></li><li><a href="#tratamento-farmacologico">Tratamento farmacológico de manutenção</a></li><li><a href="#terapia-inalatoria">Manejo da terapia inalatória</a></li><li><a href="#nao-farmacologico">Tratamento não farmacológico, educação e autocuidado</a></li><li><a href="#reabilitacao">Reabilitação pulmonar</a></li><li><a href="#oxigenio-ventilacao">Oxigenoterapia e suporte ventilatório</a></li><li><a href="#mortalidade">Intervenções que reduzem a mortalidade</a></li><li><a href="#paliativos">Cuidados de suporte, paliativos e de fim de vida</a></li><li><a href="#intervencoes-cirurgicas">Tratamentos intervencionistas e cirúrgicos</a></li></ol><details class="figlist"><summary>🖼️ Figuras deste capítulo (27)</summary><ul><li><a href="#fig-3-1"><strong>Figura 3.1</strong> – Objetivos do tratamento da DPOC estável</a></li><li><a href="#fig-3-2"><strong>Figura 3.2</strong> – Manejo da DPOC (ciclo)</a></li><li><a href="#fig-3-3"><strong>Figura 3.3</strong> – Identificar e reduzir a exposição a fatores de risco</a></li><li><a href="#fig-3-4"><strong>Figura 3.4</strong> – Estratégias breves para o paciente disposto a parar de fumar</a></li><li><a href="#fig-3-5"><strong>Figura 3.5</strong> – Tratamento do uso e da dependência do tabaco</a></li><li><a href="#fig-3-6"><strong>Figura 3.6</strong> – Vacinação para pessoas com DPOC</a></li><li><a href="#fig-3-7"><strong>Figura 3.7</strong> – Ciclo de diagnóstico e manejo</a></li><li><a href="#fig-3-8"><strong>Figura 3.8</strong> – Tratamento farmacológico inicial</a></li><li><a href="#fig-3-9"><strong>Figura 3.9</strong> – Tratamento farmacológico de seguimento</a></li><li><a href="#fig-3-10"><strong>Figura 3.10</strong> – Fatores a considerar ao iniciar CI</a></li><li><a href="#fig-3-11"><strong>Figura 3.11</strong> – Evidências dos biológicos registrados para DPOC</a></li><li><a href="#fig-3-12"><strong>Figura 3.12</strong> – Manejo de pacientes em uso de LABA+CI</a></li><li><a href="#fig-3-13"><strong>Figura 3.13</strong> – Pontos-chave para a inalação de medicamentos</a></li><li><a href="#fig-3-14"><strong>Figura 3.14</strong> – Princípios básicos para a escolha do dispositivo inalatório</a></li><li><a href="#fig-3-15"><strong>Figura 3.15</strong> – Manejo não farmacológico da DPOC por grupo</a></li><li><a href="#fig-3-16"><strong>Figura 3.16</strong> – Seguimento do tratamento não farmacológico</a></li><li><a href="#fig-3-17"><strong>Figura 3.17</strong> – Programas não farmacológicos na DPOC</a></li><li><a href="#fig-3-18"><strong>Figura 3.18</strong> – Avaliação e intervenções de reabilitação</a></li><li><a href="#fig-3-19"><strong>Figura 3.19</strong> – Desfechos da reabilitação pulmonar na DPOC</a></li><li><a href="#fig-3-20"><strong>Figura 3.20</strong> – Atividade física e treino após exacerbação</a></li><li><a href="#fig-3-21"><strong>Figura 3.21</strong> – Oxigenoterapia e suporte ventilatório na DPOC estável</a></li><li><a href="#fig-3-22"><strong>Figura 3.22</strong> – Prescrição de oxigênio suplementar na DPOC</a></li><li><a href="#fig-3-23"><strong>Figura 3.23</strong> – Evidências de redução de mortalidade na DPOC</a></li><li><a href="#fig-3-24"><strong>Figura 3.24</strong> – Cuidados paliativos, de fim de vida e hospice na DPOC</a></li><li><a href="#fig-3-25"><strong>Figura 3.25</strong> – Intervenções cirúrgicas e broncoscópicas atuais e propostas</a></li><li><a href="#fig-3-26"><strong>Figura 3.26</strong> – Terapia intervencionista na DPOC estável</a></li><li><a href="#fig-3-27"><strong>Figura 3.27</strong> – Terapias cirúrgicas e intervencionistas no enfisema avançado</a></li></ul></details></div><!-- CAPÍTULO 3 – PREVENÇÃO E TRATAMENTO DA DPOC -->
+
+<section class="topic reveal" id="introducao-atividade" data-title="Introdução e atividade da doença">
+  <h2><span class="tn">3.1</span> Introdução e atividade da doença</h2>
+  <p class="lead">Objetivos do tratamento, ciclo de manejo e o conceito de baixa atividade da doença.</p>
+  <div class="keypoints">
+    <h4>Pontos-chave</h4>
+    <ul>
+      <li>Todo fumante deve ser fortemente incentivado e apoiado a parar. Terapia de reposição de nicotina e farmacoterapia aumentam a abstinência; aconselhamento e leis antifumo também ajudam. <strong>Não há evidência</strong> de eficácia e segurança do cigarro eletrônico como auxílio à cessação.</li>
+      <li>Todas as vacinas recomendadas localmente: influenza, pneumococo, VSR e COVID-19 reduzem infecções respiratórias baixas; dTpa para não vacinados na adolescência; herpes-zóster de rotina.</li>
+      <li>O tratamento farmacológico inicial é individualizado (sintomas, risco de exacerbação, efeitos adversos, comorbidades, disponibilidade, custo, preferência e capacidade de usar o dispositivo), com reavaliação periódica de técnica inalatória e adesão.</li>
+      <li>O tratamento não farmacológico é complementar. A reabilitação melhora a capacidade de exercício, os sintomas e a qualidade de vida em todos os graus.</li>
+      <li>OLD apenas na hipoxemia crônica grave em repouso (PaO<sub>2</sub> ≤ 55 mmHg, ou &lt; 60 com <em>cor pulmonale</em> ou policitemia). VNI de longo prazo na hipercapnia diurna acentuada com internação recente.</li>
+      <li>Intervenções cirúrgicas ou broncoscópicas para enfisema avançado refratário selecionado. Cuidados paliativos controlam sintomas na doença avançada.</li>
+    </ul>
+  </div>
+
+  <figure class="fig" id="fig-3-1" data-num="3.1" data-title="Objetivos do tratamento da DPOC estável">
+    <div class="fig-h"><span class="fn">Figura 3.1</span>Objetivos do tratamento da DPOC estável</div>
+    <div class="fig-b">
+      <div style="max-width:780px;margin:auto">
+        <div class="cell c-grey" style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px"><ul><li>Aliviar os sintomas</li><li>Melhorar a tolerância ao exercício</li><li>Melhorar o estado de saúde</li></ul><span style="font-size:2rem;color:#1a4d7a">▶</span><strong style="font-size:1.1rem">REDUZIR SINTOMAS</strong></div>
+        <div style="background:#1a4d7a;color:#fff;text-align:center;font-weight:800;font-style:italic;padding:6px;margin:8px 0;border-radius:6px">E</div>
+        <div class="cell c-amber" style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px"><ul><li>Prevenir a progressão da doença</li><li>Prevenir e tratar exacerbações</li><li>Reduzir a mortalidade</li></ul><span style="font-size:2rem;color:#1a4d7a">▶</span><strong style="font-size:1.1rem">REDUZIR RISCO</strong></div>
+      </div>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 3.1.</figcaption>
+  </figure>
+
+  <figure class="fig" id="fig-3-2" data-num="3.2" data-title="Manejo da DPOC (ciclo)">
+    <div class="fig-h"><span class="fn">Figura 3.2</span>Manejo da DPOC</div>
+    <div class="fig-b">
+      <div class="grid2" style="align-items:start">
+        <div>
+          <div class="cell c-amber"><strong class="t">Diagnóstico</strong><ul><li>Sintomas</li><li>Fatores de risco</li><li>Espirometria (repetir se limítrofe)</li></ul></div>
+          <div class="arrow" style="text-align:center;font-size:1.4rem;color:#2e7ab8">↘ segue para avaliação inicial</div>
+          <div class="cell c-amber"><strong class="t">Revisar</strong><ul><li>Sintomas (CAAT™ ou mMRC)</li><li>Exacerbações</li><li>Tabagismo e outras exposições</li><li>Técnica inalatória e adesão</li><li>Atividade física e exercício</li><li>Necessidade de reabilitação pulmonar</li><li>Autocuidado: dispneia; plano de ação escrito</li><li>Necessidade de O<sub>2</sub>, VNI, redução de volume, cuidados paliativos</li><li>Vacinação</li><li>Manejo das comorbidades</li><li>Espirometria (no mínimo anual)</li></ul></div>
+          <div class="arrow" style="text-align:center;font-size:1.4rem;color:#2e7ab8">⇄</div>
+          <div class="cell c-amber"><strong class="t">Ajustar</strong><ul><li>Farmacoterapia</li><li>Terapia não farmacológica</li></ul><em style="font-size:.85rem">→ e volta a revisar</em></div>
+        </div>
+        <div>
+          <div class="cell c-amber"><strong class="t">Avaliação inicial</strong><ul><li>VEF<sub>1</sub> – <strong>GOLD 1–4</strong></li><li>Sintomas (CAAT™ ou mMRC) } <strong>GOLD ABE</strong></li><li>História de exacerbações } <strong>GOLD ABE</strong></li><li>Tabagismo</li><li>Eosinófilos no sangue</li><li>Alfa-1 antitripsina</li><li>Comorbidades</li></ul></div>
+          <div class="arrow" style="text-align:center;font-size:1.4rem;color:#2e7ab8">↓</div>
+          <div class="cell c-amber"><strong class="t">Manejo inicial</strong><ul><li>Cessação do tabagismo</li><li>Vacinação</li><li>Estilo de vida ativo e exercício</li><li>Farmacoterapia inicial</li><li>Educação para autocuidado: manejo de fatores de risco, técnica inalatória, dispneia, plano de ação escrito</li><li>Manejo das comorbidades</li></ul><em style="font-size:.85rem">→ segue para revisão</em></div>
+        </div>
+      </div>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 3.2 (fluxo: Diagnóstico → Avaliação inicial → Manejo inicial → Revisar ⇄ Ajustar).</figcaption>
+  </figure>
+
+  <h3>Atividade da doença</h3>
+  <p>Nas doenças inflamatórias crônicas, “atividade da doença” designa processos biológicos que causam dano e são potencialmente reversíveis com tratamento. Na DPOC, os anti-inflamatórios e algumas medidas não farmacológicas (cessação do tabagismo, reabilitação, redução de volume) podem reduzi-la. Os indicadores clínicos são exacerbações, piora crônica dos sintomas e progressão (declínio funcional além do esperado para a idade ou progressão do enfisema). Os eosinófilos identificam a inflamação T2, e outros biomarcadores ainda precisam de validação.</p>
+  <div class="grid3">
+    <div class="cell c-green"><strong class="t">Meta do GOLD: baixa atividade</strong><ul><li>sem exacerbações</li><li>sem piora dos sintomas</li><li>sem perda acelerada de função pulmonar</li></ul></div>
+    <div class="cell c-blue"><strong class="t">Estabilidade da doença</strong>Baixa atividade: sem exacerbações, sem piora de sintomas e sem perda acelerada de função.</div>
+    <div class="cell c-purple"><strong class="t">Controle da doença</strong>Baixa atividade (sem exacerbações nem piora de sintomas) <strong>e</strong> baixo impacto, com sintomas abaixo de um limiar. Pode ser inatingível quando já há dano estrutural extenso.</div>
+  </div>
+  <p>O diagnóstico tardio implica alta carga de sintomas por dano já estabelecido. Agir sobre a atividade da doença em fases mais precoces exige diagnóstico precoce, biomarcadores e terapias que suprimam a atividade.</p>
+</section>
+
+<section class="topic reveal" id="reducao-de-risco" data-title="Redução de risco, estilo de vida e vacinação">
+  <h2><span class="tn">3.2</span> Redução de risco, estilo de vida e vacinação</h2>
+  <p class="lead">Tabagismo, poluição, ocupação, clima e vacinas.</p>
+
+  <figure class="fig" id="fig-3-3" data-num="3.3" data-title="Identificar e reduzir a exposição a fatores de risco">
+    <div class="fig-h"><span class="fn">Figura 3.3</span>Identificar e reduzir a exposição a fatores de risco</div>
+    <div class="fig-b"><ul class="bul">
+      <li>Intervenções para cessação do tabagismo devem ser ativamente buscadas em todas as pessoas com DPOC <strong>(Evidência A)</strong></li>
+      <li>Ventilação eficiente, fogões não poluentes e intervenções semelhantes devem ser recomendados <strong>(Evidência B)</strong></li>
+      <li>O médico deve orientar o paciente a evitar exposições contínuas a irritantes potenciais e poeiras ocupacionais, quando possível <strong>(Evidência D)</strong></li></ul></div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 3.3.</figcaption>
+  </figure>
+
+  <h3>Cessação do tabagismo</h3>
+  <p>Cerca de <strong>40% das pessoas com DPOC ainda fumam</strong>. Parar é a intervenção com maior impacto na história natural: melhora os sintomas e reduz as exacerbações. Fumantes com DPOC têm mais dependência, menor autoeficácia e mais depressão; ainda assim, com recursos adequados, alcançam abstinência de 14–27% no longo prazo. A combinação de <strong>aconselhamento e farmacoterapia</strong> é a mais eficaz. Indicadores de alta dependência: fumar nos primeiros 30 min após acordar ou à noite, ≥ 20 cigarros/dia, Fagerström 7–10, HSI 5–6. Abstinência em 1 ano: 1,4% com cuidado usual, 2,6% com aconselhamento mínimo, 6% com aconselhamento intensivo e <strong>12,3% com aconselhamento intensivo + fármaco</strong>. Até 3 minutos de aconselhamento já aumentam a cessação. A recaída faz parte da doença crônica e não representa fracasso.</p>
+
+  <figure class="fig" id="fig-3-4" data-num="3.4" data-title="Estratégias breves para o paciente disposto a parar de fumar">
+    <div class="fig-h"><span class="fn">Figura 3.4</span>Estratégias breves para ajudar o paciente disposto a parar de fumar (5 As)</div>
+    <div class="fig-b">
+      <table class="gt">
+        <tbody>
+          <tr><td class="rh" style="width:20%">PERGUNTAR <span class="pill k">Ask</span></td><td><strong>Identificar sistematicamente todos os tabagistas em toda consulta.</strong><br><em>Implantar no serviço um sistema que garanta que, para TODO paciente em TODA consulta, o tabagismo seja perguntado e registrado.</em></td></tr>
+          <tr><td class="rh">ACONSELHAR <span class="pill k">Advise</span></td><td><strong>Insistir firmemente para que todo tabagista pare.</strong><br><em>De forma clara, firme e personalizada.</em></td></tr>
+          <tr><td class="rh">AVALIAR <span class="pill k">Assess</span></td><td><strong>Determinar a disposição e os motivos para tentar parar.</strong><br><em>Perguntar se está disposto a tentar agora (por exemplo, nos próximos 30 dias).</em></td></tr>
+          <tr><td class="rh">AJUDAR <span class="pill k">Assist</span></td><td><strong>Auxiliar o paciente a parar.</strong><br><em>Plano de cessação, aconselhamento prático, apoio social durante e fora do tratamento, farmacoterapia aprovada (salvo situações especiais), materiais complementares.</em></td></tr>
+          <tr><td class="rh">ACOMPANHAR <span class="pill k">Arrange</span></td><td><strong>Agendar o seguimento.</strong><br><em>Presencial ou por telefone.</em></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 3.4.</figcaption>
+  </figure>
+
+  <figure class="fig" id="fig-3-5" data-num="3.5" data-title="Tratamento do uso e da dependência do tabaco">
+    <div class="fig-h"><span class="fn">Figura 3.5</span>Tratamento do uso e da dependência do tabaco</div>
+    <div class="fig-b">
+      <p style="font-weight:700;margin-bottom:8px">Principais achados e recomendações do painel de diretriz clínica sobre uso e dependência do tabaco:</p>
+      <ul class="bul">
+        <li>A dependência do tabaco é uma condição crônica que justifica tratamento repetido até a abstinência duradoura ou permanente</li>
+        <li>Existem tratamentos eficazes, e eles devem ser oferecidos a todos os tabagistas</li>
+        <li>Profissionais e sistemas de saúde devem garantir identificação, registro e tratamento de todo tabagista em toda consulta</li>
+        <li>O aconselhamento breve é eficaz e deve ser oferecido em todo contato com profissionais de saúde</li>
+        <li>Há forte relação dose-resposta entre a intensidade do aconselhamento e sua eficácia</li>
+        <li>Três tipos de aconselhamento são especialmente eficazes: aconselhamento prático, apoio de familiares e amigos no tratamento e apoio social fora do tratamento</li>
+        <li>As farmacoterapias de primeira linha (vareniclina, nortriptilina, bupropiona de liberação prolongada, goma, inalador, spray nasal e adesivo de nicotina) são eficazes; prescreva ao menos uma, salvo contraindicação</li>
+        <li>Programas de incentivo financeiro podem facilitar a cessação</li>
+        <li>Os tratamentos da dependência do tabaco são custo-efetivos</li>
+      </ul>
+      <p style="font-size:.8rem;color:#6c757d;margin-top:8px">Referência: The Tobacco Use and Dependence Clinical Practice Guideline Panel. JAMA 2000;283(24):3244-54.</p>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 3.5.</figcaption>
+  </figure>
+
+  <div class="grid2">
+    <div class="cell c-amber"><strong class="t">Poluição domiciliar, externa e ocupacional</strong>Reduzir a fumaça de biomassa é meta crucial: ventilação eficiente e fogões não poluentes são viáveis. Na ocupação, não há estudos de impacto, mas é lógico evitar poeiras, fumos e gases.</div>
+    <div class="cell c-blue"><strong class="t">Mudanças climáticas</strong>Calor e frio extremos aumentam mortalidade, internações e exacerbações; o frio traz risco maior que o calor. Recomendações da OMS: <strong>quarto &gt; 18 °C no frio</strong>; nas ondas de calor, hidratação, evitar o calor, ambientes de estar &lt; 32 °C e quarto &lt; 24 °C. A pegada de carbono difere entre inaladores: novos propelentes (HFO-1234ze, HFA-152a) mostraram segurança semelhante à do HFA-134a.</div>
+  </div>
+
+  <h3>Vacinação</h3>
+  <div class="grid2">
+    <div class="cell c-green"><strong class="t">Influenza</strong>Anual para todos ≥ 6 meses, com prioridade na DPOC. Reduz doença grave, AVC e morte e o total de exacerbações. Vacinas inativadas; em idosos, as de alta dose (HD-IIV3) ou adjuvantadas (aIIV3). A FDA aprovou a primeira vacina sazonal de mRNA (ago/2026). A vacinação durante a internação por IC aguda melhora a sobrevida.</div>
+    <div class="cell c-green"><strong class="t">Pneumococo</strong>Indicada para adultos ≥ 50 anos e para 19–49 anos com doença pulmonar crônica. <strong>O GOLD recomenda PCV20 ou PCV21</strong> em dose única (PCV21 cobre até 84% dos sorotipos invasivos em adultos; PCV20, até 58%). Reduz pneumonia comunitária e exacerbações. Em 5 anos, pneumonia em 47% com PPSV23 vs 3,3% com PCV13. Pode ser coadministrada com a vacina da influenza.</div>
+    <div class="cell c-green"><strong class="t">Vírus sincicial respiratório (VSR)</strong>Universal ≥ 75 anos; 50–74 anos com fator de risco (doença cardíaca ou pulmonar crônica, imunossupressão, instituição de longa permanência). Vacina proteica pré-F (bivalente ou adjuvantada) ou de mRNA. Uma dose protege por 3 temporadas. Cerca de 1/4 dos adultos ≥ 60 anos internados por VSR têm evento cardíaco agudo. O VSR responde por 8,7% das exacerbações ambulatoriais.</div>
+    <div class="cell c-green"><strong class="t">Outras</strong>dTpa para não vacinados na adolescência (risco aumentado de coqueluche). Herpes-zóster de rotina (maior risco com corticoide). COVID-19 conforme recomendações nacionais. Aprovada a primeira vacina combinada influenza + COVID-19 de mRNA.</div>
+  </div>
+
+  <figure class="fig" id="fig-3-6" data-num="3.6" data-title="Vacinação para pessoas com DPOC">
+    <div class="fig-h"><span class="fn">Figura 3.6</span>Vacinação para pessoas com DPOC</div>
+    <div class="fig-b">
+      <p style="margin-bottom:8px">Pessoas com DPOC devem receber todas as vacinas recomendadas pelas diretrizes locais:</p>
+      <ul class="bul">
+        <li>Vacina anual contra influenza <strong>(Evidência B)</strong></li>
+        <li>Vacina contra SARS-CoV-2 (COVID-19) conforme recomendações atualizadas da OMS e do CDC <strong>(Evidência B)</strong></li>
+        <li>Recomenda-se uma dose de vacina pneumocócica conjugada 21-valente (PCV21) ou uma dose de PCV20 <strong>(Evidência B)</strong>. A vacinação pneumocócica reduz a pneumonia comunitária e as exacerbações na DPOC <strong>(Evidência B)</strong></li>
+        <li>Vacina contra VSR para ≥ 50 anos e/ou com doença cardíaca ou pulmonar crônica, conforme o CDC <strong>(Evidência A)</strong></li>
+        <li>dTpa (coqueluche, tétano e difteria) para quem não foi vacinado na adolescência, conforme o CDC <strong>(Evidência B)</strong></li>
+        <li>Vacina contra herpes-zóster para pessoas com DPOC &gt; 50 anos, conforme o CDC <strong>(Evidência B)</strong></li>
+      </ul>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 3.6.</figcaption>
+  </figure>
+</section>
+
+<section class="topic reveal" id="tratamento-farmacologico" data-title="Tratamento farmacológico de manutenção">
+  <h2><span class="tn">3.3</span> Tratamento farmacológico de manutenção</h2>
+  <p class="lead">Ciclo diagnóstico-tratamento, algoritmo inicial (ABE), algoritmo de seguimento, CI, biológicos e pacientes em LABA+CI.</p>
+  <p>A abordagem é individualizada pelos sintomas e pelo risco de exacerbação, com escalonamento guiado pelos traços tratáveis predominantes (dispneia/limitação ao exercício ou exacerbações). Uma única exacerbação moderada ou grave já aumenta o risco de novos eventos. O GOLD <strong>não usa mais o termo “sobreposição asma-DPOC”</strong>: são doenças distintas que podem coexistir. Se houver asma concomitante, siga as diretrizes de asma, e o CI é obrigatório.</p>
+
+  <figure class="fig" id="fig-3-7" data-num="3.7" data-title="Ciclo de diagnóstico e manejo">
+    <div class="fig-h"><span class="fn">Figura 3.7</span>Ciclo de diagnóstico e manejo</div>
+    <div class="fig-b">
+      <div class="flow">
+        <div class="step"><div class="cell c-amber" style="max-width:420px;margin:auto"><strong class="t" style="text-align:center">O paciente com DPOC é virgem de tratamento?</strong></div></div>
+        <div class="grid2" style="width:100%;margin-top:10px">
+          <div>
+            <div style="text-align:center;font-weight:800;color:#2b8a3e">SIM ↓</div>
+            <div class="cell c-green"><strong class="t">① Iniciar o tratamento</strong>Ir para a <a href="#fig-3-8">Figura 3.8</a>: tratamento farmacológico INICIAL.</div>
+            <div style="height:16px"></div>
+            <div class="cell c-amber"><strong class="t">② Ajustar o tratamento</strong>Ir para a <a href="#fig-3-9">Figura 3.9</a>: tratamento farmacológico de SEGUIMENTO.<ul><li>Se a resposta ao tratamento atual for adequada, mantê-lo</li><li>Escalonar</li><li>Trocar dispositivo ou molécula</li></ul><em style="font-size:.85rem">↗ volta a revisar</em></div>
+          </div>
+          <div>
+            <div style="text-align:center;font-weight:800;color:#c92a2a">NÃO ↓</div>
+            <div class="cell c-grey"><strong class="t">Revisar</strong><ul><li>Sintomas: dispneia</li><li>Exacerbações</li></ul></div>
+            <div style="text-align:center;font-size:1.4rem;color:#2e7ab8">↓</div>
+            <div class="cell c-grey"><strong class="t">Avaliar</strong><ul><li>Técnica inalatória e adesão</li><li>Abordagens não farmacológicas (inclusive reabilitação e educação para autocuidado)</li><li>Outras doenças relevantes</li></ul><em style="font-size:.85rem">← segue para ajustar</em></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 3.7.</figcaption>
+  </figure>
+
+  <h3>Tratamento farmacológico inicial</h3>
+  <p>Não há ECRs sobre estratégias iniciais em recém-diagnosticados; a proposta é uma orientação clínica.</p>
+  <div class="grid3">
+    <div class="cell c-blue"><strong class="t">Grupo A</strong><strong>LAMA</strong>, pelo efeito sobre a dispneia nos GOLD 1–2. Se indisponível ou inacessível, broncodilatador de curta ação. Manter se houver benefício documentado.</div>
+    <div class="cell c-blue"><strong class="t">Grupo B</strong><strong>LABA+LAMA</strong>, superior ao LAMA isolado em pacientes com ≤ 1 exacerbação moderada e CAAT ≥ 10. Se a combinação não for apropriada, não há evidência para preferir LABA ou LAMA. Investigar comorbidades.</div>
+    <div class="cell c-red"><strong class="t">Grupo E</strong><strong>LABA+LAMA</strong> (classe mais bem ranqueada para reduzir exacerbações). <strong>LABA+CI não é incentivado</strong>: se houver indicação de CI, use LABA+LAMA+CI. Considerar a terapia tripla inicial se <strong>eos ≥ 300/µL</strong> (recomendação prática).</div>
+  </div>
+  <p>Todos devem receber <strong>broncodilatador de curta ação de resgate</strong>.</p>
+
+  <figure class="fig" id="fig-3-8" data-num="3.8" data-title="Tratamento farmacológico inicial">
+    <div class="fig-h"><span class="fn">Figura 3.8</span>Tratamento farmacológico inicial</div>
+    <div class="fig-b"><div class="svgwrap">
+      <svg viewBox="0 0 900 470" xmlns="http://www.w3.org/2000/svg" font-size="14">
+        <rect x="200" y="10" width="500" height="80" rx="10" fill="#fdebd0"/><rect x="200" y="10" width="500" height="30" rx="10" fill="#2b8a3e"/>
+        <text x="450" y="31" text-anchor="middle" fill="#fff" font-weight="800">① Iniciar o tratamento</text>
+        <text x="450" y="60" text-anchor="middle"><tspan font-weight="800">Tratamento INICIAL</tspan> – pacientes com DPOC virgens de</text><text x="450" y="80" text-anchor="middle">tratamento farmacológico de manutenção</text>
+        <text x="115" y="140" text-anchor="middle" font-weight="800">HISTÓRIA DE</text><text x="115" y="158" text-anchor="middle" font-weight="800">EXACERBAÇÕES</text><text x="115" y="174" text-anchor="middle" font-size="11">(POR ANO)</text>
+        <rect x="20" y="190" width="190" height="110" rx="10" fill="#dee2e6"/><text x="115" y="222" text-anchor="middle" font-weight="800">Uma ou mais (≥ 1)</text><text x="115" y="244" text-anchor="middle">exacerbação moderada</text><text x="115" y="264" text-anchor="middle">ou grave no ano</text><text x="115" y="284" text-anchor="middle">anterior</text>
+        <rect x="20" y="315" width="190" height="110" rx="10" fill="#dee2e6"/><text x="115" y="347" text-anchor="middle" font-weight="800">Nenhuma (0)</text><text x="115" y="369" text-anchor="middle">exacerbação moderada</text><text x="115" y="389" text-anchor="middle">ou grave no ano</text><text x="115" y="409" text-anchor="middle">anterior</text>
+        <rect x="230" y="190" width="650" height="110" rx="10" fill="#fdebd0"/>
+        <text x="250" y="214" font-weight="800" fill="#495057">GRUPO E</text><text x="555" y="248" text-anchor="middle" font-size="28" font-weight="900" fill="#1a4d7a">LABA + LAMA*</text>
+        <text x="555" y="280" text-anchor="middle" font-style="italic">considerar LABA+LAMA+CI* se eos no sangue ≥ 300</text>
+        <rect x="230" y="315" width="320" height="110" rx="10" fill="#fdebd0"/><text x="250" y="339" font-weight="800" fill="#495057">GRUPO A</text><text x="390" y="385" text-anchor="middle" font-size="28" font-weight="900" fill="#1a4d7a">Um LAMA</text>
+        <rect x="560" y="315" width="320" height="110" rx="10" fill="#fdebd0"/><text x="580" y="339" font-weight="800" fill="#495057">GRUPO B</text><text x="720" y="385" text-anchor="middle" font-size="28" font-weight="900" fill="#1a4d7a">LABA + LAMA*</text>
+        <rect x="290" y="432" width="200" height="30" rx="8" fill="#dee2e6"/><text x="390" y="452" text-anchor="middle">mMRC 0–1, CAAT &lt; 10</text>
+        <rect x="620" y="432" width="200" height="30" rx="8" fill="#dee2e6"/><text x="720" y="452" text-anchor="middle">mMRC ≥ 2, CAAT ≥ 10</text>
+      </svg>
+    </div>
+      <p style="font-size:.82rem;color:#495057;margin-top:8px">*A terapia em inalador único pode ser mais conveniente e eficaz que múltiplos inaladores, e melhora a adesão. Exacerbações = número por ano; eos = eosinófilos no sangue (células/µL); mMRC = escala de dispneia do MRC modificada; CAAT™ = Chronic Airways Assessment Test™. Eixo horizontal: SINTOMAS.</p>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 3.8.</figcaption>
+  </figure>
+
+  <h3>Tratamento farmacológico de seguimento</h3>
+  <p>Siga o princípio <strong>Revisar → Avaliar → Ajustar</strong>. Revise a dispneia e o risco de exacerbação (história, eosinófilos). Avalie técnica, adesão e medidas não farmacológicas. Ajuste escalonando, desescalonando ou trocando dispositivo ou molécula, e reavalie a resposta. O algoritmo vale para qualquer paciente em manutenção, independentemente do grupo inicial. Defina o traço tratável predominante; se forem dispneia <strong>e</strong> exacerbações, use a via das exacerbações.</p>
+  <div class="grid2">
+    <div class="cell c-blue"><strong class="t">Dispneia persistente</strong><ul><li>Em monoterapia: passar para <strong>LABA+LAMA</strong></li><li>Sem melhora com LABA+LAMA: trocar dispositivo ou molécula; implementar ou escalar medidas não farmacológicas (reabilitação); <strong>considerar ensifentrina</strong>, se disponível</li><li>Sempre investigar outras causas de dispneia, técnica e adesão</li></ul></div>
+    <div class="cell c-red"><strong class="t">Exacerbações</strong><ul><li>Em monoterapia: <strong>LABA+LAMA</strong></li><li>Em LABA+LAMA com exacerbação moderada ou grave: <strong>LABA+LAMA+CI</strong> se eos ≥ 100/µL (resposta maior quanto mais eosinófilos)</li><li>Em LABA+LAMA com eos &lt; 100: <strong>azitromicina</strong> (preferencialmente em não fumantes atuais, ponderando resistência) ou <strong>roflumilaste</strong> (VEF<sub>1</sub> &lt; 50%, bronquite crônica e exacerbação grave prévia)</li><li>Em terapia tripla com exacerbações: <strong>biológico se eos ≥ 300</strong> (dupilumabe, se bronquite crônica; mepolizumabe, com ou sem bronquite crônica), azitromicina ou roflumilaste</li><li><strong>Não retirar o CI da tripla</strong>, salvo início inadequado, ausência de resposta, efeitos adversos ou pneumonias graves ou recorrentes. Com eos ≥ 300, a retirada aumenta o risco de exacerbação</li></ul></div>
+  </div>
+
+  <figure class="fig" id="fig-3-9" data-num="3.9" data-title="Tratamento farmacológico de seguimento">
+    <div class="fig-h"><span class="fn">Figura 3.9</span>Tratamento farmacológico de seguimento</div>
+    <div class="fig-b"><div class="svgwrap">
+      <svg viewBox="0 0 980 700" xmlns="http://www.w3.org/2000/svg" font-size="14">
+        <defs><marker id="ar39" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1a4d7a"/></marker></defs>
+        <rect x="190" y="10" width="600" height="100" rx="10" fill="#fdebd0"/><rect x="190" y="10" width="600" height="34" rx="10" fill="#e8a317"/>
+        <text x="490" y="33" text-anchor="middle" font-weight="800" fill="#1a1a1a">② Ajustar o tratamento</text>
+        <text x="490" y="70" text-anchor="middle" font-weight="800" font-size="16">MANTER O TRATAMENTO ATUAL</text>
+        <text x="490" y="94" text-anchor="middle">a menos que dispneia ou exacerbação(ões) exijam otimização</text>
+        <text x="160" y="160" text-anchor="middle" font-weight="800" font-size="16" fill="#1a4d7a">• SE DISPNEIA PERSISTENTE</text>
+        <text x="660" y="150" text-anchor="middle" font-weight="800" font-size="16" fill="#1a4d7a">• SE ≥ 1 EXACERBAÇÃO</text><text x="660" y="170" text-anchor="middle" font-weight="800" font-size="16" fill="#1a4d7a">MODERADA OU GRAVE</text>
+        <line x1="330" y1="140" x2="330" y2="600" stroke="#adb5bd"/>
+        <!-- dispneia -->
+        <rect x="90" y="200" width="140" height="44" rx="8" fill="#dee2e6"/><text x="160" y="228" text-anchor="middle" font-weight="700">LABA ou LAMA</text>
+        <line x1="160" y1="244" x2="160" y2="280" stroke="#1a4d7a" stroke-width="2" marker-end="url(#ar39)"/>
+        <rect x="90" y="285" width="140" height="44" rx="8" fill="#dee2e6"/><text x="160" y="313" text-anchor="middle" font-weight="700">LABA + LAMAª</text>
+        <line x1="160" y1="329" x2="160" y2="365" stroke="#1a4d7a" stroke-width="2" marker-end="url(#ar39)"/>
+        <rect x="15" y="370" width="295" height="170" rx="10" fill="#dee2e6"/>
+        <text x="30" y="398">• Considerar trocar dispositivo</text><text x="42" y="416">inalatório ou molécula</text>
+        <text x="30" y="442">• Implementar ou escalar</text><text x="42" y="460">tratamento(s) não farmacológico(s)</text>
+        <text x="30" y="486">• Considerar associar ensifentrina</text>
+        <text x="30" y="512">• Investigar (e tratar) outras</text><text x="42" y="530">causas de dispneia</text>
+        <!-- exacerbacoes -->
+        <rect x="560" y="200" width="160" height="44" rx="8" fill="#fdebd0"/><text x="640" y="228" text-anchor="middle" font-weight="700">LABA ou LAMA</text>
+        <path d="M640 244 V 262 H 470 V 300" fill="none" stroke="#1a4d7a" stroke-width="2" marker-end="url(#ar39)"/><text x="520" y="256" font-size="11">se eos &lt; 300</text>
+        <line x1="640" y1="262" x2="640" y2="375" stroke="#1a4d7a" stroke-width="2" marker-end="url(#ar39)"/><text x="648" y="300" font-size="11">se eos ≥ 300</text>
+        <rect x="390" y="305" width="160" height="44" rx="8" fill="#fdebd0"/><text x="470" y="333" text-anchor="middle" font-weight="700">LABA + LAMAª</text>
+        <path d="M490 349 V 402 H 545" fill="none" stroke="#1a4d7a" stroke-width="2" marker-end="url(#ar39)"/><text x="496" y="372" font-size="11">se eos ≥ 100</text>
+        <path d="M410 349 V 470 H 640" fill="none" stroke="#1a4d7a" stroke-width="2"/><text x="350" y="372" font-size="11">se eos &lt; 100</text>
+        <rect x="550" y="380" width="190" height="44" rx="8" fill="#fdebd0"/><text x="645" y="408" text-anchor="middle" font-weight="700">LABA + LAMA + CIª</text>
+        <line x1="640" y1="424" x2="640" y2="490" stroke="#1a4d7a" stroke-width="2"/>
+        <path d="M640 490 H 510 V 530" fill="none" stroke="#1a4d7a" stroke-width="2" marker-end="url(#ar39)"/>
+        <path d="M640 490 H 690 V 530" fill="none" stroke="#1a4d7a" stroke-width="2" marker-end="url(#ar39)"/>
+        <path d="M740 402 H 880 V 530" fill="none" stroke="#1a4d7a" stroke-width="2" marker-end="url(#ar39)"/>
+        <text x="752" y="380" font-size="11">se 2 moderadas ou</text><text x="752" y="393" font-size="11">1 grave <tspan font-weight="800">E</tspan> eos ≥ 300</text>
+        <rect x="430" y="535" width="160" height="80" rx="8" fill="#fdebd0"/><text x="510" y="560" text-anchor="middle" font-weight="800">Roflumilaste</text><text x="510" y="582" text-anchor="middle" font-style="italic" font-size="12">se VEF₁ &lt; 50% e</text><text x="510" y="598" text-anchor="middle" font-style="italic" font-size="12">bronquite crônica</text>
+        <rect x="605" y="535" width="170" height="80" rx="8" fill="#fdebd0"/><text x="690" y="560" text-anchor="middle" font-weight="800">Azitromicina</text><text x="690" y="582" text-anchor="middle" font-style="italic" font-size="12">preferencialmente em</text><text x="690" y="598" text-anchor="middle" font-style="italic" font-size="12">ex-fumantes</text>
+        <rect x="790" y="535" width="180" height="100" rx="8" fill="#fdebd0"/><text x="880" y="558" text-anchor="middle" font-weight="800">Terapia biológicaᵇ</text><text x="880" y="576" text-anchor="middle" font-size="12">(ver Figura 3.11)</text><text x="800" y="600" font-size="13">• Dupilumabe</text><text x="812" y="615" font-size="11" font-style="italic">(se bronquite crônica)ᶜ</text><text x="800" y="630" font-size="13">• Mepolizumabe</text>
+      </svg>
+    </div>
+      <p style="font-size:.8rem;color:#495057;margin-top:8px">ª A terapia em inalador único pode ser mais conveniente e eficaz que múltiplos inaladores, e melhora a adesão. ᵇ Listados em ordem de aprovação nos EUA. ᶜ História relatada de bronquite crônica (tosse produtiva crônica) por 3 meses no ano anterior à triagem, sem outra causa conhecida. Considerar desescalonar o CI se houver pneumonia ou outros efeitos adversos importantes; com eos ≥ 300 células/µL, a desescalada associa-se mais a exacerbações.</p>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 3.9.</figcaption>
+  </figure>
+
+  <figure class="fig" id="fig-3-10" data-num="3.10" data-title="Fatores a considerar ao iniciar CI">
+    <div class="fig-h"><span class="fn">Figura 3.10</span>Fatores a considerar ao iniciar corticosteroide inalatório (CI)</div>
+    <div class="fig-b">
+      <p style="font-weight:700">Fatores a considerar ao associar CI aos broncodilatadores de longa ação <span style="font-weight:400">(o cenário é diferente quando se considera a retirada do CI):</span></p>
+      <div style="display:grid;grid-template-columns:200px 1fr;gap:12px;margin-top:12px;align-items:center;max-width:820px">
+        <div class="cell" style="background:#1b8a3a;color:#fff;font-weight:800;text-align:center">FORTEMENTE A FAVOR</div>
+        <div><ul class="bul"><li>História de internação(ões) por exacerbação de DPOC#</li><li>≥ 2 exacerbações moderadas por ano#</li><li>Eosinófilos no sangue ≥ 300 células/µL</li><li>História de asma ou asma concomitante</li></ul></div>
+        <div class="cell" style="background:#63c172;color:#fff;font-weight:800;text-align:center">A FAVOR</div>
+        <div><ul class="bul"><li>1 exacerbação moderada por ano#</li><li>Eosinófilos no sangue 100 a &lt; 300 células/µL</li></ul></div>
+        <div class="cell" style="background:#d6243f;color:#fff;font-weight:800;text-align:center">CONTRA</div>
+        <div><ul class="bul"><li>Pneumonias de repetição</li><li>Eosinófilos no sangue &lt; 100 células/µL</li><li>História de infecção por micobactéria</li></ul></div>
+      </div>
+      <p style="font-size:.8rem;color:#495057;margin-top:10px"># apesar de manutenção adequada com broncodilatador de longa ação (ver Figuras 3.8 e A5.1). Os eosinófilos devem ser vistos como um contínuo: os valores citados são pontos de corte aproximados e as contagens flutuam. Adaptado de ERS 2019: Eur Respir J 52(6):1801219.</p>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 3.10.</figcaption>
+  </figure>
+
+  <figure class="fig" id="fig-3-11" data-num="3.11" data-title="Evidências dos biológicos registrados para DPOC">
+    <div class="fig-h"><span class="fn">Figura 3.11</span>Evidências que apoiam o uso de biológicos registrados para o tratamento da DPOC</div>
+    <div class="fig-b">
+      <table class="gt">
+        <thead><tr><th>Molécula / ECR*</th><th>Principais critérios de inclusãoª</th><th>Taxa anualizada de exacerbações moderadas/graves</th><th>Função pulmonar (VEF<sub>1</sub> pré-BD)ᵈ</th><th>Qualidade de vida (SGRQ)</th></tr></thead>
+        <tbody>
+          <tr><td colspan="5" style="background:#dee2e6;font-weight:800">Dupilumabe (300 mg a cada 2 semanas)</td></tr>
+          <tr><td class="rh">BOREAS¹ (n = 939)</td><td>VEF<sub>1</sub> pós-BD 30–70%; bronquite crônicaᵇ; eos ≥ 300 (triagem)</td><td>RR 0,70; p &lt; 0,001 (IC95% 0,58–0,86)</td><td>83 mL; p &lt; 0,001 (IC95% 42–125)</td><td>−3,4; p = 0,002 (IC95% −5,5 a −1,3)</td></tr>
+          <tr><td class="rh">NOTUS² (n = 935)</td><td>VEF<sub>1</sub> pós-BD 30–70%; bronquite crônicaᵇ; eos ≥ 300 (triagem)</td><td>RR 0,66; p &lt; 0,001 (IC95% 0,54–0,82)</td><td>62 mL; p = 0,02 (IC95% 11–113)</td><td>−3,4ᵉ (IC95% −5,8 a −0,9)</td></tr>
+          <tr><td colspan="5" style="background:#dee2e6;font-weight:800">Mepolizumabe (100 mg a cada 4 semanas)</td></tr>
+          <tr><td class="rh">METREO³ (n = 674)</td><td>VEF<sub>1</sub> pós-BD 20–80%; eos ≥ 150 (triagem) ou ≥ 300 (ano anterior)</td><td>RR 0,80 (100 mg); NS · RR 0,86 (300 mg); NS</td><td>19 mL; NS (IC95% −29 a 67)</td><td>−1,8; NS (IC95% −4,5 a 0,8)</td></tr>
+          <tr><td class="rh">METREX³ (n = 836)</td><td>VEF<sub>1</sub> pós-BD 20–80%; eos ≥ 150 (triagem) ou ≥ 300 (ano anterior)ᶜ</td><td>RR 0,82; p = 0,04 (IC95% 0,68–0,98)</td><td>−10 mL; NS (IC95% −54 a 33)</td><td>0,2; NS (IC95% −2,8 a 3,2)</td></tr>
+          <tr><td class="rh">MATINEE⁴ (n = 804)</td><td>VEF<sub>1</sub> pós-BD 20–80%; eos ≥ 300 (triagem) <strong>e</strong> ≥ 150 (ano anterior)</td><td>RR 0,79; p = 0,01 (IC95% 0,66–0,94)</td><td>−9,0 mL; NS (IC95% −60,1 a 42,1)</td><td>−2,3; NS (IC95% −4,6 a 0,1)</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:.78rem;color:#495057;margin-top:8px">*Moléculas em ordem de aprovação nos EUA. Os resultados não podem ser comparados diretamente entre estudos (populações diferentes). ª todos os estudos recrutaram pacientes com exacerbações no ano anterior em terapia inalatória tripla · ᵇ história relatada de bronquite crônica (tosse produtiva por 3 meses no ano anterior à triagem, sem outra causa) · ᶜ população eosinofílica pré-definida · ᵈ em 52 semanas · ᵉ significância não testada pela hierarquia estatística. NS = não significativo; RR = razão de risco. Referências: ¹ Bhatt, NEJM 2023;389:205-214 · ² Bhatt, NEJM 2024;390:2274-2283 · ³ Pavord, NEJM 2017;377:1613-1629 · ⁴ Sciurba, NEJM 2025;392:1710-1720.</p>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 3.11.</figcaption>
+  </figure>
+
+  <h3>Pacientes em uso de LABA+CI</h3>
+  <p>Se o paciente sem características de asma está bem controlado com LABA+CI, manter é uma opção. Com novas exacerbações, escalonar para tripla (eos ≥ 100) ou trocar para LABA+LAMA (eos &lt; 100). Com muitos sintomas, trocar para LABA+LAMA ou tripla conforme a resposta prévia ao CI.</p>
+  <figure class="fig" id="fig-3-12" data-num="3.12" data-title="Manejo de pacientes em uso de LABA+CI">
+    <div class="fig-h"><span class="fn">Figura 3.12</span>Manejo de pacientes atualmente em uso de LABA+CI</div>
+    <div class="fig-b"><div class="svgwrap">
+      <svg viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" font-size="14">
+        <defs><marker id="ar312" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1a4d7a"/></marker></defs>
+        <rect x="320" y="10" width="260" height="70" rx="10" fill="#fdebd0"/><text x="450" y="40" text-anchor="middle" font-weight="800">Paciente atualmente</text><text x="450" y="62" text-anchor="middle" font-weight="800">em LABA+CI</text>
+        <path d="M320 45 H 165 V 115" fill="none" stroke="#1a4d7a" stroke-width="2" marker-end="url(#ar312)"/>
+        <line x1="450" y1="80" x2="450" y2="115" stroke="#1a4d7a" stroke-width="2" marker-end="url(#ar312)"/>
+        <path d="M580 45 H 725 V 115" fill="none" stroke="#1a4d7a" stroke-width="2" marker-end="url(#ar312)"/>
+        <rect x="25" y="120" width="280" height="80" rx="10" fill="#fdebd0"/><text x="165" y="150" text-anchor="middle">• Sem exacerbações atuais</text><text x="165" y="172" text-anchor="middle">• Boa resposta prévia ao tratamento*</text>
+        <rect x="350" y="120" width="200" height="80" rx="10" fill="#fdebd0"/><text x="450" y="152" text-anchor="middle">• Sem história relevante</text><text x="450" y="174" text-anchor="middle">de exacerbações</text>
+        <rect x="595" y="120" width="260" height="80" rx="10" fill="#fdebd0"/><text x="725" y="165" text-anchor="middle">• Exacerbações atuais</text>
+        <path d="M165 200 V 220 H 95 V 240" fill="none" stroke="#1a4d7a" stroke-width="2" marker-end="url(#ar312)"/><path d="M165 220 H 240 V 240" fill="none" stroke="#1a4d7a" stroke-width="2" marker-end="url(#ar312)"/>
+        <rect x="30" y="245" width="130" height="80" rx="10" fill="#fdebd0"/><text x="95" y="280" text-anchor="middle" font-weight="800">Baixa carga</text><text x="95" y="300" text-anchor="middle" font-weight="800">de sintomas</text>
+        <rect x="175" y="245" width="130" height="80" rx="10" fill="#fdebd0"/><text x="240" y="280" text-anchor="middle" font-weight="800">Alta carga</text><text x="240" y="300" text-anchor="middle" font-weight="800">de sintomas</text>
+        <line x1="450" y1="200" x2="450" y2="240" stroke="#1a4d7a" stroke-width="2" marker-end="url(#ar312)"/>
+        <rect x="350" y="245" width="200" height="90" rx="10" fill="#dee2e6"/><text x="450" y="278" text-anchor="middle" font-weight="800">Considerar trocar</text><text x="450" y="300" text-anchor="middle" font-weight="800">para LABA+LAMA</text>
+        <path d="M725 200 V 220 H 655 V 240" fill="none" stroke="#1a4d7a" stroke-width="2" marker-end="url(#ar312)"/><path d="M725 220 H 795 V 240" fill="none" stroke="#1a4d7a" stroke-width="2" marker-end="url(#ar312)"/>
+        <rect x="595" y="245" width="125" height="90" rx="10" fill="#fdebd0"/><text x="657" y="280" text-anchor="middle" font-weight="800">Eosinófilos</text><text x="657" y="304" text-anchor="middle" font-weight="800">&lt; 100/µL</text>
+        <rect x="730" y="245" width="125" height="90" rx="10" fill="#fdebd0"/><text x="792" y="280" text-anchor="middle" font-weight="800">Eosinófilos</text><text x="792" y="304" text-anchor="middle" font-weight="800">≥ 100/µL</text>
+        <line x1="595" y1="290" x2="556" y2="290" stroke="#1a4d7a" stroke-width="2" marker-end="url(#ar312)"/>
+        <line x1="95" y1="325" x2="95" y2="380" stroke="#1a4d7a" stroke-width="2" marker-end="url(#ar312)"/>
+        <rect x="30" y="385" width="130" height="80" rx="10" fill="#dee2e6"/><text x="95" y="420" text-anchor="middle" font-weight="800">Manter o</text><text x="95" y="442" text-anchor="middle" font-weight="800">tratamento</text>
+        <path d="M240 325 V 425 H 345" fill="none" stroke="#1a4d7a" stroke-width="2" marker-end="url(#ar312)"/>
+        <path d="M792 335 V 425 H 556" fill="none" stroke="#1a4d7a" stroke-width="2" marker-end="url(#ar312)"/>
+        <rect x="350" y="380" width="200" height="95" rx="10" fill="#dee2e6"/><text x="450" y="410" text-anchor="middle" font-weight="800">Considerar escalonar</text><text x="450" y="432" text-anchor="middle" font-weight="800">para</text><text x="450" y="454" text-anchor="middle" font-weight="800">LABA+LAMA+CI</text>
+        <text x="25" y="505" font-size="12.5">*O paciente teve exacerbações antes e respondeu ao tratamento com LABA+CI.</text>
+      </svg>
+    </div></div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 3.12.</figcaption>
+  </figure>
+</section>
+
+<section class="topic reveal" id="terapia-inalatoria" data-title="Manejo da terapia inalatória">
+  <h2><span class="tn">3.4</span> Manejo da terapia inalatória</h2>
+  <p class="lead">Dispositivos, técnica, educação e escolha compartilhada.</p>
+  <p>Existem mais de 30 terapias inalatórias e mais de 20 dispositivos: nebulizadores, aerossol dosimetrado (pMDI) com ou sem espaçador/câmara (VHC), inaladores ativados pela respiração (BAI), névoa suave (SMI) e pó seco (DPI). Partículas &gt; 5 µm depositam-se na orofaringe; finas (2–5 µm) e extrafinas (&lt; 2 µm) chegam mais à periferia. <strong>pMDI e SMI exigem inspiração lenta e profunda; DPI exige inspiração vigorosa</strong>, e cada DPI tem uma resistência interna própria. Em caso de dúvida, medir o fluxo inspiratório ou trocar para pMDI ± espaçador ou SMI. Mais de 2/3 dos pacientes cometem ao menos um erro. Nenhum dispositivo dispensa explicar, demonstrar e verificar a técnica. A técnica de <em>teach-back</em> (o paciente demonstra o uso) é particularmente eficaz. Espaçadores de 150–250 mL são tão eficazes quanto os maiores. A troca em massa de dispositivos por custo, sem retreinamento, aumentou o uso de prednisolona e de serviços de saúde. A terapia tripla em inalador único pode melhorar o estado de saúde em relação a múltiplos inaladores.</p>
+
+  <figure class="fig" id="fig-3-13" data-num="3.13" data-title="Pontos-chave para a inalação de medicamentos">
+    <div class="fig-h"><span class="fn">Figura 3.13</span>Pontos-chave para a inalação de medicamentos</div>
+    <div class="fig-b"><ul class="bul">
+      <li>Quando o tratamento é inalatório, a importância da educação e do treinamento na técnica do dispositivo nunca é demais</li>
+      <li>A escolha do dispositivo deve ser individualizada e depende de acesso, custo, prescritor e, sobretudo, da capacidade e da preferência do paciente</li>
+      <li>É essencial dar instruções e demonstrar a técnica ao prescrever, garantir que ela esteja adequada e reconferir em cada consulta</li>
+      <li>Técnica inalatória (e adesão) devem ser avaliadas antes de concluir que a terapia atual é insuficiente</li></ul></div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 3.13.</figcaption>
+  </figure>
+
+  <figure class="fig" id="fig-3-14" data-num="3.14" data-title="Princípios básicos para a escolha do dispositivo inalatório">
+    <div class="fig-h"><span class="fn">Figura 3.14</span>Princípios básicos para a escolha adequada do dispositivo inalatório</div>
+    <div class="fig-b"><ul class="bul">
+      <li>Disponibilidade do medicamento no dispositivo</li>
+      <li>Crenças, satisfação com dispositivos atuais e prévios e preferências do paciente devem ser avaliadas e consideradas</li>
+      <li>O número de tipos diferentes de dispositivo deve ser o menor possível para cada paciente</li>
+      <li>Não trocar o tipo de dispositivo sem justificativa clínica nem sem informação, educação e acompanhamento médico adequados</li>
+      <li>A decisão compartilhada é a estratégia mais adequada para escolher o dispositivo</li>
+      <li>Considerar cognição, destreza e força do paciente</li>
+      <li>Avaliar a capacidade de executar a manobra inalatória específica do dispositivo:
+        <ul><li><strong>Pó seco (DPI):</strong> adequado apenas se o paciente fizer inspiração vigorosa e profunda. Verificar visualmente; se houver dúvida, avaliar objetivamente ou escolher outro dispositivo</li>
+        <li><strong>Aerossol dosimetrado (pMDI) e, em menor grau, névoa suave (SMI):</strong> exigem coordenação entre disparo e inspiração e inspiração lenta e profunda. Verificar visualmente; se houver dúvida, associar espaçador/câmara ou escolher outro dispositivo</li>
+        <li>Se o paciente não consegue usar pMDI (com ou sem espaçador), SMI ou DPI, considerar <strong>nebulizador</strong></li></ul></li>
+      <li>Outros fatores: tamanho, portabilidade, custo</li>
+      <li>Inaladores inteligentes podem ser úteis diante de problemas de adesão, persistência ou técnica (nos dispositivos que a verificam)</li>
+      <li>O médico deve prescrever apenas dispositivos que ele (e a equipe) saibam usar</li></ul></div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 3.14.</figcaption>
+  </figure>
+</section>
+
+<section class="topic reveal" id="nao-farmacologico" data-title="Tratamento não farmacológico, educação e autocuidado">
+  <h2><span class="tn">3.5</span> Tratamento não farmacológico, educação e autocuidado</h2>
+  <p class="lead">Algoritmos inicial e de seguimento, educação, autocuidado e cuidado integrado.</p>
+
+  <figure class="fig" id="fig-3-15" data-num="3.15" data-title="Manejo não farmacológico da DPOC por grupo">
+    <div class="fig-h"><span class="fn">Figura 3.15</span>Manejo não farmacológico da DPOC*</div>
+    <div class="fig-b">
+      <table class="gt">
+        <thead><tr><th style="width:12%">Grupo</th><th style="width:28%">Essencial</th><th colspan="2">Recomendado</th></tr></thead>
+        <tbody>
+          <tr><td class="rh" style="font-size:1.3rem;text-align:center">A</td><td>• Cessação do tabagismo <small>(pode incluir tratamento farmacológico)</small></td><td>• Atividade física<br>• Educação e autocuidado personalizados</td><td>• Influenza · COVID-19 · Pneumococo · Coqueluche · Herpes-zóster · VSR</td></tr>
+          <tr><td class="rh" style="font-size:1.3rem;text-align:center">B e E</td><td>• Cessação do tabagismo <small>(pode incluir tratamento farmacológico)</small><br>• <strong>Reabilitação pulmonar</strong></td><td>• Atividade física<br>• Educação e autocuidado personalizados</td><td>• Influenza · COVID-19 · Pneumococo · Coqueluche · Herpes-zóster · VSR</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:.8rem;color:#6c757d;margin-top:6px">*Pode incluir tratamento farmacológico.</p>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 3.15.</figcaption>
+  </figure>
+
+  <figure class="fig" id="fig-3-16" data-num="3.16" data-title="Seguimento do tratamento não farmacológico">
+    <div class="fig-h"><span class="fn">Figura 3.16</span>Seguimento do tratamento não farmacológico</div>
+    <div class="fig-b">
+      <p><strong>1. Se a resposta ao tratamento inicial for adequada, mantê-lo e oferecer:</strong> vacina anual da influenza e demais vacinas recomendadas · educação para autocuidado · avaliação de fatores de risco comportamentais (cessação do tabagismo, se aplicável, e exposições ambientais).<br><strong>Garantir:</strong> manutenção do programa de exercícios e da atividade física · sono adequado e alimentação saudável.</p>
+      <p style="margin-top:10px"><strong>2. Se não, considerar o traço tratável predominante:</strong></p>
+      <div class="grid2">
+        <div class="cell c-grey"><strong class="t">DISPNEIA</strong><ul><li>Educação para autocuidado (plano de ação escrito) com manejo integrado de: dispneia, técnicas de conservação de energia e manejo do estresse</li><li>Programa de reabilitação pulmonar (RP) e/ou de manutenção de exercícios pós-RP</li></ul></div>
+        <div class="cell c-amber"><strong class="t">EXACERBAÇÕES</strong><ul><li>Educação para autocuidado (plano de ação escrito) personalizada quanto a: evitar fatores agravantes; como monitorar e manejar a piora dos sintomas; contatos em caso de exacerbação</li><li>Programa de RP e/ou de manutenção de exercícios pós-RP</li></ul></div>
+      </div>
+      <div class="callout info"><strong>Todo paciente com DPOC avançada deve ser considerado para cuidados paliativos e de fim de vida</strong>, para otimizar o controle dos sintomas e permitir decisões informadas do paciente e da família sobre o manejo futuro.</div>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 3.16.</figcaption>
+  </figure>
+
+  <div class="grid3">
+    <div class="cell c-blue"><strong class="t">Educação</strong>Informação isolada raramente muda comportamento. A educação deve ser participativa, motivacional e personalizada, com o profissional como facilitador e <em>coach</em>. Temas: cessação do tabagismo e prevenção de recaída; a doença; tratamentos e uso correto dos inaladores; reabilitação; manejo da dispneia; sinais de piora e quando procurar ajuda; plano de ação; diretivas antecipadas e fim de vida.</div>
+    <div class="cell c-green"><strong class="t">Autocuidado</strong>Componente central do Modelo de Cuidados Crônicos. O foco é o plano de ação para reconhecimento e tratamento precoce das exacerbações, com recuperação mais rápida e menor uso de serviços. Para funcionar, precisa de acompanhamento por <em>coach</em>, gestor de caso ou navegador. Domínios: tabagismo, exercício, adesão e técnica, nutrição, monitorização de sintomas, prevenção de exacerbações e impacto psicológico.</div>
+    <div class="cell c-purple"><strong class="t">Cuidado integrado</strong>Programas coordenados entre níveis de atenção reduzem internações e melhoram qualidade de vida e capacidade de exercício (Cochrane). O componente dominante define o benefício: exercício → tolerância; autocuidado com plano de ação e <em>coach</em> → menos internações. Programas com múltiplos componentes rendem mais.</div>
+  </div>
+</section>
+
+<section class="topic reveal" id="reabilitacao" data-title="Reabilitação pulmonar">
+  <h2><span class="tn">3.6</span> Reabilitação pulmonar</h2>
+  <p class="lead">Definição, componentes, seleção, benefícios, avaliação e reabilitação após exacerbação.</p>
+  <p>A reabilitação pulmonar (RP) é uma intervenção abrangente baseada em avaliação minuciosa, seguida de terapias personalizadas (exercício, educação, autocuidado visando mudança de comportamento) para melhorar a condição física e psicológica e promover adesão duradoura a comportamentos saudáveis. A OMS (resolução 76.6, 2023) defende acesso universal com equipe multiprofissional. Os melhores resultados vêm de programas de <strong>6–12 semanas, com ≥ 2 sessões supervisionadas/semana</strong> (BTS: mínimo de 12 sessões em 6 semanas; mediana de 24 sessões na revisão Cochrane). A RP pode ser feita em centro, comunidade, atenção primária ou domicílio, presencial ou por telerreabilitação síncrona ou assíncrona; a ATS recomenda fortemente considerar a telerreabilitação como alternativa.</p>
+
+  <figure class="fig" id="fig-3-17" data-num="3.17" data-title="Programas não farmacológicos na DPOC">
+    <div class="fig-h"><span class="fn">Figura 3.17</span>Programas não farmacológicos na DPOC</div>
+    <div class="fig-b">
+      <table class="gt">
+        <thead><tr><th>Programa</th><th>Componentes</th><th>Local</th><th>Efeito esperado</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Orientação (<em>coaching</em>) de atividade física</td><td>Aconselhamento; telemonitorização com <em>wearables</em></td><td>Presencial ou <em>tele-coaching</em></td><td>Mais atividade física</td></tr>
+          <tr><td class="rh">Treinamento físico*</td><td>Treino de corpo inteiro (contínuo/intervalado); treino de resistência (força)</td><td>Treino monitorado (presencial ou telessupervisionado; síncrono ou assíncrono)</td><td>Melhora da tolerância ao exercício, da função muscular, do estado nutricional (massa livre de gordura), dos sintomas e da qualidade de vida</td></tr>
+          <tr><td class="rh">Reabilitação pulmonar</td><td>Treinamento físico (aeróbico e de força) como pilar, mais educação/autocuidado e apoio multiprofissional: nutricionistas, enfermagem, terapeutas ocupacionais, fisioterapeutas, psicólogos, assistentes sociais e médicos especialistas (inclusive fisiatras)</td><td>Em centro (ambulatorial ou internado), comunidade, domicílio; presencial ou telerreabilitação (supervisão remota)</td><td>Melhora da tolerância ao exercício, qualidade de vida, sintomas respiratórios e não respiratórios, uso de serviços de saúde, autoeficácia e atividade física</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:.8rem;color:#495057;margin-top:8px">*O treino pode ser culturalmente adaptado (ioga, tai chi, dança, exercícios aquáticos). Frequência, intensidade, duração e tipo devem ser adequados, progressivos e, de preferência, monitorados. Ref.: Sánchez Romero, NPJ Prim Care Respir Med 2026; Zhang, Thorax 2023.</p>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 3.17.</figcaption>
+  </figure>
+
+  <figure class="fig" id="fig-3-18" data-num="3.18" data-title="Avaliação e intervenções de reabilitação">
+    <div class="fig-h"><span class="fn">Figura 3.18</span>Avaliação e intervenções de reabilitação</div>
+    <div class="fig-b">
+      <div class="grid3" style="align-items:start">
+        <div class="cell c-amber"><strong class="t">Avaliação</strong><ul><li>Função pulmonar e dos músculos respiratórios</li><li><strong>Sintomas (dispneia e fadiga)</strong></li><li><strong>Qualidade de vida</strong></li><li><strong>Função muscular esquelética</strong></li><li><strong>Mobilidade e atividades de vida diária (AVD)</strong></li><li><strong>Capacidade de exercício</strong></li><li>Fatores de risco de estilo de vida</li><li>Avaliação vocacional</li><li>Habilidades de autocuidado</li><li>Apoio do cuidador e da família</li><li>Saúde mental</li><li>Desnutrição</li></ul></div>
+        <div class="cell c-amber"><strong class="t">→ Intervenções de reabilitação</strong><ul><li>Treinamento físico*</li></ul><em style="font-size:.85rem">Selecionar os componentes adequados:</em><ul><li>Técnicas respiratórias</li><li>Técnicas de desobstrução brônquica</li><li>Treinamento muscular inspiratório</li><li>Conservação de energia</li><li>Treino funcional de AVD</li><li>Dispositivos de auxílio e adaptação do ambiente</li><li>Educação</li><li>Intervenção de autocuidado</li><li>Apoio familiar</li><li>Apoio psicológico</li></ul></div>
+        <div class="cell c-green"><strong class="t">→ Desfechos clínicos</strong><ul><li>Sintomas respiratórios</li><li>Fadiga</li><li>Tolerância ao exercício</li><li>Qualidade de vida</li><li>Tempo de internação</li><li>Atividade física</li><li>Interação social</li></ul></div>
+      </div>
+      <p style="font-size:.8rem;color:#495057;margin-top:8px">*Componente padrão; a avaliação permite a prescrição adequada (frequência, intensidade, tipo e tempo). Itens em negrito também são desfechos do <em>Core Outcome Set</em> da RP (Souto-Miranda, Thorax 2023). Adaptado do <em>WHO Package of Interventions for Rehabilitation</em>, Módulo 4: Condições cardiopulmonares.</p>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 3.18.</figcaption>
+  </figure>
+
+  <p><strong>Seleção:</strong> grupos B e E na avaliação inicial e pacientes com dispneia no seguimento. Atenção a idosos, mulheres, pessoas mais carentes e pacientes com diabetes, asma ou dor, que hoje são menos encaminhados. <strong>Avaliação:</strong> <em>core outcome set</em> internacional; teste cardiopulmonar para a segurança do exercício de alta intensidade; avaliação nutricional e de fragilidade conforme o contexto; HADS e PRIME-MD para ansiedade e depressão; metas pessoais do paciente.</p>
+
+  <figure class="fig" id="fig-3-19" data-num="3.19" data-title="Desfechos da reabilitação pulmonar na DPOC">
+    <div class="fig-h"><span class="fn">Figura 3.19</span>Desfechos da reabilitação pulmonar na DPOC</div>
+    <div class="fig-b">
+      <table class="gt">
+        <thead><tr><th>Desfecho</th><th>Evidência na RP</th><th>Estimativa de efeito</th><th>Interpretação clínica</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Capacidade de exercício (TC6)¹</td><td>Melhora a caminhada</td><td>+44 m (IC95% 33–55)</td><td>DMCI 25–30 m</td></tr>
+          <tr><td class="rh">ISWT¹</td><td>Melhora a caminhada</td><td>+40 m (IC95% 22–57)</td><td>DMCI 35–48 m</td></tr>
+          <tr><td class="rh">SGRQ¹</td><td>Melhora a qualidade de vida respiratória</td><td>−6,89 unidades (IC95% −9,26 a −4,52)</td><td>DMCI −4 pontos</td></tr>
+          <tr><td class="rh">Atividade física²</td><td>Aumenta a atividade física</td><td>RP em centro: +680 passos/dia (IC95% 12–1.348) · RP + <em>coaching</em>: +1.376 passos/dia (IC95% 608–2.144)</td><td>DMCI 600–1.000 passos/dia</td></tr>
+          <tr><td class="rh">Dispneia (CRQ)¹</td><td>Melhora a dispneia</td><td>+0,79 unidade (IC95% 0,56–1,03)</td><td>DMCI 0,5 unidade</td></tr>
+          <tr><td class="rh">Depressão/ansiedade³</td><td>Melhora os sintomas</td><td>Depressão: DMP −0,35 (IC95% −0,58 a −0,12) · Ansiedade: DMP −0,27 (IC95% −0,53 a −0,01)</td><td>Clinicamente relevante</td></tr>
+          <tr><td class="rh">Internações⁴</td><td>Reduz internações/reinternações</td><td>RR 0,60 (IC95% 0,32–0,95)</td><td>Redução significativa</td></tr>
+          <tr><td class="rh">Mortalidade⁵</td><td>Inconclusiva</td><td>OR 0,68 (IC95% 0,28–1,67) · Coorte VA (não randomizada): HR 0,74 (IC95% 0,65–0,84)</td><td>Ensaios prospectivos inviáveis</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:.78rem;color:#495057;margin-top:8px">DMCI = diferença mínima clinicamente importante; DMP = diferença média padronizada; ISWT = teste de caminhada incremental. Refs.: ¹ McCarthy, Cochrane 2015 · ² Manifield, Eur Respir Rev 2024 · ³ Chen, Int J COPD 2026 · ⁴ Jia, BMC Med 2026 · ⁵ Robinson, AJRCCM 2026.</p>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 3.19.</figcaption>
+  </figure>
+
+  <h3>Reabilitação após exacerbação</h3>
+  <p>Na fase aguda, o objetivo é prevenir o declínio funcional: retomar a atividade cedo e progredir gradualmente, com treino de resistência para preservar a função muscular. Após a estabilização (3–4 semanas), a RP é altamente recomendada, sobretudo após internação, e <strong>reduz a reinternação (OR 0,48; IC95% 0,30–0,77)</strong>.</p>
+
+  <figure class="fig" id="fig-3-20" data-num="3.20" data-title="Atividade física e treino após exacerbação">
+    <div class="fig-h"><span class="fn">Figura 3.20</span>Atividade física e treinamento físico após exacerbação da DPOC</div>
+    <div class="fig-b">
+      <div class="flow">
+        <div class="step"><div class="cell c-grey" style="max-width:260px;margin:auto;text-align:center"><strong>Exacerbação</strong></div></div>
+        <div class="grid2" style="width:100%;margin-top:10px">
+          <div>
+            <div class="cell c-amber" style="text-align:center"><strong>Em casa, com medicação</strong></div><div style="text-align:center;color:#2e7ab8">↓</div>
+            <div class="cell c-amber">• Retomar as atividades o quanto antes (em menor intensidade, se necessário)</div><div style="text-align:center;color:#2e7ab8">↓</div>
+            <div class="cell c-amber">• Seguir plano de retorno gradual às atividades habituais e ao treino (se já tiver um programa)</div><div style="text-align:center;color:#2e7ab8">↓</div>
+            <div class="cell c-amber">• Reavaliar em 3–4 semanas<br>• Traços tratáveis persistentes?</div>
+            <div class="grid2" style="margin-top:8px">
+              <div><div style="text-align:center;font-weight:800">Sim ↓</div><div class="cell c-grey"><strong>Encaminhar para treinamento físico e/ou reabilitação pulmonar</strong></div></div>
+              <div><div style="text-align:center;font-weight:800">Não ↓</div><div class="cell c-grey"><strong>Manter o plano habitual de atividade e treino</strong> (se já tiver programa)</div></div>
+            </div>
+          </div>
+          <div>
+            <div class="cell c-amber" style="text-align:center"><strong>No hospital</strong></div><div style="text-align:center;color:#2e7ab8">↓</div>
+            <div class="cell c-amber">• Movimentar-se e caminhar conforme tolerado, salvo orientação médica contrária<br>• Integrar treino de resistência dos músculos de sustentação de peso para prevenir perda de função muscular</div><div style="text-align:center;color:#2e7ab8">↓</div>
+            <div class="cell c-amber">• Há orientação profissional disponível?</div>
+            <div class="grid2" style="margin-top:8px">
+              <div><div style="text-align:center;font-weight:800">Sim ↓</div><div class="cell c-grey"><strong>Seguir a orientação profissional para treino e atividade física</strong></div></div>
+              <div><div style="text-align:center;font-weight:800">Não ↓</div><div class="cell c-amber">• Atividade física conforme tolerado (3 semanas)<br>• Treino de corpo inteiro ainda não recomendado<br>• Reavaliar em 3–4 semanas</div><div style="text-align:center;color:#2e7ab8">↓</div><div class="cell c-grey"><strong>Encaminhar para treinamento físico e/ou RP (após avaliação)</strong></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 3.20.</figcaption>
+  </figure>
+</section>
+
+<section class="topic reveal" id="oxigenio-ventilacao" data-title="Oxigenoterapia e suporte ventilatório">
+  <h2><span class="tn">3.7</span> Oxigenoterapia e suporte ventilatório</h2>
+  <p class="lead">Indicações de OLD, viagem aérea, VNI domiciliar e cânula nasal de alto fluxo.</p>
+  <div class="grid2">
+    <div class="cell c-blue"><strong class="t">Oxigenoterapia de longo prazo (OLD)</strong>Indicada se:<ul><li>PaO<sub>2</sub> ≤ 55 mmHg (7,3 kPa) ou SaO<sub>2</sub> ≤ 88%, com ou sem hipercapnia, confirmada duas vezes em 3 semanas; ou</li><li>PaO<sub>2</sub> 55–60 mmHg ou SaO<sub>2</sub> 88% com hipertensão pulmonar, edema sugestivo de IC ou policitemia (Ht &gt; 55%)</li></ul>Aumenta a sobrevida na hipoxemia grave. O uso de 24 h/dia não foi superior ao de 15 h/dia (Ekström), e a recomendação de &gt; 15 h/dia não é sustentada por evidências recentes. Na dessaturação moderada, a OLD não traz benefício. Reavaliar em 60–90 dias.</div>
+    <div class="cell c-blue"><strong class="t">Viagem aérea</strong>É segura para a maioria em OLD. Meta: PaO<sub>2</sub> em voo ≥ 50 mmHg (6,7 kPa), o que costuma ser obtido com O<sub>2</sub> a 3 L/min por cânula ou Venturi a 31%. SpO<sub>2</sub> em repouso &gt; 95% e no TC6 &gt; 84% dispensam avaliação adicional, mas a oxigenação ao nível do mar não exclui hipoxemia grave em voo. Caminhar no corredor do avião agrava a hipoxemia.</div>
+    <div class="cell c-purple"><strong class="t">VNI domiciliar</strong>Útil em pacientes selecionados com <strong>hipercapnia diurna acentuada e internação recente</strong>. Em PaCO<sub>2</sub> &gt; 53 mmHg persistente 2–4 semanas após a alta, VNI + O<sub>2</sub> prolongou o tempo até reinternação ou morte em 12 meses. Metanálises mostram redução de mortalidade e internações. Deve ser instituída por equipe experiente. Na sobreposição DPOC + AOS, o CPAP melhora sobrevida e internações.</div>
+    <div class="cell c-purple"><strong class="t">Cânula nasal de alto fluxo (CNAF) de longo prazo</strong>Na insuficiência respiratória hipercápnica crônica, pode reduzir exacerbações e melhorar o SGRQ. O efeito sobre mortalidade e internações é incerto.</div>
+  </div>
+
+  <figure class="fig" id="fig-3-21" data-num="3.21" data-title="Oxigenoterapia e suporte ventilatório na DPOC estável">
+    <div class="fig-h"><span class="fn">Figura 3.21</span>Oxigenoterapia e suporte ventilatório na DPOC estável</div>
+    <div class="fig-b">
+      <table class="gt">
+        <tbody>
+          <tr><td class="rh" style="width:22%">Oxigenoterapia</td><td><ul class="bul"><li>O oxigênio de longo prazo aumenta a sobrevida na hipoxemia arterial crônica grave em repouso <strong>(Evidência A)</strong></li><li>Na DPOC estável com dessaturação moderada em repouso ou ao exercício, o O<sub>2</sub> de longo prazo não prolonga o tempo até morte ou primeira internação nem traz benefício sustentado em estado de saúde, função pulmonar e TC6 <strong>(Evidência A)</strong></li><li>Oxigenação de repouso suficiente ao nível do mar não exclui hipoxemia grave em viagem aérea <strong>(Evidência C)</strong></li></ul></td></tr>
+          <tr><td class="rh">Suporte ventilatório</td><td><ul class="bul"><li>A VNI pode melhorar a sobrevida livre de internação em pacientes selecionados após internação recente, sobretudo com hipercapnia diurna persistente acentuada <strong>(Evidência B)</strong></li><li>Na hipercapnia crônica grave com internação prévia por insuficiência respiratória aguda, pode-se considerar VNI de longo prazo <strong>(Evidência B)</strong></li></ul></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 3.21.</figcaption>
+  </figure>
+
+  <figure class="fig" id="fig-3-22" data-num="3.22" data-title="Prescrição de oxigênio suplementar na DPOC">
+    <div class="fig-h"><span class="fn">Figura 3.22</span>Prescrição de oxigênio suplementar a pacientes com DPOC</div>
+    <div class="fig-b">
+      <div class="flow">
+        <div class="step"><div class="cell c-grey" style="text-align:center;max-width:560px;margin:auto">Hipoxemia arterial definida como:<br><strong>PaO<sub>2</sub> ≤ 55 mmHg (≤ 7,3 kPa) ou SaO<sub>2</sub> &lt; 88%</strong><br><em>ou</em><br><strong>PaO<sub>2</sub> &gt; 55 e &lt; 60 mmHg (&gt; 7,3 e &lt; 8 kPa)</strong> com hipertensão pulmonar, insuficiência cardíaca congestiva ou eritrocitose (hematócrito &gt; 55%)</div></div>
+        <div class="arrow">⬇</div>
+        <div class="step"><div class="cell c-grey" style="text-align:center;max-width:560px;margin:auto">Prescrever oxigênio suplementar e titular para manter <strong>SaO<sub>2</sub> ≥ 90%</strong></div></div>
+        <div class="arrow">⬇</div>
+        <div class="step"><div class="cell c-grey" style="max-width:560px;margin:auto">Reavaliar em <strong>60 a 90 dias</strong>:<ul><li>se o oxigênio suplementar ainda está indicado</li><li>se o oxigênio prescrito é eficaz</li></ul></div></div>
+      </div>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 3.22.</figcaption>
+  </figure>
+</section>
+
+<section class="topic reveal" id="mortalidade" data-title="Intervenções que reduzem a mortalidade">
+  <h2><span class="tn">3.8</span> Intervenções que reduzem a mortalidade</h2>
+  <p class="lead">Farmacológicas e não farmacológicas com evidência de redução de mortalidade.</p>
+  <p>O maior risco de morte (geral, por DPOC e cardiovascular) está nos pacientes com exacerbações mais graves e frequentes e com VEF<sub>1</sub> &lt; 50%. TORCH e SUMMIT (LABA+CI) e UPLIFT (LAMA) não reduziram a mortalidade. IMPACT e ETHOS mostraram redução de mortalidade com a terapia tripla em inalador único vs broncodilatação dupla, em sintomáticos (CAAT ≥ 10) com exacerbações frequentes (≥ 2 moderadas) e/ou graves (≥ 1 internação). No transplante, 40% têm benefício esperado de sobrevida em 2 anos.</p>
+  <figure class="fig" id="fig-3-23" data-num="3.23" data-title="Evidências de redução de mortalidade na DPOC">
+    <div class="fig-h"><span class="fn">Figura 3.23</span>Evidências de redução da mortalidade com farmacoterapia e terapia não farmacológica na DPOC</div>
+    <div class="fig-b">
+      <table class="gt">
+        <thead><tr><th>Terapia</th><th>ECR*</th><th>Efeito sobre a mortalidade</th><th>Características dos pacientes</th></tr></thead>
+        <tbody>
+          <tr><td colspan="4" style="background:#dee2e6;font-weight:800">Farmacoterapia</td></tr>
+          <tr><td class="rh">LABA+LAMA+CI¹</td><td>Sim</td><td>Tripla em inalador único vs broncodilatação dupla: IMPACT HR 0,72 (IC95% 0,53–0,99)¹ª · ETHOS HR 0,51 (IC95% 0,33–0,80)¹ᵇ</td><td>Sintomáticos com exacerbações frequentes e/ou graves</td></tr>
+          <tr><td colspan="4" style="background:#dee2e6;font-weight:800">Terapia não farmacológica</td></tr>
+          <tr><td class="rh">Cessação do tabagismo²</td><td>Sim</td><td>HR do cuidado usual vs intervenção: 1,18 (IC95% 1,02–1,37)</td><td>Assintomáticos ou pouco sintomáticos</td></tr>
+          <tr><td class="rh">Reabilitação pulmonar³#</td><td>Sim</td><td>Estudos antigos: RR 0,28 (IC95% 0,10–0,84)³ª · Estudos novos: RR 0,68 (IC95% 0,28–1,67)³ᵇ</td><td>Internados por exacerbação (durante ou ≤ 4 semanas após a alta)</td></tr>
+          <tr><td class="rh">Oxigenoterapia de longo prazo⁴</td><td>Sim</td><td>NOTT: ≥ 19 h contínuas vs ≤ 13 h, redução de 50%⁴ª · MRC: ≥ 15 h vs sem O<sub>2</sub>, redução de 50%⁴ᵇ</td><td>PaO<sub>2</sub> ≤ 55 mmHg, ou &lt; 60 com <em>cor pulmonale</em> ou policitemia secundária</td></tr>
+          <tr><td class="rh">VNI com pressão positiva⁵</td><td>Sim</td><td>12% (VNI com IPAP alta) vs 33% (controle); HR 0,24 (IC95% 0,11–0,49)</td><td>DPOC estável com hipercapnia acentuada</td></tr>
+          <tr><td class="rh">Cirurgia redutora de volume⁶</td><td>Sim</td><td>0,07 vs 0,15 óbito/pessoa-ano (cuidado usual); RR 0,47 (p = 0,005)</td><td>Enfisema de lobos superiores e baixa capacidade de exercício</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:.78rem;color:#495057;margin-top:8px">*ECR com análise pré-especificada de mortalidade (primária ou secundária). #Resultados inconclusivos, provavelmente pela heterogeneidade dos programas. Refs.: ¹ IMPACT (Lipson 2020), ETHOS (Martinez 2021) · ² Lung Health Study (Anthonisen 2005) · ³ Puhan 2011 e 2016 · ⁴ NOTT 1980; MRC 1981 · ⁵ Köhnlein 2014 · ⁶ NETT (Fishman 2003).</p>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 3.23.</figcaption>
+  </figure>
+</section>
+
+<section class="topic reveal" id="paliativos" data-title="Cuidados de suporte, paliativos e de fim de vida">
+  <h2><span class="tn">3.9</span> Cuidados de suporte, paliativos e de fim de vida</h2>
+  <p class="lead">Controle de sintomas para todos os pacientes, planejamento antecipado e <em>hospice</em>.</p>
+  <p>Os cuidados paliativos buscam prevenir e aliviar o sofrimento e oferecer a melhor qualidade de vida em qualquer fase da doença. Pacientes com DPOC os recebem menos que os pacientes com câncer de pulmão.</p>
+  <div class="grid2">
+    <div class="cell c-blue"><strong class="t">Dispneia</strong>Base: broncodilatadores, autocuidado (técnicas respiratórias) e reabilitação. Também aliviam: <strong>opioides</strong>, estimulação elétrica neuromuscular, vibração torácica e <strong>ventilador dirigido à face</strong>. A morfina de liberação imediata ampliou a resistência ao exercício, mas a morfina de liberação prolongada 8–16 mg/dia não superou o placebo (mMRC 3–4). A resposta parece maior com dispneia basal pior e IMC maior. O O<sub>2</sub> pode ajudar mesmo sem hipoxemia. Acupuntura e acupressão são opções. <strong>Sem evidência para benzodiazepínicos.</strong></div>
+    <div class="cell c-green"><strong class="t">Nutrição, ansiedade, depressão e fadiga</strong>Baixo IMC e baixa massa magra pioram o prognóstico. Na desnutrição, a suplementação melhora o peso, a força muscular respiratória e a qualidade de vida. A RP reduz a ansiedade. Antidepressivos têm eficácia inconclusiva. TCC e intervenções mente-corpo (<em>mindfulness</em>, ioga, relaxamento) reduzem ansiedade e depressão. A fadiga melhora com autocuidado, RP, nutrição e intervenções mente-corpo.</div>
+    <div class="cell c-purple" style="grid-column:1/-1"><strong class="t">Fim de vida e <em>hospice</em></strong>Trajetória de declínio com exacerbações e mortalidade pós-internação de 23% a 80%. A previsão de sobrevida em 6 meses é pouco confiável, o que justifica discutir cedo reanimação, diretivas antecipadas e local de morte preferido, com introdução gradual de cuidados de suporte. A internação é um bom gatilho para o planejamento antecipado, que reduz ansiedade e evita intervenções invasivas indesejadas. O <em>hospice</em> (expectativa &lt; 6 meses) se aplica, por exemplo, à dispneia incapacitante em repouso pouco responsiva a broncodilatadores e à progressão com internações crescentes.</div>
+  </div>
+  <figure class="fig" id="fig-3-24" data-num="3.24" data-title="Cuidados paliativos, de fim de vida e hospice na DPOC">
+    <div class="fig-h"><span class="fn">Figura 3.24</span>Cuidados paliativos, de fim de vida e <em>hospice</em> na DPOC</div>
+    <div class="fig-b"><ul class="bul">
+      <li>Todo profissional que trata DPOC deve conhecer a eficácia das abordagens paliativas para controle de sintomas e usá-las <strong>(Evidência D)</strong></li>
+      <li>O cuidado de fim de vida deve incluir conversas com o paciente e a família sobre reanimação, diretivas antecipadas e local de morte preferido <strong>(Evidência D)</strong></li>
+      <li>Opioides, estimulação elétrica neuromuscular, oxigênio e ventiladores dirigidos à face podem aliviar a dispneia <strong>(Evidência C)</strong></li>
+      <li>A suplementação nutricional deve ser considerada em desnutridos <strong>(Evidência B)</strong>, pois pode melhorar a força muscular respiratória e o estado de saúde <strong>(Evidência B)</strong></li>
+      <li>A fadiga pode melhorar com educação para autocuidado, reabilitação, suporte nutricional e intervenções mente-corpo <strong>(Evidência B)</strong></li></ul></div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 3.24.</figcaption>
+  </figure>
+</section>
+
+<section class="topic reveal" id="intervencoes-cirurgicas" data-title="Tratamentos intervencionistas e cirúrgicos">
+  <h2><span class="tn">3.10</span> Tratamentos intervencionistas e cirúrgicos</h2>
+  <p class="lead">Bulectomia, CRVP, redução de volume broncoscópica, terapias de vias aéreas e transplante.</p>
+  <p>A seleção exige fenotipagem clínica, fisiológica e por imagem e uma equipe multidisciplinar (pneumologia, cirurgia torácica e radiologia).</p>
+
+  <figure class="fig" id="fig-3-25" data-num="3.25" data-title="Intervenções cirúrgicas e broncoscópicas atuais e propostas">
+    <div class="fig-h"><span class="fn">Figura 3.25</span>Visão geral das intervenções cirúrgicas e broncoscópicas atuais e propostas para pessoas com DPOC</div>
+    <div class="fig-b">
+      <table class="gt" style="max-width:860px">
+        <thead><tr><th style="width:26%">Sintoma</th><th>Produção crônica de muco</th><th>Dispneia</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Distúrbios</td><td>• Bronquite crônica</td><td>• Bolha<br>• Enfisema<br>• Traqueobroncomalácia</td></tr>
+          <tr><td class="rh">Intervenções cirúrgicas e broncoscópicas</td><td>• Crioaspersão com nitrogênio líquido<br>• Reoplastia</td><td>• Bulectomia de bolha gigante<br>• Prótese (<em>stent</em>) de grandes vias aéreas<br>• Válvulas endobrônquicas (VEB)<br>• Molas (<em>coils</em>)<br>• Ablação térmica por vapor<br>• Selantes pulmonares<br>• CRVP<br>• Transplante pulmonar</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 3.25.</figcaption>
+  </figure>
+
+  <div class="grid2">
+    <div class="cell c-blue"><strong class="t">Bulectomia</strong>Para bolha gigante (&gt; 1/3 do hemitórax) que comprime pulmão viável: melhora a dispneia, a função e o exercício. Instilação de sangue ou trombina se o paciente não for candidato à cirurgia.</div>
+    <div class="cell c-blue"><strong class="t">Cirurgia redutora de volume (CRVP)</strong>No NETT, melhorou a sobrevida no <strong>enfisema de lobos superiores com baixa capacidade de exercício pós-RP</strong>, com benefícios funcionais sustentados por 5 anos. Mortalidade maior que o tratamento clínico se VEF<sub>1</sub> ≤ 20% com enfisema homogêneo ou DLCO ≤ 20%. Centros experientes reportam menor morbimortalidade, mas a técnica segue subutilizada.</div>
+    <div class="cell c-green"><strong class="t">Válvulas endobrônquicas unidirecionais (VEB)</strong>A técnica mais estudada. Exige <strong>fissura íntegra / ausência de ventilação colateral</strong> (TC ou Chartis). Melhora VEF<sub>1</sub>, TC6 e estado de saúde em 6–12 meses. Pneumotórax em 26,6%, 76% deles nas primeiras 72 h, como sinal de oclusão eficaz, o que exige equipe apta a manejá-lo. Benefício comparável à CRVP com menos complicações, menos exacerbações depois, e atelectasia lobar associada a melhor sobrevida.</div>
+    <div class="cell c-green"><strong class="t">Técnicas independentes de fissura</strong><strong>Molas:</strong> ↑ TC6, com melhor resposta se VR &gt; 200%, enfisema &gt; 20% e sem doença de vias aéreas; mais complicações. <strong>Ablação por vapor:</strong> funciona em nível segmentar, com benefício em 6–12 meses. Ambas têm disponibilidade limitada. <strong>Stents de bypass:</strong> sem benefício durável. <strong>Selantes:</strong> estudo interrompido por morbimortalidade.</div>
+    <div class="cell c-amber"><strong class="t">Terapias de vias aéreas</strong><strong>Colapso dinâmico excessivo/traqueobroncomalácia</strong> (5% dos fumantes na TC): <em>stent</em> ou traqueoplastia em casos selecionados. <strong>Crioaspersão com nitrogênio</strong> para bronquite crônica: melhorou SGRQ e CAAT e reduziu exacerbações graves vs <em>sham</em> em 52 semanas. <strong>Reoplastia:</strong> fase 3 em andamento. <strong>Denervação pulmonar:</strong> sem redução de exacerbações no fase 3, com benefício <em>post-hoc</em> no subgrupo com VR ≥ 175% e enfisema ≤ 20%.</div>
+    <div class="cell c-purple"><strong class="t">Transplante pulmonar</strong>A DPOC responde por ~30,6% dos transplantes. <strong>Encaminhar:</strong> doença progressiva apesar de tratamento máximo, não candidato a CRVP, BODE 5–6, PaCO<sub>2</sub> &gt; 50 mmHg e/ou PaO<sub>2</sub> &lt; 60 mmHg e VEF<sub>1</sub> &lt; 25%. <strong>Listar:</strong> BODE ≥ 7; VEF<sub>1</sub> &lt; 15–20%; ≥ 3 exacerbações graves no ano; 1 exacerbação grave com insuficiência hipercápnica; HP moderada a grave. Melhora a qualidade de vida; ganho de sobrevida em DAAT grave e BODE alto. Mediana de sobrevida 5,9 anos; o bilateral tem melhor sobrevida (&lt; 60 anos). CRVP ou redução broncoscópica podem servir de ponte ou ser feitas após transplante unilateral.</div>
+  </div>
+
+  <figure class="fig" id="fig-3-26" data-num="3.26" data-title="Terapia intervencionista na DPOC estável">
+    <div class="fig-h"><span class="fn">Figura 3.26</span>Terapia intervencionista na DPOC estável</div>
+    <div class="fig-b">
+      <table class="gt">
+        <tbody>
+          <tr><td class="rh" style="width:24%">Cirurgia redutora de volume pulmonar</td><td>Melhora a sobrevida no enfisema grave de lobos superiores com baixa capacidade de exercício pós-reabilitação <strong>(Evidência A)</strong></td></tr>
+          <tr><td class="rh">Bulectomia</td><td>Em pacientes selecionados, associa-se a menos dispneia e melhor função pulmonar e tolerância ao exercício <strong>(Evidência C)</strong></td></tr>
+          <tr><td class="rh">Transplante</td><td><ul class="bul"><li>Em pacientes adequadamente selecionados com DPOC muito grave, melhora a qualidade de vida e a capacidade funcional <strong>(Evidência C)</strong></li><li>Na DPOC muito grave (doença progressiva, BODE 7–10, não candidato a redução de volume), considerar encaminhamento com pelo menos um dos seguintes: (1) internação por exacerbação com hipercapnia aguda (PaCO<sub>2</sub> &gt; 50 mmHg); (2) hipertensão pulmonar e/ou <em>cor pulmonale</em> apesar de O<sub>2</sub>; (3) VEF<sub>1</sub> &lt; 20% com DLCO &lt; 20% ou enfisema homogêneo <strong>(Evidência C)</strong></li></ul></td></tr>
+          <tr><td class="rh">Intervenções broncoscópicas</td><td>No enfisema avançado selecionado, reduzem o volume pulmonar expiratório final e melhoram tolerância ao exercício, estado de saúde e função pulmonar em 6–12 meses: válvulas endobrônquicas <strong>(Evidência A)</strong>; molas <strong>(Evidência B)</strong>; ablação por vapor <strong>(Evidência B)</strong></td></tr>
+          <tr><td class="rh">Intervenções broncoscópicas em estudo</td><td>Ensaios de fase 3 em andamento para avaliar terapias para bronquite crônica</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 3.26.</figcaption>
+  </figure>
+
+  <figure class="fig" id="fig-3-27" data-num="3.27" data-title="Terapias cirúrgicas e intervencionistas no enfisema avançado">
+    <div class="fig-h"><span class="fn">Figura 3.27</span>Terapias cirúrgicas e intervencionistas no enfisema avançado</div>
+    <div class="fig-b"><div class="svgwrap">
+      <svg viewBox="0 0 960 470" xmlns="http://www.w3.org/2000/svg" font-size="14">
+        <defs><marker id="ar327" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1a4d7a"/></marker></defs>
+        <rect x="180" y="10" width="340" height="70" rx="10" fill="#dee2e6"/><text x="350" y="40" text-anchor="middle" font-weight="800">Fenótipo com predomínio de</text><text x="350" y="62" text-anchor="middle" font-weight="800">enfisema e hiperinsuflação</text>
+        <rect x="690" y="10" width="250" height="70" rx="10" fill="#dee2e6"/><text x="815" y="40" text-anchor="middle" font-weight="800">Não candidato a bulectomia,</text><text x="815" y="62" text-anchor="middle" font-weight="800">redução broncoscópica ou CRVP</text>
+        <path d="M250 80 V 110 H 100 V 140" fill="none" stroke="#1a4d7a" stroke-width="2" marker-end="url(#ar327)"/><text x="130" y="104" font-size="12">bolha grande</text>
+        <path d="M430 80 V 120" fill="none" stroke="#1a4d7a" stroke-width="2"/><text x="440" y="104" font-size="12">sem bolha grande</text>
+        <path d="M430 120 H 290 V 150" fill="none" stroke="#1a4d7a" stroke-width="2" marker-end="url(#ar327)"/><path d="M430 120 H 600 V 150" fill="none" stroke="#1a4d7a" stroke-width="2" marker-end="url(#ar327)"/>
+        <line x1="815" y1="80" x2="815" y2="145" stroke="#1a4d7a" stroke-width="2" marker-end="url(#ar327)"/>
+        <rect x="30" y="145" width="140" height="44" rx="10" fill="#fdebd0"/><text x="100" y="173" text-anchor="middle">Bulectomia</text>
+        <rect x="215" y="155" width="150" height="60" rx="10" fill="#fdebd0"/><text x="290" y="180" text-anchor="middle">Enfisema</text><text x="290" y="200" text-anchor="middle">heterogêneo</text>
+        <rect x="525" y="155" width="150" height="60" rx="10" fill="#fdebd0"/><text x="600" y="180" text-anchor="middle">Enfisema</text><text x="600" y="200" text-anchor="middle">homogêneo</text>
+        <rect x="730" y="150" width="170" height="44" rx="10" fill="#fdebd0"/><text x="815" y="178" text-anchor="middle">Transplante pulmonar</text>
+        <path d="M290 215 V 235 H 220 V 255" fill="none" stroke="#1a4d7a" stroke-width="2" marker-end="url(#ar327)"/><path d="M290 235 H 360 V 255" fill="none" stroke="#1a4d7a" stroke-width="2" marker-end="url(#ar327)"/>
+        <path d="M600 215 V 235 H 530 V 255" fill="none" stroke="#1a4d7a" stroke-width="2" marker-end="url(#ar327)"/><path d="M600 235 H 670 V 255" fill="none" stroke="#1a4d7a" stroke-width="2" marker-end="url(#ar327)"/>
+        <g font-weight="700"><rect x="170" y="260" width="100" height="34" rx="8" fill="#fdebd0"/><text x="220" y="282" text-anchor="middle">− VC ou FI+</text>
+        <rect x="310" y="260" width="100" height="34" rx="8" fill="#fdebd0"/><text x="360" y="282" text-anchor="middle">+ VC ou FI−</text>
+        <rect x="480" y="260" width="100" height="34" rx="8" fill="#fdebd0"/><text x="530" y="282" text-anchor="middle">− VC ou FI+</text>
+        <rect x="620" y="260" width="100" height="34" rx="8" fill="#fdebd0"/><text x="670" y="282" text-anchor="middle">+ VC ou FI−</text></g>
+        <g stroke="#1a4d7a" stroke-width="2"><line x1="220" y1="294" x2="220" y2="330" marker-end="url(#ar327)"/><line x1="360" y1="294" x2="360" y2="330" marker-end="url(#ar327)"/><line x1="530" y1="294" x2="530" y2="330" marker-end="url(#ar327)"/><line x1="670" y1="294" x2="670" y2="330" marker-end="url(#ar327)"/></g>
+        <g text-anchor="middle"><rect x="155" y="335" width="130" height="80" rx="10" fill="#fdebd0"/><text x="220" y="362">RVPE</text><text x="220" y="382">(VEB, molas, VA)</text><text x="220" y="402">CRVP</text>
+        <rect x="295" y="335" width="130" height="80" rx="10" fill="#fdebd0"/><text x="360" y="362">RVPE</text><text x="360" y="382">(molas, VA)</text><text x="360" y="402">CRVP</text>
+        <rect x="465" y="335" width="130" height="80" rx="10" fill="#fdebd0"/><text x="530" y="362">RVPE</text><text x="530" y="382">(VEB, molas, VA)</text><text x="530" y="402">CRVP</text>
+        <rect x="605" y="335" width="130" height="80" rx="10" fill="#fdebd0"/><text x="670" y="362">RVPE</text><text x="670" y="382">(molas, VA)</text><text x="670" y="402">CRVP</text></g>
+      </svg>
+    </div>
+      <p style="font-size:.8rem;color:#495057;margin-top:6px">Nem todas as terapias estão disponíveis em todos os países. Os resultados de longo prazo da RVPE e a comparação direta com a CRVP são desconhecidos. VC = ventilação colateral (Chartis); FI+ = integridade de fissura &gt; 90% na TCAR; FI− = &lt; 90%; RVPE = redução de volume pulmonar endoscópica; VEB = válvula endobrônquica; VA = ablação por vapor; molas = <em>coils</em>; CRVP = cirurgia redutora de volume pulmonar. Modificado de Vogelmeier, AJRCCM 2017.</p>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 3.27.</figcaption>
+  </figure>
+</section>
+
+<div class="action-box reveal">
+  <h2>💊 Mensagens do Capítulo 3</h2>
+  <div class="action-steps">
+    <div class="action-step"><strong>1. Base de tudo</strong>• Cessação do tabagismo (aconselhamento + fármaco), vacinas (influenza, PCV20/21, VSR, COVID-19, dTpa, zóster), atividade física e autocuidado com plano de ação.</div>
+    <div class="action-step"><strong>2. Farmacoterapia por traços</strong>• A: LAMA · B/E: LABA+LAMA · CI guiado por eosinófilos (≥ 300 inicial; ≥ 100 no seguimento), tripla em inalador único · biológicos (dupilumabe, mepolizumabe) se eos ≥ 300 com exacerbações em tripla.</div>
+    <div class="action-step"><strong>3. Além dos fármacos</strong>• RP para B/E e após exacerbação; OLD só na hipoxemia grave; VNI na hipercapnia pós-internação; redução de volume e transplante em casos selecionados; cuidados paliativos para todos que precisem.</div>
+  </div>
+</div>
+
+<div class="abbreviations-box">
+  <p><strong>Abreviações:</strong> <strong>AOS</strong> = apneia obstrutiva do sono • <strong>BODE</strong> = IMC, obstrução, dispneia, exercício • <strong>CI (ICS)</strong> = corticosteroide inalatório • <strong>CNAF (HFNT)</strong> = cânula nasal de alto fluxo • <strong>CRVP (LVRS)</strong> = cirurgia redutora de volume pulmonar • <strong>DPI</strong> = inalador de pó seco • <strong>ECR (RCT)</strong> = ensaio clínico randomizado • <strong>eos</strong> = eosinófilos no sangue • <strong>LABA</strong> = β<sub>2</sub>-agonista de longa ação • <strong>LAMA</strong> = antimuscarínico de longa ação • <strong>OLD (LTOT)</strong> = oxigenoterapia de longo prazo • <strong>PCV</strong> = vacina pneumocócica conjugada • <strong>pMDI</strong> = aerossol dosimetrado pressurizado • <strong>RP (PR)</strong> = reabilitação pulmonar • <strong>RVPE (ELVR)</strong> = redução de volume pulmonar endoscópica • <strong>SMI</strong> = inalador de névoa suave • <strong>TC6</strong> = teste de caminhada de 6 min • <strong>VEB (EBV)</strong> = válvula endobrônquica • <strong>VHC</strong> = câmara de retenção valvulada (espaçador) • <strong>VNI (NIV/NPPV)</strong> = ventilação não invasiva • <strong>VSR (RSV)</strong> = vírus sincicial respiratório.</p>
+</div>
+
+<footer>
+  <p><strong>Adaptado de:</strong> Global Initiative for Chronic Obstructive Lung Disease (GOLD). <em>Global Strategy for the Diagnosis, Management, and Prevention of Chronic Obstructive Pulmonary Disease – 2027 Report</em>. <a href="https://goldcopd.org" target="_blank" rel="noopener noreferrer">goldcopd.org</a></p>
+  <p style="margin-top:8px;font-size:0.85rem;opacity:0.9;">Adaptação educacional em português, preparada pelo Dr. Fernando Lundgren. As figuras foram redesenhadas e traduzidas; não reproduzem as figuras originais do relatório. Apenas a versão em inglês do GOLD é revisada e aprovada pelo GOLD.</p>
+  <p style="margin-top:8px;font-size:0.85rem;opacity:0.8;">Ferramenta educacional destinada a profissionais de saúde. Não substitui o julgamento clínico.</p>
+  <p class="footnav"><a href="index.html">← GOLD 2027 – Índice</a> <a href="capitulo-2.html">‹ Capítulo 2</a> <a href="capitulo-4.html">Capítulo 4 ›</a></p>
+</footer>
+</div>
+<button id="toTop" aria-label="Voltar ao topo" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>
+const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } }), {threshold: 0.05, rootMargin: '0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+const tt = document.getElementById('toTop');
+window.addEventListener('scroll', () => { tt.style.opacity = window.scrollY > 600 ? '1' : '0'; });
+</script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "41331af379ba4c71af70c5689396f1b8"}'></script><!-- End Cloudflare Web Analytics -->
+<script data-goatcounter="https://pneumoagents.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body></html>

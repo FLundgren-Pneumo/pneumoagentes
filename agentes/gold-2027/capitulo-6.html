@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head>
+<script src="../../assets/js/aviso-profissional.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GOLD 2027 – Cap. 6: Inteligência Artificial e Tecnologias Emergentes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --primary: #1a4d7a; --secondary: #2e7ab8; --accent: #4aa3df; --highlight: #ff6b6b;
+  --success: #51cf66; --warning: #ffd43b; --bg-light: #f8f9fa; --bg-dark: #0a1628;
+  --text-dark: #1a1a1a; --text-light: #ffffff; --card-bg: #ffffff; --shadow: rgba(26, 77, 122, 0.15);
+  --green-bg: #ebfbee; --green-bd: #69db7c; --green-tx: #1b4332;
+  --blue-bg: #edf2ff; --blue-bd: #91a7ff; --blue-tx: #1c3d8f;
+  --grey-bg: #f1f3f5; --grey-bd: #adb5bd;
+  --amber-bg: #fff9db; --amber-bd: #fcc419; --amber-tx: #5c4400;
+  --red-bg: #fff5f5; --red-bd: #ff8787; --red-tx: #8a1c1c;
+  --purple-bg: #f3f0ff; --purple-bd: #b197fc; --purple-tx: #3b2a7a;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Work Sans', system-ui, sans-serif;
+  background: linear-gradient(135deg, #0a1628 0%, #1a4d7a 50%, #2e7ab8 100%);
+  background-attachment: fixed;
+  color: var(--text-dark); min-height: 100vh; padding: 40px 20px; position: relative; overflow-x: hidden;
+}
+body::before {
+  content: ''; position: fixed; inset: 0;
+  background: radial-gradient(circle at 20% 50%, rgba(74,163,223,0.1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 80%, rgba(255,107,107,0.1) 0%, transparent 50%);
+  pointer-events: none; z-index: 0;
+}
+.container { max-width: 1400px; margin: 0 auto; position: relative; z-index: 1; }
+a { color: var(--secondary); }
+
+/* navegação */
+.topnav, .footnav { display: flex; flex-wrap: wrap; gap: 18px; font-size: 0.9rem; margin: 0 0 18px; }
+.topnav a, .footnav a { color: #fff; font-weight: 600; text-decoration: none; opacity: .92; }
+.topnav a:hover, .footnav a:hover { text-decoration: underline; opacity: 1; }
+.footnav { justify-content: center; margin-top: 14px; }
+
+/* cabeçalho */
+header { text-align: center; margin-bottom: 40px; animation: fadeInDown 0.8s ease-out; }
+.chapter-tag { display: inline-block; background: var(--warning); color: #3a2c00; font-weight: 800; letter-spacing: 1.5px;
+  text-transform: uppercase; font-size: .78rem; padding: 6px 16px; border-radius: 30px; margin-bottom: 14px; }
+h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.1rem, 4.6vw, 3.5rem); font-weight: 900; color: var(--text-light);
+  margin-bottom: 15px; text-shadow: 2px 4px 12px rgba(0,0,0,0.3); letter-spacing: -1px; line-height: 1.1; }
+.subtitle { font-size: clamp(1rem, 2vw, 1.2rem); color: rgba(255,255,255,0.9); font-weight: 500; margin: 0 auto 12px; max-width: 920px; }
+.source { display: inline-block; background: rgba(255,255,255,0.15); padding: 8px 20px; border-radius: 30px; color: var(--text-light);
+  font-size: 0.9rem; font-weight: 600; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); }
+
+/* sumário */
+.toc { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 18px; padding: 26px 30px; margin-bottom: 35px; color: #fff; }
+.toc h2 { font-size: 1.25rem; margin-bottom: 12px; color: var(--warning); }
+.toc ol { columns: 2 320px; column-gap: 40px; padding-left: 22px; }
+.toc li { margin: 4px 0; break-inside: avoid; }
+.toc a { color: #fff; text-decoration: none; font-weight: 600; }
+.toc a:hover { text-decoration: underline; }
+.figlist { margin-top: 16px; border-top: 1px solid rgba(255,255,255,.2); padding-top: 12px; }
+.figlist summary { cursor: pointer; font-weight: 700; color: var(--warning); }
+.figlist ul { list-style: none; columns: 2 380px; column-gap: 40px; margin-top: 10px; font-size: .9rem; }
+.figlist li { margin: 4px 0; break-inside: avoid; }
+
+/* cartões de tópico */
+.topic { background: var(--card-bg); border-radius: 20px; padding: 35px; margin-bottom: 35px;
+  box-shadow: 0 10px 40px var(--shadow); scroll-margin-top: 20px; }
+.topic > h2 { font-size: 1.6rem; color: var(--primary); margin-bottom: 6px; display: flex; gap: 12px; align-items: baseline; }
+.topic > h2 .tn { font-family: 'Playfair Display', serif; color: var(--accent); font-size: 1.9rem; font-weight: 900; }
+.topic > .lead { color: #495057; font-weight: 500; margin-bottom: 22px; border-bottom: 2px solid #dee2e6; padding-bottom: 14px; }
+.topic h3 { font-size: 1.12rem; color: var(--secondary); margin: 24px 0 10px; }
+.topic h4 { font-size: 1rem; color: var(--primary); margin: 14px 0 6px; }
+.topic p { line-height: 1.68; margin-bottom: 12px; font-size: .97rem; }
+.topic ul.bul, .topic ol.bul { padding-left: 22px; margin-bottom: 12px; line-height: 1.6; font-size: .96rem; }
+.topic ul.bul li, .topic ol.bul li { margin-bottom: 5px; }
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity .6s ease-out, transform .6s ease-out; }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* pontos-chave */
+.keypoints { background: linear-gradient(135deg, var(--blue-bg) 0%, #dbe4ff 100%); border-left: 5px solid #5c7cfa;
+  border-radius: 14px; padding: 20px 24px; margin: 6px 0 22px; }
+.keypoints h4 { color: var(--blue-tx); margin: 0 0 8px; font-size: 1rem; text-transform: uppercase; letter-spacing: .6px; }
+.keypoints ul { padding-left: 20px; color: #22306b; font-weight: 500; line-height: 1.55; font-size: .95rem; }
+.keypoints li { margin-bottom: 6px; }
+.callout { border-radius: 14px; padding: 16px 20px; margin: 14px 0; font-size: .95rem; line-height: 1.55; }
+.callout.new { background: var(--amber-bg); border: 1.5px solid var(--amber-bd); color: var(--amber-tx); }
+.callout.new::before { content: 'NOVO 2027 · '; font-weight: 800; }
+.callout.warn { background: var(--red-bg); border: 1.5px solid var(--red-bd); color: var(--red-tx); }
+.callout.info { background: var(--green-bg); border: 1.5px solid var(--green-bd); color: var(--green-tx); }
+
+/* grades e células (do modelo) */
+.grid2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 12px 0; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 12px 0; }
+.grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 12px 0; }
+.cell { border-radius: 14px; padding: 16px 18px; font-size: .92rem; line-height: 1.52; font-weight: 500;
+  transition: transform .25s ease, box-shadow .25s ease; }
+.cell:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,.08); }
+.cell h4, .cell strong.t { display: block; margin: 0 0 6px; font-size: 1rem; }
+.cell ul { padding-left: 18px; }
+.cell li { margin-bottom: 3px; }
+.c-green { background: linear-gradient(135deg, #ebfbee 0%, #d3f9d8 100%); border: 1.5px solid var(--green-bd); color: var(--green-tx); }
+.c-grey { background: linear-gradient(135deg, #f1f3f5 0%, #e9ecef 100%); border: 1.5px solid var(--grey-bd); color: #212529; }
+.c-blue { background: linear-gradient(135deg, #edf2ff 0%, #dbe4ff 100%); border: 1.5px solid var(--blue-bd); color: var(--blue-tx); }
+.c-amber { background: linear-gradient(135deg, #fff9db 0%, #fff3bf 100%); border: 1.5px solid var(--amber-bd); color: var(--amber-tx); }
+.c-red { background: linear-gradient(135deg, #fff5f5 0%, #ffe3e3 100%); border: 1.5px solid var(--red-bd); color: var(--red-tx); }
+.c-purple { background: linear-gradient(135deg, #f3f0ff 0%, #e5dbff 100%); border: 1.5px solid var(--purple-bd); color: var(--purple-tx); }
+.c-dark { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff; border: none; }
+
+/* figuras */
+.fig { background: #f8f9fa; border: 2px solid #ced4da; border-radius: 16px; margin: 22px 0 26px; overflow: hidden; scroll-margin-top: 20px; }
+.fig > .fig-h { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff; padding: 12px 20px;
+  font-weight: 700; line-height: 1.6; }
+.fig > .fig-h .fn { background: var(--warning); color: #3a2c00; border-radius: 8px; padding: 2px 10px; font-size: .85rem; font-weight: 800; white-space: nowrap; margin-right: 12px; }
+.fig > .fig-b { padding: 20px; overflow-x: auto; }
+.fig > figcaption { font-size: .8rem; color: #6c757d; padding: 0 20px 14px; font-style: italic; }
+.fig svg { width: 100%; height: auto; display: block; font-family: 'Work Sans', sans-serif; }
+.fig .svgwrap { min-width: 680px; }
+
+/* tabelas */
+table.gt { width: 100%; border-collapse: separate; border-spacing: 0; font-size: .9rem; background: #fff;
+  border-radius: 12px; overflow: hidden; border: 1.5px solid #ced4da; }
+table.gt th { background: #dbe4ff; color: var(--blue-tx); text-align: left; padding: 10px 12px; font-weight: 700; border-bottom: 2px solid var(--blue-bd); }
+table.gt td { padding: 9px 12px; border-bottom: 1px solid #e9ecef; vertical-align: top; line-height: 1.45; }
+table.gt tr:last-child td { border-bottom: none; }
+table.gt tr:nth-child(even) td { background: #f8f9fa; }
+table.gt td.rh { font-weight: 700; color: var(--primary); background: #f1f3f5; }
+table.gt .ok { color: #2b8a3e; font-weight: 800; }
+table.gt .no { color: #c92a2a; font-weight: 800; }
+table.gt .mid { color: #e67700; font-weight: 800; }
+
+/* fluxogramas */
+.flow { display: flex; flex-direction: column; align-items: center; gap: 0; }
+.flow .step { width: 100%; max-width: 760px; text-align: center; }
+.flow .arrow { font-size: 1.5rem; color: var(--secondary); line-height: 1.3; }
+.flow .branch { display: grid; gap: 14px; width: 100%; }
+.pill { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: .78rem; font-weight: 700; margin: 2px; }
+.pill.g { background: #d3f9d8; color: #1b4332; } .pill.b { background: #dbe4ff; color: #1c3d8f; }
+.pill.a { background: #fff3bf; color: #5c4400; } .pill.r { background: #ffe3e3; color: #8a1c1c; } .pill.k { background: #e9ecef; color: #343a40; }
+
+/* questionários */
+.scale-row { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: center; padding: 10px 14px; border-radius: 10px; margin-bottom: 6px; }
+.scale-row .g { font-weight: 800; color: var(--primary); text-align: center; font-size: 1.05rem; }
+.cat-row { display: grid; grid-template-columns: 1fr repeat(6, 34px) 1fr; gap: 6px; align-items: center; font-size: .85rem; padding: 7px 0; border-bottom: 1px dashed #dee2e6; }
+.cat-row span.n { width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--secondary); display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--secondary); }
+.cat-row .r { text-align: right; }
+
+/* síntese e abreviaturas (do modelo) */
+.action-box { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: var(--text-light); border-radius: 18px;
+  padding: 35px; margin: 30px 0; text-align: center; box-shadow: 0 15px 50px rgba(26,77,122,.3); }
+.action-box h2 { font-family: 'Playfair Display', serif; font-size: 1.9rem; margin-bottom: 12px; font-weight: 900; }
+.action-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 25px; text-align: left; }
+.action-step { background: rgba(255,255,255,.15); padding: 22px; border-radius: 12px; backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,.2); transition: all .3s ease; font-size: .93rem; line-height: 1.6; }
+.action-step:hover { background: rgba(255,255,255,.25); transform: translateY(-5px); }
+.action-step strong { display: block; font-size: 1.08rem; margin-bottom: 8px; color: var(--warning); }
+.abbreviations-box { background: rgba(255,255,255,.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.2);
+  border-radius: 15px; padding: 25px; margin-top: 40px; color: rgba(255,255,255,.92); font-size: .88rem; line-height: 1.75; }
+.abbreviations-box strong { color: var(--warning); }
+
+/* índice */
+.chapter-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 22px; margin-bottom: 35px; }
+.chapter-card { display: flex; gap: 20px; align-items: center; background: #fff; border-radius: 20px; padding: 26px; text-decoration: none;
+  color: var(--text-dark); box-shadow: 0 10px 40px var(--shadow); transition: transform .25s, box-shadow .25s; }
+.chapter-card:hover { transform: translateY(-6px); box-shadow: 0 18px 50px rgba(0,0,0,.25); }
+.chapter-num { flex: 0 0 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: #fff; font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 900; display: flex; align-items: center; justify-content: center; }
+.chapter-card h3 { color: var(--primary); font-size: 1.2rem; margin-bottom: 6px; }
+.chapter-card p { font-size: .9rem; color: #495057; line-height: 1.5; }
+
+footer { text-align: center; margin-top: 40px; padding: 20px; color: rgba(255,255,255,.8); font-size: .9rem; }
+footer a { color: #fff; }
+#toTop { position: fixed; right: 22px; bottom: 22px; width: 46px; height: 46px; border-radius: 50%; border: none; background: var(--warning);
+  color: #3a2c00; font-size: 1.3rem; font-weight: 900; cursor: pointer; opacity: 0; transition: opacity .3s; z-index: 10; box-shadow: 0 6px 20px rgba(0,0,0,.3); }
+
+@keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: none; } }
+@media (max-width: 950px) {
+  .grid2, .grid3, .grid4 { grid-template-columns: 1fr; }
+  .topic { padding: 24px 18px; }
+  .scale-row { grid-template-columns: 60px 1fr; }
+}
+@media print {
+  body { background: #fff; padding: 0; } body::before { display: none; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .topic, .fig { break-inside: avoid-page; box-shadow: none; }
+  header h1, .subtitle, .source, .toc, .toc a, footer, footer a { color: #1a4d7a !important; text-shadow: none; }
+  .topnav, #toTop { display: none; }
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+<nav class="topnav" aria-label="Navegação"><a href="index.html">← GOLD 2027 – Índice</a> <a href="capitulo-5.html">‹ Capítulo 5</a></nav>
+<header>
+  <span class="chapter-tag">Capítulo 6</span>
+  <h1>Inteligência Artificial e Tecnologias Emergentes</h1>
+  <p class="subtitle">IA no diagnóstico, na heterogeneidade e no prognóstico; telessaúde, monitorização remota, reabilitação e autocuidado virtuais</p>
+  <span class="source">Relatório GOLD 2027 – Estratégia Global para Diagnóstico, Tratamento e Prevenção da DPOC</span>
+</header>
+<div class="toc reveal"><h2>📑 Tópicos do capítulo</h2><ol><li><a href="#ia-visao-geral">IA na DPOC: benefícios e riscos</a></li><li><a href="#ia-diagnostico">IA no diagnóstico</a></li><li><a href="#ia-heterogeneidade">Heterogeneidade, biomarcadores e modelos multimodais</a></li><li><a href="#ia-manejo">Manejo, multimorbidade, monitorização remota e prognóstico</a></li><li><a href="#telessaude">Telessaúde, monitorização remota e seguimento</a></li><li><a href="#reabilitacao-autocuidado-virtual">Reabilitação e autocuidado: presencial vs virtual</a></li></ol><details class="figlist"><summary>🖼️ Figuras deste capítulo (2)</summary><ul><li><a href="#fig-6-1"><strong>Figura 6.1</strong> – Potenciais benefícios clínicos da IA na DPOC</a></li><li><a href="#fig-6-2"><strong>Figura 6.2</strong> – Riscos potenciais e estratégias de mitigação da IA</a></li></ul></details></div><!-- CAPÍTULO 6 – INTELIGÊNCIA ARTIFICIAL E TECNOLOGIAS EMERGENTES -->
+
+<section class="topic reveal" id="ia-visao-geral" data-title="IA na DPOC: benefícios e riscos">
+  <h2><span class="tn">6.1</span> IA na DPOC: benefícios e riscos</h2>
+  <p class="lead">O que a inteligência artificial pode oferecer e o que é preciso considerar antes de implantá-la.</p>
+  <div class="keypoints">
+    <h4>Pontos-chave</h4>
+    <ul>
+      <li>A IA pode ajudar no diagnóstico, na avaliação, no manejo clínico e no prognóstico da DPOC.</li>
+      <li>A IA tem riscos e limitações que exigem análise cuidadosa antes do uso na prática clínica.</li>
+      <li>A telessaúde inclui modelos virtuais, híbridos e presenciais e pode melhorar acesso, desfechos e custos.</li>
+      <li>A reabilitação pulmonar e o autocuidado podem ser oferecidos virtualmente.</li>
+      <li>As evidências comparando o formato virtual com o presencial ainda estão surgindo.</li>
+    </ul>
+  </div>
+  <p>Inteligência artificial é um conjunto de regras (algoritmos) que permite a computadores aprender, analisar dados e tomar decisões. Os diferentes modelos de IA variam na forma de treinamento e de análise dos dados.</p>
+
+  <figure class="fig" id="fig-6-1" data-num="6.1" data-title="Potenciais benefícios clínicos da IA na DPOC">
+    <div class="fig-h"><span class="fn">Figura 6.1</span>Potenciais benefícios clínicos da IA no diagnóstico e no manejo da DPOC</div>
+    <div class="fig-b">
+      <div style="display:grid;grid-template-columns:1fr 0.8fr 1fr;gap:16px;align-items:stretch">
+        <div style="display:grid;gap:12px">
+          <div class="cell c-blue"><strong class="t">📋 Diagnóstico mais precoce e preciso</strong>A IA analisa prontuários eletrônicos, espirometria e imagem para reduzir subdiagnóstico, diagnóstico errado e diagnóstico tardio.</div>
+          <div class="cell c-blue"><strong class="t">🔍 Melhor caracterização da heterogeneidade</strong>Identifica fenótipos e endotipos a partir de dados de imagem, biológicos e multiômicos.</div>
+          <div class="cell c-blue"><strong class="t">👥 Manejo personalizado e alinhado às diretrizes</strong>Alinha as recomendações do GOLD aos traços, às comorbidades e à resposta ao tratamento do paciente.</div>
+          <div class="cell c-blue"><strong class="t">⌚ Monitorização aprimorada da doença</strong><em>Wearables</em> e desfechos relatados pelo paciente permitem avaliação fisiológica e funcional contínua.</div>
+        </div>
+        <div class="cell c-dark" style="display:flex;align-items:center;justify-content:center;text-align:center;font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;line-height:1.3">Potenciais benefícios clínicos da IA no diagnóstico e no manejo da DPOC</div>
+        <div style="display:grid;gap:12px">
+          <div class="cell c-blue"><strong class="t">🔔 Detecção mais precoce de exacerbações</strong>Dados de monitorização, imagem e sintomas podem sinalizar exacerbações antes da deterioração clínica.</div>
+          <div class="cell c-blue"><strong class="t">📈 Melhor avaliação prognóstica</strong>Prediz exacerbações, uso de serviços e mortalidade com dados clínicos multimodais.</div>
+          <div class="cell c-blue"><strong class="t">🔗 Apoio ao paciente multimórbido</strong>Sintetiza dados de várias condições para lidar com a polifarmácia e com recomendações conflitantes.</div>
+          <div class="cell c-blue"><strong class="t">⚙️ Uso mais eficiente de recursos</strong>A estratificação de risco pode reduzir consultas desnecessárias e otimizar a intensidade do seguimento.</div>
+        </div>
+      </div>
+      <p style="font-size:.8rem;color:#495057;margin-top:10px">Referência: Agusti et al. How artificial intelligence could improve the diagnosis and management of COPD: a perspective from GOLD. Am J Respir Crit Care Med 2026;aamag337.</p>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 6.1.</figcaption>
+  </figure>
+
+  <figure class="fig" id="fig-6-2" data-num="6.2" data-title="Riscos potenciais e estratégias de mitigação da IA">
+    <div class="fig-h"><span class="fn">Figura 6.2</span>Riscos potenciais e estratégias de mitigação da IA na medicina</div>
+    <div class="fig-b">
+      <table class="gt">
+        <thead><tr><th style="width:22%"></th><th>Riscos potenciais</th><th>Estratégias de mitigação</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Riscos clínicos</td><td>Diagnóstico errado, dependência excessiva da IA, resultados enviesados</td><td>Validação rigorosa, supervisão humana, testes de viés</td></tr>
+          <tr><td class="rh">Riscos relacionados aos dados</td><td>Baixa qualidade dos dados, dados de treinamento enviesados, violação de privacidade</td><td>Limpeza dos dados, bases diversas, protocolos de segurança robustos</td></tr>
+          <tr><td class="rh">Limitações técnicas</td><td>Modelos “caixa-preta”, baixa generalização, deriva dos dados (<em>data drift</em>)</td><td>Modelos interpretáveis, retreinamento, validação externa</td></tr>
+          <tr><td class="rh">Riscos éticos e legais</td><td>Responsabilidade pouco clara, problemas de consentimento informado, iniquidade</td><td>Marcos claros de responsabilidade, comunicação transparente com o paciente, acesso equitativo</td></tr>
+          <tr><td class="rh">Desafios operacionais</td><td>Integração ao fluxo de trabalho, complexidade regulatória, alto custo de manutenção</td><td>Desenho centrado no usuário, alinhamento regulatório, monitorização e financiamento contínuos</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 6.2.</figcaption>
+  </figure>
+</section>
+
+<section class="topic reveal" id="ia-diagnostico" data-title="IA no diagnóstico">
+  <h2><span class="tn">6.2</span> IA no diagnóstico</h2>
+  <p class="lead">Subdiagnóstico, diagnóstico errado, diagnóstico tardio e alternativas à espirometria.</p>
+  <div class="grid3">
+    <div class="cell c-blue"><strong class="t">Subdiagnóstico</strong>Identificar pessoas em risco nos prontuários eletrônicos, na atenção primária e especializada e na comunidade (experiência canadense), inclusive nos programas de rastreamento de câncer. Limites: qualidade e interoperabilidade dos dados, marco legal de acesso a dados e regulação de dispositivos médicos.</div>
+    <div class="cell c-blue"><strong class="t">Diagnóstico errado</strong>Interpretação automatizada da espirometria e sugestões diagnósticas. A IA pode extrair características ocultas e de alta dimensão das curvas fluxo-volume.</div>
+    <div class="cell c-blue"><strong class="t">Diagnóstico tardio</strong>O diagnóstico costuma ocorrer na 7ª década, com a doença já avançada. Busca em prontuários e predição de trajetórias de função pulmonar e de risco de DPOC na população geral.</div>
+  </div>
+  <h3>Alternativas à espirometria assistidas por IA</h3>
+  <p>Exploradas em populações pequenas e ainda <strong>dependentes de validação em coortes maiores</strong>:</p>
+  <div class="grid4">
+    <div class="cell c-grey">🔊 Atributos dos sons respiratórios</div>
+    <div class="cell c-grey">🗣️ Características da voz</div>
+    <div class="cell c-grey">〰️ Oscilometria (FOT, IOS, AOS)</div>
+    <div class="cell c-grey">📳 Sensores de movimento</div>
+    <div class="cell c-grey">👃 Nariz eletrônico / compostos orgânicos voláteis</div>
+    <div class="cell c-grey">💓 Fotopletismografia</div>
+    <div class="cell c-grey">🩻 Tomografia de tórax</div>
+    <div class="cell c-grey">⚡ Tomografia por impedância elétrica</div>
+  </div>
+</section>
+
+<section class="topic reveal" id="ia-heterogeneidade" data-title="Heterogeneidade, biomarcadores e modelos multimodais">
+  <h2><span class="tn">6.3</span> Heterogeneidade, biomarcadores e modelos multimodais</h2>
+  <p class="lead">IA para medicina de precisão.</p>
+  <div class="grid3">
+    <div class="cell c-purple"><strong class="t">Biomarcadores de imagem</strong>É a aplicação de IA mais desenvolvida na DPOC: extensão e padrão do enfisema, integridade de fissuras, tampões mucosos, bronquiectasias e vasos pulmonares. A análise de nódulos por IA pode evitar procedimentos invasivos e classificar mais rapidamente o risco de câncer.</div>
+    <div class="cell c-purple"><strong class="t">Biomarcadores biológicos</strong>IA aplicada a dados ômicos para identificar biomarcadores e novos alvos terapêuticos, ainda dependente de validação em grandes coortes longitudinais.</div>
+    <div class="cell c-purple"><strong class="t">Modelos multimodais</strong>Integram dados biológicos e de imagem. Modelos de fundação (por exemplo, <em>Merlin</em>) combinam imagem, texto e dados clínicos e laboratoriais estruturados para estratificar risco e progressão.</div>
+  </div>
+</section>
+
+<section class="topic reveal" id="ia-manejo" data-title="Manejo, multimorbidade, monitorização remota e prognóstico">
+  <h2><span class="tn">6.4</span> Manejo, multimorbidade, monitorização remota e prognóstico</h2>
+  <p class="lead">IA no consultório, no domicílio e na estratificação de risco.</p>
+  <div class="grid2">
+    <div class="cell c-green"><strong class="t">Diretrizes e multimorbidade</strong>Aplicar várias diretrizes ao mesmo paciente multimórbido é um trabalho “hercúleo”. Algoritmos embutidos no prontuário podem resumir o estado clínico do paciente atendido por várias especialidades e alertar sobre polifarmácia, tratamento inadequado, exames faltantes e vacinas pendentes. Recomendações: <strong>abolir siglas</strong> nos registros (que variam entre especialidades) e adotar o “<strong>teclado zero</strong>”, em que a consulta é gravada e a IA gera um resumo sem siglas para o médico e uma versão leiga para o paciente, enviados após aprovação médica. Isso tende a melhorar o contato visual e a empatia. As diretrizes devem continuar sendo produzidas por <strong>consenso de especialistas humanos</strong>, pois são insumo valioso para a IA.</div>
+    <div class="cell c-green"><strong class="t">Monitorização remota do paciente</strong>IA + sensores vestíveis permitem transmitir desfechos relatados e dados fisiológicos, mas ainda há <strong>pouca evidência de impacto clínico</strong>, e o desafio é como os sistemas de saúde vão revisar e responder a esses dados. <strong>Inaladores inteligentes</strong> têm grande potencial para adesão e técnica. A reabilitação domiciliar apoiada por IA é alternativa quando não há programa presencial. <strong>Chatbots</strong> treinados e validados podem ser a primeira interface com o sistema de saúde, respondendo dúvidas e recomendando ações, inclusive acionar atendimento.</div>
+  </div>
+  <div class="callout info"><strong>Prognóstico:</strong> revisão sistemática (Smith et al.) mostrou evidência ainda limitada de que modelos de <em>machine learning</em> ou <em>deep learning</em> superem os escores de gravidade existentes. A IA também pode identificar pacientes com maior risco de exacerbação, o que ainda requer validação longitudinal.</div>
+</section>
+
+<section class="topic reveal" id="telessaude" data-title="Telessaúde, monitorização remota e seguimento">
+  <h2><span class="tn">6.5</span> Telessaúde, monitorização remota e seguimento</h2>
+  <p class="lead">Evidências, triagem entre consulta remota e presencial e roteiro da consulta remota.</p>
+  <p>A pandemia de COVID-19 transformou o atendimento ambulatorial. Modelos virtuais e híbridos podem ampliar acesso, desfechos e acessibilidade, mas devem se basear em evidências. Uma revisão Cochrane avaliou três modelos: monitorização remota + cuidado usual vs cuidado usual; consulta remota + cuidado usual vs cuidado usual; e telessaúde substituindo parte do cuidado presencial. A maioria dos estudos (24 ECRs) usou transmissão assíncrona e apenas 5 usaram tempo real. <strong>Há pouca evidência de superioridade</strong> sobre o cuidado usual (exacerbações, internações, estado de saúde, mortalidade), sem evidência de dano. Ainda não se sabe quais subgrupos se beneficiam. A telessaúde pode servir como recurso adicional, por avaliação individual. O Apêndice 4 do GOLD traz um <em>checklist</em> padronizado de seguimento (presencial, telefone ou virtual).</p>
+  <p>Princípios de boa prática: tratar o paciente com dignidade, respeitar privacidade e confidencialidade, ouvir as necessidades e agir no melhor interesse do paciente, e basear as recomendações na melhor evidência.</p>
+
+  <div class="grid2">
+    <div class="cell c-green"><strong class="t">✅ Seguimento remoto pode ser considerado quando</strong><ul><li>Paciente ou cuidador compreende o processo e fornece informações com clareza</li><li>Seguimento regular da DPOC ou de condição conhecida</li><li>Prontuário e exames acessíveis à equipe</li><li>É possível prescrever, acessar a medicação e acompanhar a prescrição</li></ul></div>
+    <div class="cell c-red"><strong class="t">🏥 Priorizar seguimento presencial quando</strong><ul><li>Paciente ou cuidador tem dificuldade em fornecer informações</li><li>Sintomas graves exigem atenção imediata</li><li>Mudança de sintomas exige diagnóstico diferencial com exame físico e/ou laboratório</li><li>O tratamento só pode ser feito presencialmente</li></ul><em>Considerar também a gravidade (sintomas e risco de exacerbação), visita recente ao PS ou internação, comorbidades relevantes, idade e morar sozinho.</em></div>
+  </div>
+
+  <h3>Roteiro da consulta remota</h3>
+  <p>Documente a consulta por escrito como numa consulta presencial, registrando que foi remota (telefone ou vídeo) e como as informações foram obtidas.</p>
+  <table class="gt">
+    <tbody>
+      <tr><td class="rh" style="width:6%;text-align:center">1</td><td><strong>Iniciar a chamada:</strong> apresentar-se (e a outros profissionais presentes, como gestor de caso, estudante ou residente); confirmar com quem fala (nome e data de nascimento) e o consentimento para o seguimento remoto; avisar se o viva-voz estiver ligado.</td></tr>
+      <tr><td class="rh" style="text-align:center">2</td><td><strong>Acolher o paciente:</strong> verificar questões técnicas, perguntar se está ouvindo bem e explicar o que fazer se a conexão cair.</td></tr>
+      <tr><td class="rh" style="text-align:center">3</td><td>Explicar que se trata de consulta remota e o motivo.</td></tr>
+      <tr><td class="rh" style="text-align:center">4</td><td>Verificar se há outras pessoas ouvindo e se o paciente consente com todos os presentes.</td></tr>
+      <tr><td class="rh" style="text-align:center">5</td><td>Definir a pauta: temas a discutir e tempo disponível.</td></tr>
+      <tr><td class="rh" style="text-align:center">6</td><td>Conduzir a consulta pelo <em>checklist</em> de seguimento da DPOC (Apêndice 4), mantendo o foco nas principais questões trazidas pelo paciente.</td></tr>
+      <tr><td class="rh" style="text-align:center">7</td><td><strong>Encerrar e resumir:</strong> pedir ao paciente que resuma o que foi discutido; reforçar o plano de ação e as tarefas combinadas; marcar o retorno; combinar o encerramento.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="topic reveal" id="reabilitacao-autocuidado-virtual" data-title="Reabilitação e autocuidado: presencial vs virtual">
+  <h2><span class="tn">6.6</span> Reabilitação e autocuidado: presencial vs virtual</h2>
+  <p class="lead">As duas modalidades de telessaúde mais estudadas na DPOC.</p>
+  <div class="grid2">
+    <div class="cell c-blue"><strong class="t">Reabilitação pulmonar</strong>Tem os estudos de maior qualidade na área (Cochrane 2021). A <strong>telerreabilitação alcança resultados semelhantes</strong> aos da RP presencial em centro, e diretriz recomenda oferecer a escolha entre as duas a adultos com doença respiratória crônica estável, sobretudo DPOC (<strong>recomendação forte, evidência moderada</strong>). O componente essencial é o treino de resistência aeróbica de membros inferiores. A avaliação pré-reabilitação geralmente continua presencial. A telerreabilitação exige equipe treinada e infraestrutura adequada, e não deve ser usada de forma indevida diante da escassez de pessoal ou do apelo tecnológico.</div>
+    <div class="cell c-blue"><strong class="t">Autocuidado</strong>Revisão Cochrane de 2022: as intervenções de autocuidado melhoram a qualidade de vida e reduzem internações. A teleducação com tecnologias de informação e comunicação pode transformar o monitoramento e o cuidado. Ainda assim, <strong>nenhum estudo foi desenhado para mostrar benefício adicional</strong> do autocuidado apoiado por telessaúde sobre o autocuidado sem tecnologia, e restam muitas questões e limitações.</div>
+  </div>
+</section>
+
+<div class="action-box reveal">
+  <h2>🤖 Mensagens do Capítulo 6</h2>
+  <div class="action-steps">
+    <div class="action-step"><strong>1. Promessa real</strong>• A IA pode reduzir sub, mal e tardio diagnóstico, caracterizar fenótipos (imagem é a área mais madura), apoiar o cuidado multimórbido e a monitorização.</div>
+    <div class="action-step"><strong>2. Cautela necessária</strong>• Validação rigorosa, supervisão humana, interpretabilidade, privacidade e equidade. A IA ainda não superou os escores prognósticos tradicionais.</div>
+    <div class="action-step"><strong>3. Telessaúde com critério</strong>• Triar quem pode ser seguido remotamente. A telerreabilitação equivale à presencial. O benefício adicional do autocuidado digital ainda não foi demonstrado.</div>
+  </div>
+</div>
+
+<div class="abbreviations-box">
+  <p><strong>Abreviações:</strong> <strong>AOS</strong> = oscilometria de onda arbitrária (<em>airwave oscillometry</em>) • <strong>ECR</strong> = ensaio clínico randomizado • <strong>FOT</strong> = técnica de oscilação forçada • <strong>IA (AI)</strong> = inteligência artificial • <strong>IOS</strong> = oscilometria de impulso • <strong>PS</strong> = pronto-socorro • <strong>RP</strong> = reabilitação pulmonar • <strong>RPM</strong> = monitorização remota do paciente.</p>
+</div>
+
+<footer>
+  <p><strong>Adaptado de:</strong> Global Initiative for Chronic Obstructive Lung Disease (GOLD). <em>Global Strategy for the Diagnosis, Management, and Prevention of Chronic Obstructive Pulmonary Disease – 2027 Report</em>. <a href="https://goldcopd.org" target="_blank" rel="noopener noreferrer">goldcopd.org</a></p>
+  <p style="margin-top:8px;font-size:0.85rem;opacity:0.9;">Adaptação educacional em português, preparada pelo Dr. Fernando Lundgren. As figuras foram redesenhadas e traduzidas; não reproduzem as figuras originais do relatório. Apenas a versão em inglês do GOLD é revisada e aprovada pelo GOLD.</p>
+  <p style="margin-top:8px;font-size:0.85rem;opacity:0.8;">Ferramenta educacional destinada a profissionais de saúde. Não substitui o julgamento clínico.</p>
+  <p class="footnav"><a href="index.html">← GOLD 2027 – Índice</a> <a href="capitulo-5.html">‹ Capítulo 5</a></p>
+</footer>
+</div>
+<button id="toTop" aria-label="Voltar ao topo" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>
+const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } }), {threshold: 0.05, rootMargin: '0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+const tt = document.getElementById('toTop');
+window.addEventListener('scroll', () => { tt.style.opacity = window.scrollY > 600 ? '1' : '0'; });
+</script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "41331af379ba4c71af70c5689396f1b8"}'></script><!-- End Cloudflare Web Analytics -->
+<script data-goatcounter="https://pneumoagents.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body></html>
