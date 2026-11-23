@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head>
+<script src="../../assets/js/aviso-profissional.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GOLD 2027 – Cap. 5: DPOC e Multimorbidade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --primary: #1a4d7a; --secondary: #2e7ab8; --accent: #4aa3df; --highlight: #ff6b6b;
+  --success: #51cf66; --warning: #ffd43b; --bg-light: #f8f9fa; --bg-dark: #0a1628;
+  --text-dark: #1a1a1a; --text-light: #ffffff; --card-bg: #ffffff; --shadow: rgba(26, 77, 122, 0.15);
+  --green-bg: #ebfbee; --green-bd: #69db7c; --green-tx: #1b4332;
+  --blue-bg: #edf2ff; --blue-bd: #91a7ff; --blue-tx: #1c3d8f;
+  --grey-bg: #f1f3f5; --grey-bd: #adb5bd;
+  --amber-bg: #fff9db; --amber-bd: #fcc419; --amber-tx: #5c4400;
+  --red-bg: #fff5f5; --red-bd: #ff8787; --red-tx: #8a1c1c;
+  --purple-bg: #f3f0ff; --purple-bd: #b197fc; --purple-tx: #3b2a7a;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Work Sans', system-ui, sans-serif;
+  background: linear-gradient(135deg, #0a1628 0%, #1a4d7a 50%, #2e7ab8 100%);
+  background-attachment: fixed;
+  color: var(--text-dark); min-height: 100vh; padding: 40px 20px; position: relative; overflow-x: hidden;
+}
+body::before {
+  content: ''; position: fixed; inset: 0;
+  background: radial-gradient(circle at 20% 50%, rgba(74,163,223,0.1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 80%, rgba(255,107,107,0.1) 0%, transparent 50%);
+  pointer-events: none; z-index: 0;
+}
+.container { max-width: 1400px; margin: 0 auto; position: relative; z-index: 1; }
+a { color: var(--secondary); }
+
+/* navegação */
+.topnav, .footnav { display: flex; flex-wrap: wrap; gap: 18px; font-size: 0.9rem; margin: 0 0 18px; }
+.topnav a, .footnav a { color: #fff; font-weight: 600; text-decoration: none; opacity: .92; }
+.topnav a:hover, .footnav a:hover { text-decoration: underline; opacity: 1; }
+.footnav { justify-content: center; margin-top: 14px; }
+
+/* cabeçalho */
+header { text-align: center; margin-bottom: 40px; animation: fadeInDown 0.8s ease-out; }
+.chapter-tag { display: inline-block; background: var(--warning); color: #3a2c00; font-weight: 800; letter-spacing: 1.5px;
+  text-transform: uppercase; font-size: .78rem; padding: 6px 16px; border-radius: 30px; margin-bottom: 14px; }
+h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.1rem, 4.6vw, 3.5rem); font-weight: 900; color: var(--text-light);
+  margin-bottom: 15px; text-shadow: 2px 4px 12px rgba(0,0,0,0.3); letter-spacing: -1px; line-height: 1.1; }
+.subtitle { font-size: clamp(1rem, 2vw, 1.2rem); color: rgba(255,255,255,0.9); font-weight: 500; margin: 0 auto 12px; max-width: 920px; }
+.source { display: inline-block; background: rgba(255,255,255,0.15); padding: 8px 20px; border-radius: 30px; color: var(--text-light);
+  font-size: 0.9rem; font-weight: 600; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); }
+
+/* sumário */
+.toc { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 18px; padding: 26px 30px; margin-bottom: 35px; color: #fff; }
+.toc h2 { font-size: 1.25rem; margin-bottom: 12px; color: var(--warning); }
+.toc ol { columns: 2 320px; column-gap: 40px; padding-left: 22px; }
+.toc li { margin: 4px 0; break-inside: avoid; }
+.toc a { color: #fff; text-decoration: none; font-weight: 600; }
+.toc a:hover { text-decoration: underline; }
+.figlist { margin-top: 16px; border-top: 1px solid rgba(255,255,255,.2); padding-top: 12px; }
+.figlist summary { cursor: pointer; font-weight: 700; color: var(--warning); }
+.figlist ul { list-style: none; columns: 2 380px; column-gap: 40px; margin-top: 10px; font-size: .9rem; }
+.figlist li { margin: 4px 0; break-inside: avoid; }
+
+/* cartões de tópico */
+.topic { background: var(--card-bg); border-radius: 20px; padding: 35px; margin-bottom: 35px;
+  box-shadow: 0 10px 40px var(--shadow); scroll-margin-top: 20px; }
+.topic > h2 { font-size: 1.6rem; color: var(--primary); margin-bottom: 6px; display: flex; gap: 12px; align-items: baseline; }
+.topic > h2 .tn { font-family: 'Playfair Display', serif; color: var(--accent); font-size: 1.9rem; font-weight: 900; }
+.topic > .lead { color: #495057; font-weight: 500; margin-bottom: 22px; border-bottom: 2px solid #dee2e6; padding-bottom: 14px; }
+.topic h3 { font-size: 1.12rem; color: var(--secondary); margin: 24px 0 10px; }
+.topic h4 { font-size: 1rem; color: var(--primary); margin: 14px 0 6px; }
+.topic p { line-height: 1.68; margin-bottom: 12px; font-size: .97rem; }
+.topic ul.bul, .topic ol.bul { padding-left: 22px; margin-bottom: 12px; line-height: 1.6; font-size: .96rem; }
+.topic ul.bul li, .topic ol.bul li { margin-bottom: 5px; }
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity .6s ease-out, transform .6s ease-out; }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* pontos-chave */
+.keypoints { background: linear-gradient(135deg, var(--blue-bg) 0%, #dbe4ff 100%); border-left: 5px solid #5c7cfa;
+  border-radius: 14px; padding: 20px 24px; margin: 6px 0 22px; }
+.keypoints h4 { color: var(--blue-tx); margin: 0 0 8px; font-size: 1rem; text-transform: uppercase; letter-spacing: .6px; }
+.keypoints ul { padding-left: 20px; color: #22306b; font-weight: 500; line-height: 1.55; font-size: .95rem; }
+.keypoints li { margin-bottom: 6px; }
+.callout { border-radius: 14px; padding: 16px 20px; margin: 14px 0; font-size: .95rem; line-height: 1.55; }
+.callout.new { background: var(--amber-bg); border: 1.5px solid var(--amber-bd); color: var(--amber-tx); }
+.callout.new::before { content: 'NOVO 2027 · '; font-weight: 800; }
+.callout.warn { background: var(--red-bg); border: 1.5px solid var(--red-bd); color: var(--red-tx); }
+.callout.info { background: var(--green-bg); border: 1.5px solid var(--green-bd); color: var(--green-tx); }
+
+/* grades e células (do modelo) */
+.grid2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 12px 0; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 12px 0; }
+.grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 12px 0; }
+.cell { border-radius: 14px; padding: 16px 18px; font-size: .92rem; line-height: 1.52; font-weight: 500;
+  transition: transform .25s ease, box-shadow .25s ease; }
+.cell:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,.08); }
+.cell h4, .cell strong.t { display: block; margin: 0 0 6px; font-size: 1rem; }
+.cell ul { padding-left: 18px; }
+.cell li { margin-bottom: 3px; }
+.c-green { background: linear-gradient(135deg, #ebfbee 0%, #d3f9d8 100%); border: 1.5px solid var(--green-bd); color: var(--green-tx); }
+.c-grey { background: linear-gradient(135deg, #f1f3f5 0%, #e9ecef 100%); border: 1.5px solid var(--grey-bd); color: #212529; }
+.c-blue { background: linear-gradient(135deg, #edf2ff 0%, #dbe4ff 100%); border: 1.5px solid var(--blue-bd); color: var(--blue-tx); }
+.c-amber { background: linear-gradient(135deg, #fff9db 0%, #fff3bf 100%); border: 1.5px solid var(--amber-bd); color: var(--amber-tx); }
+.c-red { background: linear-gradient(135deg, #fff5f5 0%, #ffe3e3 100%); border: 1.5px solid var(--red-bd); color: var(--red-tx); }
+.c-purple { background: linear-gradient(135deg, #f3f0ff 0%, #e5dbff 100%); border: 1.5px solid var(--purple-bd); color: var(--purple-tx); }
+.c-dark { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff; border: none; }
+
+/* figuras */
+.fig { background: #f8f9fa; border: 2px solid #ced4da; border-radius: 16px; margin: 22px 0 26px; overflow: hidden; scroll-margin-top: 20px; }
+.fig > .fig-h { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff; padding: 12px 20px;
+  font-weight: 700; line-height: 1.6; }
+.fig > .fig-h .fn { background: var(--warning); color: #3a2c00; border-radius: 8px; padding: 2px 10px; font-size: .85rem; font-weight: 800; white-space: nowrap; margin-right: 12px; }
+.fig > .fig-b { padding: 20px; overflow-x: auto; }
+.fig > figcaption { font-size: .8rem; color: #6c757d; padding: 0 20px 14px; font-style: italic; }
+.fig svg { width: 100%; height: auto; display: block; font-family: 'Work Sans', sans-serif; }
+.fig .svgwrap { min-width: 680px; }
+
+/* tabelas */
+table.gt { width: 100%; border-collapse: separate; border-spacing: 0; font-size: .9rem; background: #fff;
+  border-radius: 12px; overflow: hidden; border: 1.5px solid #ced4da; }
+table.gt th { background: #dbe4ff; color: var(--blue-tx); text-align: left; padding: 10px 12px; font-weight: 700; border-bottom: 2px solid var(--blue-bd); }
+table.gt td { padding: 9px 12px; border-bottom: 1px solid #e9ecef; vertical-align: top; line-height: 1.45; }
+table.gt tr:last-child td { border-bottom: none; }
+table.gt tr:nth-child(even) td { background: #f8f9fa; }
+table.gt td.rh { font-weight: 700; color: var(--primary); background: #f1f3f5; }
+table.gt .ok { color: #2b8a3e; font-weight: 800; }
+table.gt .no { color: #c92a2a; font-weight: 800; }
+table.gt .mid { color: #e67700; font-weight: 800; }
+
+/* fluxogramas */
+.flow { display: flex; flex-direction: column; align-items: center; gap: 0; }
+.flow .step { width: 100%; max-width: 760px; text-align: center; }
+.flow .arrow { font-size: 1.5rem; color: var(--secondary); line-height: 1.3; }
+.flow .branch { display: grid; gap: 14px; width: 100%; }
+.pill { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: .78rem; font-weight: 700; margin: 2px; }
+.pill.g { background: #d3f9d8; color: #1b4332; } .pill.b { background: #dbe4ff; color: #1c3d8f; }
+.pill.a { background: #fff3bf; color: #5c4400; } .pill.r { background: #ffe3e3; color: #8a1c1c; } .pill.k { background: #e9ecef; color: #343a40; }
+
+/* questionários */
+.scale-row { display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: center; padding: 10px 14px; border-radius: 10px; margin-bottom: 6px; }
+.scale-row .g { font-weight: 800; color: var(--primary); text-align: center; font-size: 1.05rem; }
+.cat-row { display: grid; grid-template-columns: 1fr repeat(6, 34px) 1fr; gap: 6px; align-items: center; font-size: .85rem; padding: 7px 0; border-bottom: 1px dashed #dee2e6; }
+.cat-row span.n { width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--secondary); display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--secondary); }
+.cat-row .r { text-align: right; }
+
+/* síntese e abreviaturas (do modelo) */
+.action-box { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: var(--text-light); border-radius: 18px;
+  padding: 35px; margin: 30px 0; text-align: center; box-shadow: 0 15px 50px rgba(26,77,122,.3); }
+.action-box h2 { font-family: 'Playfair Display', serif; font-size: 1.9rem; margin-bottom: 12px; font-weight: 900; }
+.action-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 25px; text-align: left; }
+.action-step { background: rgba(255,255,255,.15); padding: 22px; border-radius: 12px; backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,.2); transition: all .3s ease; font-size: .93rem; line-height: 1.6; }
+.action-step:hover { background: rgba(255,255,255,.25); transform: translateY(-5px); }
+.action-step strong { display: block; font-size: 1.08rem; margin-bottom: 8px; color: var(--warning); }
+.abbreviations-box { background: rgba(255,255,255,.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.2);
+  border-radius: 15px; padding: 25px; margin-top: 40px; color: rgba(255,255,255,.92); font-size: .88rem; line-height: 1.75; }
+.abbreviations-box strong { color: var(--warning); }
+
+/* índice */
+.chapter-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 22px; margin-bottom: 35px; }
+.chapter-card { display: flex; gap: 20px; align-items: center; background: #fff; border-radius: 20px; padding: 26px; text-decoration: none;
+  color: var(--text-dark); box-shadow: 0 10px 40px var(--shadow); transition: transform .25s, box-shadow .25s; }
+.chapter-card:hover { transform: translateY(-6px); box-shadow: 0 18px 50px rgba(0,0,0,.25); }
+.chapter-num { flex: 0 0 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: #fff; font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 900; display: flex; align-items: center; justify-content: center; }
+.chapter-card h3 { color: var(--primary); font-size: 1.2rem; margin-bottom: 6px; }
+.chapter-card p { font-size: .9rem; color: #495057; line-height: 1.5; }
+
+footer { text-align: center; margin-top: 40px; padding: 20px; color: rgba(255,255,255,.8); font-size: .9rem; }
+footer a { color: #fff; }
+#toTop { position: fixed; right: 22px; bottom: 22px; width: 46px; height: 46px; border-radius: 50%; border: none; background: var(--warning);
+  color: #3a2c00; font-size: 1.3rem; font-weight: 900; cursor: pointer; opacity: 0; transition: opacity .3s; z-index: 10; box-shadow: 0 6px 20px rgba(0,0,0,.3); }
+
+@keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: none; } }
+@media (max-width: 950px) {
+  .grid2, .grid3, .grid4 { grid-template-columns: 1fr; }
+  .topic { padding: 24px 18px; }
+  .scale-row { grid-template-columns: 60px 1fr; }
+}
+@media print {
+  body { background: #fff; padding: 0; } body::before { display: none; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .topic, .fig { break-inside: avoid-page; box-shadow: none; }
+  header h1, .subtitle, .source, .toc, .toc a, footer, footer a { color: #1a4d7a !important; text-shadow: none; }
+  .topnav, #toTop { display: none; }
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+<nav class="topnav" aria-label="Navegação"><a href="index.html">← GOLD 2027 – Índice</a> <a href="capitulo-4.html">‹ Capítulo 4</a> <a href="capitulo-6.html">Capítulo 6 ›</a></nav>
+<header>
+  <span class="chapter-tag">Capítulo 5</span>
+  <h1>DPOC e Multimorbidade</h1>
+  <p class="subtitle">Fragilidade, doenças cardiovasculares, respiratórias, mentais, metabólicas e sistêmicas; risco cirúrgico e ferramentas práticas</p>
+  <span class="source">Relatório GOLD 2027 – Estratégia Global para Diagnóstico, Tratamento e Prevenção da DPOC</span>
+</header>
+<div class="toc reveal"><h2>📑 Tópicos do capítulo</h2><ol><li><a href="#introducao-multimorbidade">Introdução, abordagem 4Ms e fragilidade</a></li><li><a href="#cardiovasculares">Doenças cardiovasculares</a></li><li><a href="#respiratorias">Doenças respiratórias associadas</a></li><li><a href="#mentais">Condições mentais</a></li><li><a href="#metabolicas">Doenças metabólicas</a></li><li><a href="#molt">Perda tecidual multiorgânica (MOLT)</a></li><li><a href="#risco-cirurgico">Risco cirúrgico e outras considerações</a></li></ol><details class="figlist"><summary>🖼️ Figuras deste capítulo (7)</summary><ul><li><a href="#fig-5-1"><strong>Figura 5.1</strong> – Abordagem 4Ms modificada centrada na pessoa</a></li><li><a href="#fig-5-2"><strong>Figura 5.2</strong> – Clusters de morbidades na DPOC</a></li><li><a href="#fig-5-3"><strong>Figura 5.3</strong> – Doenças cardiovasculares na DPOC: carga e manejo</a></li><li><a href="#fig-5-4"><strong>Figura 5.4</strong> – Traços tratáveis na HP-DPOC e manejo sugerido</a></li><li><a href="#fig-5-5"><strong>Figura 5.5</strong> – Fatores de risco comuns para câncer de pulmão</a></li><li><a href="#fig-5-6"><strong>Figura 5.6</strong> – Painel de avaliação inicial de multimorbidade</a></li><li><a href="#fig-5-7"><strong>Figura 5.7</strong> – Painel de seguimento regular de multimorbidade</a></li></ul></details></div><!-- CAPÍTULO 5 – DPOC E MULTIMORBIDADE -->
+
+<section class="topic reveal" id="introducao-multimorbidade" data-title="Introdução, abordagem 4Ms e fragilidade">
+  <h2><span class="tn">5.1</span> Introdução, abordagem 4Ms e fragilidade</h2>
+  <p class="lead">Multimorbidade como regra na DPOC, sindemia e uma abordagem centrada na pessoa.</p>
+  <div class="keypoints">
+    <h4>Pontos-chave</h4>
+    <ul>
+      <li>A multimorbidade é frequente, subdiagnosticada e subtratada, piora os desfechos e deve ser <strong>buscada ativamente</strong> em todo paciente.</li>
+      <li>As comorbidades <strong>não alteram o tratamento da DPOC</strong> e devem ser tratadas segundo os padrões habituais.</li>
+      <li>HAS, cardiopatia isquêmica, IC e FA são comuns. O risco cardiovascular maior aumenta durante e até 1 ano após exacerbação moderada ou grave.</li>
+      <li>O câncer de pulmão é grande causa de morte: TC de baixa dose anual nos tabagistas elegíveis. <strong>Não</strong> se recomenda rastreamento na DPOC não tabágica.</li>
+      <li>Bronquiectasias com infecção pioram progressão, exacerbações e mortalidade.</li>
+      <li>Depressão e ansiedade são frequentes, subdiagnosticadas e associadas a pior estado de saúde e mortalidade.</li>
+      <li>IMC &lt; 21 kg/m² associa-se a maior mortalidade. IMC &gt; 30 associa-se a síndrome metabólica e AOS; o CPAP na AOS reduz a mortalidade.</li>
+      <li>DRGE aumenta o risco de exacerbações.</li>
+      <li><strong>MOLT</strong> (perda tecidual multiorgânica: osteoporose, sarcopenia, anemia, enfisema) associa-se a pior prognóstico; nutrição, reabilitação e manejo melhoram os desfechos.</li>
+      <li>Na multimorbidade, buscar <strong>simplicidade terapêutica</strong> e minimizar a polifarmácia.</li>
+    </ul>
+  </div>
+  <p>Multimorbidade (mais de duas condições crônicas adicionais) é a regra na DPOC. Muitas condições compartilham vias patobiológicas, num conceito de <strong>sindemia</strong>. Sintomas sobrepostos podem mascarar IC e câncer (dispneia) ou depressão (fadiga). A DPOC, por sua vez, piora o prognóstico de IC, cardiopatia isquêmica e cirurgia de revascularização. O tabagismo ativo deve ser tratado como doença em si.</p>
+
+  <figure class="fig" id="fig-5-1" data-num="5.1" data-title="Abordagem 4Ms modificada centrada na pessoa">
+    <div class="fig-h"><span class="fn">Figura 5.1</span>Resumo da abordagem centrada na pessoa “4Ms” modificada para o paciente multimórbido com DPOC</div>
+    <div class="fig-b"><div class="svgwrap">
+      <svg viewBox="0 0 860 520" xmlns="http://www.w3.org/2000/svg" font-size="15">
+        <rect x="270" y="10" width="320" height="100" fill="#cfe2f8" stroke="#222"/>
+        <text x="430" y="42" text-anchor="middle" font-size="24" font-weight="700">Mentação</text>
+        <text x="430" y="68" text-anchor="middle">Definir os objetivos de vida do paciente.</text><text x="430" y="90" text-anchor="middle">Rastrear depressão, ansiedade e déficit cognitivo.</text>
+        <ellipse cx="430" cy="170" rx="80" ry="55" fill="#fff" stroke="#222" stroke-width="1.5"/>
+        <path d="M410 200 V 185 C 395 180, 392 165, 400 150 C 408 135, 440 130, 455 145 C 465 158, 462 175, 452 182 V 200 Z" fill="#dee2e6" stroke="#333"/>
+        <circle cx="425" cy="158" r="9" fill="none" stroke="#1c3d8f" stroke-width="3"/><circle cx="443" cy="166" r="6" fill="none" stroke="#1c3d8f" stroke-width="3"/>
+        <rect x="20" y="210" width="200" height="160" fill="#fcd25e" stroke="#222"/>
+        <text x="120" y="242" text-anchor="middle" font-size="24" font-weight="700">Medicações</text>
+        <text x="120" y="270" text-anchor="middle">Revisar e, se preciso,</text><text x="120" y="292" text-anchor="middle">definir um plano seguro</text><text x="120" y="314" text-anchor="middle">de uso. Ajustar dose ou</text><text x="120" y="336" text-anchor="middle">desprescrever, se</text><text x="120" y="358" text-anchor="middle">apropriado.</text>
+        <ellipse cx="300" cy="290" rx="70" ry="55" fill="#fff" stroke="#222" stroke-width="1.5"/>
+        <g><rect x="272" y="275" width="16" height="24" rx="3" fill="#fff" stroke="#c92a2a"/><rect x="292" y="268" width="18" height="31" rx="3" fill="#fff" stroke="#c92a2a"/><rect x="314" y="278" width="14" height="21" rx="3" fill="#fff" stroke="#c92a2a"/><circle cx="285" cy="308" r="4" fill="#e03131"/><circle cx="300" cy="310" r="4" fill="#fcc419"/><circle cx="315" cy="308" r="4" fill="#4dabf7"/></g>
+        <path d="M370 245 H 490 L 500 255 V 330 L 490 340 H 370 L 360 330 V 255 Z" fill="#3c6cc4" stroke="#1a3d8f" stroke-width="2"/>
+        <text x="430" y="278" text-anchor="middle" fill="#fff" font-size="26" font-weight="800">4Ms</text><text x="430" y="304" text-anchor="middle" fill="#fff" font-size="20" font-weight="800">da</text><text x="430" y="330" text-anchor="middle" fill="#fff" font-size="26" font-weight="800">DPOC</text>
+        <ellipse cx="560" cy="290" rx="70" ry="55" fill="#fff" stroke="#222" stroke-width="1.5"/>
+        <g><circle cx="555" cy="260" r="8" fill="#dee2e6" stroke="#333"/><path d="M550 270 L 545 300 L 552 325 M556 270 L 562 300" stroke="#2f9e44" stroke-width="7" fill="none"/><path d="M565 285 L 580 290 L 585 325 M580 290 L 572 325" stroke="#333" stroke-width="2" fill="none"/></g>
+        <rect x="640" y="230" width="200" height="120" fill="#a9d18e" stroke="#222"/>
+        <text x="740" y="264" text-anchor="middle" font-size="24" font-weight="700">Mobilidade</text>
+        <text x="740" y="292" text-anchor="middle">Avaliar equilíbrio</text><text x="740" y="314" text-anchor="middle">e capacidade</text><text x="740" y="336" text-anchor="middle">de exercício.</text>
+        <ellipse cx="430" cy="405" rx="80" ry="50" fill="#fff" stroke="#222" stroke-width="1.5"/>
+        <g><circle cx="430" cy="375" r="9" fill="#dee2e6"/><rect x="418" y="386" width="24" height="34" rx="4" fill="#f1f3f5" stroke="#adb5bd"/><path d="M425 395 q5 -6 10 0 q-5 7 -10 0" fill="#e03131"/><path d="M424 405 L 436 410" stroke="#4dabf7" stroke-width="4"/></g>
+        <rect x="270" y="460" width="320" height="56" fill="#e7a3cf" stroke="#222"/>
+        <text x="430" y="488" text-anchor="middle" font-size="24" font-weight="700">Morbidades</text><text x="430" y="508" text-anchor="middle">Identificar e definir o manejo.</text>
+      </svg>
+    </div>
+      <p style="font-size:.8rem;color:#495057;margin-top:6px">Adaptado de Celli BR et al. A person-centred clinical approach to the multimorbid patient with COPD. Eur J Intern Med 2025;106424. Mentação: objetivos de saúde, depressão, demência, transtornos psiquiátricos graves. Mobilidade: equilíbrio, fragilidade e TC6 (excelente preditor de sobrevida). Medicações: &gt; 90% têm polifarmácia.</p>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 5.1.</figcaption>
+  </figure>
+
+  <div class="grid2">
+    <div class="cell c-purple"><strong class="t">Fragilidade</strong>Declínio de múltiplos sistemas fisiológicos com cinco componentes: fraqueza, lentidão, exaustão, baixa atividade física e perda de peso não intencional. É mais prevalente na DPOC, e fragilidade e pré-fragilidade associam-se a mortalidade, exacerbações e internações. A ERS propõe manejo com cuidado geriátrico, reabilitação, nutrição e terapias farmacológicas e psicológicas.</div>
+    <div class="cell c-red"><strong class="t">Principais causas de morte</strong>Além da insuficiência respiratória: HAS, IC, doença coronariana, FA/<em>flutter</em>, hipertensão pulmonar e câncer de pulmão. Osteoporose, depressão, ansiedade, sarcopenia, anemia, distúrbios do sono e insuficiência renal pioram a qualidade de vida e aumentam exacerbações e internações, e muitas são tratáveis.</div>
+  </div>
+
+  <figure class="fig" id="fig-5-2" data-num="5.2" data-title="Clusters de morbidades na DPOC">
+    <div class="fig-h"><span class="fn">Figura 5.2</span>Agrupamentos (clusters) de morbidades frequentes na DPOC com impacto independente nos desfechos</div>
+    <div class="fig-b"><div class="svgwrap">
+      <svg viewBox="0 0 900 560" xmlns="http://www.w3.org/2000/svg" font-size="15">
+        <g opacity=".35">
+          <ellipse cx="450" cy="200" rx="170" ry="190" fill="#8fbcbb"/>
+          <ellipse cx="320" cy="290" rx="150" ry="140" fill="#b2f2bb"/>
+          <ellipse cx="580" cy="290" rx="150" ry="140" fill="#ced4da"/>
+          <ellipse cx="350" cy="430" rx="160" ry="130" fill="#b197fc"/>
+          <ellipse cx="560" cy="430" rx="160" ry="130" fill="#a5d8ff"/>
+        </g>
+        <!-- silhueta -->
+        <g fill="#f8d7c4" stroke="#c9a28b" stroke-width="1.5">
+          <circle cx="450" cy="110" r="38"/>
+          <path d="M395 160 H 505 L 525 330 H 500 L 492 230 L 488 330 L 495 520 H 462 L 452 350 L 448 350 L 438 520 H 405 L 412 330 L 408 230 L 400 330 H 375 Z"/>
+        </g>
+        <g fill="#e8590c" opacity=".55"><ellipse cx="430" cy="215" rx="18" ry="34"/><ellipse cx="472" cy="215" rx="18" ry="34"/></g>
+        <path d="M452 220 q8 -12 16 0 q-8 14 -16 0" fill="#c92a2a"/>
+        <g font-family="Work Sans, sans-serif">
+          <rect x="560" y="20" width="250" height="78" fill="#fff" stroke="#222"/><text x="685" y="44" text-anchor="middle" font-weight="800" font-size="16">Cluster mental</text><text x="685" y="66" text-anchor="middle">Depressão e ansiedade</text><text x="685" y="86" text-anchor="middle">Déficit cognitivo</text>
+          <rect x="30" y="150" width="250" height="140" fill="#fff" stroke="#222"/><text x="155" y="174" text-anchor="middle" font-weight="800" font-size="16">Cluster cardiovascular</text><text x="155" y="196" text-anchor="middle">Hipertensão arterial sistêmica</text><text x="155" y="216" text-anchor="middle">Insuficiência cardíaca</text><text x="155" y="236" text-anchor="middle">Doença arterial coronariana</text><text x="155" y="256" text-anchor="middle">Arritmias</text><text x="155" y="276" text-anchor="middle">Hipertensão pulmonar</text>
+          <rect x="620" y="150" width="260" height="140" fill="#fff" stroke="#222"/><text x="750" y="174" text-anchor="middle" font-weight="800" font-size="16">Cluster respiratório</text><text x="750" y="196" text-anchor="middle">Câncer de pulmão</text><text x="750" y="216" text-anchor="middle">Asma</text><text x="750" y="236" text-anchor="middle">Distúrbios respiratórios do sono</text><text x="750" y="256" text-anchor="middle">Doença pulmonar intersticial</text><text x="750" y="276" text-anchor="middle">Bronquiectasias</text>
+          <rect x="60" y="400" width="250" height="140" fill="#fff" stroke="#222"/><text x="185" y="424" text-anchor="middle" font-weight="800" font-size="16">Cluster metabólico</text><text x="185" y="448" text-anchor="middle">Diabetes mellitus</text><text x="185" y="468" text-anchor="middle">Esteatose hepática</text><text x="185" y="488" text-anchor="middle">Obesidade</text><text x="185" y="508" text-anchor="middle">Doença do refluxo</text><text x="185" y="528" text-anchor="middle">gastroesofágico</text>
+          <rect x="590" y="400" width="260" height="140" fill="#fff" stroke="#222"/><text x="720" y="424" text-anchor="middle" font-weight="800" font-size="16">Cluster de perda tecidual</text><text x="720" y="444" text-anchor="middle" font-weight="800" font-size="16">multiorgânica (MOLT)</text><text x="720" y="468" text-anchor="middle">Osteoporose</text><text x="720" y="488" text-anchor="middle">Sarcopenia</text><text x="720" y="508" text-anchor="middle">Insuficiência renal</text><text x="720" y="528" text-anchor="middle">Anemia</text>
+        </g>
+      </svg>
+    </div>
+      <p style="font-size:.8rem;color:#495057;margin-top:6px">Adaptado de Celli BR et al. Eur J Intern Med 2025;106424 (agrupamento por Delphi modificado). Ilustração esquemática.</p>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 5.2.</figcaption>
+  </figure>
+</section>
+
+<section class="topic reveal" id="cardiovasculares" data-title="Doenças cardiovasculares">
+  <h2><span class="tn">5.2</span> Doenças cardiovasculares</h2>
+  <p class="lead">HAS, IC, doença coronariana, arritmias, valvopatias, hipertensão pulmonar, doença arterial periférica e AVC.</p>
+  <p>A incidência de DCV é maior em todas as faixas de idade e sexo (≈ 3,5 eventos/100 pessoas-ano), aumenta em 62% as consultas não programadas e responde por cerca de 20% dos óbitos, com risco 2 a 4 vezes maior que o de controles. Metanálise: IC RR 2,33; IAM 1,47; AVC 1,38; FA 1,38; morte CV 1,55. Pacientes com DCV e DPOC recebem menos prevenção. Pré-DPOC e PRISm também aumentam o risco cardiovascular.</p>
+  <div class="grid2">
+    <div class="cell c-grey"><strong class="t">Mecanismos DPOC → DCV</strong><ol><li>Inflamação sistêmica → disfunção endotelial, ativação plaquetária, coagulopatia</li><li>Hipoxemia → hipóxia miocárdica, menor contratilidade, arritmias</li><li>Hiperinsuflação → ↓ retorno venoso e compressão vascular, com ↓ débito</li><li>Dispneia → inatividade (agravada por ansiedade e depressão)</li></ol></div>
+    <div class="cell c-grey"><strong class="t">Mecanismos DCV → DPOC</strong><ol><li>Edema alveolar e brônquico</li><li>Hipertensão pulmonar pós-capilar</li><li>Menor oferta de O<sub>2</sub> ao músculo, com mais inatividade</li></ol>Investigar DCV em todo paciente. Framingham e QRisk podem <strong>subestimar</strong> o risco na DPOC; incluir VEF<sub>1</sub> e escore de cálcio coronariano pode melhorar a predição.</div>
+  </div>
+
+  <figure class="fig" id="fig-5-3" data-num="5.3" data-title="Doenças cardiovasculares na DPOC: carga e manejo">
+    <div class="fig-h"><span class="fn">Figura 5.3</span>Doenças cardiovasculares na DPOC: carga e manejo</div>
+    <div class="fig-b">
+      <table class="gt">
+        <tbody>
+          <tr><td class="rh" style="width:22%">Hipertensão arterial sistêmica</td><td><ul class="bul"><li>≈ 50% das pessoas com DPOC têm HAS</li><li>A HAS aumenta o risco de IC, IAM e AVC</li><li>Registrar a pressão arterial em toda consulta</li><li><strong>PA &gt; 130/80 mmHg é anormal e merece tratamento</strong></li></ul></td></tr>
+          <tr><td class="rh">Insuficiência cardíaca</td><td><ul class="bul"><li>≈ 30% das pessoas com DPOC têm IC</li><li>Sintomas sobrepostos dificultam o diagnóstico</li><li>Dosar peptídeo natriurético (NT-proBNP) em toda suspeita de IC</li><li><strong>Betabloqueadores cardiosseletivos são recomendados e seguros na DPOC</strong></li><li>Inibidores de SGLT2 indicados em todos os tipos de IC</li><li>Na ICFEr: IECA/BRA/INRA + BB + ARM + iSGLT2</li><li>Manter a terapia da IC durante a exacerbação da DPOC</li></ul></td></tr>
+          <tr><td class="rh">Doença arterial coronariana</td><td><ul class="bul"><li>≈ 20% das pessoas com DPOC têm doença coronariana</li><li>Calculadoras de risco para prevenção primária subestimam o risco na DPOC</li><li>Reservar a troponina para suspeita de síndrome coronariana aguda</li><li>Tratar conforme diretrizes cardiovasculares, independentemente da DPOC</li><li>Não suspender betabloqueadores indicados para doença coronariana</li></ul></td></tr>
+          <tr><td class="rh">Arritmias</td><td><ul class="bul"><li>Comuns na DPOC</li><li>A DPOC não impede o manejo das arritmias conforme diretrizes</li><li>Na FA, não há contraindicação a nenhuma estratégia ou fármaco de controle de frequência ou ritmo, inclusive betabloqueadores</li><li>Nas arritmias supraventriculares e ventriculares, seguir as diretrizes, com cautela quanto ao broncoespasmo e aos bloqueadores do nó AV</li></ul></td></tr>
+          <tr><td class="rh">Valvopatias</td><td><ul class="bul"><li>Até 50% das pessoas com DPOC (na estenose aórtica grave) têm valvopatia</li><li>A investigação é igual com ou sem DPOC</li><li>Angio-TC coronariana e RM cardíaca podem ser necessárias para anatomia, função e intervenção transcateter</li></ul></td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:.78rem;color:#495057;margin-top:6px">IECA = inibidor da ECA; BRA = bloqueador do receptor de angiotensina; INRA = inibidor de neprilisina e do receptor de angiotensina (sacubitril-valsartana); BB = betabloqueador; ARM = antagonista mineralocorticoide; iSGLT2 = inibidor do cotransportador sódio-glicose 2.</p>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 5.3.</figcaption>
+  </figure>
+
+  <div class="grid2">
+    <div class="cell c-blue"><strong class="t">Insuficiência cardíaca</strong>Prevalência de 20–30% (ICFEr e ICFEp ~10% cada), incidência de 3–4%/ano e disfunção de VE em ~40% dos ventilados por insuficiência hipercápnica. Os peptídeos natriuréticos têm alto VPN (0,80–0,98) e VPP menor que na população geral. iSGLT2 podem reduzir exacerbações e mortalidade na DPOC. Finerenona reduz internações na ICFElr/ICFEp. Betabloqueadores β1-seletivos somente por indicação cardiovascular, <strong>não para prevenir exacerbações</strong>. Na IC aguda: O<sub>2</sub> e diurético de alça (cuidado com alcalose metabólica no hipercápnico); a VNI melhora o edema agudo, mas pode aumentar a pós-carga do VD.</div>
+    <div class="cell c-blue"><strong class="t">Doença coronariana</strong>10–20% dos pacientes. O <strong>escore de cálcio coronariano na TC de tórax sem sincronização</strong> tem AUC 0,98 para qualquer DAC e 0,89 para DAC obstrutiva, uma oportunidade de rastreamento oportunístico. <strong>Recomenda-se troponina de alta sensibilidade</strong> no diagnóstico e em mudança inexplicada dos sintomas, se houver suspeita de SCA. Atenção: 29–39% dos estáveis têm troponina-as acima de 5–6 ng/L; interpretar como SCA apenas com clínica, curva, ECG ou imagem compatíveis. CVRS ≥ 10% + CAC elevado: HR 7,6 para MACE. Estatinas guiadas pelo CAC (ACC/AHA 2026): CAC ≥ 300 → LDL &lt; 55 mg/dL; CAC ≥ 1000 → redução ≥ 50% e LDL &lt; 55.</div>
+    <div class="cell c-amber"><strong class="t">Arritmias</strong>Até 30% (FA em ~1 a cada 5), com risco maior quanto menor o VEF<sub>1</sub>. DPOC + FA mais que dobra a mortalidade. Substrato: HP, hipertrofia do VD e remodelamento atrial. LABA, LAMA e CI são seguros. <strong>Cautela com SABA em excesso (sinal para otimizar o tratamento), corticoide oral e teofilina.</strong> ECG ao diagnóstico e em mudança de sintomas; Holter se houver tontura ou síncope. Anticoagulação + controle de frequência ou ritmo; ablação conforme critérios usuais. Cardioversão elétrica se houver instabilidade.</div>
+    <div class="cell c-amber"><strong class="t">Valvopatias</strong>DPOC em 22–50% dos casos de estenose aórtica grave e ~15% dos de insuficiência mitral grave. Valvopatias aórtica e mitral elevam as pressões pulmonares; a HP pré-capilar da DPOC favorece insuficiência tricúspide. O eco pode subestimar a PSAP, e o cateterismo direito pode ser necessário.</div>
+  </div>
+
+  <h3>Hipertensão pulmonar (HP-DPOC)</h3>
+  <p>HP = PAPm &gt; 20 mmHg no cateterismo direito. A DPOC associa-se tipicamente ao <strong>grupo 3</strong>, mas todos os grupos podem ocorrer (por exemplo, HPTEC, tratável, mais comum após os 40 anos). ~25–30% têm elevação leve e ~5% têm HP grave (RVP &gt; 5 UW, ESC/ERS 2022): o <strong>“fenótipo vascular pulmonar”</strong>, com obstrução leve a moderada, pouca ou nenhuma hipercapnia, DLCO &lt; 45% e limitação circulatória ao exercício. Ecocardiograma, NT-proBNP e relação artéria pulmonar/aorta na TC ajudam na triagem. Encaminhar a centro de HP com experiência em doenças respiratórias. OLD se houver hipoxemia. <strong>Fármacos para HAP não são recomendados na HP grupo 3 não grave.</strong> Na HP grave, abordagem individualizada (pós-carga do VD, oxigenação, arritmias, VNI). Estudos em andamento: INSIGNIA-PH-COPD (frespaciguat inalatório, resultados no fim de 2026) e ERASE PH-COPD (tadalafila, fim de 2027).</p>
+
+  <figure class="fig" id="fig-5-4" data-num="5.4" data-title="Traços tratáveis na HP-DPOC e manejo sugerido">
+    <div class="fig-h"><span class="fn">Figura 5.4</span>Traços tratáveis na hipertensão pulmonar associada à DPOC (HP-DPOC) e manejo sugerido</div>
+    <div class="fig-b">
+      <table class="gt" style="max-width:860px">
+        <tbody>
+          <tr><td class="rh" style="width:42%">DPOC e HAP<br>(HP grupo 1)</td><td>Tratar como HAP, conforme a atualização 2026 da diretriz ERS de tratamento da HAP</td></tr>
+          <tr><td class="rh">DPOC e HP grave associada a doença pulmonar e/ou hipóxia<br>(HP grupo 3)</td><td>Tratamento individualizado em centro de HP com experiência em doenças respiratórias</td></tr>
+          <tr><td class="rh">DPOC e HPTEC<br>(HP grupo 4)</td><td>Tratar como HPTEC, conforme a diretriz ESC/ERS 2022 de HP</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:.78rem;color:#495057;margin-top:6px">HAP = hipertensão arterial pulmonar; HPTEC = HP tromboembólica crônica. Ref.: Kovacs et al. Eur Respir J 2026;2601178.</p>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 5.4.</figcaption>
+  </figure>
+
+  <div class="grid2">
+    <div class="cell c-grey"><strong class="t">Doença arterial periférica</strong>8,8% na DPOC vs 1,8% nos controles, com pior capacidade funcional e estado de saúde. Rastrear se houver outros fatores de risco CV; ficar atento à claudicação. A DPOC associa-se a ruptura de aneurisma de aorta torácica. O manejo segue as diretrizes; betabloqueador cardiosseletivo com cautela na isquemia avançada.</div>
+    <div class="cell c-grey"><strong class="t">AVC</strong>Risco aumentado (inflamação, hipoxemia, FA), com aumento transitório na exacerbação (estado pró-trombótico). As terapias agudas (trombólise, trombectomia) não mudam pela DPOC. O O<sub>2</sub> deve seguir alvos padrão, evitando hipercapnia. Há mais pneumonia pós-AVC. A vacina da influenza reduz eventos respiratórios e vasculares. Reavaliar a técnica inalatória após o AVC; integrar a reabilitação.</div>
+  </div>
+</section>
+
+<section class="topic reveal" id="respiratorias" data-title="Doenças respiratórias associadas">
+  <h2><span class="tn">5.3</span> Doenças respiratórias associadas</h2>
+  <p class="lead">Câncer de pulmão, asma, tuberculose, bronquiectasias, doença intersticial e apneia do sono.</p>
+
+  <h3>Câncer de pulmão</h3>
+  <p>Principal causa de morte por câncer (~1,6 milhão de óbitos/ano), em geral diagnosticado em fase avançada. Além do tabaco, DPOC e câncer compartilham suscetibilidade genética, alterações epigenéticas, inflamação crônica e reparo anormal. A associação é <strong>mais forte com o enfisema</strong> do que com o grau de obstrução, e o risco é máximo com enfisema na TC + obstrução. <strong>Rastreamento (USPSTF 2021):</strong> TC de baixa dose anual dos 50 aos 80 anos com ≥ 20 maços-ano, fumante atual ou que parou há ≤ 15 anos. Interromper após 15 anos sem fumar ou se surgir limitação da expectativa de vida. Na <strong>DPOC de nunca fumantes, o rastreamento não é recomendado</strong> (os danos parecem superar os benefícios). O rastreamento favorece a abstinência, e a cessação durante o rastreamento melhora a espirometria. <strong>CI:</strong> não parece aumentar nem reduzir o risco de câncer.</p>
+  <figure class="fig" id="fig-5-5" data-num="5.5" data-title="Fatores de risco comuns para câncer de pulmão">
+    <div class="fig-h"><span class="fn">Figura 5.5</span>Fatores de risco comuns para o desenvolvimento de câncer de pulmão</div>
+    <div class="fig-b">
+      <div class="grid3">
+        <div class="cell c-red">Idade &gt; 55 anos</div><div class="cell c-red">Carga tabágica &gt; 30 maços-ano</div><div class="cell c-red">Enfisema na TC</div>
+        <div class="cell c-red">Obstrução ao fluxo: VEF<sub>1</sub>/CVF &lt; 0,7</div><div class="cell c-red">IMC &lt; 25 kg/m²</div><div class="cell c-red">História familiar de câncer de pulmão</div>
+      </div>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 5.5.</figcaption>
+  </figure>
+
+  <div class="grid2">
+    <div class="cell c-blue"><strong class="t">Asma</strong>A asma aumenta o risco de DPOC, e 5–21% dos asmáticos têm obstrução persistente pós-BD. A coexistência piora dispneia, qualidade de vida, exacerbações, declínio e sobrevida. Suspeitar se houver história familiar, asma ou bronquite na infância, sibilância, atopia ou infecções infantis. Resposta ao BD e eosinófilos <strong>não diferenciam</strong> (eos e FeNO tendem a ser maiores). Na TC, mais espessamento de parede e menos enfisema; tampões mucosos mais prevalentes e associados a mortalidade. Se houver asma, aplicar todas as medidas de asma, com <strong>CI de manutenção</strong>. Parte dos pacientes com DPOC T2 sem asma se beneficia de biológicos.</div>
+    <div class="cell c-blue"><strong class="t">Tuberculose</strong>A TB prévia associa-se a obstrução crônica, e a DPOC triplica o risco de TB ativa. Sequelas (calcificação, cavitação, bronquiectasias de tração, fibrose) e inflamação de pequenas vias aéreas caracterizam a <strong>DPOC associada à TB</strong>, um etiotipo distinto. Tabaco e TB agem em sinergia. O <strong>CI, sobretudo em altas doses, pode reativar a TB</strong>: usar com cautela em áreas endêmicas, sequela radiológica, imunossupressão, diabetes ou baixo peso, excluir TB ativa antes e monitorar.</div>
+    <div class="cell c-amber"><strong class="t">Bronquiectasias</strong>Prevalência de 20–69%. Tipicamente cilíndricas, bilaterais e de lobos inferiores. Associam-se a mais exacerbações, pneumonia, obstrução e mortalidade. Investigar a etiologia (imunoglobulinas, CFTR, discinesia ciliar, fungos e micobactérias). <strong>CI com cautela</strong> (pneumonia, MNT): eos ≥ 300 pode apoiar o uso; com infecções frequentes, considerar suspender. Macrolídeo beneficia ambas as doenças. Desobstrução brônquica, antibiótico inalatório crônico e cultura de escarro. O <strong>brensocatibe</strong> (inibidor de DPP-1, aprovado pela FDA para bronquiectasias) pode ser útil.</div>
+    <div class="cell c-amber"><strong class="t">Doença intersticial e ILA</strong>Fatores de risco compartilhados. ILA em 7–10% dos pacientes com DPOC, com mais dispneia e mortalidade. A <strong>combinação fibrose + enfisema</strong> (CPFE) cursa com DLCO muito reduzida e volumes normais. TCAR, função seriada, abordagem multidisciplinar e <strong>DLCO a cada 6–12 meses</strong>. Com enfisema &lt; 30% e fibrose, a resposta aos antifibróticos é semelhante à da fibrose sem DPOC.</div>
+    <div class="cell c-purple" style="grid-column:1/-1"><strong class="t">Apneia obstrutiva do sono (AOS): síndrome de sobreposição</strong>Prevalência de AOS de 38% na DPOC (metanálise de 29 estudos), sobretudo em homens obesos e mulheres obesas pós-menopausa. A sobreposição piora o prognóstico: mais dessaturação, hipercapnia noturna, arritmias, HP diurna, IC e IAM. Se houver suspeita (obesidade, ronco, sonolência, HAS), fazer <strong>polissonografia</strong>. Tratamento: perda de peso, menos álcool, higiene do sono e <strong>CPAP ou BiPAP, que melhoram a qualidade de vida e reduzem a mortalidade</strong>, as internações, as idas ao PS e as exacerbações. Agonistas do GLP-1 podem ajudar obesos selecionados.</div>
+  </div>
+</section>
+
+<section class="topic reveal" id="mentais" data-title="Condições mentais">
+  <h2><span class="tn">5.4</span> Condições mentais</h2>
+  <p class="lead">Ansiedade, depressão, psicose, déficit cognitivo e demência.</p>
+  <div class="grid2">
+    <div class="cell c-purple"><strong class="t">Ansiedade, depressão e psicose</strong>Ansiedade e ansiedade + depressão em ~34% dos pacientes, igual entre os sexos e mais intensa nos jovens. Pessoas com DPOC têm o dobro do risco de suicídio. Esquizofrenia e abuso de substâncias aumentam a readmissão em 30 dias e a morte em jovens, e esses pacientes recebem pior cuidado clínico. <strong>Rastreio: PHQ-2 (depressão) e GAD-2 (ansiedade); escore &lt; 3 sugere ausência de quadro importante.</strong> Tratar a DPOC normalmente. Reabilitação + TCC aliviam os sintomas. Usar antidepressivos com cautela. Depressão grave ou ideação suicida exigem encaminhamento imediato ao especialista.</div>
+    <div class="cell c-purple"><strong class="t">Déficit cognitivo e demência</strong>Prevalência média de 32% (até 56% com testagem extensa). Risco de demência 24% maior e de déficit cognitivo 30% maior. Associa-se a pior desempenho nas AVD, mais internações, maior permanência e maior mortalidade, além de <strong>mais erros com inaladores</strong>. Rastreio: MEEM ou MoCA. No déficit leve, reabilitação ± treino cognitivo e correção de fatores como sono, hipoxemia, exacerbações e aterosclerose. Na demência, encaminhar.</div>
+  </div>
+</section>
+
+<section class="topic reveal" id="metabolicas" data-title="Doenças metabólicas">
+  <h2><span class="tn">5.5</span> Doenças metabólicas</h2>
+  <p class="lead">Diabetes, obesidade, refluxo gastroesofágico e esteatose hepática.</p>
+  <div class="grid2">
+    <div class="cell c-amber"><strong class="t">Diabetes mellitus</strong>DM2 em ~20%, com mais morbimortalidade e padrão funcional restritivo. O corticoide sistêmico na exacerbação piora a glicemia; o CI em altas doses piora o controle e aumenta glaucoma e catarata. Dosar HbA1c e glicemia de jejum se não feitas há mais de 1 ano. Evitar corticoide sistêmico ou usar a menor dose pelo menor tempo. GLP-1 e iSGLT2 são promissores e ainda carecem de estudos específicos.</div>
+    <div class="cell c-amber"><strong class="t">Obesidade e IMC</strong>Mortalidade maior nos extremos: <strong>IMC &lt; 21 ou &gt; 30 kg/m²</strong>. A obesidade aumenta a dispneia, o risco CV, a necessidade de VNI ou VM, a traqueostomia e a alta com O<sub>2</sub>, mas parece proteger da progressão e da mortalidade respiratória. Meta: <strong>IMC 21–30 kg/m²</strong>, com IMC em toda consulta, exercício e nutrição. Medicamentos para controle de peso, por profissionais experientes.</div>
+    <div class="cell c-amber"><strong class="t">Refluxo gastroesofágico</strong>Fator de risco independente para exacerbações e pior estado de saúde. Medidas: perda de peso, evitar refeições tardias e alimentos desencadeantes, cabeceira elevada, teste empírico com IBP (pode reduzir exacerbações). Fundoplicatura nos casos graves refratários.</div>
+    <div class="cell c-amber"><strong class="t">Esteatose hepática (MASLD)</strong>Presente em 30–60%, detectável na TC de baixa dose. 20–30% evoluem para esteato-hepatite (MASH), cirrose e carcinoma, mas a esteatose não parece piorar o prognóstico da DPOC. Perda de peso, exercício, controle metabólico e abstinência de álcool. Resmetirom aprovado em alguns países; GLP-1 também pode ajudar.</div>
+  </div>
+</section>
+
+<section class="topic reveal" id="molt" data-title="Perda tecidual multiorgânica (MOLT)">
+  <h2><span class="tn">5.6</span> Perda tecidual multiorgânica (MOLT)</h2>
+  <p class="lead">Enfisema, baixo IMC, osteoporose e sarcopenia, além de insuficiência renal, anemia e policitemia.</p>
+  <div class="grid2">
+    <div class="cell c-red"><strong class="t">Osteoporose</strong>Até 30% das mulheres e 18% dos homens. Subdiagnosticada, associa-se a enfisema, baixo IMC e baixa massa magra. Baixa densidade e fraturas persistem após ajuste para corticoide. Evitar ciclos repetidos de corticoide sistêmico. A associação de CI com fraturas é incerta. A <strong>TC de tórax ajuda a triar</strong> densidade óssea e massa muscular; a DXA confirma. Tratar a DPOC normalmente e encaminhar a especialista em osteoporose.</div>
+    <div class="cell c-red"><strong class="t">Insuficiência renal</strong>TFG &lt; 60 é 3 vezes mais frequente (~7% abaixo de 65 anos; 17–20% acima de 70). Com sarcopenia, a <strong>creatinina pode parecer normal</strong>, por isso deve-se calcular a TFG. Há menos glomérulos e microalbuminúria. Revisar nefrotóxicos (AINEs) e ajustar doses de fármacos de eliminação renal.</div>
+    <div class="cell c-red"><strong class="t">Anemia</strong>7,5–34%. Mais dispneia, pior qualidade de vida, menor capacidade de exercício, mais exacerbações graves e maior mortalidade. Em geral é anemia de doença crônica, seguida de ferropriva. Investigar causas reversíveis (OLD, teofilina, IECA/BRA, disfunção renal, andrógenos). Não há alvo definido de hemoglobina; buscar causa tratável.</div>
+    <div class="cell c-red"><strong class="t">Policitemia secundária</strong>6–10,2% (Hb ≥ 17 g/dL em homens, ≥ 15 em mulheres). Fatores: sexo masculino, tabagismo (carboxi-hemoglobina), altitude, DLCO baixa, hipoxemia grave e AOS; a OLD reduz o risco. Associa-se a HP, TEV e mortalidade. Avaliar hipoxemia não corrigida e comorbidades.</div>
+  </div>
+</section>
+
+<section class="topic reveal" id="risco-cirurgico" data-title="Risco cirúrgico e outras considerações">
+  <h2><span class="tn">5.7</span> Risco cirúrgico e outras considerações</h2>
+  <p class="lead">Cirurgia geral e ressecção pulmonar, doença periodontal, vitamina D e ferramentas práticas.</p>
+  <div class="grid2">
+    <div class="cell c-blue"><strong class="t">Cirurgia geral</strong>As complicações pulmonares pós-operatórias (infecção, atelectasia, broncoespasmo) são tão importantes quanto as cardíacas. Fatores: tabagismo, estado geral, idade, obesidade e gravidade da DPOC. O <strong>sítio cirúrgico é o principal preditor</strong> (o risco aumenta quanto mais perto do diafragma). Anestesia peridural ou raquidiana parece ter menor risco. A simples manipulação da via aérea pode desencadear exacerbação (8,4% em broncoscopias simuladas). Otimizar intensivamente o tratamento e as comorbidades antes da cirurgia.</div>
+    <div class="cell c-blue"><strong class="t">Ressecção por câncer de pulmão</strong>Avaliação completa: espirometria com BD, volumes, DLCO e gasometria; nos de alto risco, perfusão regional e teste de exercício. Maior risco se VEF<sub>1</sub> ou DLCO pós-operatórios previstos &lt; 30–40% ou VO<sub>2</sub> pico &lt; 10 mL/kg/min (ou 35%). Decisão compartilhada entre cirurgião, pneumologista, clínico e paciente. <strong>Adiar se houver exacerbação.</strong></div>
+    <div class="cell c-grey"><strong class="t">Periodontite e higiene dental</strong>Associação com padrão neutrofílico comum, sobretudo na DAAT. A prevalência aumenta com as idas ao PS. O tratamento periodontal associa-se (evidência baixa a moderada) a menor declínio, menos exacerbações e menor uso de serviços.</div>
+    <div class="cell c-grey"><strong class="t">Deficiência de vitamina D</strong>Menos sol, dieta pobre e corticoide. A suplementação reduziu exacerbações moderadas e graves quando o nível basal era &lt; 25 nmol/L. Considerar dosar, sobretudo em exacerbadores frequentes.</div>
+  </div>
+
+  <figure class="fig" id="fig-5-6" data-num="5.6" data-title="Painel de avaliação inicial de multimorbidade">
+    <div class="fig-h"><span class="fn">Figura 5.6</span>Abordagem complementar para detectar morbidades frequentes em todos os pacientes com DPOC: avaliação inicial</div>
+    <div class="fig-b">
+      <div class="cell c-amber" style="max-width:420px;margin:0 auto 14px;text-align:center"><strong>Painel inicial de avaliação de multimorbidade</strong></div>
+      <div class="grid3">
+        <div class="cell c-grey"><ul><li>História e exame físico</li><li>Revisão de medicações</li><li>Espirometria, radiografia de tórax, TCAR, volumes pulmonares, DLCO, SpO<sub>2</sub></li></ul></div>
+        <div class="cell c-grey" style="text-align:center;display:flex;align-items:center;justify-content:center;font-size:2.6rem">🩺</div>
+        <div class="cell c-grey"><ul><li>PHQ-2</li><li>GAD-2</li><li>MEEM</li></ul></div>
+        <div class="cell c-grey"><ul><li>Eletrocardiograma</li><li>NT-proBNP</li></ul></div>
+        <div class="cell c-grey"><ul><li>TC6</li><li>SARC-F</li><li>Densitometria (DXA)</li></ul></div>
+        <div class="cell c-grey"><ul><li>mMRC</li><li>CAAT™</li><li>Escala de sonolência de Epworth ou STOP-BANG</li></ul></div>
+        <div class="cell c-grey" style="grid-column:1/-1"><ul style="columns:2"><li>Hemograma completo com diferencial</li><li>Glicemia e HbA1c</li><li>Taxa de filtração glomerular</li><li>Provas de função hepática</li></ul></div>
+      </div>
+      <p style="font-size:.78rem;color:#495057;margin-top:8px">SARC-F = força, assistência para caminhar, levantar da cadeira, subir escadas e quedas; DXA = absorciometria de raios X de dupla energia; PHQ-2 = Patient Health Questionnaire-2; GAD-2 = Generalized Anxiety Disorder-2; MEEM = Miniexame do Estado Mental. Adaptado de Celli BR et al. Eur J Intern Med 2025.</p>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 5.6.</figcaption>
+  </figure>
+
+  <figure class="fig" id="fig-5-7" data-num="5.7" data-title="Painel de seguimento regular de multimorbidade">
+    <div class="fig-h"><span class="fn">Figura 5.7</span>Abordagem complementar para detectar morbidades frequentes em todos os pacientes com DPOC: seguimento regular</div>
+    <div class="fig-b">
+      <div class="cell c-amber" style="max-width:520px;margin:0 auto 14px;text-align:center"><strong>Painel de seguimento regular de multimorbidade</strong><br>(anual ou a cada 3–5 anos)</div>
+      <table class="gt">
+        <thead><tr><th style="width:24%">Domínio</th><th>Anual</th><th>A cada 3–5 anos</th></tr></thead>
+        <tbody>
+          <tr><td class="rh">Pulmonar e geral</td><td>História e exame físico; revisão de medicações; espirometria; TCAR (rastreamento de câncer); SpO<sub>2</sub></td><td>Volumes pulmonares; DLCO</td></tr>
+          <tr><td class="rh">Saúde mental</td><td>PHQ-2</td><td>GAD-2</td></tr>
+          <tr><td class="rh">Cardiovascular</td><td>Eletrocardiograma; NT-proBNP</td><td>—</td></tr>
+          <tr><td class="rh">Sintomas e sono</td><td>mMRC; CAAT™</td><td>Epworth ou STOP-BANG</td></tr>
+          <tr><td class="rh">Mobilidade e ossos</td><td>TC6</td><td>Densitometria (DXA)</td></tr>
+          <tr><td class="rh">Laboratório</td><td>—</td><td>Glicemia e HbA1c; creatinina; TFG; provas de função hepática</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:.78rem;color:#495057;margin-top:8px">Adaptado de Celli BR et al. Eur J Intern Med 2025. Na figura original, os itens estão dispostos radialmente em torno de uma ampulheta; aqui foram reorganizados em tabela.</p>
+    </div>
+    <figcaption>Redesenhada e traduzida de GOLD 2027, Figura 5.7.</figcaption>
+  </figure>
+  <div class="callout info"><strong>A DPOC como parte da multimorbidade:</strong> uma abordagem proativa e holística, e não em compartimentos, reduz a fragmentação do cuidado. Não há evidência para tratar a DPOC de forma diferente na multimorbidade, embora a maioria dos ensaios tenha incluído pacientes com DPOC como única doença relevante. Mantenha o tratamento simples diante da polifarmácia.</div>
+</section>
+
+<div class="action-box reveal">
+  <h2>❤️ Mensagens do Capítulo 5</h2>
+  <div class="action-steps">
+    <div class="action-step"><strong>1. Procurar ativamente</strong>• 4Ms (Mentação, Mobilidade, Medicações, Morbidades). Painel inicial: ECG, NT-proBNP, PHQ-2/GAD-2, TC6, DXA, HbA1c, TFG, hemograma, Epworth/STOP-BANG.</div>
+    <div class="action-step"><strong>2. O coração importa</strong>• Betabloqueador cardiosseletivo é seguro. iSGLT2 em toda IC. Escore de cálcio na TC orienta estatina. Cautela com SABA em excesso, corticoide oral e teofilina na FA.</div>
+    <div class="action-step"><strong>3. Tratar cada condição pelo padrão</strong>• Sem mudar o tratamento da DPOC: CPAP na AOS, IMC 21–30, IBP no refluxo, rastreamento de câncer em tabagistas e tratamento simples, com menos polifarmácia.</div>
+  </div>
+</div>
+
+<div class="abbreviations-box">
+  <p><strong>Abreviações:</strong> <strong>AOS (OSA)</strong> = apneia obstrutiva do sono • <strong>CAC</strong> = cálcio arterial coronariano • <strong>CPFE</strong> = fibrose pulmonar combinada com enfisema • <strong>DCV (CVD)</strong> = doença cardiovascular • <strong>DXA</strong> = densitometria • <strong>FA (AF)</strong> = fibrilação atrial • <strong>HAP (PAH)</strong> = hipertensão arterial pulmonar • <strong>HP (PH)</strong> = hipertensão pulmonar • <strong>HPTEC (CTEPH)</strong> = HP tromboembólica crônica • <strong>IBP</strong> = inibidor de bomba de prótons • <strong>ICFEr/ICFEp</strong> = IC com fração de ejeção reduzida/preservada • <strong>ILA</strong> = alterações intersticiais • <strong>MACE</strong> = eventos cardiovasculares maiores • <strong>MASLD/MASH</strong> = doença hepática esteatótica / esteato-hepatite associada a disfunção metabólica • <strong>MNT</strong> = micobactéria não tuberculosa • <strong>MOLT</strong> = perda tecidual multiorgânica • <strong>PAPm</strong> = pressão arterial pulmonar média • <strong>RVP</strong> = resistência vascular pulmonar • <strong>SCA</strong> = síndrome coronariana aguda • <strong>TFG (GFR)</strong> = taxa de filtração glomerular • <strong>UW</strong> = unidades Wood • <strong>VD/VE</strong> = ventrículo direito/esquerdo.</p>
+</div>
+
+<footer>
+  <p><strong>Adaptado de:</strong> Global Initiative for Chronic Obstructive Lung Disease (GOLD). <em>Global Strategy for the Diagnosis, Management, and Prevention of Chronic Obstructive Pulmonary Disease – 2027 Report</em>. <a href="https://goldcopd.org" target="_blank" rel="noopener noreferrer">goldcopd.org</a></p>
+  <p style="margin-top:8px;font-size:0.85rem;opacity:0.9;">Adaptação educacional em português, preparada pelo Dr. Fernando Lundgren. As figuras foram redesenhadas e traduzidas; não reproduzem as figuras originais do relatório. Apenas a versão em inglês do GOLD é revisada e aprovada pelo GOLD.</p>
+  <p style="margin-top:8px;font-size:0.85rem;opacity:0.8;">Ferramenta educacional destinada a profissionais de saúde. Não substitui o julgamento clínico.</p>
+  <p class="footnav"><a href="index.html">← GOLD 2027 – Índice</a> <a href="capitulo-4.html">‹ Capítulo 4</a> <a href="capitulo-6.html">Capítulo 6 ›</a></p>
+</footer>
+</div>
+<button id="toTop" aria-label="Voltar ao topo" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>
+const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } }), {threshold: 0.05, rootMargin: '0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+const tt = document.getElementById('toTop');
+window.addEventListener('scroll', () => { tt.style.opacity = window.scrollY > 600 ? '1' : '0'; });
+</script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "41331af379ba4c71af70c5689396f1b8"}'></script><!-- End Cloudflare Web Analytics -->
+<script data-goatcounter="https://pneumoagents.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body></html>
