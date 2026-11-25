@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<script src="../../assets/js/aviso-profissional.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DPOC – Atualização da Lancet Commission 2026: Pontos-chave e Figuras</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--primary:#1a4d7a;--secondary:#2e7ab8;--accent:#4aa3df;--highlight:#ff6b6b;--success:#51cf66;--warning:#ffd43b;--card-bg:#fff;--text-dark:#1a1a1a;--text-light:#fff;--shadow:rgba(26,77,122,.15)}
+body{font-family:'Work Sans',system-ui,sans-serif;background:linear-gradient(135deg,#0a1628 0%,#1a4d7a 50%,#2e7ab8 100%);background-attachment:fixed;color:var(--text-dark);min-height:100vh;padding:40px 20px;overflow-x:hidden;position:relative}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle at 20% 50%,rgba(74,163,223,.1) 0%,transparent 50%),radial-gradient(circle at 80% 80%,rgba(255,107,107,.1) 0%,transparent 50%);pointer-events:none;z-index:0}
+.container{max-width:1400px;margin:0 auto;position:relative;z-index:1}
+header{text-align:center;margin-bottom:40px;animation:fadeInDown .8s ease-out}
+h1{font-family:'Playfair Display',serif;font-size:clamp(2.1rem,4.6vw,3.4rem);font-weight:900;color:#fff;margin-bottom:15px;text-shadow:2px 4px 12px rgba(0,0,0,.3);letter-spacing:-1px}
+.subtitle{font-size:clamp(1rem,2vw,1.2rem);color:rgba(255,255,255,.9);font-weight:500;margin:0 auto 14px;max-width:960px}
+.source{display:inline-block;background:rgba(255,255,255,.15);padding:8px 20px;border-radius:30px;color:#fff;font-size:.9rem;font-weight:600;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.2)}
+/* Índice */
+.toc{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:26px auto 0;max-width:1100px}
+.toc a{color:#fff;text-decoration:none;font-size:.86rem;font-weight:600;padding:7px 14px;border-radius:20px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);transition:.25s}
+.toc a:hover{background:rgba(255,255,255,.25)}
+/* Números */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:35px}
+.stat{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(10px);border-radius:16px;padding:20px;color:#fff}
+.stat .n{font-family:'Playfair Display',serif;font-size:2.1rem;font-weight:900;color:var(--warning);line-height:1.1}
+.stat .l{font-size:.88rem;line-height:1.45;margin-top:6px;opacity:.95}
+/* Cartões */
+.card{background:var(--card-bg);border-radius:20px;padding:35px;margin-bottom:35px;box-shadow:0 10px 40px var(--shadow)}
+.sec-tag{display:inline-block;background:#edf2ff;color:#364fc7;font-weight:700;font-size:.8rem;padding:5px 12px;border-radius:20px;margin-bottom:10px;letter-spacing:.3px}
+.card h2{font-size:1.6rem;color:var(--primary);margin-bottom:16px;line-height:1.25}
+.card h3{font-size:1.15rem;color:var(--primary);margin:26px 0 12px}
+.card p,.card li{font-size:.96rem;line-height:1.65;color:#212529}
+.card ul{padding-left:20px}.card li{margin-bottom:6px}
+.fig{border:2px solid #dee2e6;border-radius:16px;padding:22px;margin:22px 0 8px;background:#f8f9fa;overflow-x:auto}
+.fig-title{font-weight:800;color:#1c3d8f;font-size:1.02rem;margin-bottom:4px}
+.fig-cap{font-size:.84rem;color:#495057;margin-bottom:16px;line-height:1.5}
+.points{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:10px}
+.pt{background:linear-gradient(135deg,#f1f3f5,#e9ecef);border-left:5px solid var(--secondary);border-radius:12px;padding:16px 18px;font-size:.92rem;line-height:1.55;transition:transform .25s,box-shadow .25s}
+.pt:hover{transform:translateY(-4px);box-shadow:0 8px 20px rgba(0,0,0,.08)}
+.pt strong{color:var(--primary);display:block;margin-bottom:4px}
+.pt.red{border-left-color:#e03131}.pt.green{border-left-color:#2b8a3e}.pt.gold{border-left-color:#f08c00}
+.note{background:#fff9db;border:1.5px solid #ffd43b;border-radius:12px;padding:14px 18px;font-size:.9rem;line-height:1.55;margin-top:16px}
+/* Matriz fig 1 */
+.stage-bar{display:grid;grid-template-columns:1fr 1.35fr 1fr 1.35fr;gap:12px;font-weight:700;margin-bottom:10px;font-size:.95rem}
+.matrix-row{display:grid;grid-template-columns:1fr 3.7fr;gap:14px;margin-bottom:12px}
+.row-label{background:linear-gradient(135deg,#edf2ff,#e5dbff);border-left:5px solid #5c7cfa;border-radius:12px;padding:14px;font-weight:700;color:#1c3d8f;font-size:.92rem;display:flex;align-items:center}
+.r2{display:grid;grid-template-columns:2.35fr 1.35fr;gap:12px}.r3{display:grid;grid-template-columns:1fr 1fr 1.35fr;gap:12px}
+.cg,.cy{border-radius:12px;padding:14px;font-size:.88rem;line-height:1.5}
+.cg{background:linear-gradient(135deg,#ebfbee,#d3f9d8);border:1.5px solid #69db7c;color:#1b4332}
+.cy{background:linear-gradient(135deg,#f1f3f5,#e9ecef);border:1.5px solid #adb5bd}
+.gxe{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 16px}
+.chip{background:#8cb89c;color:#0b2e17;border-radius:20px;padding:6px 12px;font-size:.82rem;font-weight:700}
+.chip.c{background:#4f9468;color:#fff}.chip.g{background:#dee2e6;color:#212529}
+/* Fig 2 */
+.spectrum{display:grid;grid-template-columns:3.4fr 1fr;gap:12px;min-width:820px}
+.prbox{border-radius:12px;padding:12px;border:2px solid}
+.prf{background:#f3d9fa;border-color:#be4bdb}.prs{background:#d3f9d8;border-color:#40c057}.prm{background:#fff;border:2px dashed #495057;padding:12px;border-radius:14px}
+.rr{background:#ffe3e3;border:2px solid #e03131;border-radius:12px;padding:14px;display:flex;flex-direction:column;justify-content:center;font-size:.9rem}
+.tests{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.test{background:#fff;border-radius:8px;padding:7px 10px;font-size:.82rem;font-weight:600;border:1px solid #ced4da}
+.burden{margin-top:12px;height:30px;border-radius:8px;background:linear-gradient(90deg,#ebfbee,#fff3bf,#ffc9c9,#e03131);display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:700;color:#212529;min-width:820px}
+/* Tabelas */
+table{width:100%;border-collapse:collapse;font-size:.86rem;min-width:860px}
+th{background:var(--primary);color:#fff;text-align:left;padding:10px;font-weight:700}
+td{padding:10px;border-bottom:1px solid #dee2e6;vertical-align:top;line-height:1.5}
+tr:nth-child(even) td{background:#f8f9fa}
+td:first-child{font-weight:700;color:#1c3d8f;white-space:nowrap}
+.def{background:#fff3bf;font-weight:600}
+/* Fluxograma fig 3 */
+.flow{display:grid;gap:12px;min-width:820px}
+.fbox{border-radius:12px;padding:14px;font-size:.88rem;line-height:1.5;border:1.5px solid #adb5bd;background:#fff}
+.fbox b{color:#1c3d8f}
+.fpurple{background:#f3f0ff;border-color:#9775fa}.fblue{background:#e7f5ff;border-color:#4dabf7}.fred{background:#ffe3e3;border-color:#fa5252}.fgreen{background:#ebfbee;border-color:#51cf66}
+.arrow{text-align:center;font-size:1.3rem;color:#364fc7;line-height:1}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}.g31{display:grid;grid-template-columns:3fr 1fr;gap:12px}
+/* Fig 6 */
+.targets{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.tg{border-radius:12px;padding:14px;background:#fff;border:1.5px solid #ced4da;border-top:5px solid}
+.tg h4{font-size:.95rem;margin-bottom:8px}
+.tg .mol{font-size:.86rem;line-height:1.55}
+.tg .cel{font-size:.8rem;color:#495057;margin-top:8px;border-top:1px dashed #ced4da;padding-top:6px}
+/* Fig 7 */
+.exa{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;min-width:1050px}
+.exa .col{background:#fff;border:1.5px solid #ced4da;border-radius:12px;padding:12px;font-size:.82rem;line-height:1.5}
+.exa .col h4{font-size:.9rem;color:#fff;background:var(--secondary);margin:-12px -12px 10px;padding:9px 12px;border-radius:11px 11px 0 0}
+.exa .sub{font-weight:700;color:#1c3d8f;margin-top:8px}
+.sev{background:#ffe3e3;border-radius:8px;padding:8px;margin:6px 0}.nsev{background:#ebfbee;border-radius:8px;padding:8px;margin:6px 0}
+.redflags{background:#c92a2a;color:#fff;border-radius:12px;padding:12px 16px;margin-top:12px;font-size:.86rem;min-width:1050px}
+/* Fig 8 pirâmide */
+.pyr{display:flex;flex-direction:column;align-items:center;gap:6px}
+.tier{border-radius:10px;padding:12px 18px;font-size:.88rem;line-height:1.5;text-align:center}
+.tier b{display:block;font-size:.95rem;margin-bottom:2px}
+/* Roadmap */
+.road{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.phase{border-radius:14px;padding:18px;color:#fff}
+.phase .yr{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:var(--warning)}
+.phase p,.phase li{color:#fff;font-size:.9rem}
+/* Tabela 1 */
+.t1 td:first-child{white-space:normal;width:18%}
+.ok{color:#2b8a3e;font-weight:700}.pend{color:#c92a2a;font-weight:700}
+.action-box{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;border-radius:18px;padding:35px;margin-bottom:35px;text-align:center;box-shadow:0 15px 50px rgba(26,77,122,.3)}
+.action-box h2{font-family:'Playfair Display',serif;font-size:1.9rem;margin-bottom:12px;font-weight:900}
+.action-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin-top:25px;text-align:left}
+.action-step{background:rgba(255,255,255,.15);padding:22px;border-radius:12px;border:1px solid rgba(255,255,255,.2);transition:.3s;font-size:.93rem;line-height:1.6}
+.action-step:hover{background:rgba(255,255,255,.25);transform:translateY(-5px)}
+.action-step strong{display:block;font-size:1.08rem;margin-bottom:8px;color:var(--warning)}
+.abbreviations-box{background:rgba(255,255,255,.1);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.2);border-radius:15px;padding:25px;margin-top:10px;color:rgba(255,255,255,.92);font-size:.86rem;line-height:1.75}
+.abbreviations-box strong{color:var(--warning)}
+footer{text-align:center;margin-top:40px;padding:20px;color:rgba(255,255,255,.8);font-size:.9rem}
+footer a{color:#fff}
+svg text{font-family:'Work Sans',sans-serif}
+@keyframes fadeInDown{from{opacity:0;transform:translateY(-30px)}to{opacity:1;transform:none}}
+@media(max-width:950px){.matrix-row,.r2,.r3,.stage-bar,.road,.g2,.g3,.g31{grid-template-columns:1fr}.card{padding:22px}}
+@media print{body{background:#fff;padding:0}.stat,.abbreviations-box,footer{color:#000}.card{box-shadow:none;break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="container">
+<nav aria-label="Navegação" style="margin:0 0 18px;font-size:.9rem;">
+  <a href="index.html" style="color:#fff;font-weight:600;text-decoration:none;">← DPOC – Lancet Commission 2026</a>
+</nav>
+
+<header>
+  <h1>Repensando a Eliminação da DPOC</h1>
+  <p class="subtitle">Atualização 2026 da Lancet Commission on COPD: da eliminação da doença à saúde pulmonar ao longo de toda a vida — prevenção, diagnóstico expandido, medicina de precisão e desfechos centrados no paciente</p>
+  <span class="source">Stolz D, Hoheisel A, Sin DD, … Dransfield MT · Lancet · publicado on-line em 10/11/2026</span>
+  <nav class="toc">
+    <a href="#s1">1 · Saúde pulmonar populacional</a><a href="#s2">2 · Prevenção ao longo da vida</a><a href="#s3">3 · Diagnóstico expandido</a><a href="#s4">4 · Etiotipos e endótipos</a><a href="#s5">5 · Exacerbações</a><a href="#s6">6 · Tratamento</a><a href="#s7">7 · Desfechos e regulação</a><a href="#t1">Balanço 2022 → 2026</a>
+  </nav>
+</header>
+
+<!-- NÚMEROS -->
+<div class="stats">
+  <div class="stat"><div class="n">392 mi</div><div class="l">pessoas de 30–79 anos com DPOC no mundo (estimativa GBD, 2019)</div></div>
+  <div class="stat"><div class="n">&gt; 80%</div><div class="l">desses casos vivem em países de baixa e média renda</div></div>
+  <div class="stat"><div class="n">~600 mi</div><div class="l">casos projetados para 2050 — eliminação a curto/médio prazo é inviável</div></div>
+  <div class="stat"><div class="n">59%</div><div class="l">dos países incluem vacina contra influenza no programa nacional</div></div>
+  <div class="stat"><div class="n">65%</div><div class="l">permaneceram na mesma categoria (PRISm / pré-DPOC) após 3 anos no NOVELTY</div></div>
+  <div class="stat"><div class="n">~50%</div><div class="l">dos pacientes tratados ainda têm ≥1 exacerbação por ano</div></div>
+</div>
+
+<!-- SEÇÃO 1 -->
+<div class="card" id="s1">
+  <span class="sec-tag">SEÇÃO 1</span>
+  <h2>Da eliminação à saúde pulmonar populacional</h2>
+  <div class="points">
+    <div class="pt"><strong>Meta reformulada</strong>Eliminação e erradicação são conceitos das doenças transmissíveis; a DPOC tem múltiplas exposições ao longo da vida, latência longa e não há vacina. A ambição passa a ser reduzir de forma substancial e sustentada a carga de doença, dentro de uma agenda ampla de saúde pulmonar.</div>
+    <div class="pt red"><strong>Controle do tabaco continua sendo a intervenção nº 1</strong>Mas a prevenção precisa cobrir todos os produtos inalatórios: cigarro, charuto, narguilé, cigarro eletrônico, tabaco aquecido, cannabis fumada, sachês de nicotina e nicotina sintética.</div>
+    <div class="pt"><strong>OMS – FCTC e MPOWER</strong>Implementação plena, proibição ampla de publicidade, restrição etária (incluindo políticas de “geração livre de tabaco”), regulação de sabores e tributação crescente por categoria de produto.</div>
+    <div class="pt gold"><strong>Princípio da precaução</strong>A incerteza sobre os efeitos pulmonares de longo prazo dos novos produtos não deve ser confundida com segurança; proteger especialmente crianças e adolescentes.</div>
+  </div>
+</div>
+
+<!-- SEÇÃO 2 -->
+<div class="card" id="s2">
+  <span class="sec-tag">SEÇÃO 2 · FIGURA 1</span>
+  <h2>Prevenção da DPOC ao longo da vida</h2>
+  <p>O crescimento pulmonar do período pré-natal ao início da vida adulta determina a reserva respiratória. Tabagismo materno, poluição, desnutrição, prematuridade, asma e infecções na infância reduzem a função pulmonar máxima atingida; a proteção do desenvolvimento pulmonar é descrita como componente central — e subvalorizado — da prevenção.</p>
+
+  <div class="fig">
+    <div class="fig-title">Enquadramento dos fenótipos da DPOC ao longo da vida</div>
+    <div class="fig-cap">Fatores do hospedeiro dependentes da idade e exposições ambientais interagem ao longo do tempo (G × E × T) e moldam a progressão dos estados de risco para DPOC-PR e DPOC-RR.</div>
+    <div class="gxe"><span class="chip c">Fatores de risco e exposições ao longo da vida</span><span class="chip">Idade</span><span class="chip">Início da vida</span><span class="chip">Genética</span><span class="chip">Sexo (gênero)</span><span class="chip">Fatores específicos do hospedeiro</span><span class="chip">Comportamentais</span><span class="chip">Socioeconômicos</span><span class="chip">Doença de vias aéreas e função pulmonar</span><span class="chip g">Ambientais e desencadeantes (infecções, poluição, tabaco)</span></div>
+    <div style="min-width:820px">
+      <div class="stage-bar"><div style="color:#364fc7">Classificação / estágio</div><div style="color:#2b8a3e">DPOC-PR · início da vida</div><div style="color:#2b8a3e">DPOC-PR</div><div style="color:#495057">DPOC-RR</div></div>
+      <div class="matrix-row"><div class="row-label">Subtipos / etiotipos → fenótipos</div><div class="r2"><div class="cg">Subtipo, etiotipo ou endótipo do início da vida: fatores de risco, clínica, biomarcadores, trajetórias funcionais e interações entre desenvolvimento e envelhecimento</div><div class="cy">Subtipo, etiotipo ou endótipo: fatores de risco, clínica, biomarcadores e trajetórias funcionais</div></div></div>
+      <div class="matrix-row"><div class="row-label">Diagnóstico, trajetórias</div><div class="r3"><div class="cg">Multiômica longitudinal e caracterização funcional desde o início da vida</div><div class="cg">Caracterização clínica, multiômica e funcional (<b>VEF₁/CVF &gt; 0,70 ou ≥ LIN</b>)</div><div class="cy">Caracterização clínica, multiômica e funcional longitudinal (<b>VEF₁/CVF &lt; 0,70 ou &lt; LIN</b>)</div></div></div>
+      <div class="matrix-row"><div class="row-label">Opções de ação</div><div class="r3"><div class="cg">Identificar fatores de risco, predição por risco e biomarcadores, prevenção</div><div class="cg">Reconhecimento precoce, monitoramento, predição e prevenção de trajetórias anormais</div><div class="cy">Tratamento específico por subtipo/etiotipo, controle da DPOC, prevenção de exacerbações e de perda funcional</div></div></div>
+    </div>
+  </div>
+
+  <div class="points">
+    <div class="pt green"><strong>Poluição</strong>Material particulado, óxidos de nitrogênio, ozônio e fumaça de biomassa associam-se a menor crescimento pulmonar, declínio acelerado e risco de DPOC independente do tabagismo. Clima, guerras, migração forçada e insegurança alimentar ampliam o risco.</div>
+    <div class="pt green"><strong>Vacinação</strong>Influenza, COVID-19, VSR, pneumocócica, coqueluche e herpes-zóster recomendadas para elegíveis. Vacinas contra VSR (≥ 60 anos) têm alta eficácia, inclusive em DPOC. Desinformação e corte de financiamento ameaçam a cobertura.</div>
+    <div class="pt green"><strong>Pobreza e equidade</strong>Pobreza extrema caiu só de 10,5% (2022) para 9,9% (2025); a meta de reduzir pela metade até 2035 parece improvável. Exemplos positivos: realocação habitacional na China (~5400 mortes por PM₂,₅ domiciliar evitadas) e transferência condicionada de renda no Brasil (menos mortalidade, internações e óbitos por tuberculose).</div>
+  </div>
+</div>
+
+<!-- SEÇÃO 3 -->
+<div class="card" id="s3">
+  <span class="sec-tag">SEÇÃO 3 · FIGURAS 2–5 · TABELA 2</span>
+  <h2>Critérios expandidos para o diagnóstico da DPOC</h2>
+  <p>A espirometria isolada é pouco sensível. Por analogia com a insuficiência cardíaca de fração de ejeção preservada × reduzida, a Comissão propõe dividir a DPOC em <b>DPOC-RR</b> (razão VEF₁/CVF reduzida: &lt; 0,70 ou &lt; LIN) e <b>DPOC-PR</b> (razão preservada: ≥ 0,70 e ≥ LIN). Ambas exigem <b>fatores de risco + sintomas respiratórios</b> (ex.: CAT ≥ 10, mMRC ≥ 2). A DPOC-PR exige ainda ≥ 1 anormalidade objetiva relacionada à DPOC.</p>
+
+  <div class="fig">
+    <div class="fig-title">Subtipos da DPOC-PR e transição para DPOC-RR</div>
+    <div class="fig-cap">Com razão preservada, as anormalidades podem ser funcionais (PRF), estruturais (PRS) ou mistas (PRM). Maior carga de anormalidades indica maior risco de progressão — trajetória possível, não obrigatória; os determinantes da progressão ainda não são conhecidos.</div>
+    <div class="spectrum">
+      <div class="prm">
+        <div style="font-weight:800;margin-bottom:8px">DPOC-PRM · anormalidades mistas (estruturais + funcionais)</div>
+        <div class="prbox prf"><b>DPOC-PRF · anormalidades funcionais</b> <span style="font-size:.8rem">(inclui PRISm sintomático)</span>
+          <div class="tests"><span class="test">Capacidade de difusão</span><span class="test">Oscilometria</span><span class="test">Washout de gás</span><span class="test">Pletismografia</span></div></div>
+        <div class="prbox prs" style="margin-top:10px"><b>DPOC-PRS · anormalidades estruturais</b>
+          <div class="tests"><span class="test">Espessamento de parede (Pi10)</span><span class="test">Enfisema (LAA-950 insp)</span><span class="test">Aprisionamento aéreo</span><span class="test">Pequenas vias aéreas (PRM-fSAD)</span></div></div>
+      </div>
+      <div class="rr"><b style="color:#c92a2a;font-size:1rem">DPOC-RR</b><br>Espirometria:<br><b>VEF₁/CVF &lt; 0,70 ou &lt; LIN</b></div>
+    </div>
+    <div class="burden">Carga de anormalidades estruturais e funcionais e risco de progressão →</div>
+  </div>
+
+  <h3>Limiares propostos — provisórios, exigem validação</h3>
+  <div style="overflow-x:auto">
+  <table>
+    <tr><th>Domínio</th><th>DPOC-PRS</th><th>DPOC-PRF</th><th>DPOC-RR</th></tr>
+    <tr><td>Sintomas</td><td>Clinicamente relevantes</td><td>Clinicamente relevantes</td><td>Clinicamente relevantes</td></tr>
+    <tr><td>Espirometria</td><td>VEF₁/CVF ≥ 0,70 e ≥ LIN</td><td>VEF₁/CVF ≥ 0,70 e ≥ LIN</td><td class="def">VEF₁/CVF &lt; 0,70 ou &lt; LIN (critério definidor)</td></tr>
+    <tr><td>Pletismografia</td><td>Possível hiperinsuflação (VR ou VR/CPT &gt; LSN); Raw/sRaw pode ser relatada</td><td>Hiperinsuflação (VR ou VR/CPT &gt; LSN) ou ↑ resistência (Raw/sRaw &gt; LSN ou sGaw &lt; LIN)</td><td>VEF₁ reduzido; VR ou VR/CPT &gt; LSN; Raw/sRaw &gt; LSN ou sGaw &lt; LIN</td></tr>
+    <tr><td>DLCO / TLCO</td><td>—</td><td class="def">Definidor: DLCO &lt; LIN (Z ≤ −1,64); KCO frequentemente &lt; LIN</td><td>—</td></tr>
+    <tr><td>Washout de N₂ (LCI)</td><td>—</td><td class="def">Definidor: LCI &gt; LSN (≈ 7,0–7,8, conforme idade/equipamento)</td><td>—</td></tr>
+    <tr><td>Oscilometria</td><td>—</td><td class="def">Definidor: R5, R20, AX ou Fres com Z ≥ 1,64 (ou &gt; LSN); R5–R20 &gt; 0,07 kPa·s/L; X5 Z ≤ −1,64</td><td>—</td></tr>
+    <tr><td>TC de tórax</td><td class="def">Definidor: Pi10 elevado; LAA-950 ≥ 5%; PRM-fSAD ≥ 15%</td><td>—</td><td>—</td></tr>
+    <tr><td>RM pulmonar (¹²⁹Xe)</td><td class="def">Definidor: dimensões acinares aumentadas (Lm_D elevado)</td><td>—</td><td>—</td></tr>
+    <tr><td>Histologia</td><td colspan="2">&lt; 20% de destruição parenquimatosa; alterações precoces de pequenas vias, inflamação/fibrose peribronquiolar, perda de bronquíolos terminais — sem enfisema manifesto</td><td>—</td></tr>
+  </table>
+  </div>
+  <div class="note">Não é preciso fazer todos os testes: <b>uma única medida validada</b> no domínio funcional ou estrutural basta. Quem preenche ambos os domínios pode ser denominado <b>DPOC-PRM</b>. O <b>PRISm sintomático</b> passa a ser incluído na DPOC-PRF, e o termo <b>“pré-DPOC” deve ser abandonado</b> para indivíduos sintomáticos com anormalidades objetivas.</div>
+
+  <div class="fig">
+    <div class="fig-title">Fluxo diagnóstico do indivíduo em risco</div>
+    <div class="fig-cap">Em cada etapa, excluir diagnósticos alternativos — sobretudo asma, obesidade, doença cardiovascular e bronquiectasias.</div>
+    <div class="flow">
+      <div class="g31">
+        <div class="fbox fpurple"><b>Indivíduo em risco</b> — tabaco, fumaça de biomassa, poluição do ar, poeiras e químicos ocupacionais, outros (asma, infecções, suscetibilidade genética, crescimento pulmonar anormal)<br><b>+ 1) Sintomas respiratórios</b> — dispneia, tosse crônica, expectoração, sibilância ou limitação ao exercício</div>
+        <div class="fbox">Excluir ou tratar condições concomitantes: asma · doença cardiovascular · bronquiectasias · obesidade</div>
+      </div>
+      <div class="arrow">↓</div>
+      <div class="fbox fpurple" style="text-align:center"><b>2) Espirometria</b> — avaliar VEF₁/CVF e LIN</div>
+      <div class="g2"><div class="arrow">↓ VEF₁/CVF &lt; 0,70 ou &lt; LIN</div><div class="arrow">↓ VEF₁/CVF ≥ 0,70 e ≥ LIN</div></div>
+      <div class="g2">
+        <div class="fbox fred"><b>DPOC-RR</b> (obstrução ao fluxo aéreo)<br>Considerar outras doenças</div>
+        <div class="fbox fpurple"><b>3) Buscar anormalidades objetivas relacionadas à DPOC</b><br>≥ 1 anormalidade estrutural ou funcional apesar da razão preservada</div>
+      </div>
+      <div class="g2">
+        <div class="fbox fblue"><b>Estruturais (imagem)</b><br>• Espessamento de parede (Pi10)<br>• Enfisema (LAA-950 insp)<br>• Aprisionamento aéreo<br>• Doença estrutural de pequenas vias (PRM-fSAD)</div>
+        <div class="fbox fblue"><b>Funcionais (fisiologia)</b><br>• DLCO reduzida · hiperinsuflação<br>• Oscilometria anormal · washout de N₂ anormal<br>• Heterogeneidade ventilatória<br>• PRISm (se sintomático)</div>
+      </div>
+      <div class="g2">
+        <div class="fbox"><b>Nenhuma anormalidade objetiva</b> → considerar outras doenças ou investigação adicional e seguimento</div>
+        <div class="fbox fgreen"><b>≥ 1 anormalidade objetiva → DPOC-PR</b><br>DPOC-PRS · DPOC-PRM · DPOC-PRF</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fig">
+    <div class="fig-title">Exemplo de trajetória ao longo da vida: do risco à DPOC-RR</div>
+    <div class="fig-cap">Representação esquemática (não são dados de pacientes): o declínio da VEF₁/CVF passa por uma fase de DPOC-PR antes de cruzar o limiar de 0,70; os preditores da progressão ainda são incertos.</div>
+    <svg id="fig4" viewBox="0 0 820 400" style="width:100%;min-width:720px"></svg>
+  </div>
+
+  <div class="fig">
+    <div class="fig-title">O que cada método mede ao longo da árvore brônquica (modelo de Weibel)</div>
+    <div class="fig-cap">Gerações 0–16: vias de condução · 17–19: bronquíolos respiratórios · 20–23: ductos e sacos alveolares. Barras escuras = maior sensibilidade.</div>
+    <svg id="fig5" viewBox="0 0 980 475" style="width:100%;min-width:860px"></svg>
+  </div>
+
+  <div class="points">
+    <div class="pt"><strong>Roteiro prático</strong>Espirometria primeiro. Se a razão for preservada e a suspeita persistir, escolher exames adicionais (TC, DLCO, oscilometria, washout) conforme clínica, achados prévios, experiência local e disponibilidade — evitando testes redundantes.</div>
+    <div class="pt red"><strong>Asma antes de tudo</strong>Considerar e, se possível, excluir asma em qualquer idade (variabilidade, atopia, gatilhos, resposta ao BD, hiper-responsividade, biomarcadores T2, resposta ao CI). Se a asma for plausível: esquema com CI; evitar LABA ou LAMA isolados.</div>
+    <div class="pt"><strong>Outros simuladores</strong>Obesidade, descondicionamento, IC e outras doenças cardiovasculares, anemia, doença intersticial ou vascular pulmonar, doenças neuromusculares e de parede, vias aéreas superiores, respiração disfuncional, infecções.</div>
+    <div class="pt gold"><strong>Novas ferramentas</strong>Esquema multidimensional (obstrução + ≥ 1 de 5 critérios menores, ou ≥ 3 menores isolados). Análise computacional das curvas espirométricas — o <b>Parâmetro D</b> (velocidade de subida da curva volume–tempo) é citado como exemplo. Oscilometria detectou disfunção de pequenas vias em 26% de uma coorte de rastreamento de câncer sem obstrução. Capnografia é promissora.</div>
+    <div class="pt green"><strong>Intervenção precoce</strong>CHRONOS (12 semanas, aberto, braço único): triplo FF/UMEC/VI melhorou heterogeneidade ventilatória, Z do VEF₁, CAT e SGRQ em tabagistas sintomáticos com razão preservada — gerador de hipóteses. Estudos com dupla broncodilatação nessa população foram em geral negativos.</div>
+    <div class="pt green"><strong>Busca ativa</strong>China: programa nacional em 2 etapas (questionário + espirometria) — só 2,6% dos casos confirmados tinham diagnóstico prévio. Canadá (UCAP): identificação e encaminhamento melhoraram função, sintomas e uso de serviços.</div>
+  </div>
+  <div class="note"><b>Risco de sobrediagnóstico</b> — os autores reconhecem a preocupação com medicalização e uso de recursos, pois ainda não há tratamento comprovado para DPOC-PR. Argumentam que ausência de tratamento não é ausência de doença, e que o reconhecimento deve orientar investigação, estratificação de risco e ensaios clínicos — não tratamento indiscriminado. O impacto do novo enquadramento deve ser avaliado prospectivamente.</div>
+</div>
+
+<!-- SEÇÃO 4 -->
+<div class="card" id="s4">
+  <span class="sec-tag">SEÇÃO 4 · FIGURA 6</span>
+  <h2>Etiotipos e endótipos: rumo à medicina de precisão</h2>
+  <div class="points">
+    <div class="pt"><strong>Etiotipo = o que inicia a doença</strong>Vulnerabilidade genética, desenvolvimento pulmonar anormal, infecções, poluentes, ocupação, tabaco, vaping, cannabis.</div>
+    <div class="pt"><strong>Endótipo = o mecanismo que a mantém</strong>Inflamação eosinofílica ou neutrofílica, estresse oxidativo, defesa do hospedeiro comprometida, desregulação imune, lesão de matriz, remodelamento, destruição parenquimatosa.</div>
+    <div class="pt gold"><strong>Relação não é um-para-um</strong>Um etiotipo pode gerar vários endótipos (dose, momento, coexposições, genética) e o mesmo endótipo pode vir de vários etiotipos — fenótipos semelhantes podem exigir tratamentos diferentes.</div>
+  </div>
+  <h3>Exemplo: dois etiotipos, duas biologias</h3>
+  <div style="overflow-x:auto"><table>
+    <tr><th>Aspecto</th><th>DPOC associada ao tabagismo</th><th>DPOC associada à prematuridade</th></tr>
+    <tr><td>Mecanismo inicial</td><td>Lesão inalatória tóxica cumulativa</td><td>Desenvolvimento pulmonar interrompido (alveolarização e maturação das vias aéreas), agravado por O₂ neonatal, ventilação mecânica e inflamação</td></tr>
+    <tr><td>Estrutura</td><td>Fibrose de pequenas vias, hipersecreção de muco, enfisema destrutivo, perda de bronquíolos terminais</td><td>Arquitetura alveolar simplificada, disanapsia, calibre reduzido, matriz e microvasculatura alteradas</td></tr>
+    <tr><td>Inflamação / vias</td><td>Neutrófilos e macrófagos, ↑ CD8⁺ e células B; TNF-α, IL-1β, IL-6, CXCL8, MMPs, estresse oxidativo, desequilíbrio protease–antiprotease</td><td>Sinalização do desenvolvimento alterada; disfunção epitelial/endotelial; TGF-β, VEGF, WNT</td></tr>
+  </table></div>
+
+  <div class="fig">
+    <div class="fig-title">Alvos moleculares e celulares candidatos na DPOC</div>
+    <div class="fig-cap">Vias potencialmente modificadoras de doença ou regenerativas, agrupadas por categoria, com as principais células envolvidas.</div>
+    <div class="targets">
+      <div class="tg" style="border-top-color:#1971c2"><h4>Estrutura e homeostase pulmonar</h4><div class="mol">KGF · agonistas TLR · broncodilatadores · inibidores de mucina (MUC5AC/MUC5B) · inibidores de TGF-β · ativadores Wnt/β-catenina · IL-13, IL-33</div><div class="cel">Células: clube, ciliadas, caliciformes, AT2, músculo liso, fibroblastos</div></div>
+      <div class="tg" style="border-top-color:#2f9e44"><h4>Metabolismo e mitocôndria</h4><div class="mol">Ativadores de PGC-1α · ativadores de AMPK · ativadores de sirtuínas</div><div class="cel">Células: AT2, fibroblastos, endoteliais</div></div>
+      <div class="tg" style="border-top-color:#9c36b5"><h4>Senescência</h4><div class="mol">Ativadores de Nrf2 · antioxidantes (NAC) · sistema renina-angiotensina (angiotensina-(1–7), agonistas do receptor Mas, ECA2) · senolíticos · ativadores da telomerase</div><div class="cel">Células: epiteliais, macrófagos, clube · SASP = inflamação crônica e dano tecidual</div></div>
+      <div class="tg" style="border-top-color:#e8590c"><h4>Inflamação inata</h4><div class="mol">Agonistas TLR · IL-13 · inibidores de IL-1β · inibidores de NF-κB · inibidores de PDE4 (e PDE3/PDE4)</div><div class="cel">Células: ciliadas, caliciformes, neutrófilos, endoteliais, músculo liso</div></div>
+      <div class="tg" style="border-top-color:#c92a2a"><h4>Proteases e vias neutrofílicas</h4><div class="mol">Inibidores de MMP (MMP-9, MMP-12) · inibidores da elastase neutrofílica · antagonistas de CXCR2</div><div class="cel">Células: macrófagos, neutrófilos</div></div>
+      <div class="tg" style="border-top-color:#495057"><h4>Imunidade adaptativa</h4><div class="mol">Células B: inibidores de BAFF · Células T: inibidores de IL-17A, inibidores de PD-1/PD-L1, IL-2 · Eosinófilos: IL-5</div><div class="cel">Células: B, plasmócitos, Th17, CD8, Tfh, Treg, eosinófilos</div></div>
+    </div>
+  </div>
+  <p>Biomarcadores já em uso — eosinófilos (CI e biológicos anti-T2), PCR e procalcitonina (antibiótico e corticoide na exacerbação) — mas faltam ensaios estratificados por biomarcador. Os autores pedem plataformas globais de dados longitudinais, integração multiômica, de imagem e digital, e IA validada em populações diversas.</p>
+</div>
+
+<!-- SEÇÃO 5 -->
+<div class="card" id="s5">
+  <span class="sec-tag">SEÇÃO 5 · FIGURA 7</span>
+  <h2>Exacerbações: prevenção, predição e manejo de precisão</h2>
+  <div class="points">
+    <div class="pt red"><strong>Eventos de alto risco</strong>Exacerbações aumentam mortalidade geral, respiratória e cardiovascular, com risco elevado de eventos cardiovasculares maiores nas semanas após a alta (EXACOS-CV).</div>
+    <div class="pt"><strong>Nova definição</strong>Piora de sintomas (dispneia, tosse, escarro) acompanhada, quando possível, de mudança objetiva — SpO₂, FR, espirometria, eosinófilos, PCR/procalcitonina, microbiologia — idealmente comparada à linha de base, e não mais bem explicada por outra condição. Falta de basal não deve atrasar o tratamento.</div>
+    <div class="pt"><strong>Gravidade ≠ local de atendimento</strong>Internação pode refletir comorbidade, fragilidade, suporte social ou fatores do sistema de saúde. ROME (desarranjo fisiológico agudo) e BAt (<i>baseline</i>, acuidade, <i>trigger</i>) são complementares e ainda precisam de validação prospectiva.</div>
+    <div class="pt green"><strong>Tratamento de precisão</strong>Restringir corticoide sistêmico às exacerbações eosinofílicas parece não inferior, com menos exposição. Mepolizumabe pós-alta não melhorou desfechos; ABRA (benralizumabe) incluiu asma e DPOC. Procalcitonina reconhecida pela FDA para decisão de antibiótico — apoio, não substituto do julgamento clínico.</div>
+  </div>
+
+  <div class="fig">
+    <div class="fig-title">Caminho decisório na exacerbação da DPOC</div>
+    <div class="fig-cap">A extensão da avaliação depende da doença e da apresentação; nem todos os exames ou intervenções são necessários para todos. Evitar exposição desnecessária a corticoides.</div>
+    <div class="exa">
+      <div class="col"><h4>1) Primeiro contato</h4><b>Apresentação:</b> ↑ dispneia, ↑ volume ou purulência do escarro<br><div class="sub">Avaliação imediata</div>Sinais vitais, SpO₂, estado mental, história e medicações, técnica inalatória e adesão<div class="sub">Urgência?</div>Desconforto grave, SpO₂ &lt; 88% em ar ambiente, alteração mental, instabilidade hemodinâmica → estabilizar; hospital ou UTI se indicado</div>
+      <div class="col"><h4>2) Avaliação</h4><div class="sub">Troca gasosa</div>Oximetria; gasometria venosa; arterial se SpO₂ &lt; 92%, dispneia grave ou suspeita de hipercapnia<div class="sub">Laboratório</div>Hemograma, PCR ou procalcitonina, ureia/eletrólitos/creatinina, BNP/NT-proBNP, D-dímero, troponina<div class="sub">Microbiologia (se indicada)</div>Cultura de escarro, PCR viral<div class="sub">Imagem</div>Radiografia (maioria hospitalar); US pulmonar; TC se suspeita de TEP ou quadro não resolvido<div class="sub">Outros</div>ECG, ecocardiograma</div>
+      <div class="col"><h4>3) Gravidade</h4><div class="sev"><b>Grave</b> (hospital/UTI): pH &lt; 7,35 e/ou PaCO₂ elevada ou PaO₂ &lt; 60 mmHg; SpO₂ &lt; 90% apesar de O₂; desconforto acentuado; instabilidade; alteração mental; incapaz de ingerir; necessidade de ventilação</div><div class="nsev"><b>Não grave</b> (comunidade/observação): sem IRpA, SpO₂ ≥ 90%, sinais vitais e mental estáveis, suporte social, baixo risco de falha</div><b>Excluir:</b> pneumonia, pneumotórax, IC aguda, TEP, SCA</div>
+      <div class="col"><h4>4) Manejo inicial</h4><div class="sub">Broncodilatadores</div>SABA ± SAMA; manter inalatórios de longa ação<div class="sub">Corticoide sistêmico</div>Prednisolona 40 mg/dia por 5 dias ± guiado por eosinófilos<div class="sub">Antibiótico (se indicado)</div>Purulência ± PCR/procalcitonina elevadas<div class="sub">Oxigênio</div>Alvo SpO₂ &gt; 92%<div class="sub">VNI</div>IRpA hipercápnica<div class="sub">Comorbidades e suporte</div>IC, arritmia, isquemia, TEP; hidratação, nutrição, fisioterapia, cessação do tabagismo</div>
+      <div class="col"><h4>5) Na alta</h4>Avaliar resposta; revisar técnica e adesão; cessação do tabagismo; vacinas; plano de ação escrito<div class="sub">Otimizar manutenção</div>Considerar terapia tripla (CI + LABA + LAMA); prevenção ou terapia adicional em selecionados; reavaliar traços tratáveis se exacerbações persistirem<div class="sub">Seguimento</div>Retorno precoce em 2–4 semanas</div>
+    </div>
+    <div class="redflags"><b>⚠ Sinais de alarme — atendimento imediato:</b> dispneia intensa em repouso · confusão ou sonolência · SpO₂ &lt; 90% apesar de O₂ · cianose · dor torácica · hemoptise · hipotensão · piora apesar do tratamento inicial</div>
+  </div>
+  <p>Saúde digital e vestíveis: queda de SpO₂, aumento da FC, alteração da variabilidade da FC, febre, menor atividade e ganho de peso súbito (retenção hídrica / IC direita) são sinais candidatos para detecção precoce, sobretudo na atenção primária.</p>
+</div>
+
+<!-- SEÇÃO 6 -->
+<div class="card" id="s6">
+  <span class="sec-tag">SEÇÃO 6 · FIGURAS 8–9</span>
+  <h2>Acesso ao tratamento e terapias modificadoras de doença</h2>
+  <div class="g2" style="align-items:start">
+    <div class="fig" style="margin-top:0">
+      <div class="fig-title">Tratamento escalonado da DPOC</div>
+      <div class="fig-cap">Da base universal às intervenções para doença avançada.</div>
+      <div class="pyr">
+        <div class="tier" style="width:44%;background:#ffc9c9;border:1.5px solid #e03131"><b>Doença avançada</b>O₂ domiciliar prolongado · VNI · redução de volume pulmonar · transplante</div>
+        <div class="tier" style="width:56%;background:#ffe3e3;border:1.5px solid #fa5252"><b>Terapias adicionais</b>Anticorpos monoclonais</div>
+        <div class="tier" style="width:70%;background:#fff3bf;border:1.5px solid #fab005"><b>Terapia oral</b>Mucolíticos · macrolídeo de longo prazo · inibidor de PDE4</div>
+        <div class="tier" style="width:84%;background:#d3f9d8;border:1.5px solid #40c057"><b>Terapia inalatória</b>SABA/SAMA · LABA ou LAMA · LABA + LAMA · LABA + LAMA + CI · inibidor de PDE3/PDE4</div>
+        <div class="tier" style="width:100%;background:#d0ebff;border:1.5px solid #339af0"><b>Base — para todos os pacientes</b>Cessação do tabagismo · dieta saudável · vacinação (influenza, pneumocócica, COVID-19, VSR) · atividade física e reabilitação pulmonar · manejo das comorbidades</div>
+      </div>
+    </div>
+    <div>
+      <div class="points" style="grid-template-columns:1fr">
+        <div class="pt green"><strong>Novas aprovações</strong>Ensifentrina, dupilumabe (anti-IL-4Rα: ↓ exacerbações, ↑ função e estado de saúde no fenótipo eosinofílico) e mepolizumabe (anti-IL-5: benefício restrito à redução de exacerbações).</div>
+        <div class="pt green"><strong>Tozorakimabe (anti-IL-33)</strong>Desenvolvido especificamente para DPOC; em dois ensaios fase 3 replicados reduziu exacerbações e melhorou função e sintomas em todos os estratos de eosinófilos — inclusive eosinófilos baixos.</div>
+        <div class="pt"><strong>HISTORIC</strong>190 pacientes randomizados para tripla vs LABA/LAMA + placebo: maior área de músculo liso na biópsia endobrônquica predisse maior benefício do CI — endótipo tecidual guiando tratamento.</div>
+        <div class="pt gold"><strong>Fronteiras</strong>Senolíticos; terapias de RNA e edição gênica para SERPINA1 (deficiência de α1-antitripsina); células mesenquimais/estromais (seguras, efeito funcional incerto); microbioma; ensaios adaptativos e de plataforma.</div>
+        <div class="pt"><strong>Controle da doença como objetivo</strong>Meta da Comissão: ≥ 80% dos pacientes controlados até 2035 — sem exacerbações recentes, poucos sintomas, atividade preservada, pouco resgate.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fig">
+    <div class="fig-title">Custo-efetividade das intervenções na DPOC (€ por QALY, escala log)</div>
+    <div class="fig-cap">Faixas de incerteza e estimativa pontual (marcador). Valores <b>aproximados, transcritos visualmente do gráfico original</b>, apenas ilustrativos; dados exclusivamente de países de alta renda, 1999–2026, sem harmonização de ano de preço. SABA e vacina contra influenza frequentemente economizam custos (RCEI &lt; 0). * faixas entre cenários de ATS ou análises determinísticas, não IC 95%.</div>
+    <svg id="fig9" viewBox="0 0 1000 640" style="width:100%;min-width:860px"></svg>
+  </div>
+</div>
+
+<!-- SEÇÃO 7 -->
+<div class="card" id="s7">
+  <span class="sec-tag">SEÇÃO 7</span>
+  <h2>Medir o que importa: desfechos centrados no paciente, regulação e valor</h2>
+  <div class="points">
+    <div class="pt"><strong>Desalinhamento regulador × ATS</strong>Agências aceitam desfechos substitutos e seguimento curto; avaliadores de tecnologias exigem horizontes longos, utilidades e PROs validados — o que atrasa o reembolso.</div>
+    <div class="pt red"><strong>Meta não cumprida</strong>Nenhum fármaco para DPOC foi aprovado apenas com base em PROs; a meta de 75% dos ensaios com desfecho primário centrado no paciente até 2030 ainda não foi atingida.</div>
+    <div class="pt green"><strong>Regulamento europeu de ATS (2021/2282)</strong>Em vigor desde 2025, com avaliações clínicas conjuntas e participação obrigatória de pacientes; avaliações específicas de DPOC a partir de 2030.</div>
+    <div class="pt"><strong>Inovação metodológica</strong>Desfechos compostos e hierárquicos, <i>win ratio</i>, ponderação por preferência do paciente, biomarcadores digitais (atividade, tosse, sono), análise multicritério (inclusive pegada de carbono dos inaladores) e custo-efetividade distributiva.</div>
+  </div>
+  <h3>Roteiro em 3 fases — meta: 75% das novas terapias aprovadas por critérios não espirométricos ou compostos até 2035</h3>
+  <div class="road">
+    <div class="phase" style="background:linear-gradient(135deg,#1971c2,#4dabf7)"><div class="yr">2026–2028</div><b>Fase 1 · Validação</b><p>Padronizar imagem, oscilometria (calibração entre equipamentos), washout (reprodutibilidade), capnografia, histologia, desfechos digitais e PROs. Priorizar populações DPOC-PRS, PRF e PRM.</p></div>
+    <div class="phase" style="background:linear-gradient(135deg,#2b8a3e,#51cf66)"><div class="yr">2029–2030</div><b>Fase 2 · Qualificação</b><p>Integrar desfechos validados a vias formais de qualificação e a ensaios prospectivos, com harmonização entre plataformas e avaliação econômica.</p></div>
+    <div class="phase" style="background:linear-gradient(135deg,#c92a2a,#ff8787)"><div class="yr">2031–2035</div><b>Fase 3 · Adoção</b><p>Uso rotineiro de desfechos de imagem, fisiológicos, digitais, PROs e compostos em ensaios e aprovações; revisão regulatória contínua incorporando IA e dados de mundo real.</p></div>
+  </div>
+  <div class="note">O roteiro <b>não substitui a espirometria</b>; corrige seu uso excessivo como substituto do valor terapêutico. Equidade: ampliar espirometria de qualidade e desenvolver TC, oscilometria portátil, washout, monitores de atividade e ePROs pensando em locais de poucos recursos.</div>
+</div>
+
+<!-- TABELA 1 -->
+<div class="card" id="t1">
+  <span class="sec-tag">TABELA 1</span>
+  <h2>Balanço: o que avançou desde 2022 e as prioridades para 2026</h2>
+  <div style="overflow-x:auto"><table class="t1">
+    <tr><th>Seção</th><th>Avanços até 2026</th><th>Prioridades propostas</th></tr>
+    <tr><td>1 · Saúde pulmonar populacional</td><td><span class="ok">✓</span> Queda contínua da prevalência global de tabagismo; adoção esporádica de proibições geracionais; reconhecimento dos riscos de vaping e tabaco aquecido</td><td>Reformular eliminação como meta de saúde pulmonar; FCTC/MPOWER integral; estender prevenção a todos os produtos inalatórios e à biomassa; proteger crianças e adolescentes</td></tr>
+    <tr><td>2 · Prevenção ao longo da vida</td><td><span class="ok">✓</span> Padrões de qualidade do ar mais difundidos; queda modesta da pobreza extrema; vacina contra VSR licenciada</td><td>Proteger o crescimento pulmonar do feto ao adulto jovem; reduzir poluição; acesso equitativo a vacinas; combater pobreza e iniquidade</td></tr>
+    <tr><td>3 · Diagnóstico expandido</td><td><span class="ok">✓</span> Esquema diagnóstico multidimensional; maior acesso à TC; busca ativa melhora desfechos</td><td>Definição multidimensional; DPOC-PRS/PRF sintomáticos como DPOC estabelecida (abandonar “pré-DPOC”); validar classificação DPOC-PR; ensaios de interceptação</td></tr>
+    <tr><td>4 · Etiotipos e subtipos</td><td><span class="ok">✓</span> Diretrizes adotaram o enquadramento de etiotipos; melhor compreensão das patologias</td><td>Classificação por etiotipo + endótipo; biomarcadores e ensaios guiados; plataformas globais de dados e IA; incorporar a codificação e regulação</td></tr>
+    <tr><td>5 · Exacerbações</td><td><span class="ok">✓</span> Melhor entendimento da heterogeneidade; marcos objetivos de classificação; corticoide guiado por biomarcador viável e seguro</td><td>Definição biológica; substituir gravidade baseada no local de atendimento; uso guiado de corticoide e antibiótico; endótipos de exacerbação; saúde digital e IA</td></tr>
+    <tr><td>6 · Acesso e terapias modificadoras</td><td><span class="ok">✓</span> Telerreabilitação eficaz; vestíveis; IA; aprovação de ensifentrina, dupilumabe e mepolizumabe; controle como meta</td><td>Acesso equitativo; ensaios enriquecidos por biomarcador, adaptativos e de plataforma; terapias regenerativas, gênicas, microbioma e antienvelhecimento</td></tr>
+    <tr><td>7 · Desfechos e regulação</td><td><span class="ok">✓</span> Maior exigência regulatória de evidência centrada no paciente; exigência legal na Europa a partir de 2030; TC quantitativa, oscilometria e washout em expansão</td><td>PROs como desfechos primários/coprimários; conjunto central global de desfechos; ir além do VEF₁; vias regulatórias para desfechos não espirométricos; parceria com pacientes</td></tr>
+  </table></div>
+</div>
+
+<!-- SÍNTESE -->
+<div class="action-box">
+  <h2>🔬 Mensagens para a prática pneumológica</h2>
+  <div class="action-steps">
+    <div class="action-step"><strong>1. Razão preservada ≠ pulmão saudável</strong>• Sintomático, exposto e com ≥ 1 anormalidade objetiva (TC, DLCO, oscilometria, washout, PRISm) = DPOC-PR. O termo “pré-DPOC” deixa de ser usado nesse grupo.</div>
+    <div class="action-step"><strong>2. Excluir asma e simuladores</strong>• Antes do diagnóstico expandido, considerar asma, obesidade, IC e bronquiectasias. Na dúvida sobre asma, CI no esquema e nada de LABA/LAMA isolados.</div>
+    <div class="action-step"><strong>3. Exacerbação com biologia</strong>• Definir por sintomas + dados objetivos; gravidade pela fisiologia, não pelo local; corticoide e antibiótico guiados por eosinófilos, PCR e procalcitonina; seguimento em 2–4 semanas.</div>
+    <div class="action-step"><strong>4. Precisão e controle</strong>• Etiotipo + endótipo orientam a escolha; biológicos no fenótipo eosinofílico; anti-IL-33 amplia além do T2; meta de controle para ≥ 80% até 2035.</div>
+  </div>
+</div>
+
+<div class="abbreviations-box">
+  <p style="margin-bottom:12px"><strong>Nota:</strong> Os limiares da Tabela 2 são provisórios e exigem validação; os valores da Figura 9 são aproximações visuais para fins didáticos. O fluxo diagnóstico é um enquadramento proposto, não um padrão definitivo.</p>
+  <p><strong>Abreviações:</strong> AX = área de reatância · BD = broncodilatador · CI = corticoide inalatório · CPT = capacidade pulmonar total · CVF = capacidade vital forçada · DLCO/TLCO = difusão/transferência do CO · DPOC-PR = DPOC com razão VEF₁/CVF preservada · DPOC-PRF/PRS/PRM = com anormalidades funcionais / estruturais / mistas · DPOC-RR = DPOC com razão reduzida · Fres = frequência de ressonância · IRpA = insuficiência respiratória aguda · KCO = coeficiente de transferência do CO · LAA-950 = área de baixa atenuação &lt; −950 UH · LABA/LAMA = β₂-agonista / antimuscarínico de longa ação · LCI = índice de clareamento pulmonar · LIN/LSN = limite inferior/superior da normalidade · Pi10 = parede de via aérea com perímetro interno de 10 mm · PRISm = espirometria prejudicada com razão preservada · PRM-fSAD = mapeamento de resposta paramétrica – doença funcional de pequenas vias · PRO = desfecho relatado pelo paciente · QALY = ano de vida ajustado pela qualidade · R5/R20 = resistência a 5/20 Hz · RCEI = razão custo-efetividade incremental · SABA/SAMA = β₂-agonista / antimuscarínico de curta ação · VEF₁ = volume expiratório forçado no 1º segundo · VR = volume residual · VSR = vírus sincicial respiratório · X5 = reatância a 5 Hz.</p>
+</div>
+
+<footer>
+  <p><strong>Adaptado de:</strong> Stolz D, Hoheisel A, Sin DD, et al. Reframing disease elimination: an update from the Lancet Commission on chronic obstructive pulmonary disease. <em>Lancet</em>. 2026 (publicado on-line em 10 nov). doi:<a href="https://doi.org/10.1016/S0140-6736(26)01947-1" target="_blank" rel="noopener noreferrer">10.1016/S0140-6736(26)01947-1</a></p>
+  <p style="margin-top:8px;font-size:.85rem;opacity:.9">Adaptação educacional em português, preparada pelo Dr. Fernando Lundgren. Não reproduz as figuras originais do artigo.</p>
+  <p style="margin-top:8px;font-size:.85rem;opacity:.8">Ferramenta educacional destinada a profissionais de saúde.</p>
+  <p style="margin-top:14px"><a href="index.html" style="font-weight:600">← Voltar a DPOC – Lancet Commission 2026</a></p>
+</footer>
+</div>
+
+<script>
+const NS='http://www.w3.org/2000/svg';
+function el(svg,tag,attrs,text){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(text!==undefined)e.textContent=text;svg.appendChild(e);return e;}
+
+/* ---------- Figura 4: trajetória ---------- */
+(function(){
+  const s=document.getElementById('fig4');
+  const X=a=>80+a*(720/90), Y=v=>350-v*2.5;
+  const defs=el(s,'defs',{});const g=el(defs,'linearGradient',{id:'grad4'});
+  [['0%','#91a7ff'],['30%','#8ce99a'],['60%','#fff9db'],['80%','#ffc9c9'],['100%','#e03131']].forEach(([o,c])=>el(g,'stop',{offset:o,'stop-color':c}));
+  el(s,'rect',{x:X(0),y:10,width:720,height:18,fill:'url(#grad4)',rx:4});
+  [[0,30,'Programação biológica e exposições','Sem sintomas'],[30,67,'DPOC-PR','Sintomas e disfunção progressiva'],[67,90,'DPOC-RR','Sintomas e disfunção grave']].forEach(([a,b,t1,t2])=>{
+    el(s,'text',{x:(X(a)+X(b))/2,y:46,'text-anchor':'middle','font-size':13,'font-weight':700,fill:'#1c3d8f'},t1);
+    el(s,'text',{x:(X(a)+X(b))/2,y:63,'text-anchor':'middle','font-size':12,fill:'#495057'},t2);
+    el(s,'line',{x1:X(b),y1:30,x2:X(b),y2:350,stroke:'#ced4da','stroke-dasharray':'3 3'});
+  });
+  for(let v=0;v<=100;v+=10){el(s,'line',{x1:X(0)-5,y1:Y(v),x2:X(0),y2:Y(v),stroke:'#495057'});el(s,'text',{x:X(0)-9,y:Y(v)+4,'text-anchor':'end','font-size':11},v);}
+  for(let a=0;a<=90;a+=10){el(s,'text',{x:X(a),y:368,'text-anchor':'middle','font-size':11},a);}
+  el(s,'line',{x1:X(0),y1:Y(0),x2:X(90),y2:Y(0),stroke:'#495057'});el(s,'line',{x1:X(0),y1:Y(0),x2:X(0),y2:Y(100),stroke:'#495057'});
+  el(s,'text',{x:X(45),y:390,'text-anchor':'middle','font-size':12,'font-weight':600},'Idade (anos)');
+  el(s,'text',{x:20,y:Y(50),'text-anchor':'middle','font-size':12,'font-weight':600,transform:`rotate(-90 20 ${Y(50)})`},'VEF₁ (% prev.) ou VEF₁/CVF');
+  el(s,'line',{x1:X(0),y1:Y(70),x2:X(90),y2:Y(70),stroke:'#1a4d7a','stroke-dasharray':'6 4'});
+  const fev=[[0,100],[20,99],[30,96],[45,90],[60,83],[66,78],[70,72],[74,60],[78,45],[82,30],[86,21],[88,20]];
+  const rat=[[0,88],[15,85],[30,83],[45,79],[60,75],[67,71],[75,66],[88,60]];
+  const path=p=>'M'+p.map(([a,v])=>X(a)+','+Y(v)).join(' L');
+  el(s,'path',{d:path(fev),fill:'none',stroke:'#2b8a3e','stroke-width':3});
+  el(s,'path',{d:path(rat),fill:'none',stroke:'#1971c2','stroke-width':3});
+  [['#2b8a3e','VEF₁ (% previsto)',''],['#1971c2','VEF₁/CVF',''],['#1a4d7a','Limiar VEF₁/CVF 0,70','6 4']].forEach(([c,t,d],i)=>{
+    el(s,'line',{x1:600,y1:100+i*18,x2:630,y2:100+i*18,stroke:c,'stroke-width':3,'stroke-dasharray':d});
+    el(s,'text',{x:636,y:104+i*18,'font-size':12},t);});
+})();
+
+/* ---------- Figura 5: localização dos métodos ---------- */
+(function(){
+  const s=document.getElementById('fig5');
+  const L=270,R=960,X=g=>L+g*(R-L)/23;
+  [[0,16,'#e7f5ff','Vias de condução (0–16)'],[16,19,'#fff3bf','Bronq. resp.'],[19,23,'#ffe3e3','Alvéolos']].forEach(([a,b,c,t])=>{
+    el(s,'rect',{x:X(a),y:20,width:X(b)-X(a),height:400,fill:c});
+    el(s,'text',{x:(X(a)+X(b))/2,y:38,'text-anchor':'middle','font-size':12,'font-weight':700,fill:'#1c3d8f'},t);});
+  const rows=[
+    ['Espirometria',[[0,16,'#1971c2','VEF₁/CVF · VEF₁, CVF'],[4,19,'#74c0fc','FEF25–75 (inespecífico)']]],
+    ['Broncoprovocação',[[8,17,'#74c0fc','ΔCVF na PC20/PD20 (fechamento / aprisionamento)']]],
+    ['Oscilometria',[[0,23,'#a5d8ff','Sistema respiratório inteiro (R5, R20, X5, AX, Fres)'],[8,16,'#1971c2','Maior sensibilidade periférica']]],
+    ['Washout múltiplo',[[0,16,'#1971c2','Scond (convectivo)'],[16,19,'#f08c00','Sacin']]],
+    ['DLCO / TLCO',[[17,23,'#e03131','Região alvéolo-capilar']]],
+    ['Oxigenação',[[0,23,'#ced4da','Relação V/Q global — sem localização']]],
+    ['TC insp./exp.',[[0,23,'#b197fc','Pulmão inteiro (gerações 0–23)']]],
+  ];
+  rows.forEach(([name,bars],i)=>{
+    const y=62+i*48;
+    el(s,'text',{x:L-12,y:y+20,'text-anchor':'end','font-size':13,'font-weight':700,fill:'#212529'},name);
+    bars.forEach(([a,b,c,t],j)=>{
+      const yy=y+(bars.length>1?j*20:6), h=bars.length>1?18:24;
+      el(s,'rect',{x:X(a),y:yy,width:X(b)-X(a),height:h,rx:5,fill:c,opacity:.9});
+      el(s,'text',{x:X(a)+6,y:yy+h/2+4,'font-size':11,'font-weight':600,fill:(c==='#1971c2'||c==='#e03131')?'#fff':'#111'},t);
+    });
+  });
+  for(const g of [0,8,16,17,19,23]){el(s,'line',{x1:X(g),y1:400,x2:X(g),y2:410,stroke:'#212529'});el(s,'text',{x:X(g),y:424,'text-anchor':'middle','font-size':11},g);}
+  el(s,'text',{x:L-12,y:424,'text-anchor':'end','font-size':11,'font-weight':700},'Geração (Weibel)');
+  [[0,8,'Morfologia direta','(vias centrais e médias)'],[16,19,'Pequenas vias (indireto)','aprisionamento, PRM'],[19,23,'Parênquima','enfisema']].forEach(([a,b,t,t2])=>{
+    el(s,'text',{x:(X(a)+X(b))/2,y:446,'text-anchor':'middle','font-size':11,'font-style':'italic',fill:'#495057'},t);
+    el(s,'text',{x:(X(a)+X(b))/2,y:460,'text-anchor':'middle','font-size':10.5,'font-style':'italic',fill:'#495057'},t2);});
+  el(s,'text',{x:L-12,y:452,'text-anchor':'end','font-size':11,'font-weight':700},'Achados na TC');
+})();
+
+/* ---------- Figura 9: custo-efetividade ---------- */
+(function(){
+  const s=document.getElementById('fig9');
+  const d=[ // [nome, ponto, baixo, alto]  valores aproximados (€/QALY)
+    ['Inibidor de PDE3/PDE4*',430000,300000,480000],['Reposição de α1-antitripsina*',290000,230000,340000],
+    ['Anticorpos monoclonais (dupilumabe/mepolizumabe)*',60000,30000,125000],['Transplante pulmonar',52000,37000,85000],
+    ['Cirurgia redutora de volume (NETT)*',82000,47000,120000],['Tripla LABA+LAMA+CI (exacerbadores)',31000,20000,48000],
+    ['Dupla LABA+LAMA',23000,14000,37000],['Vacina VSR (≥ 60 a ou alto risco)*',20000,13000,50000],
+    ['Válvulas endobrônquicas',17000,13000,32000],['Azitromicina (exacerbadores)',16000,10500,35000],
+    ['LABA monoterapia',14500,11000,30000],['LAMA monoterapia',11000,7500,24000],
+    ['VNI domiciliar pós-exacerbação hipercápnica',13000,6700,19000],['SAMA (ipratrópio)*',10500,7800,22000],
+    ['Vacina pneumocócica',10300,6600,19500],['Roflumilaste (PDE4)*',10200,9600,22500],
+    ['Reabilitação pulmonar',6300,2800,10000],['Cessação do tabagismo',2100,1500,4500],
+    ['Vacina influenza',1800,1000,4500],['SABA (resgate)',1400,1000,4800],['Autogestão apoiada',null,1000,1900]];
+  const L=390,R=970,lg=Math.log10,X=v=>L+(lg(v)-3)/(lg(500000)-3)*(R-L);
+  const top=30,step=26;
+  el(s,'line',{x1:X(30000),y1:top-10,x2:X(30000),y2:top+d.length*step,stroke:'#1a4d7a','stroke-dasharray':'4 3','stroke-width':1.5});
+  el(s,'line',{x1:X(100000),y1:top-10,x2:X(100000),y2:top+d.length*step,stroke:'#e03131','stroke-dasharray':'4 3','stroke-width':1.5});
+  d.forEach(([n,p,a,b],i)=>{
+    const y=top+i*step, ref=p??b;
+    const fill=ref>100000?'#e8868c':ref>30000?'#ffd8dc':'#d3f9d8', st=ref>100000?'#c92a2a':ref>30000?'#e64980':'#2b8a3e';
+    el(s,'text',{x:L-10,y:y+14,'text-anchor':'end','font-size':12},n);
+    el(s,'rect',{x:X(a),y:y+3,width:X(b)-X(a),height:15,fill,stroke:st,'stroke-width':1.2,rx:2});
+    if(p) el(s,'rect',{x:X(p)-2,y:y+1,width:4,height:19,fill:st});
+  });
+  const yb=top+d.length*step+6;
+  el(s,'line',{x1:L,y1:yb,x2:R,y2:yb,stroke:'#212529'});
+  [[1000,'€1.000'],[10000,'€10.000'],[30000,'€30.000'],[100000,'€100.000'],[500000,'€500.000']].forEach(([v,t])=>{
+    el(s,'line',{x1:X(v),y1:yb,x2:X(v),y2:yb+6,stroke:'#212529'});el(s,'text',{x:X(v),y:yb+20,'text-anchor':'middle','font-size':11},t);});
+  el(s,'text',{x:(L+R)/2,y:yb+40,'text-anchor':'middle','font-size':12,'font-weight':600},'RCEI por QALY (€, escala logarítmica)');
+  [['#d3f9d8','#2b8a3e','Custo-efetivo: < €30.000/QALY'],['#ffd8dc','#e64980','Limítrofe: €30.000–100.000/QALY'],['#e8868c','#c92a2a','Não custo-efetivo: > €100.000/QALY']].forEach(([f,c,t],i)=>{
+    el(s,'rect',{x:X(1000)+10,y:top+i*20-4,width:16,height:12,fill:f,stroke:c});el(s,'text',{x:X(1000)+32,y:top+i*20+6,'font-size':11.5},t);});
+})();
+</script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "41331af379ba4c71af70c5689396f1b8"}'></script><!-- End Cloudflare Web Analytics -->
+<script data-goatcounter="https://pneumoagents.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>
