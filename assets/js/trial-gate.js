@@ -10,7 +10,7 @@
   var PORTAL=(s&&s.getAttribute('data-portal'))||'../../index.html';
   var DIAS=7, KEY='pneumo_trial_'+AG, DIA=86400000;
   var TAXA='R$ 100,00 por semestre de uso';
-  var EMAIL='lundgrenf@gmail.com';
+  var EMAIL='lundgrenf@proton.me';
   /* --- Codigo de ativacao (mesmo algoritmo do gerador offline do autor) ---
      codigo = PNEU-VVVH-HHHH-HHHH; VVV = validade (dias desde 2026-01-01, base32);
      H = SHA-256("PNEUMOAGENTS|v1|"+SAL+"|"+email normalizado+"|"+slug do agente+"|"+AAAA-MM-DD), base32.
